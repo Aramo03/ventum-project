@@ -1,0 +1,10 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.page h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+}

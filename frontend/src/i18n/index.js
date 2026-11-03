@@ -1,0 +1,33 @@
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import am from './am.json'
+import en from './en.json'
+
+i18n.use(LanguageDetector).use(initReactI18next).init({
+  resources: {
+    am: { translation: am },
+    en: { translation: en },
+  },
+  lng: 'en',
+  fallbackLng: 'en',
+  supportedLngs: ['am', 'en'],
+  nonExplicitSupportedLngs: true,
+  load: 'languageOnly',
+  detection: {
+    order: ['localStorage'],
+    caches: ['localStorage'],
+    convertDetectedLanguage: (lng) => lng.split('-')[0],
+  },
+  interpolation: { escapeValue: false },
+})
+
+function applyDocumentLang(lng) {
+  if (typeof document === 'undefined') return
+  document.documentElement.lang = (lng || 'en').split('-')[0]
+}
+
+applyDocumentLang(i18n.resolvedLanguage || i18n.language)
+i18n.on('languageChanged', applyDocumentLang)
+
+export default i18n

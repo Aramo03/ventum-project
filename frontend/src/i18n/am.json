@@ -1,0 +1,42 @@
+{
+  "brand": "Ventum",
+  "phone": "+374 10 55 44 33",
+  "delivery": "Առաքում ամբողջ Հայաստանում",
+  "searchPlaceholder": "Որոնել ապրանքներ...",
+  "wholesale": "Մեծածախ",
+  "account": "Հաշիվ",
+  "cart": "Զամբյուղ",
+  "stores": {
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "choose": "Ընտրեք խանութը"
+  },
+  "nav": {
+    "bedLinen": "Անկողնային սպիտակեղեն",
+    "curtains": "Վարագույրներ",
+    "towels": "Սրբիչներ",
+    "hotel": "Հյուրանոցային տեքստիլ",
+    "tablecloths": "Սփռոցներ",
+    "blankets": "Վերմակներ",
+    "pillows": "Բարձեր",
+    "sheets": "Սավաններ"
+  },
+  "pageTitles": {
+    "gateway": "Ventum",
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "notFound": "Չի գտնվել"
+  },
+  "pages": {
+    "gatewayLead": "Երկու խանութ։ Էջը դեռ դատարկ է։",
+    "textileLead": "Տեքստիլի վիտրինան դեռ դատարկ է։",
+    "babyLead": "Baby վիտրինան դեռ դատարկ է։",
+    "notFound": "Այս էջը չկա։"
+  },
+  "footer": {
+    "note": "Ֆուտերը դեռ նախապատրաստվածք է։"
+  },
+  "common": {
+    "loading": "Բեռնվում է..."
+  }
+}

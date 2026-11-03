@@ -1,0 +1,15 @@
+{
+  "short_name": "Ventum",
+  "name": "Ventum",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#6fbf3a",
+  "background_color": "#f7f6f2"
+}

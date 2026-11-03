@@ -1,0 +1,18 @@
+.site-footer {
+  border-top: 1px solid #e6e4de;
+  background: var(--color-surface);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+}
+
+.site-footer a {
+  color: inherit;
+}

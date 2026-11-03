@@ -1,0 +1,42 @@
+{
+  "brand": "Ventum",
+  "phone": "+374 10 55 44 33",
+  "delivery": "Delivery across Armenia",
+  "searchPlaceholder": "Search products...",
+  "wholesale": "Wholesale",
+  "account": "Account",
+  "cart": "Cart",
+  "stores": {
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "choose": "Choose a store"
+  },
+  "nav": {
+    "bedLinen": "Bed linen",
+    "curtains": "Curtains",
+    "towels": "Towels",
+    "hotel": "Hotel textiles",
+    "tablecloths": "Tablecloths",
+    "blankets": "Blankets",
+    "pillows": "Pillows",
+    "sheets": "Sheets"
+  },
+  "pageTitles": {
+    "gateway": "Ventum",
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "notFound": "Not found"
+  },
+  "pages": {
+    "gatewayLead": "Two stores. This page is still empty.",
+    "textileLead": "The textile shop is still empty.",
+    "babyLead": "The baby shop is still empty.",
+    "notFound": "This page does not exist."
+  },
+  "footer": {
+    "note": "The footer is still a stub."
+  },
+  "common": {
+    "loading": "Loading..."
+  }
+}
