@@ -86,8 +86,9 @@ TEMPLATES = [
     }
 ]
 
-db_engine = env.str("DB_ENGINE", default="django.db.backends.postgresql")
-db_name = env.str("DB_NAME", default="ventum_db")
+# Default SQLite for local dev and CI. Switch to PostgreSQL at project end — docs/postgresql.md
+db_engine = env.str("DB_ENGINE", default="django.db.backends.sqlite3")
+db_name = env.str("DB_NAME", default="ventum.sqlite3")
 assert db_engine is not None
 if db_engine.endswith("sqlite3"):
     DATABASES = {
