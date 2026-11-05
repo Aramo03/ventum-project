@@ -12,29 +12,9 @@ jobs:
     defaults:
       run:
         working-directory: backend
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_DB: ventum_db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ci-db-password-not-a-placeholder
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d ventum_db"
-          --health-interval 2s
-          --health-timeout 5s
-          --health-retries 20
     env:
       DEBUG: "True"
       SECRET_KEY: ci-backend-secret-key-not-used-for-deploy
-      DB_ENGINE: django.db.backends.postgresql
-      DB_NAME: ventum_db
-      DB_USER: postgres
-      DB_PASSWORD: ci-db-password-not-a-placeholder
-      DB_HOST: localhost
-      DB_PORT: "5432"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

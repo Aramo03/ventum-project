@@ -1,3 +1,5 @@
+# Production stack with PostgreSQL — use at the END of the project (see docs/postgresql.md).
+# During waves 1–N the team runs Django locally on SQLite (README).
 services:
   db:
     image: postgres:16-alpine
