@@ -14,7 +14,7 @@
 |--------|-------------|--------|
 | `main` | никто из учеников | стабильная версия |
 | `dev` | Lead после ревью PR | сборка команды |
-| `feat/<имя>-<зона>` | только ты | твоя работа, например `feat/<имя>-textile` |
+| `feat/<имя>-<зона>` | только ты | твоя работа. Уже назначены: `feat/aram-lead`, `feat/suro-api`, `feat/artush-i18n`, `feat/hayk-gateway`, `feat/mariam-header` |
 
 Зоны: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, `catalog`, `ui`.
 
@@ -27,7 +27,7 @@ cd ventum-project
 git checkout dev
 git pull origin dev
 
-git checkout -b feat/имя-зона
+git checkout -b feat/aram-lead
 ```
 
 Проверка: `git branch` — звёздочка на `feat/имя-зона`, не на `main`.
@@ -62,7 +62,7 @@ git clone <repo-url>
 cd ventum-project
 git checkout dev
 git pull origin dev
-git checkout -b feat/name-zone
+git checkout -b feat/suro-api
 ```
 
 Open the pull request with **base `dev`**. One pull request is one zone. Do not force-push `dev` or `main`.
@@ -82,7 +82,7 @@ git clone <repo-url>
 cd ventum-project
 git checkout dev
 git pull origin dev
-git checkout -b feat/անուն-գոտի
+git checkout -b feat/artush-i18n
 ```
 
 Pull request-ի **base-ը `dev`** է: Մեկ PR = մեկ գոտի: `dev` և `main` `--force` չենք անում:
