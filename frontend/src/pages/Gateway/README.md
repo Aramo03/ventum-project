@@ -1,14 +1,17 @@
 # gateway — Hayk (страница)
 
-**Ветка:** `feat/hayk-gateway`  
-**B1:** файлы `Gateway.jsx`, `gateway.css`, `gateway.js` не верстать. Макет Figma — волна **F1**.
+**Ветка:** `feat/hayk-gateway`
 
-Сейчас твоя работа в backend: [backend/apps/content/README.md](../../../../backend/apps/content/README.md) — модель `HomeBlock`.
+`Gateway.jsx`, `gateway.css`, `gateway.js` в этом задании не верстать.
+
+Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
+
+Сейчас работа в [backend/apps/content/README.md](../../../../backend/apps/content/README.md): модель `HomeBlock`.
 
 ## English
 
-Do not restyle this page in B1. Hayk’s B1 task is the `HomeBlock` model.
+Do not restyle this page in this assignment. Hayk’s work is the `HomeBlock` model.
 
 ## Հայերեն
 
-B1-ում այս էջը չձևավորել։ Hayk-ի B1-ը `HomeBlock` մոդելն է։
+Այս առաջադրանքում էջը չձևավորել։ Hayk-ի աշխատանքը `HomeBlock` մոդելն է։

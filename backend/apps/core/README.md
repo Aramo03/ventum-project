@@ -1,20 +1,20 @@
-# i18n — Artush (backend)
+# i18n — Artush
 
 **Ветка:** `feat/artush-i18n`  
-**Задание B1:** [task-advanced.md](../../../task-advanced.md) — «Artush · i18n».
+**Задание:** [task-advanced.md](../../../task-advanced.md) — «Artush · i18n».
 
-Здесь живут health и будущее поле языков. `views.py` ручки `/api/health/` не меняй.
+`views.py` ручки `/api/health/` не меняй.
 
-Добавь `languages.py`: коды `am`, `en`, `ru`. Добавь абстрактную модель перевода: язык из этого списка, пара с родителем уникальна. В docstring — если перевода нет, объект не пропадает, текст берётся из `en`.
+Добавь `languages.py`: коды `am`, `en`, `ru`. Добавь абстрактную модель перевода: язык из этого списка, пара с родителем уникальна. В docstring: если перевода нет, объект не пропадает, текст берётся из `en`.
 
-`ru.json` на фронте — волна F1, см. [frontend/src/i18n/README.md](../../../frontend/src/i18n/README.md).
+Файлы `frontend/src/i18n/` не меняй.
 
 **Lead не мержит, пока:** три кода импортируются из одного модуля, миграция ядра проходит, health отвечает `{"status":"ok"}`.
 
 ## English
 
-Artush. B1 is the language list and the abstract translation model in this app. Do not change the health view. `ru.json` is F1.
+Artush. Language list and the abstract translation model. Do not change the health view or the frontend JSON.
 
 ## Հայերեն
 
-Artush։ B1-ում լեզուների ցանկը և թարգմանության աբստրակտ մոդելը։ Health-ը չփոխել։ `ru.json`-ը F1-ում է։
+Artush։ Լեզուների ցանկը և թարգմանության աբստրակտ մոդելը։ Health-ը և frontend JSON-ը չփոխել։

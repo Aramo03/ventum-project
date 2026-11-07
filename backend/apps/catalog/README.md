@@ -1,18 +1,18 @@
 # catalog — имя пока пустое
 
 **Ветка:** `feat/<имя>-catalog`, когда учитель впишет имя.  
-**Задание B1:** [task-advanced.md](../../../task-advanced.md) — «catalog · имя пока пустое».
+**Задание:** [task-advanced.md](../../../task-advanced.md) — «catalog».
 
-Пакет создаёт Suro. Ты заполняешь модели после его merge и после класса перевода Artush.
+Пакет создаёт Suro. Модели пиши после его merge и после класса перевода Artush.
 
 - `Category`: `store` = `textile` или `baby`, slug, переводы имени `am` / `en` / `ru`
 - `Product`: цена `Decimal` в AMD, sku, публикация, переводы имени и описания
 - `ProductImage`: файл, alt, порядок
 - админка Unfold, фильтр по `store`
 
-Файл `search.py` не создавай. Его пишет **Mariam** (`header`) после твоего merge.
+`search.py` не создавай. Его пишет Mariam. Страницы React не меняй.
 
-**Lead не мержит, пока:** в `/api/admin/` сохраняются категория и товар с тремя переводами, `migrate` чистый, `search.py` нет.
+**Lead не мержит, пока:** в `/api/admin/` сохраняются категория и товар с тремя переводами, `migrate` чистый, файла `search.py` нет.
 
 ## English
 

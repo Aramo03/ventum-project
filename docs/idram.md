@@ -2,7 +2,7 @@
 
 **RU** · **EN** · **HY**
 
-Волна **B3** (сервер) и волны **F5–F6** (экраны). До B3 этот файл только читают.
+Этот файл не входит в текущее задание. Его не реализовывать.
 
 Покупатель платит на странице **Idram** (Армения): кошелёк Idram и, если договор магазина это включает, **VISA / Mastercard**. Номер карты, срок и CVV вводятся только у Idram. Ventum их не принимает и не хранит.
 
@@ -36,7 +36,7 @@ IDRAM_LANGUAGE=RU
 | `FAIL_URL` | фронт, страница неуспеха | браузер, если оплату не закончили |
 | `RESULT_URL` | backend | precheck и подтверждение, server-to-server |
 
-На локальной машине Idram не достучится до `localhost`. В B3 обязательны тесты с поддельным POST. Боевой `RESULT_URL` на домене — волна **D1**.
+На локальной машине шлюз не достучится до `localhost`. Проверка в этом репозитории — тестом с поддельным POST, без сети.
 
 ## Старт оплаты
 
@@ -106,7 +106,7 @@ Confirmation checksum is MD5 of:
 EDP_REC_ACCOUNT:EDP_AMOUNT:SECRET_KEY:EDP_BILL_NO:EDP_PAYER_ACCOUNT:EDP_TRANS_ID:EDP_TRANS_DATE
 ```
 
-On match, set `paid`, store `EDP_TRANS_ID`, reply `OK`, send one shop email. A duplicate callback must not send a second email. Localhost cannot receive Idram’s callback; B3 tests use a fake POST. The public `RESULT_URL` is wave D1.
+On match, set `paid`, store `EDP_TRANS_ID`, reply `OK`, send one shop email. A duplicate callback must not send a second email. Localhost cannot receive the gateway callback. Test with a fake POST and no network.
 
 ## Հայերեն
 
@@ -126,4 +126,4 @@ Checksum-ը MD5 է այս տողից.
 EDP_REC_ACCOUNT:EDP_AMOUNT:SECRET_KEY:EDP_BILL_NO:EDP_PAYER_ACCOUNT:EDP_TRANS_ID:EDP_TRANS_DATE
 ```
 
-Համընկնելու դեպքում՝ `paid`, պահել `EDP_TRANS_ID`, պատասխան `OK`, մեկ նամակ խանութին։ Կրկնակի callback-ը երկրորդ նամակ չի ուղարկում։ Լոկալ `localhost`-ին Idram-ը չի հասնի. B3-ում թեստը կեղծ POST է։ Հանրային `RESULT_URL`-ը D1 ալիքն է։
+Համընկնելու դեպքում՝ `paid`, պահել `EDP_TRANS_ID`, պատասխան `OK`, մեկ նամակ խանութին։ Կրկնակի callback-ը երկրորդ նամակ չի ուղարկում։ Տեղական `localhost`-ին շլյուզը չի հասնի։ Ստուգումը կեղծ POST է, առանց ցանցի։

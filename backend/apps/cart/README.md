@@ -1,13 +1,11 @@
-# cart — не в волне B1
+# Не входит в текущее задание
 
-Пакет в B1 создаёт **Suro** (`feat/suro-api`): пустые `apps.py`, `models.py`, `urls.py`. Этот README не удалять.
-
-Модель корзины пишет зона **catalog** в волне **B2**, только для вошедшего пользователя. Гостевой корзины нет.
+Пакет не наполнять. Модели и URL сюда не добавлять. Этот README не удалять.
 
 ## English
 
-Suro creates an empty package in B1. The catalog zone adds the cart model in B2. Do not delete this README.
+Not part of the current assignment. Do not add models or URLs here. Do not delete this README.
 
 ## Հայերեն
 
-B1-ում Suro-ն ստեղծում է դատարկ փաթեթ։ Զամբյուղի մոդելը catalog-ն է գրում B2-ում։ README-ն չջնջել։
+Այս առաջադրանքի մաս չէ։ Մոդել և URL այստեղ չավելացնել։ README-ն չջնջել։

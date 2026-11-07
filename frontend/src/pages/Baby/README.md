@@ -1,19 +1,21 @@
-# baby — имя пока пустое
+# baby — Svet
 
-**Ветка:** `feat/<имя>-baby`.  
-**Задание B1:** [task-advanced.md](../../../../task-advanced.md) — «baby · имя пока пустое».
+**Ветка:** `feat/svet-baby`  
+**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Svet · baby».
 
-Страницу по Figma не собирать (волна F4). После merge catalog — команда `seed_baby`:
+Страницу `/baby` не собирать. После merge catalog — `seed_baby`:
 
 - две категории `store=baby` и один товар, цена AMD
 - переводы `am`, `en`, `ru`
-- textile-записи не стирать
+- данные Karen не стирать
 - повторный запуск без дубликатов
+
+Поля модели не менять.
 
 ## English
 
-Name still blank. B1 is `seed_baby` after the catalog merge, not the page layout.
+Svet, `feat/svet-baby`. Seed `store=baby` after the catalog merge. Do not build the page and do not delete Textile data.
 
 ## Հայերեն
 
-Անունը դատարկ է։ B1-ը `seed_baby`-ն է, ոչ թե էջի դիզայնը։
+Svet, `feat/svet-baby`։ Catalog-ի merge-ից հետո `store=baby`։ Էջը չհավաքել և Textile-ի տվյալները չջնջել։

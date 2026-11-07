@@ -4,9 +4,9 @@
 
 Ученики работают **только в своей ветке**. В `main` не пушат и не мержат. Максимум, куда можно влить работу — `dev`.
 
-Зоны на весь проект и ритм «день задания → следующий день merge» — в [task-advanced.md](task-advanced.md). Сейчас открыта волна из [TASK.md](TASK.md).
+Задание и зоны — в [task-advanced.md](task-advanced.md). Короткий список — в [TASK.md](TASK.md). Срок: до конца декабря.
 
-`api` ведёт аккаунт, заказы, Idram и письмо магазину. `catalog` ведёт товары и корзину. `header` ведёт экраны входа и ссылку на историю заказов. Оплата картой — только на странице Idram, не в нашей форме.
+Сейчас каждый пишет только свою зону этого задания: Suro — пользователь и пустые приложения, Artush — языки, catalog — товары, Daniel — заявки, Hayk — слоты главной, Karen и Svet — данные магазинов, Mariam — поиск. Страницы по макету в этом задании не собираем.
 
 ## Ветки
 
@@ -14,7 +14,7 @@
 |--------|-------------|--------|
 | `main` | никто из учеников | стабильная версия |
 | `dev` | Lead после ревью PR | сборка команды |
-| `feat/<имя>-<зона>` | только ты | твоя работа. Уже назначены: `feat/aram-lead`, `feat/suro-api`, `feat/artush-i18n`, `feat/hayk-gateway`, `feat/mariam-header` |
+| `feat/<имя>-<зона>` | только ты | твоя работа. Назначены: `feat/lead`, `feat/suro-api`, `feat/artush-i18n`, `feat/hayk-gateway`, `feat/mariam-header`, `feat/daniel-footer`, `feat/karen-textile`, `feat/svet-baby` |
 
 Зоны: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, `catalog`, `ui`.
 
@@ -27,7 +27,7 @@ cd ventum-project
 git checkout dev
 git pull origin dev
 
-git checkout -b feat/aram-lead
+git checkout -b feat/suro-api
 ```
 
 Проверка: `git branch` — звёздочка на `feat/имя-зона`, не на `main`.
@@ -53,9 +53,7 @@ git push -u origin HEAD
 
 Work only on your own branch. Do not push or merge into `main`. The only branch that receives pull requests is `dev`.
 
-The full zone map and the rhythm (task day, next day merge) are in [task-advanced.md](task-advanced.md). The open wave is [TASK.md](TASK.md).
-
-`api` owns accounts, orders, Idram, and the shop email. `catalog` owns products and the cart. `header` owns the login screens and the link to order history. Card details stay on Idram’s page.
+The assignment is in [task-advanced.md](task-advanced.md). The short list is [TASK.md](TASK.md). Finish by the end of December. This assignment is models and admin, not the Figma layout.
 
 ```bash
 git clone <repo-url>
@@ -73,9 +71,7 @@ Zones: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, 
 
 Աշխատում ենք միայն մեր ճյուղում: `main` չենք push անում և չենք merge անում: PR-ը միայն `dev` է:
 
-Գոտիները և ռիթմը (առաջադրանքի օր, հաջորդ օրը merge)՝ [task-advanced.md](task-advanced.md)։ Բաց ալիքը՝ [TASK.md](TASK.md)։
-
-`api`-ն վարում է հաշիվը, պատվերը, Idram-ը և խանութի նամակը։ `catalog`-ը՝ ապրանքը և զամբյուղը։ `header`-ը՝ մուտքի էկրանները և պատվերի պատմության հղումը։ Քարտի տվյալները միայն Idram-ի էջում են։
+Առաջադրանքը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ Այս առաջադրանքը մոդելներ և ադմին է, ոչ թե մակետի էջեր։
 
 ```bash
 git clone <repo-url>

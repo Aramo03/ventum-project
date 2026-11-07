@@ -1,22 +1,22 @@
-# textile — имя пока пустое
+# textile — Karen
 
-**Ветка:** `feat/<имя>-textile`.  
-**Задание B1:** [task-advanced.md](../../../../task-advanced.md) — «textile · имя пока пустое».
+**Ветка:** `feat/karen-textile`  
+**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Karen · textile».
 
-Страницу по Figma не собирать (волна F3). После merge catalog добавь команду `seed_textile` или фикстуру:
+Страницу `/textile` не собирать. Макеты в задании. После merge catalog добавь `seed_textile` или фикстуру:
 
 - две категории `store=textile`
 - один товар с ценой AMD
 - переводы `am`, `en`, `ru`
 - повторный запуск без дубликатов slug
-- baby-данные не удалять
+- данные Baby не удалять
 
 Поля модели не менять.
 
 ## English
 
-Name still blank. B1 is seed data for `store=textile` after the catalog merge, not the page layout.
+Karen, `feat/karen-textile`. Seed `store=textile` after the catalog merge. Do not build the page and do not change model fields.
 
 ## Հայերեն
 
-Անունը դատարկ է։ B1-ը `store=textile` սերմնավորումն է, ոչ թե էջի դիզայնը։
+Karen, `feat/karen-textile`։ Catalog-ի merge-ից հետո `store=textile` տվյալներ։ Էջը չհավաքել և մոդելի դաշտերը չփոխել։

@@ -1,24 +1,24 @@
 # api — Suro
 
 **Ветка:** `feat/suro-api`  
-**Задание B1:** [task-advanced.md](../../../task-advanced.md) — раздел «Suro · api».
+**Задание:** [task-advanced.md](../../../task-advanced.md) — «Suro · api».
 
-В этой волне ты заводишь приложения и модель пользователя. Корзину, заказ и Idram не делай.
+Сделай пользователя и пустые пакеты. README не удаляй.
 
-Сделай пакеты (рядом с этим README, файл не удаляй):
-
-- `accounts` — `User`, email = логин, `AUTH_USER_MODEL` до первой миграции
-- пустые `catalog`, `cart`, `orders`, `leads`, `content`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`
+- `accounts.User`: email — логин, имя есть, `AUTH_USER_MODEL` до первой миграции
+- пустые `catalog`, `leads`, `content`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`
 - пропиши их в `INSTALLED_APPS` и `include` в `config/urls.py`
 - `makemigrations` только для `accounts`
-- `GET /api/health/` не ломай
+- `GET /api/health/` не меняй
 
-**Lead не мержит, пока:** суперпользователь создаётся с email, Swagger открывается, в каталоге нет модели товара, `migrate` на чистом SQLite проходит.
+Модели товара, заявок и слотов сюда не пиши.
+
+**Lead не мержит, пока:** суперпользователь создаётся с email, Swagger открывается, в каталоге нет модели товара, `migrate` на чистом SQLite проходит, health отвечает `{"status":"ok"}`.
 
 ## English
 
-Suro, branch `feat/suro-api`. B1 is the user model and empty app packages only. Do not add cart, orders, or Idram. Do not delete this README.
+Suro, `feat/suro-api`. Email login plus empty `catalog`, `leads`, and `content` packages. Do not fill their models. Do not delete this README.
 
 ## Հայերեն
 
-Suro, ճյուղ `feat/suro-api`։ B1-ում միայն user-մոդել և դատարկ փաթեթներ։ Զամբյուղ, պատվեր և Idram չկա։ Այս README-ն չջնջել։
+Suro, `feat/suro-api`։ Մուտք email-ով և դատարկ `catalog`, `leads`, `content`։ Դրանց մոդելները չլրացնել։ README-ն չջնջել։

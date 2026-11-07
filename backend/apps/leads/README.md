@@ -1,21 +1,21 @@
-# footer — имя пока пустое
+# footer — Daniel
 
-**Ветка:** `feat/<имя>-footer`.  
-**Задание B1:** [task-advanced.md](../../../task-advanced.md) — «footer · имя пока пустое».
+**Ветка:** `feat/daniel-footer`  
+**Задание:** [task-advanced.md](../../../task-advanced.md) — «Daniel · footer».
 
-Пакет создаёт Suro. Ты добавляешь модели, не API:
+Пакет создаёт Suro. Добавь модели, не URL:
 
 - `NewsletterSubscriber` — уникальный email и дата
 - `WholesaleInquiry` — имя, телефон, email, текст, дата
 
-Это не заказ и не оплата. Страницу Footer по Figma не верстай (волна F1).
+Страницу Footer не верстай. Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
 
-**Lead не мержит, пока:** обе модели видны в `/api/admin/`, повторный email подписки не сохраняется, POST-ручек нет.
+**Lead не мержит, пока:** обе модели видны в `/api/admin/`, повторный email подписки не сохраняется, ручек отправки нет.
 
 ## English
 
-Footer owner is not named yet. Add the two lead models only. No API and no Figma layout in B1.
+Daniel, `feat/daniel-footer`. Two models only. No public URL and no page layout.
 
 ## Հայերեն
 
-Footer-ի անունը դատարկ է։ Միայն երկու մոդել, առանց API և առանց Figma-ի B1-ում։
+Daniel, `feat/daniel-footer`։ Միայն երկու մոդել, առանց URL և առանց էջի դասավորության։

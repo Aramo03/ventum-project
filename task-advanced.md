@@ -1,698 +1,303 @@
-# Task advanced — карта зон и волн Ventum
+# Ventum — задание B1
 
-Короткое задание текущей волны: [TASK.md](TASK.md).  
-Git: [CONTRIBUTING.md](CONTRIBUTING.md).  
-Макет: [Figma Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495).  
-Оплата: [docs/idram.md](docs/idram.md). Письмо магазину: [docs/order-email.md](docs/order-email.md).  
-PostgreSQL и VPS: [docs/postgresql.md](docs/postgresql.md) — только волна **D1**.
+Настоящий магазин: вход, витрина Textile и витрина Baby. Это задание собирает данные и админку, на которых магазин потом стоит. Вёрстку по макету здесь не делаем.
 
-**Сейчас открыта волна B1.** Волны B2, B3, F1–F6 и D1 ниже — программа, её не делать заранее.
+Макеты интерфейса:
 
-Пять имён уже назначены. Остальные клетки пустые: учитель допишет имя, ученик возьмёт ветку `feat/<имя>-<зона>`. Доска merge: [docs/zones/lead/README.md](docs/zones/lead/README.md).
+- [Ventum — кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
+- [Ventum — второй файл макета](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
 
----
+**Срок:** закончить до конца декабря.  
+**Git:** [CONTRIBUTING.md](CONTRIBUTING.md). Короткий список: [TASK.md](TASK.md). Доска merge: [docs/zones/lead/README.md](docs/zones/lead/README.md).
 
-## Ритм урока
-
-Один урок = один день работы. Следующий день = merge в `dev` и новая волна.
-
-1. **День задания.** `git checkout dev && git pull`, ветка `feat/<имя>-<зона>`, работа только в своих файлах, PR в `dev`.
-2. **День merge.** Lead мержит строго по порядку этой волны. Остальные подтягивают `dev` и берут следующую волну из [TASK.md](TASK.md).
-3. В `main` не пушить. Один PR = одна зона.
-
-Пока волна не смержена, следующую не начинать: иначе модели и API разъедутся.
+База — SQLite. Postgres не поднимать. Админка: `http://127.0.0.1:8000/api/admin/`. Проверка жизни сервера: `http://127.0.0.1:8000/api/health/`.
 
 ---
 
-## Команда на весь проект
+## Команда
 
-Одна зона от B1 до D1. Чужие файлы не переписывать.
+Одна зона на человека. Чужие файлы не переписывать. Имена catalog и ui учитель допишет; до этого ветка с `<имя>`.
 
 | # | Имя | Ветка | Зона |
 |---|-----|--------|------|
-| 1 | Aram | `feat/aram-lead` | `lead` |
+| 1 | Lead | `feat/lead` | `lead` |
 | 2 | Suro | `feat/suro-api` | `api` |
 | 3 | Artush | `feat/artush-i18n` | `i18n` |
 | 4 | Hayk | `feat/hayk-gateway` | `gateway` |
 | 5 | Mariam | `feat/mariam-header` | `header` |
-| 6 |  | `feat/<имя>-footer` | `footer` |
-| 7 |  | `feat/<имя>-textile` | `textile` |
-| 8 |  | `feat/<имя>-baby` | `baby` |
+| 6 | Daniel | `feat/daniel-footer` | `footer` |
+| 7 | Karen | `feat/karen-textile` | `textile` |
+| 8 | Svet | `feat/svet-baby` | `baby` |
 | 9 |  | `feat/<имя>-catalog` | `catalog` |
 | 10 |  | `feat/<имя>-ui` | `ui` |
 
----
+Порядок merge:
 
-## Карта слоёв
+```
+Lead → Suro → Artush → catalog → Daniel → Hayk → Karen → Svet → Mariam → ui
+```
 
-| Слой | Где | Волна |
-|------|-----|--------|
-| Lead | git, порядок PR, CI | все |
-| Модели каталога | `backend/apps/catalog/` | **B1** |
-| Аккаунт | `backend/apps/accounts/` | **B1** модель, **B2** JWT |
-| Переводы am / en / ru | модели `*Translation` и JSON | **B1** контент, **F1** `ru.json` |
-| Публичное API | DRF, Swagger, `?language=` `?store=` | **B2** |
-| Корзина | `backend/apps/cart/` | **B2** |
-| Заказ, Idram, письмо, история | `backend/apps/orders/` | **B3** |
-| Frontend Figma | `frontend/src/` | **F1–F6** |
-| Deploy | VPS, Docker Compose, домен, Postgres | **D1** |
-
-Два перевода:
-
-1. **Контент** — названия товаров и категорий в БД (`am`, `en`, `ru`). Волна **B1**, отдача в API — **B2**.
-2. **Интерфейс** — подписи кнопок в `frontend/src/i18n/am.json`, `en.json`, `ru.json`. Файл `ru.json` добавляет зона `i18n` в **F1**. Коды языка везде: `am`, `en`, `ru`. `<html lang>` равен активному коду.
+Suro первый среди кода: приложения и пользователь должны существовать до чужих миграций. Catalog после Artush: переводы наследуют его класс. Karen и Svet после catalog: им нужны готовые модели. Mariam после Karen и Svet: поиск проверяется на их данных. ui последний: тесты на уже смерженные модели.
 
 ---
 
-## Календарь (ориентир)
+## Как сдать
 
-Даты можно сдвинуть. Смысл тот же: день работы, следующий день merge. Декабрь начинается с доделки F6 и deploy, если ноябрь кончится на F5.
+1. `git checkout dev && git pull`, затем ветка из таблицы.
+2. Работа только в своих файлах. README в папке не удалять.
+3. Один pull request, **base = `dev`**. В описании — что сделано и что `python manage.py migrate` проходит на SQLite.
+4. В `main` не пушить. `--force` на `dev` и `main` не делать.
 
-| День | Что |
-|------|-----|
-| 6 ноя | **B1** задание |
-| 9 ноя | **B1** merge, выдача **B2** |
-| 10 ноя | **B2** работа |
-| 11 ноя | **B2** merge, выдача **B3** |
-| 12 ноя | **B3** работа |
-| 13 ноя | **B3** merge, backend заморожен |
-| 16–17 ноя | **F1** работа / merge |
-| 18–19 ноя | **F2** |
-| 20 и 23 ноя | **F3** |
-| 24–25 ноя | **F4** |
-| 26–27 ноя | **F5** |
-| 30 ноя – 1 дек | **F6** |
-| 2–3 дек | **D1** VPS |
+Каркас уже проверен: миграции применяются, `manage.py check` без замечаний, `/api/health/` отвечает `{"status":"ok"}`, `/api/admin/login/` открывается. Lead чужие модели не пишет и мержит только в порядке выше.
 
 ---
 
 ## Чьи файлы
 
-| Зона | Можно править | Нельзя |
-|------|----------------|--------|
-| `lead` | CI, порядок merge, конфликт только чтобы собрать `dev` | бизнес-логику зон |
-| `api` | `apps/accounts/`, `apps/orders/`, `config/settings.py`, `config/urls.py` (только `include`) | модели каталога и корзины |
-| `i18n` | `apps/core/languages.py`, базовый класс перевода, `frontend/src/i18n/*` | тексты чужих страниц «от себя» — ключ заводит владелец экрана, перевод трёх языков делает `i18n` |
-| `gateway` | `apps/content/`, `frontend/src/pages/Gateway/` | Header/Footer |
-| `header` | `apps/catalog/search.py`, `frontend/src/components/Header/` | модели Product |
-| `footer` | `apps/leads/`, `frontend/src/components/Footer/` | checkout |
-| `textile` | фикстуры textile, `frontend/src/pages/Textile/` | общее поле `store` (его делает `catalog`) |
-| `baby` | фикстуры baby, `frontend/src/pages/Baby/` | то же |
-| `catalog` | `apps/catalog/` кроме `search.py`, `apps/cart/`, страницы каталога, карточка товара, checkout UI | Idram callback и `Order` |
-| `ui` | тесты, токены в `frontend/src/index.css`, `pages/NotFound/` | чужие страницы, кроме бага вёрстки по чеклисту |
+| Зона | Можно | Нельзя |
+|------|--------|--------|
+| Lead | порядок PR, конфликт только чтобы собрать `dev` | модели и вёрстку зон |
+| Suro | `apps/accounts/`, пустые пакеты приложений, `INSTALLED_APPS`, `include` в `config/urls.py` | поля товара, заявки, слоты главной, `search.py` |
+| Artush | `apps/core/languages.py`, абстрактный перевод | вью `/api/health/`, JSON фронта |
+| catalog | `apps/catalog/models.py`, `admin.py`, миграции | `search.py`, страницы React |
+| Daniel | `apps/leads/` | API-ручки и `Footer.jsx` |
+| Hayk | `apps/content/` | `pages/Gateway/` |
+| Karen | команда или фикстура textile | поля моделей и страницу `/textile` |
+| Svet | команда или фикстура baby | поля моделей и страницу `/baby` |
+| Mariam | `apps/catalog/search.py` | модели, миграции, `Header.jsx` |
+| ui | тесты моделей | `NotFound` и `index.css` |
 
-Новые приложения в `INSTALLED_APPS` регистрирует только `api`.
+Новые приложения в `INSTALLED_APPS` регистрирует только Suro.
 
----
-
-## Оплата (зафиксировано)
-
-Гостевого заказа нет. Перед оплатой покупатель **регистрируется или входит** (email + пароль, JWT). Дальше заказ `pending` и редирект на страницу **Idram**. Карту VISA или Mastercard вводят **только на стороне Idram**, не в форме Ventum. После подтверждения на `RESULT_URL` статус `paid`, заказ виден в `GET /api/orders/me/`, магазину уходит одно письмо на `ORDER_NOTIFY_EMAIL`. Подробности — в docs, не в этой волне, пока не открыта **B3** (сервер) и **F5–F6** (экраны).
+Языки контента: `am`, `en`, `ru`. Нет перевода на запрошенный язык — запись не пропадает; текст берётся из `en`, иначе из любого существующего. Это правило Artush пишет в docstring. Список API в этом задании не делаем.
 
 ---
 
-# B1 — модели и админка (открыта)
+## 1 — Lead
 
-SQLite. Idram, корзину, JWT-ручки и вёрстку Figma не делать. Админка этого проекта: `/api/admin/`. Health: `/api/health/`.
+**Папка:** [docs/zones/lead/README.md](docs/zones/lead/README.md). **Ветка:** `feat/lead`.
 
-Порядок merge (Aram мержит только так):
+Каркас уже проверен. Дальше Lead принимает PR в `dev` строго по порядку. Конфликт чинит вместе с владельцем файла и не переписывает зону.
 
-```
-Aram → Suro → Artush → catalog → footer → Hayk → textile → baby → Mariam → ui
-```
+После merge ui: удалить `backend/ventum.sqlite3`, снова `migrate`, создать суперпользователя с email, открыть `/api/health/` и `/api/admin/`.
 
-Suro первый среди кода: пустые приложения и `accounts.User` должны появиться до миграций с внешними ключами. Catalog после Artush, потому что переводы наследуют общий класс. Фикстуры textile/baby после моделей. ui последний — тесты на уже смерженные модели.
+**Не закрывать задание, пока:** в админке есть пользователь с логином-email, категории и товары Textile и Baby с переводами `am`/`en`/`ru`, подписчик рассылки и слот главной; health и Swagger живы.
 
-День задания **Aram** закрыт 6 ноября 2026: `migrate` без новых миграций, `manage.py check` без замечаний, `GET /api/health/` отвечает `{"status":"ok"}`, страница входа `/api/admin/login/` открывается. Он ждёт PR остальных и не пишет их модели.
+## 2 — Suro · api
 
-### Общие шаги
+**Папка:** [backend/apps/accounts/README.md](backend/apps/accounts/README.md). **Ветка:** `feat/suro-api`.
 
-1. Прочитай свою секцию ниже и README в своей папке.
-2. `git checkout dev && git pull`, затем ветка из таблицы команды.
-3. `python manage.py migrate` и `runserver` на SQLite. Postgres не поднимать.
-4. Один PR в `dev`. В описании: что сделано и вывод `migrate`.
+**Сделать**
 
-### 1 — Aram · lead
+1. `accounts.User` от `AbstractUser`. `USERNAME_FIELD = "email"`, email уникален, есть имя. `REQUIRED_FIELDS` без email.
+2. `AUTH_USER_MODEL = "accounts.User"` до `makemigrations`. Иначе Django оставит стандартного пользователя, и магазин потом не пересядет на email.
+3. Пакеты `catalog`, `leads`, `content`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`. Модели туда не писать — их пишут владельцы зон. README не удалять.
+4. Прописать приложения в `INSTALLED_APPS` и `include` в [backend/config/urls.py](backend/config/urls.py).
+5. `makemigrations` только для `accounts`. `GET /api/health/` не менять.
 
-**Папка:** [docs/zones/lead/README.md](docs/zones/lead/README.md). Чужие `models.py` не писать.
+**Lead не мержит, пока:** `createsuperuser` спрашивает email; пользователь виден в `/api/admin/`; Swagger открывается; в `catalog/models.py` нет товара; `migrate` на чистом SQLite проходит; health по-прежнему `{"status":"ok"}`.
 
-**Уже сделано:** доска merge с пустой колонкой PR; каркас проверен (см. выше).
+## 3 — Artush · i18n
 
-**Дальше, в день merge:** мержить строго по порядку. Конфликт чинить вместе с владельцем файла. После ui: удалить `backend/ventum.sqlite3`, снова `migrate`, создать суперпользователя с email, открыть `/api/health/` и `/api/admin/`.
+**Папка:** [backend/apps/core/README.md](backend/apps/core/README.md). **Ветка:** `feat/artush-i18n`.
 
-**Lead не закрывает волну, пока:** на `dev` есть пользователь с логином-email, категория и товар textile и baby с переводами `am`/`en`/`ru`, заявка newsletter, слот главной; health и Swagger живы; в git нет секрета Idram.
+**Сделать**
 
-### 2 — Suro · api
+1. `backend/apps/core/languages.py`: только коды `am`, `en`, `ru` и подписи. Остальные модули импортируют их отсюда.
+2. Абстрактная модель перевода в `apps/core`: язык из этого списка. Наследник задаёт связь с родителем. Пара «родитель + язык» уникальна.
+3. В docstring: нет перевода на язык запроса — объект не удаляется из выдачи; текст из `en`, иначе из любого перевода, который есть.
 
-**Папка:** [backend/apps/accounts/README.md](backend/apps/accounts/README.md).
+Вью health не трогать. Файлы `frontend/src/i18n/` не трогать.
 
-**Файлы:** `apps/accounts/` (модель здесь), пустые пакеты `catalog`, `cart`, `orders`, `leads`, `content` (`apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`). Плюс `AUTH_USER_MODEL`, `INSTALLED_APPS`, `include` в [backend/config/urls.py](backend/config/urls.py). README в папках не удалять.
+**Lead не мержит, пока:** три кода импортируются из одного модуля; миграция ядра проходит на SQLite; `/api/health/` отвечает `{"status":"ok"}`.
 
-**Не трогать:** поля Category/Product, `search.py`, модели заявок и HomeBlock, фронт.
+## 4 — catalog · имя пока пустое
 
-**Шаги:**
+**Папка:** [backend/apps/catalog/README.md](backend/apps/catalog/README.md). **Ветка:** `feat/<имя>-catalog`.
 
-1. `accounts.User` наследует `AbstractUser`. `USERNAME_FIELD = "email"`, email уникален, есть имя для заказа. `REQUIRED_FIELDS` без email. Это первая миграция с пользователем: `AUTH_USER_MODEL = "accounts.User"` до `makemigrations`.
-2. Остальные пять приложений зарегистрируй, но модели в них не пиши. `makemigrations` только для `accounts`.
-3. `GET /api/health/` оставь как есть.
+Ждать merge Suro и Artush. Пакет уже заведёт Suro.
 
-**Lead не мержит, пока:** `createsuperuser` спрашивает email; в админке виден пользователь; Swagger открывается; в `catalog/models.py` нет Category; `migrate` на чистом SQLite проходит; health по-прежнему `{"status":"ok"}`.
+**Сделать**
 
-### 3 — Artush · i18n
+1. `Category`: необязательный родитель, `store` ровно `textile` или `baby` (так разделены два магазина в макете), уникальный slug, перевод `name` на `am`/`en`/`ru` через класс Artush.
+2. `Product`: категория, цена `Decimal` в AMD, уникальный sku, флаг публикации, переводы `name` и `description`.
+3. `ProductImage`: файл (Pillow), alt, порядок.
+4. Админка Unfold: инлайн картинок и переводов, фильтр списка по `store`.
 
-**Папка:** [backend/apps/core/README.md](backend/apps/core/README.md). Фронт `ru.json` не в этой волне.
+`search.py` не создавать. Его пишет Mariam после этого merge. Страницы React не менять.
 
-**Файлы:** `backend/apps/core/languages.py` и абстрактная модель перевода (в `apps/core`, чтобы catalog и content её наследовали). Health-вью не менять.
+**Lead не мержит, пока:** в `/api/admin/` сохраняются категория и товар с тремя переводами; `migrate` на чистом SQLite проходит; `search.py` нет; модели пользователя и слота главной не изменены.
 
-**Шаги:**
+## 5 — Daniel · footer
 
-1. Коды только `am`, `en`, `ru`, с человекочитаемыми подписями. Другие модули импортируют список отсюда, не копируют строки.
-2. Абстрактная модель: поле языка из этого списка, связь с родителем задаёт наследник, пара (родитель, язык) уникальна.
-3. В docstring правило: нет перевода на запрошенный язык — объект не пропадает; текст берётся из `en`, иначе из любого существующего. Сам API в B1 не делать.
+**Папка:** [backend/apps/leads/README.md](backend/apps/leads/README.md). **Ветка:** `feat/daniel-footer`.
 
-**Lead не мержит, пока:** `from apps.core.languages import ...` отдаёт три кода; миграция ядра применяется на SQLite; `GET /api/health/` не сломан.
+Ждать, пока Suro заведёт пакет `leads`. Страницу Footer не верстать.
 
-### 4 — catalog · имя пока пустое
-
-**Папка:** [backend/apps/catalog/README.md](backend/apps/catalog/README.md). Ветка `feat/<имя>-catalog`, когда имя появится.
-
-**Файлы:** `models.py`, `admin.py`, миграции каталога. Не создавать `search.py` — его пишет Mariam после твоего merge.
-
-**Шаги:**
-
-1. `Category`: необязательный родитель, `store` ровно `textile` или `baby`, уникальный slug, переводы `name` на `am`/`en`/`ru` через класс Artush.
-2. `Product`: категория, цена `Decimal` в AMD (не строка), уникальный sku, флаг публикации, переводы `name` и `description`.
-3. `ProductImage`: файл через Pillow, alt, порядок.
-4. Unfold: инлайн картинок и переводов, в списке фильтр по `store`.
-
-**Lead не мержит, пока:** в `/api/admin/` создаётся категория и товар с тремя переводами; `migrate` на чистом SQLite проходит; файла `search.py` нет; модели User и HomeBlock не изменены.
-
-### 5 — footer · имя пока пустое
-
-**Папка:** [backend/apps/leads/README.md](backend/apps/leads/README.md).
-
-**Файлы:** только `apps/leads/` (пакет уже заведёт Suro). Фронт Footer в B1 не верстать.
-
-**Шаги:**
+**Сделать**
 
 1. `NewsletterSubscriber`: email уникален, дата создания.
-2. `WholesaleInquiry`: имя, телефон, email, текст, дата. Это заявка опта, не заказ и не Idram.
-3. Админка показывает список. Добавление вручную можно оставить, API не делать.
+2. `WholesaleInquiry`: имя, телефон, email, текст, дата. Это заявка, не товар.
+3. Обе модели в админке, списком. URL для отправки с сайта не добавлять.
 
-**Lead не мержит, пока:** обе модели видны в админке; повторный email подписки база не принимает; в `urls` нет `POST` этих заявок.
+**Lead не мержит, пока:** обе модели видны в `/api/admin/`; второй такой же email подписки база не принимает; в `urls` нет ручек этих заявок.
 
-### 6 — Hayk · gateway
+## 6 — Hayk · gateway
 
-**Папка:** [backend/apps/content/README.md](backend/apps/content/README.md). Страницу `/` по Figma не делать (это F1).
+**Папка:** [backend/apps/content/README.md](backend/apps/content/README.md). **Ветка:** `feat/hayk-gateway`.
 
-**Файлы:** `apps/content/models.py` и админка. Пакет регистрирует Suro.
+Ждать Suro и Artush. Страницу `/` не верстать: макет лежит в Figma, в этом задании только данные слота.
 
-**Шаги:**
+**Сделать**
 
-1. `HomeBlock`: ключ слота (`hero`, `stores`), порядок, переводы `title` и `text` на `am`/`en`/`ru` через класс Artush.
+1. `HomeBlock`: ключ слота (`hero` или `stores` — блоки входа в макете), порядок, переводы `title` и `text` на `am`/`en`/`ru`.
 2. Админка с инлайном переводов.
 
-**Lead не мержит, пока:** в админке сохраняется слот `hero` с тремя языками; модели товара не изменены; `frontend/src/pages/Gateway/` без новой вёрстки.
+**Lead не мержит, пока:** слот `hero` сохраняется на трёх языках; модели товара не изменены; `frontend/src/pages/Gateway/` без новой вёрстки.
 
-### 7 — textile · имя пока пустое
+## 7 — Karen · textile
 
-**Папка:** [frontend/src/pages/Textile/README.md](frontend/src/pages/Textile/README.md). Код данных — в backend, страница в B1 не макет.
+**Папка:** [frontend/src/pages/Textile/README.md](frontend/src/pages/Textile/README.md). **Ветка:** `feat/karen-textile`.
 
-**Файлы:** команда `seed_textile` или фикстура. Поля `Category` / `Product` не менять. Ждать merge catalog.
+Ждать merge catalog. Страницу `/textile` не собирать. Поля `Category` и `Product` не менять.
 
-**Шаги:**
+**Сделать**
 
-1. Минимум две категории `store=textile` и один опубликованный товар с ценой AMD.
-2. У каждой записи переводы `am`, `en`, `ru`.
-3. Картинка — свой файл или уже лежащий в репозитории плейсхолдер, не случайный внешний URL.
+Команда `seed_textile` или фикстура:
 
-**Lead не мержит, пока:** команда (или `loaddata`) на чистой базе создаёт эти записи и не падает повторно; baby-категорий команда не удаляет.
+- минимум две категории с `store=textile` и переводами `am`, `en`, `ru`;
+- один опубликованный товар с ценой в AMD и тремя переводами имени;
+- картинка — файл из репозитория, не случайная ссылка в интернет;
+- повторный запуск не создаёт второй slug;
+- записи Baby не удаляются.
 
-### 8 — baby · имя пока пустое
+**Lead не мержит, пока:** команда или `loaddata` на чистой базе создаёт эти записи и второй запуск не падает и не плодит дубликаты.
 
-**Папка:** [frontend/src/pages/Baby/README.md](frontend/src/pages/Baby/README.md).
+## 8 — Svet · baby
 
-То же для `store=baby`: команда `seed_baby`, свои две категории и один товар, три языка. Textile-данные не стирать и не переписывать.
+**Папка:** [frontend/src/pages/Baby/README.md](frontend/src/pages/Baby/README.md). **Ветка:** `feat/svet-baby`.
 
-**Lead не мержит, пока:** фильтр админки по `store` показывает и textile, и baby; повторный запуск не плодит дубликаты slug.
+То же для `store=baby`: команда `seed_baby`, две свои категории и один товар, три языка. Данные Karen не стирать и не переписывать. Страницу `/baby` не собирать. Поля моделей не менять.
 
-### 9 — Mariam · header
+**Lead не мержит, пока:** фильтр админки по `store` показывает и Textile, и Baby; повторный запуск не плодит slug.
 
-**Папка:** [frontend/src/components/Header/README.md](frontend/src/components/Header/README.md). Шапку по Figma не верстать (это F1).
+## 9 — Mariam · header
 
-**Файлы:** только `backend/apps/catalog/search.py`. Модели, миграции и `admin.py` не менять. Ждать merge catalog.
+**Папка:** [frontend/src/components/Header/README.md](frontend/src/components/Header/README.md). **Ветка:** `feat/mariam-header`.
 
-**Шаги:**
+Ждать merge catalog, Karen и Svet. `Header.jsx` не менять.
 
-1. Функция `search_products(queryset, query)`.
-2. Пустой запрос или пробелы — вернуть queryset без фильтра.
-3. Иначе фильтр по sku и по переведённому имени (`am`, `en` или `ru`), без учёта регистра.
-4. В docstring будущий контракт: `GET /api/products/?q=&store=&language=`. URL и вью не добавлять.
+**Сделать** только `backend/apps/catalog/search.py`:
 
-**Lead не мержит, пока:** на данных textile/baby функция находит товар по sku и по имени на каждом из трёх языков; пустой запрос ничего не отрезает; diff не содержит правок `models.py`.
+1. `search_products(queryset, query)`.
+2. Пустой запрос или пробелы — тот же queryset, без фильтра.
+3. Иначе поиск по sku и по переведённому имени (`am`, `en` или `ru`), без учёта регистра.
+4. В docstring контракт на будущее, без вью и без URL: `GET /api/products/?q=&store=&language=`.
 
-### 10 — ui · имя пока пустое
+**Lead не мержит, пока:** на данных Karen и Svet функция находит товар по sku и по имени на каждом из трёх языков; пустой запрос ничего не отрезает; в diff нет правок `models.py`.
 
-**Папка:** [frontend/src/pages/NotFound/README.md](frontend/src/pages/NotFound/README.md). В B1 это тесты, не страница 404.
+## 10 — ui · имя пока пустое
 
-**Файлы:** тесты, например `apps/catalog/tests.py`, `apps/accounts/tests.py`, `apps/leads/tests.py`. Ждать все модели.
+**Папка:** [frontend/src/pages/NotFound/README.md](frontend/src/pages/NotFound/README.md). **Ветка:** `feat/<имя>-ui`.
 
-**Шаги:**
+Ждать все модели. Страницу 404 и `index.css` не менять.
 
-1. Тест создаёт пользователя с email.
-2. Тест создаёт категорию с тремя переводами, товар textile и товар baby.
-3. Товар без перевода на `ru` всё равно сохраняется.
-4. Тест создаёт `NewsletterSubscriber`.
-5. `python manage.py test` локально, база теста — SQLite, не Postgres.
+**Сделать** тесты на SQLite, без сети и без Postgres:
 
-**Lead не мержит, пока:** `manage.py test` зелёный целиком; тесты не ходят в сеть и не требуют Docker.
+- пользователь с email;
+- категория с тремя переводами, товар Textile и товар Baby;
+- товар без перевода `ru` всё равно сохраняется;
+- `NewsletterSubscriber`;
+- `python manage.py test` целиком зелёный.
 
-### DoD волны B1
-
-Волна закрыта только после merge ui и повторной проверки Aram на пустом sqlite: админка наполняется данными сидов, три языка у контента, health и Swagger живы, секретов Idram в репозитории нет.
+**Lead не мержит, пока:** `manage.py test` зелёный целиком.
 
 ---
 
-# B2 — публичное API, JWT, корзина (после merge B1)
+## Готово, когда
 
-Порядок merge:
-
-```
-Aram → Suro → Artush → catalog → Mariam → footer → Hayk → textile → baby → ui
-```
-
-JWT и список товаров раньше корзины. Поиск (`header`) после списка (`catalog`).
-
-### 1 — Aram · lead
-
-Swagger после мержа открывает все новые пути. CI гоняет `manage.py test`. В чате — порядок PR.
-
-**Перед merge следующего:** предыдущий PR уже в `dev`.
-
-**DoD:** на `dev` тесты B1+B2 зелёные.
-
-### 2 — Suro · api
-
-1. `POST /api/auth/register/` — email, password, name. `POST /api/auth/token/` и refresh (SimpleJWT).
-2. Подключи `urls` приложений. Пагинация списка товаров.
-3. Ошибки DRF единообразны. Пароли и секреты не логировать.
-
-**Перед merge:** регистрация в Swagger создаёт пользователя, повторный email — 400.
-
-**DoD:** регистрация и токен в Swagger; повторный email — 400.
-
-### 3 — Artush · i18n
-
-1. Общий helper: выбрать перевод `am`/`en`/`ru` с запасным `en`.
-2. Опиши в Swagger query `language`. Неверный код — как `en`, не 500.
-
-**Перед merge:** `?language=ru` у товара без русского текста не даёт 404 и не роняет список.
-
-**DoD:** товар без `ru` не пропадает из списка при `?language=ru`.
-
-### 4 — catalog · имя пока пустое
-
-1. `GET /api/products/`, `GET /api/products/{slug}/`, `GET /api/categories/?store=`.
-2. Поля: имя и описание на выбранном языке, цена AMD, картинки, `store`.
-3. Приложение `cart`: модель корзины **пользователя** (не гостя), строки qty и product. `GET/POST/PATCH/DELETE /api/cart/`. Чужой корзины не видно.
-
-**Перед merge:** `?store=textile` не показывает baby; чужая корзина по чужому токену не читается.
-
-**DoD:** список фильтруется по `store`; в корзину кладётся только опубликованный товар.
-
-### 5 — Mariam · header
-
-1. `GET /api/products/?q=` через `search.py`.
-2. В ответе корзины есть число штук — договорись с полем `catalog`, не дублируй endpoint.
-
-**Перед merge:** `?q=` находит sku и имя; отдельного второго endpoint корзины нет.
-
-**DoD:** поиск по sku и по имени на любом из трёх языков.
-
-### 6 — footer · имя пока пустое
-
-`POST /api/newsletter/` и `POST /api/wholesale/`. Повтор email подписки — 200 без второй строки. Опт не создаёт заказ.
-
-**Перед merge:** оба POST есть в Swagger и не создают `Order`.
-
-**DoD:** оба POST в Swagger, письма здесь не слать.
-
-### 7 — Hayk · gateway
-
-`GET /api/home/?language=` отдаёт блоки `HomeBlock` с запасным языком.
-
-**Перед merge:** пустая база на `GET /api/home/` даёт пустой список, не 500.
-
-**DoD:** пустая база — пустой список, не 500.
-
-### 8 — textile · имя пока пустое
-
-Тесты API: `store=textile` не содержит baby-товары.
-
-**Перед merge:** тест `store=textile` зелёный и не требует Postgres.
-
-**DoD:** тест в CI.
-
-### 9 — baby · имя пока пустое
-
-Тесты API: `store=baby` не содержит textile.
-
-**Перед merge:** тест `store=baby` зелёный и не удаляет textile-товары.
-
-**DoD:** тест в CI.
-
-### 10 — ui · имя пока пустое
-
-Тесты регистрации, списка, корзины без токена (401) и с токеном.
-
-**Перед merge:** `manage.py test` зелёный целиком на SQLite.
-
-**DoD:** `manage.py test` зелёный целиком.
-
-### DoD волны B2
-
-Каталог, поиск, главная, подписка, опт и корзина авторизованного пользователя работают на SQLite. Оплаты ещё нет.
-
----
-
-# B3 — заказ, Idram, история, письмо (после B2)
-
-Backend после этой волны **не расширять** новыми сущностями. Баги — точечно.
-
-Порядок merge:
-
-```
-Aram → Suro → catalog → Mariam → Artush → footer → ui → Hayk → textile → baby
-```
-
-Сначала заказ и Idram (Suro), затем контракт корзины при checkout (catalog).
-
-### 1 — Aram · lead
-
-Проверь, что в git нет `IDRAM_SECRET_KEY` и пароля SMTP. Напомни: боевой callback заработает на публичном домене в D1; в B3 обязателен тест с поддельным POST.
-
-**Перед merge следующего:** в diff нет секретов.
-
-**DoD:** секреты только в `.env`, не в коммите.
-
-### 2 — Suro · api
-
-1. `Order` и строки: пользователь, сумма AMD, статус `pending` / `paid` / `failed`, номер счёта для Idram (`EDP_BILL_NO`).
-2. `POST /api/checkout/` только с JWT. Создаёт заказ из корзины, корзину очищает, отдаёт данные для редиректа на Idram (см. [docs/idram.md](docs/idram.md)). Пустая корзина — 400.
-3. `RESULT_URL`: precheck отвечает `OK` только если счёт и сумма совпали; подтверждение сверяет `EDP_CHECKSUM`, один раз ставит `paid`, пишет id транзакции. Повтор того же callback не шлёт второе письмо.
-4. При переходе в `paid` — письмо на `ORDER_NOTIFY_EMAIL` по [docs/order-email.md](docs/order-email.md).
-5. `GET /api/orders/me/` — заказы текущего пользователя.
-6. Переменные в `settings` из env: `IDRAM_*`, `ORDER_NOTIFY_EMAIL`. В репозиторий ключи не класть.
-
-**Перед merge:** фейковый confirmation с верной суммой ставит `paid` и шлёт одно письмо; неверная сумма не ставит `paid`.
-
-**DoD:** тест: фейковый confirmation с верной суммой → `paid` + одно письмо в console backend; неверная сумма → заказ не `paid`.
-
-### 3 — catalog · имя пока пустое
-
-1. Checkout читает корзину и не даёт заказать чужой `cart`.
-2. Цена строки фиксируется в заказе (смена цены товара потом не переписывает старый заказ).
-3. Не реализуй callback Idram.
-
-**Перед merge:** цена в строке заказа не меняется, если потом изменить цену товара. Callback Idram в этом PR нет.
-
-**DoD:** тест цены в строке заказа.
-
-### 4 — Mariam · header
-
-Зафиксируй в Swagger-описании (текстом рядом с auth, без нового платежного кода): без токена checkout недоступен; регистрация — ручка B2.
-
-**Перед merge:** checkout без JWT отвечает 401.
-
-**DoD:** 401 на checkout без JWT.
-
-### 5 — Artush · i18n
-
-Письмо магазину можно на русском (внутреннее). Ошибки API checkout имеют понятный `detail`. Названия товаров в письме — язык `ru`, если перевода нет — `en`.
-
-**Перед merge:** в тестовом письме имя товара не пустое (`ru`, иначе `en`).
-
-**DoD:** письмо содержит имя товара не пустым.
-
-### 6 — footer · имя пока пустое
-
-Оптовая заявка по-прежнему не создаёт `Order` и не ходит в Idram.
-
-**Перед merge:** тест опта не создаёт `Order`.
-
-**DoD:** тест, что wholesale не меняет заказы.
-
-### 7 — ui · имя пока пустое
-
-Тесты precheck и checksum по [docs/idram.md](docs/idram.md). Секрет в тесте — фиктивная строка.
-
-**Перед merge:** тесты precheck и checksum зелёные без сети.
-
-**DoD:** тесты оплаты зелёные без сети Idram.
-
-### 8 — Hayk · gateway
-
-Не ломай `/api/home/` при новых `include`.
-
-**Перед merge:** тест `GET /api/home/` всё ещё зелёный.
-
-**DoD:** тест главной всё ещё зелёный.
-
-### 9 — textile · имя пока пустое / 10 — baby · имя пока пустое
-
-Регрессия: checkout товара своего `store` создаёт строку с этим товаром.
-
-**Перед merge:** у textile и у baby есть тест, что свой товар попадает в строку заказа.
-
-**DoD:** по одному тесту на магазин.
-
-### DoD волны B3
-
-Регистрация → корзина → заказ `pending` → подтверждение Idram → `paid` → письмо → запись в истории. Карточные данные на сервер Ventum не приходят. Новых фич backend после merge нет.
-
----
-
-# F1 — оболочка и Figma (после B3)
-
-Имена те же: **Aram** lead, **Suro** api, **Artush** i18n, **Hayk** gateway, **Mariam** header. Остальные клетки пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок merge:
-
-```
-lead → ui → i18n → header → footer → gateway → catalog → textile → baby → api
-```
-
-Сначала токены и три языка интерфейса, потом каркас страниц. `api` в конце только если надо поправить CORS или поле, без новых моделей.
-
-### Зоны
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| lead | мерж, `npm run build` на `dev` | build зелёный |
-| ui | цвета и отступы из Figma в Tailwind / `index.css`, 404 | 375px без горизонтального скролла на 404 |
-| i18n | `ru.json`, `supportedLngs`: `am`, `en`, `ru`, переключатель на три языка, `<html lang>` | все ключи Header/Footer есть в трёх файлах |
-| header | каркас шапки по макету: поиск, язык, аккаунт, корзина, меню. Данные API можно заглушить | три языка переключаются |
-| footer | подвал и слоты форм по макету, без боевой отправки если API ещё не подключён на экране | вёрстка desktop и 375px |
-| gateway | страница `/` по кадру Gateway: выбор Textile и Baby | ссылки ведут на `/textile` и `/baby` |
-| catalog | пустые состояния списка (loading / empty / error) как компоненты, без обязательной боевой сетки | компоненты не тянут чужой CSS |
-| textile | секции `/textile` по Figma, тексты через i18n-ключи | страница открывается |
-| baby | секции `/baby` по Figma | страница открывается |
-| api | не менять модели; только если фронт упёрся в CORS локального Vite | health жив |
-
----
-
-# F2 — каталог с API
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок: `lead → catalog → i18n → header → textile → baby → ui → gateway → footer → api`.
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| lead | merge | списки открываются с живого API |
-| catalog | сетка товаров и категорий с `GET /api/products` и `categories`, состояния loading/error/empty | смена языка перезапрашивает `language` |
-| i18n | ключи пустого каталога и ошибок на am/en/ru | нет сырого ключа на экране |
-| header | поиск дергает `?q=` | пустой ввод не ломает список |
-| textile | `/textile` показывает только `store=textile` | baby-товар не виден |
-| baby | `/baby` только `store=baby` | textile-товар не виден |
-| ui | общий вид карточки, alt у картинок | 375px |
-| gateway | блоки `GET /api/home/` вместо заглушки, если слоты есть | пустой API не роняет страницу |
-| footer | подписка `POST /api/newsletter/` | повтор email не пугает ошибкой 500 |
-| api | правки только по багу списка | контракт B2 не ломать |
-
----
-
-# F3 — карточка товара и Textile
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок: `lead → catalog → textile → i18n → ui → header → baby → gateway → footer → api`.
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| catalog | маршрут карточки товара: цена AMD, описание, картинки | 404 неизвестного slug |
-| textile | страница магазина собрана секциями макета и ведёт в карточку | desktop и 375px |
-| i18n | ключи карточки на трёх языках | |
-| ui | галерея не растягивает страницу | |
-| header | иконка корзины видна на карточке | |
-| baby | не переписывать textile; только не сломать свои ссылки | |
-| остальные | регрессия своих маршрутов | |
-
----
-
-# F4 — Baby и узкая ширина
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок: `lead → baby → ui → catalog → i18n → header → footer → textile → gateway → api`.
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| baby | `/baby` по Figma на уровне textile | 375px |
-| ui | проход 375px: `/`, `/textile`, `/baby`, карточка | нет горизонтального скролла |
-| catalog | карточка на 375px | |
-| i18n | недостающие строки baby | три языка |
-| header / footer | меню на узком экране | |
-| textile | не ломать F3 | |
-
----
-
-# F5 — корзина, регистрация, checkout
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок: `lead → catalog → header → i18n → api → ui → footer → gateway → textile → baby`.
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| catalog | экран корзины и checkout: qty, сумма AMD, кнопка оплаты | без JWT форма регистрации/входа, затем `POST /api/checkout/` |
-| header | вход, регистрация, выход, бейдж количества, ссылка «мои заказы» (список дорисует F6) | токен хранится и уходит в `Authorization` |
-| i18n | тексты форм auth и checkout на am/en/ru | |
-| api | только баг контракта checkout/cart | новые поля оплаты с карты не добавлять |
-| ui | фокус и ошибки полей | |
-| footer | форма опта `POST /api/wholesale/` | это не checkout |
-
-На этом шаге браузер уходит на Idram (или получает URL). Статус `paid` на экране ещё можно не рисовать — это F6. Номер карты, срок и CVV **не** вводить в React.
-
----
-
-# F6 — возврат с Idram, история, QA
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на `dev`.
-
-Порядок: `lead → api → header → catalog → i18n → ui → gateway → footer → textile → baby`.
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| api | `SUCCESS_URL` / `FAIL_URL` отдают заказ; статус на экране читать из API, не из query «success» | query success без `paid` не показывает «оплачено» |
-| header | страница истории `GET /api/orders/me/` | чужие заказы не видны |
-| catalog | страницы возврата success/fail по макету | кнопка в историю |
-| i18n | статусы pending/paid/failed на трёх языках | |
-| ui | чеклист: главная, оба магазина, карточка, корзина, checkout, история, 404, 375px и desktop | `npm run build` |
-| lead | таблица «волна закрыта» | backend-тесты и build зелёные |
-| остальные | визуальные дыры только своей страницы | |
-
-**DoD волны F6:** путь регистрация → корзина → Idram → история. Письмо магазину при `paid` видно в console или в ящике `ORDER_NOTIFY_EMAIL`.
-
----
-
-# D1 — VPS, Docker, домен (после F6)
-
-Имена те же: **Aram**, **Suro**, **Artush**, **Hayk**, **Mariam**. Остальные пустые. Не мержить строку, пока её DoD не виден на домене.
-
-Хост: свой VPS. Стек уже намечен в [docker-compose.yml](docker-compose.yml): Postgres, gunicorn, собранный frontend. HTTPS и домен добавляет эта волна. SQLite на сервере не использовать.
-
-Порядок merge:
-
-```
-lead → api → ui → i18n → catalog → header → footer → gateway → textile → baby
-```
-
-| Зона | Сделать | DoD |
-|------|---------|-----|
-| lead | домен, DNS, `docker compose` на сервере, чеклист smoke, короткий `docs/deploy.md` | сайт открывается по https |
-| api | `DEBUG=False`, свой `SECRET_KEY`, `ALLOWED_HOSTS`, Postgres из env, gunicorn как в compose, SMTP и `IDRAM_*` только на сервере, в кабинете Idram прописать боевые SUCCESS/FAIL/RESULT URL | callback с Idram доходит до `RESULT_URL` |
-| ui | production-сборка frontend, `VITE_BASE_URL` на API домена | нет запросов на `127.0.0.1` с боевого сайта |
-| i18n | `<html lang>` на боевом сайте | |
-| catalog / header / footer / gateway / textile / baby | smoke своего маршрута на домене, фикс только своего бага | путь покупки на textile и baby |
-| все | пароли не в git | `.env` на сервере не коммитить |
-
-**DoD D1:** класс открывает домен, регистрируется, платит тестовым платежом Idram (кошелёк или VISA/Mastercard на странице Idram), заказ `paid`, письмо на почту магазина, строка в истории.
+После merge ui Lead поднимает пустой SQLite. В админке без правки кода видны пользователь, слот главной, подписчик, категории и товары обоих магазинов на `am`, `en` и `ru`. Health и Swagger отвечают.
 
 ---
 
 ## English
 
-Full program for the same ten zones. Assigned names: **Aram** (lead), **Suro** (api), **Artush** (i18n), **Hayk** (gateway), **Mariam** (header). The other five names stay blank. Current wave is **B1** in [TASK.md](TASK.md). Aram’s task day is done: he keeps the merge board and waits for pull requests. One day is the task, the next day is the merge into `dev`. Do not push `main`.
+Real shop data for Textile and Baby. This assignment is models and admin only. Do not build pages from the designs yet.
 
-Languages of content and UI: **`am`, `en`, `ru`**. `ru.json` is added in F1. `<html lang>` matches the active code.
+Designs:
 
-Checkout: the buyer registers or logs in, then pays on **Idram** (Armenia). Visa and Mastercard are entered only on Idram’s page. On `paid`, the shop receives one email (`ORDER_NOTIFY_EMAIL`) and the order appears in `GET /api/orders/me/`. See [docs/idram.md](docs/idram.md) and [docs/order-email.md](docs/order-email.md).
+- [Ventum shop frame](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
+- [Second Ventum design file](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
+
+Finish by the end of December. SQLite only. Admin: `/api/admin/`. Health: `/api/health/`. One pull request per zone, base `dev`. Do not push `main`.
 
 | # | Name | Branch | Zone |
 |---|------|--------|------|
-| 1 | Aram | `feat/aram-lead` | lead |
+| 1 | Lead | `feat/lead` | lead |
 | 2 | Suro | `feat/suro-api` | api |
 | 3 | Artush | `feat/artush-i18n` | i18n |
 | 4 | Hayk | `feat/hayk-gateway` | gateway |
 | 5 | Mariam | `feat/mariam-header` | header |
-| 6 |  | `feat/<name>-footer` | footer |
-| 7 |  | `feat/<name>-textile` | textile |
-| 8 |  | `feat/<name>-baby` | baby |
+| 6 | Daniel | `feat/daniel-footer` | footer |
+| 7 | Karen | `feat/karen-textile` | textile |
+| 8 | Svet | `feat/svet-baby` | baby |
 | 9 |  | `feat/<name>-catalog` | catalog |
 | 10 |  | `feat/<name>-ui` | ui |
 
-| Wave | Merge order | Done when |
-|------|-------------|-----------|
-| B1 | lead → api → i18n → catalog → footer → gateway → textile → baby → header → ui | Admin can create a user, textile/baby products with am/en/ru, newsletter, home block. SQLite. |
-| B2 | lead → api → i18n → catalog → header → footer → gateway → textile → baby → ui | JWT, catalog API, search, cart for the logged-in user, newsletter, wholesale, home API. |
-| B3 | lead → api → catalog → header → i18n → footer → ui → gateway → textile → baby | Order pending → Idram confirmation → paid, one shop email, `GET /api/orders/me/`. No card data on our server. Backend feature freeze. |
-| F1 | lead → ui → i18n → header → footer → gateway → catalog → textile → baby → api | Figma shell, three UI languages including `ru.json`. |
-| F2 | lead → catalog → i18n → header → textile → baby → ui → gateway → footer → api | Lists come from the API; stores do not mix. |
-| F3 | lead → catalog → textile → i18n → ui → header → baby → gateway → footer → api | Product page and Textile layout. |
-| F4 | lead → baby → ui → catalog → i18n → header → footer → textile → gateway → api | Baby layout and 375px pass. |
-| F5 | lead → catalog → header → i18n → api → ui → footer → gateway → textile → baby | Cart, register/login, redirect to Idram. No card fields in React. |
-| F6 | lead → api → header → catalog → i18n → ui → gateway → footer → textile → baby | Return pages do not trust `?success`; order history; QA. |
-| D1 | lead → api → ui → i18n → catalog → header → footer → gateway → textile → baby | VPS, Docker Compose, domain, HTTPS, Postgres. Live Idram URLs. |
+Merge order: **Lead → Suro → Artush → catalog → Daniel → Hayk → Karen → Svet → Mariam → ui**.
 
-Calendar to adjust: B1 6 Nov / merge 9 Nov; B2 10 / 11; B3 12 / 13; F1 16–17; F2 18–19; F3 20 and 23; F4 24–25; F5 26–27; F6 30 Nov–1 Dec; D1 2–3 Dec.
+| Zone | Do this | Lead merges only when |
+|------|---------|------------------------|
+| Lead | Merge in that order. After ui, migrate a fresh sqlite and open health and admin | User, both stores, newsletter, and home slot exist in admin |
+| Suro | Email is the login. Empty `catalog`, `leads`, `content` packages. Register them. Do not fill their models | Superuser asks for email; Swagger opens; health stays `{"status":"ok"}` |
+| Artush | `languages.py` with `am`, `en`, `ru` and an abstract translation. Do not edit the health view or frontend JSON | Three codes import from one module; core migration applies |
+| catalog | Category (`store` textile or baby), Product (AMD `Decimal`, sku), images, Unfold admin | A product with three translations saves in admin; no `search.py` |
+| Daniel | `NewsletterSubscriber` (unique email) and `WholesaleInquiry`. No public URL | Both models are in admin; duplicate subscriber email is rejected |
+| Hayk | `HomeBlock` with title and text in three languages. Do not restyle `/` | Slot `hero` saves in three languages |
+| Karen | `seed_textile`: two categories, one product, three languages. Do not change model fields or the page | Second run does not duplicate slugs or delete Baby |
+| Svet | `seed_baby`, same rules, `store=baby`. Do not delete Textile | Admin filter shows both stores |
+| Mariam | `search_products` in `search.py` only. Match sku and translated name. Empty query returns the queryset | Finds Karen’s and Svet’s products; `models.py` is untouched |
+| ui | SQLite tests for user, both stores, a product with no `ru` translation, and a subscriber | `manage.py test` is green with no network |
 
-Zone files match the Russian section «Чьи файлы». Step-by-step for every zone is in the Russian sections **B1**–**D1** above; the done-when column is the contract in English.
+The Russian sections above are the full steps. Follow the row for your zone.
 
 ## Հայերեն
 
-Նույն տասը գոտիները։ Նշված են **Aram** (lead), **Suro** (api), **Artush** (i18n), **Hayk** (gateway), **Mariam** (header)։ Մյուս հինգ անունները դատարկ են։ Հիմա բաց է **B1**-ը ([TASK.md](TASK.md))։ Aram-ի առաջադրանքի օրը փակ է. նա վարում է merge-ը և սպասում է PR-ներին։ Մեկ օրը առաջադրանք է, հաջորդ օրը՝ merge `dev`-ի մեջ։ `main` չենք push անում։
+Սա իրական խանութի տվյալներն են՝ Textile և Baby։ Այս առաջադրանքը միայն մոդելներ և ադմին է։ Մակետից էջ դեռ չենք հավաքում։
 
-Լեզուներ՝ **`am`, `en`, `ru`**։ `ru.json`-ը F1-ում։ `<html lang>`-ը ակտիվ կոդն է։
+Մակետներ.
 
-Վճարում․ գնորդը գրանցվում կամ մտնում է, հետո վճարում է **Idram**-ի էջում (Հայաստան)։ VISA և Mastercard լրացվում են միայն Idram-ում։ `paid` լինելուց հետո խանութը ստանում է մեկ նամակ (`ORDER_NOTIFY_EMAIL`), պատվերը երևում է `GET /api/orders/me/`-ում։
+- [Ventum խանութ](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
+- [Ventum երկրորդ ֆայլ](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
+
+Ավարտել մինչև դեկտեմբերի վերջ։ Միայն SQLite։ Ադմին՝ `/api/admin/`։ Health՝ `/api/health/`։ Մեկ PR = մեկ գոտի, base-ը `dev`։ `main` չենք push անում։
 
 | # | Անուն | Ճյուղ | Գոտի |
 |---|------|--------|------|
-| 1 | Aram | `feat/aram-lead` | lead |
+| 1 | Lead | `feat/lead` | lead |
 | 2 | Suro | `feat/suro-api` | api |
 | 3 | Artush | `feat/artush-i18n` | i18n |
 | 4 | Hayk | `feat/hayk-gateway` | gateway |
 | 5 | Mariam | `feat/mariam-header` | header |
-| 6 |  | `feat/<անուն>-footer` | footer |
-| 7 |  | `feat/<անուն>-textile` | textile |
-| 8 |  | `feat/<անուն>-baby` | baby |
+| 6 | Daniel | `feat/daniel-footer` | footer |
+| 7 | Karen | `feat/karen-textile` | textile |
+| 8 | Svet | `feat/svet-baby` | baby |
 | 9 |  | `feat/<անուն>-catalog` | catalog |
 | 10 |  | `feat/<անուն>-ui` | ui |
 
-| Ալիք | Merge | Պատրաստ է, երբ |
-|------|--------|----------------|
-| B1 | lead → api → i18n → catalog → footer → gateway → textile → baby → header → ui | Admin-ում կա user, textile/baby ապրանք am/en/ru թարգմանությամբ, newsletter, գլխավոր բլոկ։ SQLite։ |
-| B2 | lead → api → i18n → catalog → header → footer → gateway → textile → baby → ui | JWT, կատալոգ, որոնում, զամբյուղ միայն մտած օգտատիրոջ, newsletter, wholesale, home API։ |
-| B3 | lead → api → catalog → header → i18n → footer → ui → gateway → textile → baby | Պատվեր pending → Idram հաստատում → paid, մեկ նամակ, պատվերի պատմություն։ Քարտի տվյալ չենք պահում։ Backend-ը սառեցվում է։ |
-| F1 | lead → ui → i18n → header → footer → gateway → catalog → textile → baby → api | Figma կարկաս, երեք լեզու, այդ թվում `ru.json`։ |
-| F2 | lead → catalog → i18n → header → textile → baby → ui → gateway → footer → api | Ցուցակները API-ից են, խանութները չեն խառնվում։ |
-| F3 | lead → catalog → textile → i18n → ui → header → baby → gateway → footer → api | Ապրանքի էջ և Textile։ |
-| F4 | lead → baby → ui → catalog → i18n → header → footer → textile → gateway → api | Baby և 375px։ |
-| F5 | lead → catalog → header → i18n → api → ui → footer → gateway → textile → baby | Զամբյուղ, գրանցում/մուտք, անցում Idram։ React-ում քարտի դաշտ չկա։ |
-| F6 | lead → api → header → catalog → i18n → ui → gateway → footer → textile → baby | Վերադարձի էջը չի հավատում `?success`-ին, պատմություն, QA։ |
-| D1 | lead → api → ui → i18n → catalog → header → footer → gateway → textile → baby | VPS, Docker Compose, դոմեն, HTTPS, Postgres, կենդանի Idram URL-ներ։ |
+Merge-ի կարգը՝ **Lead → Suro → Artush → catalog → Daniel → Hayk → Karen → Svet → Mariam → ui**։
 
-Օրացույց (կարելի է տեղափոխել)՝ B1 նոյ 6 / merge նոյ 9; B2 10 / 11; B3 12 / 13; F1 16–17; F2 18–19; F3 20 և 23; F4 24–25; F5 26–27; F6 նոյ 30 – դեկ 1; D1 դեկ 2–3։
+| Գոտի | Անել | Lead-ը merge է անում, երբ |
+|------|------|---------------------------|
+| Lead | PR-ները այս կարգով։ ui-ից հետո՝ մաքուր sqlite, health և ադմին | Ադմինում կան user, երկու խանութ, newsletter, գլխավոր սլոթ |
+| Suro | Մուտքը email-ով։ Դատարկ `catalog`, `leads`, `content`։ Մոդելները չլրացնել | Superuser-ը հարցնում է email; Swagger-ը բացվում է; health-ը `{"status":"ok"}` է |
+| Artush | `am`, `en`, `ru` և աբստրակտ թարգմանություն։ Health-ը և frontend JSON-ը չփոխել | Երեք կոդ մեկ մոդուլից են; միգրացիան անցնում է |
+| catalog | Category (`store` textile կամ baby), Product (AMD, sku), նկարներ, ադմին | Երեք թարգմանությամբ ապրանքը պահվում է; `search.py` չկա |
+| Daniel | `NewsletterSubscriber` (եզակի email) և `WholesaleInquiry`։ Հանրային URL չկա | Երկու մոդելն էլ ադմինում են; կրկնակի email-ը մերժվում է |
+| Hayk | `HomeBlock` երեք լեզվով։ `/` էջը չձևավորել | `hero` սլոթը պահվում է երեք լեզվով |
+| Karen | `seed_textile`՝ երկու կատեգորիա, մեկ ապրանք, երեք լեզու | Երկրորդ անգամը slug չի կրկնում և Baby-ն չի ջնջում |
+| Svet | `seed_baby`, `store=baby`։ Textile-ը չջնջել | Ֆիլտրը ցույց է տալիս երկու խանութը |
+| Mariam | Միայն `search.py`։ sku և թարգմանված անուն։ Դատարկ հարցումը queryset-ը չի կտրում | Գտնում է Karen-ի և Svet-ի ապրանքը; `models.py` չի փոխվել |
+| ui | SQLite թեստեր՝ user, երկու խանութ, ապրանք առանց `ru`, բաժանորդ | `manage.py test`-ը կանաչ է, առանց ցանցի |
 
-Ֆայլերի սահմանները և քայլ առ քայլ առաջադրանքը ռուսերեն **B1**–**D1** բաժիններում են։ Աղյուսակի «պատրաստ է» սյունը հայերեն պայմանագիրն է։
+Քայլ առ քայլ տեքստը ռուսերեն բաժիններում է։ Աղյուսակի տողը քո պայմանագիրն է։

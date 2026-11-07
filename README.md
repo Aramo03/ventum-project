@@ -7,8 +7,8 @@
 ## С чего начать
 
 1. [CONTRIBUTING.md](CONTRIBUTING.md) — git: `main` не трогать, работа в своей ветке, PR только в `dev`. День задания, следующий день — merge
-2. [task-advanced.md](task-advanced.md) — зоны на весь проект (имена пустые). Сейчас открыта волна B1
-3. [TASK.md](TASK.md) — таблица только текущей волны
+2. [task-advanced.md](task-advanced.md) — задание B1: зоны и что сдавать. Срок — до конца декабря
+3. [TASK.md](TASK.md) — короткий список зон
 4. Макет: [Figma Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
 
 ## Стек
@@ -50,9 +50,8 @@ Health: `http://127.0.0.1:8000/api/health/`
 
 - Django без бизнес-моделей: админка, Swagger, `GET /api/health/`
 - React: `/`, `/textile`, `/baby`, 404
-- Header и Footer — заготовки с текстами из макета. Сейчас в коде `am` и `en`. Файл `ru.json` и третий язык интерфейса — волна F1. Контент товаров с B1 сразу на `am` / `en` / `ru`
-- Оплата Idram и письмо магазину — волны B3 и F5–F6, не в каркасе. Описание: [docs/idram.md](docs/idram.md), [docs/order-email.md](docs/order-email.md)
-- Вёрстки по Figma ещё нет. Её делают ученики в волнах F1–F6
+- Header и Footer — заготовки. В интерфейсе сейчас `am` и `en`. Тексты товаров в этом задании — `am` / `en` / `ru`
+- Макеты магазина: [кадр](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495) и [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1). В текущем задании по ним не верстаем
 
 ## Правила
 
@@ -62,8 +61,8 @@ Health: `http://127.0.0.1:8000/api/health/`
 
 ## English
 
-Ventum shop skeleton for a class of ten. **SQLite** by default — no PostgreSQL setup. Copy `backend/.env.example` to `.env` if you want; otherwise defaults apply. PostgreSQL and the VPS are wave D1: [docs/postgresql.md](docs/postgresql.md). Full zone map: [task-advanced.md](task-advanced.md). Current wave: [TASK.md](TASK.md). PRs into `dev` only. UI languages end as `am` / `en` / `ru` (`ru.json` in F1).
+Ventum shop skeleton. **SQLite** by default. Assignment: [task-advanced.md](task-advanced.md). Short list: [TASK.md](TASK.md). Finish by the end of December. PRs into `dev` only. Product text languages: `am` / `en` / `ru`.
 
 ## Հայերեն
 
-Ուսումնական կարկաս՝ **SQLite**-ով, PostgreSQL-ի տեղադրում պետք չէ։ VPS-ը և PostgreSQL-ը D1 ալիքն են՝ [docs/postgresql.md](docs/postgresql.md)։ Գոտիների քարտեզը՝ [task-advanced.md](task-advanced.md)։ Ընթացիկ ալիքը՝ [TASK.md](TASK.md)։ PR-ը միայն `dev`։ Լեզուները վերջում՝ `am` / `en` / `ru` (`ru.json`-ը F1-ում)։
+Ուսումնական կարկաս՝ **SQLite**-ով։ Առաջադրանքը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ PR-ը միայն `dev`։ Ապրանքի լեզուները՝ `am` / `en` / `ru`։

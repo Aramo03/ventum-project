@@ -1,11 +1,11 @@
 # header — Mariam
 
 **Ветка:** `feat/mariam-header`  
-**Задание B1:** [task-advanced.md](../../../../task-advanced.md) — «Mariam · header».
+**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Mariam · header».
 
-`Header.jsx` и стили в B1 не менять. Шапка по Figma — волна F1, вход и бейдж корзины — F5.
+`Header.jsx` и стили не менять.
 
-Сейчас только файл `backend/apps/catalog/search.py` (после merge catalog):
+Только `backend/apps/catalog/search.py`, после merge catalog, Karen и Svet:
 
 - `search_products(queryset, query)`
 - пустой запрос ничего не фильтрует
@@ -16,8 +16,8 @@
 
 ## English
 
-Mariam. B1 is `search.py` only, after the catalog models are merged. Do not redesign the header yet.
+Mariam. `search.py` only, after catalog, Karen, and Svet are merged. Do not redesign the header.
 
 ## Հայերեն
 
-Mariam։ B1-ում միայն `search.py`, catalog-ի merge-ից հետո։ Header-ի դիզայնը դեռ չանել։
+Mariam։ Միայն `search.py`, catalog-ի, Karen-ի և Svet-ի merge-ից հետո։ Header-ը չձևավորել։
