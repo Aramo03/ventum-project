@@ -3,7 +3,7 @@
 **Ветка:** `feat/svet-baby`  
 **Задание:** [task-advanced.md](../../../../task-advanced.md) — «Svet · baby».
 
-Страницу `/baby` не собирать. После merge catalog — `seed_baby`:
+Страницу `/baby` не собирать. После merge Vach (ученик 9, зона catalog) — `seed_baby`:
 
 - две категории `store=baby` и один товар, цена AMD
 - переводы `am`, `en`, `ru`
@@ -14,8 +14,8 @@
 
 ## English
 
-Svet, `feat/svet-baby`. Seed `store=baby` after the catalog merge. Do not build the page and do not delete Textile data.
+Svet, student 8, `feat/svet-baby`. Seed `store=baby` after Vach (student 9, catalog) is merged. Do not build the page and do not delete Textile data.
 
 ## Հայերեն
 
-Svet, `feat/svet-baby`։ Catalog-ի merge-ից հետո `store=baby`։ Էջը չհավաքել և Textile-ի տվյալները չջնջել։
+Svet, աշակերտ 8, `feat/svet-baby`։ Vach-ի (աշակերտ 9, catalog) merge-ից հետո `store=baby`։ Էջը չհավաքել և Textile-ի տվյալները չջնջել։

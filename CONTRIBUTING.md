@@ -6,7 +6,7 @@
 
 Задание и зоны — в [task-advanced.md](task-advanced.md). Короткий список — в [TASK.md](TASK.md). Срок: до конца декабря.
 
-Сейчас каждый пишет только свою зону этого задания: Suro — пользователь и пустые приложения, Artush — языки, catalog — товары, Daniel — заявки, Hayk — слоты главной, Karen и Svet — данные магазинов, Mariam — поиск. Страницы по макету в этом задании не собираем.
+Сейчас каждый пишет только свою зону Wave 1: Suro (2) — пользователь и пустые приложения, Artush (3) — языки, Hayk (4) — слоты главной, Mariam (5) — поиск, Daniel (6) — заявки, Karen (7) и Svet (8) — данные магазинов, Vach (9) — товары, Ashot (10) — тесты моделей. Страницы по макету в этом задании не собираем. Номер ученика один и тот же в [TASK.md](TASK.md) и в заголовках [task-advanced.md](task-advanced.md).
 
 ## Ветки
 
@@ -14,7 +14,7 @@
 |--------|-------------|--------|
 | `main` | никто из учеников | стабильная версия |
 | `dev` | Lead после ревью PR | сборка команды |
-| `feat/<имя>-<зона>` | только ты | твоя работа. Назначены: `feat/lead`, `feat/suro-api`, `feat/artush-i18n`, `feat/hayk-gateway`, `feat/mariam-header`, `feat/daniel-footer`, `feat/karen-textile`, `feat/svet-baby` |
+| `feat/<имя>-<зона>` | только ты | твоя работа. Назначены: `feat/lead`, `feat/suro-api`, `feat/artush-i18n`, `feat/hayk-gateway`, `feat/mariam-header`, `feat/daniel-footer`, `feat/karen-textile`, `feat/svet-baby`, `feat/vach-catalog`, `feat/ashot-ui` |
 
 Зоны: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, `catalog`, `ui`.
 
@@ -53,7 +53,7 @@ git push -u origin HEAD
 
 Work only on your own branch. Do not push or merge into `main`. The only branch that receives pull requests is `dev`.
 
-The assignment is in [task-advanced.md](task-advanced.md). The short list is [TASK.md](TASK.md). Finish by the end of December. This assignment is models and admin, not the Figma layout.
+Wave 1 is in [task-advanced.md](task-advanced.md). The short list is [TASK.md](TASK.md). Finish by the end of December. This wave is models and admin, not the Figma layout. Student numbers match in both files. Vach is 9 on `feat/vach-catalog`. Ashot is 10 on `feat/ashot-ui`. Hand your agent the matching file in `docs/agents/`.
 
 ```bash
 git clone <repo-url>
@@ -71,7 +71,7 @@ Zones: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, 
 
 Աշխատում ենք միայն մեր ճյուղում: `main` չենք push անում և չենք merge անում: PR-ը միայն `dev` է:
 
-Առաջադրանքը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ Այս առաջադրանքը մոդելներ և ադմին է, ոչ թե մակետի էջեր։
+Wave 1-ը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ Այս ալիքը մոդելներ և ադմին է, ոչ թե մակետի էջեր։ Աշակերտի համարը երկու ֆայլում նույնն է։ Vach-ը 9-ն է՝ `feat/vach-catalog`։ Ashot-ը 10-ն է՝ `feat/ashot-ui`։ Գործակալին տուր `docs/agents/`-ի իր ֆայլը։
 
 ```bash
 git clone <repo-url>

@@ -3,7 +3,7 @@
 **Ветка:** `feat/karen-textile`  
 **Задание:** [task-advanced.md](../../../../task-advanced.md) — «Karen · textile».
 
-Страницу `/textile` не собирать. Макеты в задании. После merge catalog добавь `seed_textile` или фикстуру:
+Страницу `/textile` не собирать. Макеты в задании. После merge Vach (ученик 9, зона catalog) добавь `seed_textile` или фикстуру:
 
 - две категории `store=textile`
 - один товар с ценой AMD
@@ -15,8 +15,8 @@
 
 ## English
 
-Karen, `feat/karen-textile`. Seed `store=textile` after the catalog merge. Do not build the page and do not change model fields.
+Karen, student 7, `feat/karen-textile`. Seed `store=textile` after Vach (student 9, catalog) is merged. Do not build the page and do not change model fields.
 
 ## Հայերեն
 
-Karen, `feat/karen-textile`։ Catalog-ի merge-ից հետո `store=textile` տվյալներ։ Էջը չհավաքել և մոդելի դաշտերը չփոխել։
+Karen, աշակերտ 7, `feat/karen-textile`։ Vach-ի (աշակերտ 9, catalog) merge-ից հետո `store=textile` տվյալներ։ Էջը չհավաքել և մոդելի դաշտերը չփոխել։

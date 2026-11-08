@@ -5,7 +5,7 @@
 
 `Header.jsx` и стили не менять.
 
-Только `backend/apps/catalog/search.py`, после merge catalog, Karen и Svet:
+Только `backend/apps/catalog/search.py`, после merge Vach (ученик 9), Karen (ученик 7) и Svet (ученик 8):
 
 - `search_products(queryset, query)`
 - пустой запрос ничего не фильтрует
@@ -16,8 +16,8 @@
 
 ## English
 
-Mariam. `search.py` only, after catalog, Karen, and Svet are merged. Do not redesign the header.
+Mariam, student 5. `search.py` only, after Vach (student 9), Karen (7), and Svet (8) are merged. Do not redesign the header.
 
 ## Հայերեն
 
-Mariam։ Միայն `search.py`, catalog-ի, Karen-ի և Svet-ի merge-ից հետո։ Header-ը չձևավորել։
+Mariam, աշակերտ 5։ Միայն `search.py`, Vach-ի (աշակերտ 9), Karen-ի (7) և Svet-ի (8) merge-ից հետո։ Header-ը չձևավորել։

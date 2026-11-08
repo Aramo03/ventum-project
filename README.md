@@ -7,7 +7,7 @@
 ## С чего начать
 
 1. [CONTRIBUTING.md](CONTRIBUTING.md) — git: `main` не трогать, работа в своей ветке, PR только в `dev`. День задания, следующий день — merge
-2. [task-advanced.md](task-advanced.md) — задание B1: зоны и что сдавать. Срок — до конца декабря
+2. [task-advanced.md](task-advanced.md) — Wave 1: зоны и что сдавать. Срок — до конца декабря. Номер ученика там совпадает с [TASK.md](TASK.md). Файл для агента — в `docs/agents/`
 3. [TASK.md](TASK.md) — короткий список зон
 4. Макет: [Figma Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
 
@@ -61,8 +61,8 @@ Health: `http://127.0.0.1:8000/api/health/`
 
 ## English
 
-Ventum shop skeleton. **SQLite** by default. Assignment: [task-advanced.md](task-advanced.md). Short list: [TASK.md](TASK.md). Finish by the end of December. PRs into `dev` only. Product text languages: `am` / `en` / `ru`.
+Ventum shop skeleton. **SQLite** by default. Wave 1: [task-advanced.md](task-advanced.md). Short list: [TASK.md](TASK.md). Student numbers match in both. Agent briefs: `docs/agents/`. Finish by the end of December. PRs into `dev` only. Product text languages: `am` / `en` / `ru`.
 
 ## Հայերեն
 
-Ուսումնական կարկաս՝ **SQLite**-ով։ Առաջադրանքը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ PR-ը միայն `dev`։ Ապրանքի լեզուները՝ `am` / `en` / `ru`։
+Ուսումնական կարկաս՝ **SQLite**-ով։ Wave 1՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Աշակերտի համարը նույնն է։ Գործակալի ֆայլերը՝ `docs/agents/`։ Ավարտել մինչև դեկտեմբերի վերջ։ PR-ը միայն `dev`։ Ապրանքի լեզուները՝ `am` / `en` / `ru`։
