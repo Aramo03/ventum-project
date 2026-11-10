@@ -10,15 +10,6 @@ from apps.catalog.models import (
 )
 
 
-def _published_defaults():
-    field_names = {field.name for field in Product._meta.fields}
-    if "is_published" in field_names:
-        return {"is_published": True}
-    if "published" in field_names:
-        return {"published": True}
-    return {}
-
-
 class CatalogModelTests(TestCase):
     def test_category_with_three_name_translations(self):
         category = Category.objects.create(slug="textile-bedding", store="textile")
@@ -53,13 +44,13 @@ class CatalogModelTests(TestCase):
             category=textile_category,
             price=Decimal("25000.00"),
             sku="TEXTILE-TEST-001",
-            **_published_defaults(),
+            is_published=True,
         )
         baby_product = Product.objects.create(
             category=baby_category,
             price=Decimal("15000.00"),
             sku="BABY-TEST-001",
-            **_published_defaults(),
+            is_published=True,
         )
 
         self.assertEqual(textile_product.category.store, "textile")
@@ -68,14 +59,8 @@ class CatalogModelTests(TestCase):
         self.assertIsInstance(baby_product.price, Decimal)
         self.assertEqual(textile_product.sku, "TEXTILE-TEST-001")
         self.assertEqual(baby_product.sku, "BABY-TEST-001")
-
-        published_field = next(
-            (name for name in ("is_published", "published") if hasattr(textile_product, name)),
-            None,
-        )
-        if published_field is not None:
-            self.assertTrue(getattr(textile_product, published_field))
-            self.assertTrue(getattr(baby_product, published_field))
+        self.assertTrue(textile_product.is_published)
+        self.assertTrue(baby_product.is_published)
 
     def test_product_without_ru_translation_still_saves(self):
         category = Category.objects.create(slug="textile-sheets", store="textile")
@@ -83,7 +68,7 @@ class CatalogModelTests(TestCase):
             category=category,
             price=Decimal("12000.00"),
             sku="TEXTILE-NO-RU-001",
-            **_published_defaults(),
+            is_published=True,
         )
         ProductTranslation.objects.create(
             product=product,
