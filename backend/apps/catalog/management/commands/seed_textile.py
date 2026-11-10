@@ -6,6 +6,13 @@ from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
+from apps.catalog.models import (
+    Category,
+    CategoryTranslation,
+    Product,
+    ProductImage,
+    ProductTranslation,
+)
 from apps.core.languages import LANGUAGE_CODES
 
 
@@ -46,32 +53,7 @@ PRODUCT_DESCRIPTIONS = {
 SEED_IMAGE = Path(settings.BASE_DIR) / "apps" / "catalog" / "seed_assets" / "textile-product.jpg"
 
 
-def _require_catalog_models():
-    try:
-        from apps.catalog.models import (
-            Category,
-            CategoryTranslation,
-            Product,
-            ProductImage,
-            ProductTranslation,
-        )
-    except ImportError as exc:
-        raise CommandError(
-            "Catalog models are missing. Merge Vach (feat/vach-catalog) before running seed_textile."
-        ) from exc
-    return Category, CategoryTranslation, Product, ProductImage, ProductTranslation
-
-
-def _published_defaults(Product):
-    field_names = {field.name for field in Product._meta.fields}
-    if "is_published" in field_names:
-        return {"is_published": True}
-    if "published" in field_names:
-        return {"published": True}
-    return {}
-
-
-def _upsert_category_translations(CategoryTranslation, category, names):
+def _upsert_category_translations(category, names):
     for language in LANGUAGE_CODES:
         CategoryTranslation.objects.update_or_create(
             category=category,
@@ -80,7 +62,7 @@ def _upsert_category_translations(CategoryTranslation, category, names):
         )
 
 
-def _upsert_product_translations(ProductTranslation, product, names, descriptions):
+def _upsert_product_translations(product, names, descriptions):
     for language in LANGUAGE_CODES:
         ProductTranslation.objects.update_or_create(
             product=product,
@@ -97,46 +79,54 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        Category, CategoryTranslation, Product, ProductImage, ProductTranslation = (
-            _require_catalog_models()
-        )
-
         if not SEED_IMAGE.is_file():
             raise CommandError(f"Seed image not found: {SEED_IMAGE}")
 
         categories = []
         for spec in CATEGORIES:
+            existing = Category.objects.filter(slug=spec["slug"]).first()
+            if existing is not None and existing.store != TEXTILE_STORE:
+                raise CommandError(
+                    f"Refusing to change store for existing slug {spec['slug']} "
+                    f"(store={existing.store})."
+                )
             category, _created = Category.objects.update_or_create(
                 slug=spec["slug"],
                 defaults={"store": TEXTILE_STORE},
             )
-            _upsert_category_translations(CategoryTranslation, category, spec["names"])
+            _upsert_category_translations(category, spec["names"])
             categories.append(category)
 
         primary_category = categories[0]
-        product_defaults = {
-            "category": primary_category,
-            "price": PRODUCT_PRICE,
-            **_published_defaults(Product),
-        }
+        existing_product = (
+            Product.objects.filter(sku=PRODUCT_SKU).select_related("category").first()
+        )
+        if (
+            existing_product is not None
+            and existing_product.category.store != TEXTILE_STORE
+        ):
+            raise CommandError(
+                f"SKU {PRODUCT_SKU} belongs to "
+                f"store={existing_product.category.store}; not overwriting."
+            )
         product, _created = Product.objects.update_or_create(
             sku=PRODUCT_SKU,
-            defaults=product_defaults,
+            defaults={
+                "category": primary_category,
+                "price": PRODUCT_PRICE,
+                "is_published": True,
+            },
         )
-        _upsert_product_translations(
-            ProductTranslation,
-            product,
-            PRODUCT_NAMES,
-            PRODUCT_DESCRIPTIONS,
-        )
+        _upsert_product_translations(product, PRODUCT_NAMES, PRODUCT_DESCRIPTIONS)
 
         image, _created = ProductImage.objects.update_or_create(
             product=product,
             order=0,
             defaults={"alt": PRODUCT_NAMES["en"]},
         )
-        with SEED_IMAGE.open("rb") as image_file:
-            image.image.save(SEED_IMAGE.name, File(image_file), save=True)
+        if not image.image:
+            with SEED_IMAGE.open("rb") as image_file:
+                image.image.save(SEED_IMAGE.name, File(image_file), save=True)
 
         self.stdout.write(
             self.style.SUCCESS(

@@ -3,71 +3,120 @@
 **Ветка:** `feat/karen-textile`  
 **Агент:** [docs/agents/07-karen.md](../../agents/07-karen.md)
 
+Журнал того, что было в коммите `6c5f79a`, и что из этого лишний код. Модели и админку Vach этот коммит не менял. `frontend/src/pages/Textile/` в diff нет.
+
 ---
 
 ## Русский
 
-### Ошибка 1: `seed_textile` до merge Vach
+### Ошибка 1: нет проверки store до `update_or_create`
 
-**Симптом:** `CommandError: Catalog models are missing` или `ImportError` из `apps.catalog.models`.
+**Симптом:** если slug или sku уже занят Baby, строка молча становится `store=textile`. `CommandError` нет.
 
-**Причина:** Karen пишет **данные**, схему — Vach (9). На `dev` без Vach моделей команда не выполняется.
+**Причина:** `defaults={"store": "textile"}` и `defaults={"category": ...}` пишутся сразу. Проверки магазина до записи не было.
 
-**Исправление:** после merge `feat/vach-catalog` в `dev` — `migrate`, затем `seed_textile` (можно дважды).
+**Исправление:** сначала `filter` по slug и sku. Если магазин не `textile` — `CommandError` и выход без `update`.
 
-### Ошибка 2: ветка без актуального `dev`
+### Ошибка 2: картинка пишется на каждый запуск
 
-**Симптом:** нет `leads`, `content`, падения migrate.
+**Симптом:** в БД одна `ProductImage`, в media появляются `textile-product.jpg`, затем `textile-product_xxxx.jpg`.
 
-**Исправление:** `git checkout -B feat/karen-textile origin/dev`.
+**Причина:** `image.image.save(...)` вызывался всегда. Storage не затирает занятое имя.
 
-### Ошибка 3: `Category.objects.all().delete()` или сброс каталога
+**Исправление:** сохранять файл только если `ProductImage.image` ещё пустое.
 
-**Симптом:** пропадают записи `store=baby`.
+### Лишний код (убран)
 
-**Исправление:** только `update_or_create` по slug / sku; **не** удалять чужие строки.
-
-### Ошибка 4: дубликаты slug при повторном запуске
-
-**Симптом:** `IntegrityError` на втором `seed_textile`.
-
-**Исправление:** стабильные slug (`textile-fabrics`, `textile-home`) и sku (`TEXTILE-SAMPLE-001`).
-
-### Ошибка 5: картинка по URL
-
-**Симптом:** `ImageField` с http-ссылкой.
-
-**Исправление:** файл в репозитории — [`backend/apps/catalog/seed_assets/textile-product.jpg`](../../../backend/apps/catalog/seed_assets/textile-product.jpg).
-
-### Ошибка 6: правка `catalog/models.py` или Textile JSX
-
-**Симптом:** diff в моделях или `frontend/src/pages/Textile/`.
-
-**Исправление:** зона Karen — только `seed_textile` (и при необходимости fixture), не схема.
+| Код | Почему лишний |
+|-----|----------------|
+| `_published_defaults()` | Угадывал `is_published`, `published` или пустой dict. У Vach поле одно: `Product.is_published`. Пустой dict оставил бы товар неопубликованным. |
+| `_require_catalog_models()` | Ловил `ImportError`, потому что ветка отведена до моделей Vach. На `dev` модели есть — прямой импорт. |
 
 ### Что не «лишний код»
 
 | Элемент | Зачем |
 |---------|--------|
-| `management/commands/seed_textile.py` | DoD |
-| `LANGUAGE_CODES` из `apps.core` | не копировать `am/en/ru` |
-| `seed_assets/*.jpg` | картинка из репо |
+| `update_or_create` по slug, sku, языку, `order=0` | второй запуск не плодит slug и не падает |
+| `LANGUAGE_CODES` из `apps.core.languages` | `am`, `en`, `ru` без своего списка |
+| `description` в переводе товара | у `ProductTranslation.description` нет default |
+| `Decimal("24900.00")` и `is_published=True` | цена AMD и опубликованный товар |
+| slug `textile-fabrics`, `textile-home` | не пересекаются с `baby-*` Svet |
+| `seed_assets/textile-product.jpg` | картинка из репозитория, не URL |
+| пустые `management/__init__.py` | пакет команды Django |
+| `transaction.atomic` | сбой не оставляет половину сида |
 
-### Чеклист (после Vach в `dev`)
+### Чего не делали
 
-- [ ] `del ventum.sqlite3`, `migrate`
-- [ ] `seed_textile` × 2 без падений и дубликатов slug
-- [ ] Админ: `store=textile` — 2 категории, 1 товар
-- [ ] Baby не трогали
+- поля `Category` / `Product` и `admin.py` (зона Vach)
+- `frontend/src/pages/Textile/`
+- удаление или перезапись строк Baby
+- копия `seed_baby` в эту ветку
+
+### Чеклист
+
+Прогон на чистой SQLite поверх `origin/dev` (модели Vach). Baby-строки создаёт уже лежащий в `dev` `seed_baby`, в коммит Karen он не входит:
+
+- [x] `migrate`
+- [x] `seed_baby` → `seed_textile` → `seed_textile`: категории textile = 2, товар textile = 1, slug не двоятся
+- [x] строки Baby те же после обоих запусков `seed_textile`
+- [x] второй запуск не создаёт второй файл картинки
+- [x] slug со `store=baby` команда не переписывает
+- [x] `frontend/src/pages/Textile/` не в diff
 
 ---
 
 ## English
 
-Run `seed_textile` only after Vach catalog models exist. Use `update_or_create`, no global deletes, image from `seed_assets/`. Do not edit `models.py` or the Textile page.
+### Mistakes in `6c5f79a`
+
+There was no store check before `update_or_create`, so a Baby slug or sku would be rewritten to Textile. `image.save` ran on every seed and created extra media files.
+
+### Extra code removed
+
+`_published_defaults()` guessed `is_published` / `published`. `_require_catalog_models()` only existed because this branch started before Vach. Import the catalog models directly and set `is_published=True`.
+
+### Keep
+
+Idempotent `update_or_create`, `LANGUAGE_CODES`, product descriptions, `Decimal` AMD price, `textile-*` slugs, repo image, `transaction.atomic`.
+
+### Out of scope
+
+Model fields, catalog admin, the Textile page, Svet’s Baby rows, copying `seed_baby` into this branch.
+
+### Checklist
+
+- [x] `migrate` on a clean SQLite file from `dev`
+- [x] `seed_baby`, then `seed_textile` twice: 2 textile categories, 1 textile product, no new slugs
+- [x] Baby rows unchanged
+- [x] second run does not add another image file
+- [x] a slug with `store=baby` is not rewritten
+- [x] no diff under `frontend/src/pages/Textile/`
 
 ---
 
 ## Հայերեն
 
-Vach-ի merge-ից հետո միայն `seed_textile`։ Գլոբալ `delete` չանել։ Նկարը repo-ից։ `models.py` և Textile էջը չփոխել։
+### Սխալներ `6c5f79a`-ում
+
+Store-ի ստուգում `update_or_create`-ից առաջ չկար. Baby-ի slug-ը կամ sku-ն լուռ կդառնար Textile. `image.save`-ը ամեն անգամ նոր ֆայլ էր թողնում media-ում։
+
+### Հանած ավելորդ կոդ
+
+`_published_defaults()`-ը գուշակում էր `is_published` / `published`. `_require_catalog_models()`-ը պետք էր, որովհետև ճյուղը Vach-ից առաջ էր։ Մոդելները ուղիղ import, `is_published=True`։
+
+### Պահել
+
+`update_or_create`, `LANGUAGE_CODES`, ապրանքի description, AMD `Decimal`, `textile-*` slug, նկարը repo-ից, `transaction.atomic`։
+
+### Չփոխել
+
+Մոդելների դաշտերը, ադմինը, Textile էջը, Svet-ի Baby տողերը։ `seed_baby`-ն այս ճյուղ չպատճենել։
+
+### Ստուգացանկ
+
+- [x] մաքուր SQLite, `migrate` `dev`-ից
+- [x] `seed_baby`, հետո `seed_textile` երկու անգամ. 2 կատեգորիա, 1 ապրանք, նոր slug չկա
+- [x] Baby-ի տողերը նույնն են
+- [x] երկրորդ անգամը նոր նկարի ֆայլ չի ստեղծում
+- [x] `store=baby` slug-ը չի վերագրվում
+- [x] `frontend/src/pages/Textile/` diff-ում չկա
