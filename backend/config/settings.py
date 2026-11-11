@@ -150,6 +150,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Unfold's login form does not send ``next``. Without this, Django sends a
+# successful admin login to the missing ``/accounts/profile/`` page.
+LOGIN_REDIRECT_URL = "/api/admin/"
+
 _DEFAULT_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
