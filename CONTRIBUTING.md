@@ -4,9 +4,9 @@
 
 Ученики работают **только в своей ветке**. В `main` не пушат и не мержат. Максимум, куда можно влить работу — `dev`.
 
-Задание и зоны — в [task-advanced.md](task-advanced.md). Короткий список — в [TASK.md](TASK.md). Срок: до конца декабря.
+Задание и зоны — в [task-wave2.md](task-wave2.md). Короткий список — в [TASK.md](TASK.md). Архив волны 1 — в [task-advanced.md](task-advanced.md). Срок волны 2: до конца января.
 
-Сейчас каждый пишет только свою зону Wave 1: Suro (2) — пользователь и пустые приложения, Artush (3) — языки, Hayk (4) — слоты главной, Mariam (5) — поиск, Daniel (6) — заявки, Karen (7) и Svet (8) — данные магазинов, Vach (9) — товары, Ashot (10) — тесты моделей. Страницы по макету в этом задании не собираем. Номер ученика один и тот же в [TASK.md](TASK.md) и в заголовках [task-advanced.md](task-advanced.md).
+Сейчас каждый пишет только свою зону Wave 2: Suro (2) — аналитика админки, JWT и размер страницы, Artush (3) — выбор перевода и словарь `ru`, Hayk (4) — блоки главной и страница `/`, Mariam (5) — поиск в шапке, Daniel (6) — формы заявок, Karen (7) и Svet (8) — витрины магазинов, Vach (9) — читающее API каталога, Ashot (10) — тесты API и страница 404. Номер ученика один и тот же в [TASK.md](TASK.md) и в заголовках [task-wave2.md](task-wave2.md).
 
 ## Ветки
 
@@ -53,7 +53,7 @@ git push -u origin HEAD
 
 Work only on your own branch. Do not push or merge into `main`. The only branch that receives pull requests is `dev`.
 
-Wave 1 is in [task-advanced.md](task-advanced.md). The short list is [TASK.md](TASK.md). Finish by the end of December. This wave is models and admin, not the Figma layout. Student numbers match in both files. Vach is 9 on `feat/vach-catalog`. Ashot is 10 on `feat/ashot-ui`. Hand your agent the matching file in `docs/agents/`.
+Wave 2 is in [task-wave2.md](task-wave2.md). The short list is [TASK.md](TASK.md). Wave 1 archive: [task-advanced.md](task-advanced.md). Finish by the end of January. This wave is the public API and the storefront. Student numbers match in both files. Vach is 9 on `feat/vach-catalog`. Ashot is 10 on `feat/ashot-ui`. Hand your agent the matching file in `docs/agents/`.
 
 ```bash
 git clone <repo-url>
@@ -71,7 +71,7 @@ Zones: `lead`, `api`, `i18n`, `gateway`, `header`, `footer`, `textile`, `baby`, 
 
 Աշխատում ենք միայն մեր ճյուղում: `main` չենք push անում և չենք merge անում: PR-ը միայն `dev` է:
 
-Wave 1-ը՝ [task-advanced.md](task-advanced.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Ավարտել մինչև դեկտեմբերի վերջ։ Այս ալիքը մոդելներ և ադմին է, ոչ թե մակետի էջեր։ Աշակերտի համարը երկու ֆայլում նույնն է։ Vach-ը 9-ն է՝ `feat/vach-catalog`։ Ashot-ը 10-ն է՝ `feat/ashot-ui`։ Գործակալին տուր `docs/agents/`-ի իր ֆայլը։
+Wave 2-ը՝ [task-wave2.md](task-wave2.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Wave 1-ի արխիվը՝ [task-advanced.md](task-advanced.md)։ Ավարտել մինչև հունվարի վերջ։ Այս ալիքը հրապարակային API-ն ու խանութի էջերն են։ Աշակերտի համարը երկու ֆայլում նույնն է։ Vach-ը 9-ն է՝ `feat/vach-catalog`։ Ashot-ը 10-ն է՝ `feat/ashot-ui`։ Գործակալին տուր `docs/agents/`-ի իր ֆայլը։
 
 ```bash
 git clone <repo-url>

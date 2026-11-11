@@ -1,111 +1,110 @@
-# Agent brief — Wave 1 — #3 Artush
+# Agent brief — Wave 2 — #3 Artush
 
-Отдай этот файл агенту целиком. Номер ученика — **3**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «3 — Artush · i18n» в [task-advanced.md](../../task-advanced.md).
+Отдай этот файл агенту целиком. Номер ученика — **3**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «3 — Artush · i18n» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: `LANGUAGE_CODES`, `BaseTranslation` и правило «нет перевода — объект остаётся, текст из `en`» уже в `dev`. Список кодов не копировать. Health не менять.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 3, Artush, ветка `feat/artush-i18n`, зона `i18n`. README не удалять: [backend/apps/core/README.md](../../backend/apps/core/README.md).
+Ты делаешь зону ученика 3, Artush, ветка `feat/artush-i18n`, зона `i18n`. README не удалять: [backend/apps/core/README.md](../../backend/apps/core/README.md), [frontend/src/i18n/README.md](../../frontend/src/i18n/README.md).
 
-Старт от `dev`, ветка `feat/artush-i18n`, один PR в `dev`. В `main` не пушить. Postgres не поднимать. Страницы не верстать. Срок — конец декабря.
+Старт: `git checkout dev && git pull`, затем `feat/artush-i18n` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-В очереди имён ты после Suro: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Твой класс перевода нужен Vach (9) и Hayk (4). Не начинай модели товара за них.
+В очереди ты сразу после Suro: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
 ### Карта репозитория
 
-- Языки и абстрактная модель живут в `backend/apps/core/`.
-- Health уже в `backend/apps/core/views.py` и `urls.py`. Его не менять. Ответ остаётся `{"status":"ok"}`.
-- Фронтовые словари `frontend/src/i18n/` не трогать. Там сейчас интерфейс, не тексты товаров.
-- Коды контента только `am`, `en`, `ru`.
+- Коды и подписи уже в `backend/apps/core/languages.py`: `am`, `en`, `ru`, `DEFAULT_LANGUAGE = "en"`.
+- Правило выбора текста записано в docstring `BaseTranslation` в `backend/apps/core/models.py`. Вью health в `apps/core/views.py` не трогать.
+- Фронт сейчас знает только `am` и `en`: [frontend/src/i18n/index.js](../../frontend/src/i18n/index.js) и `en.json`. Кнопку `ru` в шапку ставит Mariam. Ты готовишь словарь и регистрацию языка.
+- Vach и Hayk будут импортировать твои функции. Свой разбор `language` им писать нельзя.
 
 ### Зона ответственности
 
-Можно: `backend/apps/core/languages.py` и абстрактная модель перевода в `apps/core`.
+Можно: новый `backend/apps/core/translations.py`, новый `frontend/src/i18n/ru.json`, регистрация `ru` в `index.js`.
 
-Нельзя: вью `/api/health/`, JSON фронта, модели `Category` / `Product` / `HomeBlock`.
+Нельзя: `views.py` health, модели каталога, `Header`, значения `am.json` и `en.json`.
 
 ### Шаги
 
-1. `languages.py`: только коды `am`, `en`, `ru` и человекочитаемые подписи. Остальные модули импортируют коды отсюда, не копируют список.
-2. Абстрактная модель перевода: язык из этого списка. Наследник задаёт связь с родителем. Пара «родитель + язык» уникальна.
-3. В docstring класса дословно зафиксировать правило: нет перевода на язык запроса — объект не удаляется из выдачи; текст берётся из `en`, иначе из любого перевода, который есть.
+1. `parse_language(value)` в `translations.py`. `None` и пустая строка, в том числе из пробелов, возвращают `en`. `am`, `en`, `ru` возвращаются как есть. Любое другое значение, включая `AM`, `RU` и `hy`, поднимает `ValueError`. Неизвестный код нельзя молча превращать в `en`.
+2. `pick_translation(rows, language)`. Ищет строку с этим `language`. Если её нет — строку `en`. Если нет и её — первую по коду языка. Если строк нет — `None`. Функция не удаляет родительский товар или блок из выдачи. Это делает вью, которое всё равно сериализует объект.
+3. В docstring коротко повторить правило волны 1, чтобы Vach и Hayk импортировали модуль, а не копировали текст.
+4. `ru.json` — те же ключи, что сейчас в `en.json`, значения по-русски. В `index.js` добавить ресурс и включить `ru` в `supportedLngs`. Существующие значения `am.json` и `en.json` не менять.
 
 ### Definition of Done
 
-Lead не мержит, пока три кода импортируются из одного модуля, миграция ядра проходит на SQLite, `/api/health/` отвечает `{"status":"ok"}`.
+Lead не мержит, пока: три кода по-прежнему импортируются из `languages.py`; `parse_language("de")` и `parse_language("AM")` поднимают `ValueError`; `parse_language(None)` равен `en`; `pick_translation` на наборе без `ru` возвращает английскую строку; `i18n.changeLanguage('ru')` не падает; health отвечает `{"status":"ok"}`; шапка в diff не изменена.
 
 ### Проверка
 
 ```bash
 cd backend
-python manage.py makemigrations
-python manage.py migrate
-python manage.py test
+python manage.py shell
 ```
 
-Если тестов ещё нет, достаточно `migrate` и ручной проверки, что health не изменился. Открыть `http://127.0.0.1:8000/api/health/`.
+Импортировать `parse_language` и `pick_translation`. Прогнать пустое значение, `ru`, `de`. Затем `python manage.py test` — старые тесты остаются зелёными. На фронте в консоли браузера язык `ru` не должен отвергаться `supportedLngs`.
 
 ### Нельзя
 
-Не менять `views.py` ручки health. Не править `frontend/src/i18n/`. Не писать товар и слот главной.
+Не писать сериализаторы каталога и контента. Не менять health. Не добавлять кнопку языка в Header: это зона Mariam.
 
 ## English
 
-You are student **3**, Artush, branch `feat/artush-i18n`, zone `i18n`. Do not delete [backend/apps/core/README.md](../../backend/apps/core/README.md).
+You are student **3**, Artush, branch `feat/artush-i18n`, zone `i18n`. Do not delete the core or i18n READMEs.
 
-Branch from `dev`. One PR into `dev`. Do not push `main`. No Postgres. No page layout. Finish by the end of December.
+Wave 1 is in `dev`: `am`, `en`, `ru`, `BaseTranslation`, and the fallback rule. Do not copy the code list. Do not edit the health view.
 
-You follow Suro in the name queue: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Vach (9) and Hayk (4) will subclass your translation model. Do not build their models.
+Pull `dev` into `feat/artush-i18n`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. You follow Suro: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
-Languages and the abstract model live in `backend/apps/core/`. Health is already in `views.py` and must stay `{"status":"ok"}`. Do not edit `frontend/src/i18n/`. Content codes are only `am`, `en`, `ru`.
+**Own:** `backend/apps/core/translations.py`, `frontend/src/i18n/ru.json`, and the `ru` registration in `index.js`.
 
-**Own:** `backend/apps/core/languages.py` and an abstract translation model in `apps/core`.
-
-**Do not own:** the health view, frontend JSON, `Category`, `Product`, `HomeBlock`.
+**Do not own:** the health view, catalog models, the Header, and the current values in `am.json` and `en.json`.
 
 **Steps**
 
-1. `languages.py` exports only `am`, `en`, `ru` and labels. Other modules import the codes from here.
-2. Abstract translation model: language from that list, child sets the parent link, pair of parent and language is unique.
-3. Docstring states the rule: if the requested language is missing, the object stays in the result; text comes from `en`, otherwise from any existing translation.
+1. `parse_language(value)`. `None` and a blank string return `en`. `am`, `en`, and `ru` pass through. Every other value, including `AM`, `RU`, and `hy`, raises `ValueError`. Do not quietly map an unknown code to `en`.
+2. `pick_translation(rows, language)`. Return the row for that language, else the `en` row, else the first row by language code, else `None`. Do not drop the parent object.
+3. State the Wave 1 rule in the docstring so Vach and Hayk import the module.
+4. `ru.json` has the same keys as today’s `en.json`, in Russian. Add `ru` to `resources` and `supportedLngs`. Mariam adds the header button.
 
-**Done when** the three codes import from one module, the core migration applies on SQLite, and `/api/health/` still returns `{"status":"ok"}`.
+**Done when** the three codes still come from `languages.py`, `de` and `AM` raise `ValueError`, a missing `ru` row falls back to `en`, `i18n.changeLanguage('ru')` does not throw, health is `{"status":"ok"}`, and the Header is untouched.
 
 ```bash
 cd backend
-python manage.py makemigrations
-python manage.py migrate
+python manage.py shell
+python manage.py test
 ```
 
-Open `http://127.0.0.1:8000/api/health/`.
+Do not write catalog or content serializers. Do not put the language button in the Header.
 
 ## Հայերեն
 
-Դու աշակերտ **3**-ն ես, Artush, ճյուղը՝ `feat/artush-i18n`, գոտին՝ `i18n`։ Չջնջել [backend/apps/core/README.md](../../backend/apps/core/README.md)։
+Դու աշակերտ **3**-ն ես, Artush, ճյուղը՝ `feat/artush-i18n`, գոտին՝ `i18n`։ core-ի և i18n-ի README-ները չջնջել։
 
-Ճյուղը `dev`-ից է։ Մեկ PR դեպի `dev`։ `main` չpush անել։ Postgres չբարձրացնել։ Էջ չձևավորել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Wave 1-ն արդեն `dev`-ում է՝ `am`, `en`, `ru`, `BaseTranslation` և fallback կանոնը։ Կոդերի ցանկը չպատճենել։ Health-ի վью-ն չփոխել։
 
-Անունների հերթում դու Suro-ից հետո ես՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ Vach-ը (9) և Hayk-ը (4) ժառանգելու են քո դասը։ Նրանց մոդելները մի գրիր։
+Թարմ `dev`-ը ձուլիր `feat/artush-i18n`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Դու Suro-ից հետո ես. **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
-Լեզուներն ու աբստրակտ մոդելը `backend/apps/core/`-ում են։ Health-ը `views.py`-ում է և պետք է մնա `{"status":"ok"}`։ `frontend/src/i18n/`-ը չփոխել։ Կոդերը միայն `am`, `en`, `ru` են։
+**Քոնն է՝** `backend/apps/core/translations.py`, `frontend/src/i18n/ru.json` և `ru`-ի գրանցումը `index.js`-ում։
 
-**Քոնն է՝** `backend/apps/core/languages.py` և աբստրակտ թարգմանության մոդելը `apps/core`-ում։
-
-**Քոնը չէ՝** health view-ը, frontend JSON-ը, `Category`-ն, `Product`-ը, `HomeBlock`-ը։
+**Քոնը չէ՝** health-ի վью-ն, կատալոգի մոդելները, Header-ը, `am.json`-ի և `en.json`-ի ներկա արժեքները։
 
 **Քայլեր**
 
-1. `languages.py`-ն արտահանում է միայն `am`, `en`, `ru` և ստորագրություններ։ Մյուս մոդուլները կոդերը ներմուծում են այստեղից։
-2. Աբստրակտ մոդել՝ լեզուն այդ ցանկից է, ժառանգը դնում է ծնողի կապը, ծնող + լեզու զույգը եզակի է։
-3. Docstring-ում կանոնը՝ եթե հարցված լեզուն չկա, օբյեկտը չի անհետանում. տեքստը գալիս է `en`-ից, այլապես առկա ցանկացած թարգմանությունից։
+1. `parse_language(value)`։ `None`-ը և դատարկ տողը վերադարձնում են `en`։ `am`, `en`, `ru` անցնում են։ Մնացած ամեն արժեք, այդ թվում `AM`, `RU` և `hy`, բարձրացնում է `ValueError`։ Անհայտ կոդը լուռ `en` չդարձնել։
+2. `pick_translation(rows, language)`։ Վերադարձրու այդ լեզվի տողը, ապա `en` տողը, ապա առաջինը ըստ լեզվի կոդի, ապա `None`։ Ծնող օբյեկտը չհանել։
+3. Wave 1-ի կանոնը կարճ գրիր docstring-ում, որպեսզի Vach-ը և Hayk-ը ներմուծեն մոդուլը։
+4. `ru.json`-ը ունի այսօրվա `en.json`-ի նույն բանալիները, ռուսերեն։ `ru`-ն ավելացրու `resources`-ին և `supportedLngs`-ին։ Կոճակը Header-ում դնում է Mariam-ը։
 
-**Ավարտված է, երբ** երեք կոդը գալիս են մեկ մոդուլից, միջուկի միգրացիան անցնում է SQLite-ով, և `/api/health/`-ը վերադարձնում է `{"status":"ok"}`։
+**Ավարտված է, երբ** երեք կոդը դեռ գալիս են `languages.py`-ից, `de`-ն և `AM`-ը բարձրացնում են `ValueError`, բացակա `ru` տողը ընկնում է `en`-ի վրա, `i18n.changeLanguage('ru')`-ն չի ընկնում, health-ը `{"status":"ok"}` է, իսկ Header-ը չի դիպչվել։
 
 ```bash
 cd backend
-python manage.py makemigrations
-python manage.py migrate
+python manage.py shell
+python manage.py test
 ```
 
-Բացիր `http://127.0.0.1:8000/api/health/`։
+Կատալոգի և կոնտենտի սերիալիզատորներ չգրել։ Լեզվի կոճակը Header-ում չդնել։

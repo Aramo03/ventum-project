@@ -1,5 +1,9 @@
 # 9 — Vach · catalog — ошибки и разбор
 
+> Журнал Wave 1. В Wave 2 этот разбор не переписывать. Текущее задание — [task-wave2.md](../../../task-wave2.md).
+> Wave 1 journal. Do not rewrite it for Wave 2.
+> Wave 1-ի մատյան։ Wave 2-ի համար չվերաշարադրել։
+
 **Ветка:** `feat/vach-catalog`  
 **Агент:** [docs/agents/09-vach.md](../../agents/09-vach.md)
 

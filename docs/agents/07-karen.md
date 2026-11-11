@@ -1,6 +1,8 @@
-# Agent brief — Wave 1 — #7 Karen
+# Agent brief — Wave 2 — #7 Karen
 
-Отдай этот файл агенту целиком. Номер ученика — **7**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «7 — Karen · textile» в [task-advanced.md](../../task-advanced.md). В очереди имён Karen стоит после Hayk.
+Отдай этот файл агенту целиком. Номер ученика — **7**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «7 — Karen · textile» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: команда `seed_textile` уже кладёт категории и товар `store=textile`. Сид и поля моделей не менять. Страницу `/textile` в той волне не собирали. Теперь собираешь её из API.
 
 ## Русский
 
@@ -8,119 +10,103 @@
 
 Ты делаешь зону ученика 7, Karen, ветка `feat/karen-textile`, зона `textile`. README не удалять: [frontend/src/pages/Textile/README.md](../../frontend/src/pages/Textile/README.md).
 
-Старт от `dev`, ветка `feat/karen-textile`, один PR в `dev`. В `main` не пушить. Postgres не поднимать. Срок — конец декабря.
+Старт: `git checkout dev && git pull`, затем `feat/karen-textile` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-Ждать merge Vach (ученик 9): без его `Category`, `Product` и `ProductImage` сид не к чему привязать. Очередь: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+Ждать merge Vach (9): без `GET /api/catalog/products/?store=textile` витрину собирать не из чего. В очереди ты после Mariam: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
 ### Карта репозитория
 
-- Страница `/textile` — `frontend/src/pages/Textile/`. Её не собирать. Макет не верстать.
-- Данные пишутся в модели Vach через команду управления Django или фикстуру `loaddata`. Поля моделей не менять.
-- Картинка — файл из репозитория, не случайный URL в интернет.
-- Магазин Baby не трогать. Его данные пишет Svet (8).
+- Страница — [frontend/src/pages/Textile/](../../frontend/src/pages/Textile/): `Textile.jsx`, `textile.css`, `textile.js`.
+- Данные читать через [frontend/src/api/client.js](../../frontend/src/api/client.js). Клиент сам добавляет `language` на GET.
+- Список товаров пагинирован, размер страницы 12. В элементе есть `sku`, `store`, `price`, `name`, `category`, `image`. `image` — абсолютный URL или `null`.
+- Цена на экране — строка с подписью AMD. Конвертации валют нет.
+- Макет: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495).
 
 ### Зона ответственности
 
-Команда `seed_textile` или фикстура с данными `store=textile`.
+Можно: три файла страницы Textile и новые ключи в `am.json`, `en.json`, `ru.json`.
 
-Нельзя: поля `Category` и `Product`, страница `/textile`, удаление записей Baby.
+Нельзя: `seed_textile`, `models.py`, вью и сериализаторы каталога, страница Baby, корзина.
 
 ### Шаги
 
-Команда `seed_textile` или фикстура:
-
-- минимум две категории с `store=textile` и переводами `name` на `am`, `en`, `ru`;
-- один опубликованный товар с ценой `Decimal` в AMD и тремя переводами имени;
-- картинка — файл из репозитория;
-- повторный запуск не создаёт второй slug и не падает;
-- записи Baby не удаляются.
-
-Ищем существующие записи по slug (или другому стабильному ключу) и обновляем их, а не создаём копию.
+1. Запросить `GET /api/catalog/categories/?store=textile` и `GET /api/catalog/products/?store=textile`.
+2. Показать категории, опубликованные товары, имя, цену AMD и картинку. Если `image` равен `null`, место картинки остаётся пустым, без битой иконки.
+3. Три состояния: загрузка, пустой список, ошибка сети. Текст этих состояний — в трёх JSON.
+4. Черновик на витрину не попадает: это уже делает API. Свой фильтр `is_published` на фронте не выдумывать вторым источником правды, но и не рисовать товар другого магазина, если он внезапно пришёл.
 
 ### Definition of Done
 
-Lead не мержит, пока команда или `loaddata` на чистой базе создаёт эти записи, а второй запуск не падает и не плодит дубликаты.
+Lead не мержит, пока: после `seed_textile` на `/textile` виден товар Textile и не виден товар Baby; пустая выдача и ошибка сети не оставляют белый экран без сообщения; сид и поля моделей в diff нет.
 
 ### Проверка
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py migrate
 python manage.py seed_textile
-python manage.py seed_textile
+python manage.py runserver
 ```
 
-Если сдана фикстура, второй шаг — `loaddata` дважды, без дубликатов slug. На Linux/macOS: `rm -f ventum.sqlite3`. В админке фильтр `store=textile` показывает две категории и один товар. Записей `store=baby` эта команда не удаляет.
+Во втором окне `cd frontend && npm run dev`. Открыть `/textile`. Сменить язык в шапке, когда кнопка `ru` уже есть: имя должно прийти на языке запроса.
 
 ### Нельзя
 
-Не менять `models.py`. Не верстать `/textile`. Не стирать данные Baby.
+Не править `seed_baby` и файлы Svet. Не добавлять товар руками в обход API. Не открывать корзину.
 
 ## English
 
-You are student **7**, Karen, branch `feat/karen-textile`, zone `textile`. Do not delete [frontend/src/pages/Textile/README.md](../../frontend/src/pages/Textile/README.md). Do not build the `/textile` page.
+You are student **7**, Karen, branch `feat/karen-textile`, zone `textile`. Do not delete the Textile README.
 
-Branch from `dev`. One PR into `dev`. Do not push `main`. No Postgres. Finish by the end of December.
+Wave 1 `seed_textile` is in `dev`. Do not change the seed or the model fields. This wave you build `/textile` from the API.
 
-Wait for Vach (student 9). Queue: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Your student number stays 7.
+Pull `dev` into `feat/karen-textile`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. Wait for Vach (9). Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
-**Own:** a `seed_textile` command or a fixture for `store=textile`.
+**Own:** `Textile.jsx`, `textile.css`, `textile.js`, and new keys in all three JSON files.
 
-**Do not own:** model fields, the Textile page, Baby rows (Svet, 8).
+**Do not own:** `seed_textile`, `models.py`, catalog views, the Baby page, cart.
 
 **Steps**
 
-- at least two categories with `store=textile` and `name` in `am`, `en`, `ru`;
-- one published product with an AMD `Decimal` price and a name in three languages;
-- an image file stored in the repository, not a random web URL;
-- a second run does not create a second slug and does not crash;
-- Baby rows are not deleted.
+1. Request `GET /api/catalog/categories/?store=textile` and `GET /api/catalog/products/?store=textile` through `frontend/src/api/client.js`.
+2. Show categories, published products, name, AMD price, and `image`. When `image` is `null`, leave a quiet empty place.
+3. Loading, empty, and network-error states. Put those strings in all three JSON files.
+4. Drafts stay off the page because the API already filters them. Do not render a product from the other store.
 
-Look up existing rows by slug and update them.
-
-**Done when** the command or `loaddata` fills a fresh database, and the second run neither crashes nor duplicates slugs.
+**Done when** after `seed_textile` the Textile product is visible and the Baby product is not, empty and error states show a message, and the seed and model fields are untouched.
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py migrate
 python manage.py seed_textile
-python manage.py seed_textile
+python manage.py runserver
 ```
 
-Linux/macOS: `rm -f ventum.sqlite3`.
+Do not edit Svet’s files. Do not open a cart.
 
 ## Հայերեն
 
-Դու աշակերտ **7**-ն ես, Karen, ճյուղը՝ `feat/karen-textile`, գոտին՝ `textile`։ Չջնջել [frontend/src/pages/Textile/README.md](../../frontend/src/pages/Textile/README.md)։ `/textile` էջը չհավաքել։
+Դու աշակերտ **7**-ն ես, Karen, ճյուղը՝ `feat/karen-textile`, գոտին՝ `textile`։ Textile-ի README-ն չջնջել։
 
-Ճյուղը `dev`-ից է։ Մեկ PR դեպի `dev`։ `main` չpush անել։ Postgres չբարձրացնել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Wave 1-ի `seed_textile`-ն արդեն `dev`-ում է։ Seed-ը և մոդելի դաշտերը չփոխել։ Այս ալիքում `/textile` էջը հավաքում ես API-ից։
 
-Սպասիր Vach-ի (աշակերտ 9) merge-ին։ Հերթը՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ Համարը մնում է 7։
+Թարմ `dev`-ը ձուլիր `feat/karen-textile`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Սպասիր Vach-ին (9)։ Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
-**Քոնն է՝** `seed_textile` հրամանը կամ ֆիքստուրան `store=textile`-ի համար։
+**Քոնն է՝** `Textile.jsx`, `textile.css`, `textile.js` և նոր բանալիները երեք JSON-ում։
 
-**Քոնը չէ՝** մոդելների դաշտերը, Textile էջը, Baby-ի տողերը (Svet, 8)։
+**Քոնը չէ՝** `seed_textile`-ը, `models.py`-ն, կատալոգի վью-ները, Baby էջը, զամբյուղը։
 
 **Քայլեր**
 
-- առնվազն երկու կատեգորիա `store=textile` և `name`-ով `am`, `en`, `ru`;
-- մեկ հրապարակված ապրանք AMD `Decimal` գնով և անունով երեք լեզվով;
-- նկարը ֆայլ է ռեպոզիտորիայից, ոչ պատահական հղում;
-- երկրորդ անգամը նոր slug չի ստեղծում և չի ընկնում;
-- Baby-ի տողերը չեն ջնջվում։
+1. Խնդրիր `GET /api/catalog/categories/?store=textile` և `GET /api/catalog/products/?store=textile`՝ `frontend/src/api/client.js`-ով։
+2. Ցույց տուր կատեգորիաներ, հրապարակված ապրանքներ, անուն, AMD գին և `image`։ Երբ `image`-ը `null` է, թող դատարկ տեղ առանց կոտրված պատկերակի։
+3. Լինեն բեռնման, դատարկ ցանկի և ցանցի սխալի վիճակներ։ Այդ տողերը գրիր երեք JSON-ում։
+4. Սևագրերը էջ չեն հասնում, որովհետև API-ն արդեն զտում է։ Ուրիշ խանութի ապրանք մի նկարիր։
 
-Գտիր եղած տողը slug-ով և թարմացրու, կրկնօրինակ մի ստեղծիր։
-
-**Ավարտված է, երբ** հրամանը կամ `loaddata`-ն լցնում է մաքուր բազան, իսկ երկրորդ անգամը չի ընկնում և slug չի կրկնում։
+**Ավարտված է, երբ** `seed_textile`-ից հետո երևում է Textile ապրանքը և չի երևում Baby ապրանքը, դատարկն ու սխալը հաղորդագրություն ունեն, իսկ seed-ը և մոդելի դաշտերը չեն դիպչվել։
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py migrate
 python manage.py seed_textile
-python manage.py seed_textile
+python manage.py runserver
 ```
 
-Linux/macOS՝ `rm -f ventum.sqlite3`։
+Svet-ի ֆայլերը չփոխել։ Զամբյուղ չբացել։

@@ -2,7 +2,7 @@
 
 **RU** · **EN** · **HY**
 
-Этот файл не входит в текущее задание. Его не реализовывать.
+Этот файл не входит в Wave 2. Его не реализовывать.
 
 Покупатель платит на странице **Idram** (Армения): кошелёк Idram и, если договор магазина это включает, **VISA / Mastercard**. Номер карты, срок и CVV вводятся только у Idram. Ventum их не принимает и не хранит.
 
@@ -90,6 +90,8 @@ EDP_REC_ACCOUNT:EDP_AMOUNT:SECRET_KEY:EDP_BILL_NO:EDP_PAYER_ACCOUNT:EDP_TRANS_ID
 
 ## English
 
+Not part of Wave 2. Do not implement this file.
+
 Idram (Armenia) hosts the payment page, including Visa and Mastercard when the merchant contract allows cards. Ventum never collects the card number, expiry, or CVV.
 
 `SUCCESS_URL` is only the browser return. The order becomes `paid` only after `RESULT_URL` confirms the checksum.
@@ -109,6 +111,8 @@ EDP_REC_ACCOUNT:EDP_AMOUNT:SECRET_KEY:EDP_BILL_NO:EDP_PAYER_ACCOUNT:EDP_TRANS_ID
 On match, set `paid`, store `EDP_TRANS_ID`, reply `OK`, send one shop email. A duplicate callback must not send a second email. Localhost cannot receive the gateway callback. Test with a fake POST and no network.
 
 ## Հայերեն
+
+Wave 2-ի մաս չէ։ Այս ֆայլը չիրականացնել։
 
 Idram-ը (Հայաստան) ցույց է տալիս վճարման էջը։ VISA և Mastercard լրացվում են այնտեղ, եթե պայմանագիրը թույլ է տալիս քարտ։ Ventum-ը քարտի համարը, ժամկետը և CVV-ն չի վերցնում։
 

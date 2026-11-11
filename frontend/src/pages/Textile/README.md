@@ -1,22 +1,24 @@
 # textile — Karen
 
 **Ветка:** `feat/karen-textile`  
-**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Karen · textile».
+**Задание:** [task-wave2.md](../../../../task-wave2.md) — «7 — Karen · textile».  
+**Агент:** [docs/agents/07-karen.md](../../../../docs/agents/07-karen.md).
 
-Страницу `/textile` не собирать. Макеты в задании. После merge Vach (ученик 9, зона catalog) добавь `seed_textile` или фикстуру:
+Сид `seed_textile` уже в `dev`. Его и поля моделей не менять.
 
-- две категории `store=textile`
-- один товар с ценой AMD
-- переводы `am`, `en`, `ru`
-- повторный запуск без дубликатов slug
-- данные Baby не удалять
+Собери `/textile` из API:
 
-Поля модели не менять.
+- `GET /api/catalog/categories/?store=textile`
+- `GET /api/catalog/products/?store=textile`
+- имя, цена AMD, картинка, категории
+- загрузка, пустой список, ошибка сети
+
+Товар Baby на эту страницу не попадает.
 
 ## English
 
-Karen, student 7, `feat/karen-textile`. Seed `store=textile` after Vach (student 9, catalog) is merged. Do not build the page and do not change model fields.
+Karen, student 7, `feat/karen-textile`. Build `/textile` from the catalog API. Do not change the seed or model fields.
 
 ## Հայերեն
 
-Karen, աշակերտ 7, `feat/karen-textile`։ Vach-ի (աշակերտ 9, catalog) merge-ից հետո `store=textile` տվյալներ։ Էջը չհավաքել և մոդելի դաշտերը չփոխել։
+Karen, աշակերտ 7, `feat/karen-textile`։ Հավաքիր `/textile` էջը կատալոգի API-ից։ Seed-ը և մոդելի դաշտերը չփոխել։
