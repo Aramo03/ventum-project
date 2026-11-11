@@ -52,7 +52,13 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "apps.core",
+    "apps.accounts",
+    "apps.catalog",
+    "apps.leads",
+    "apps.content",
 ]
+
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -143,6 +149,10 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Unfold's login form does not send ``next``. Without this, Django sends a
+# successful admin login to the missing ``/accounts/profile/`` page.
+LOGIN_REDIRECT_URL = "/api/admin/"
 
 _DEFAULT_ORIGINS = [
     "http://localhost:3000",
