@@ -174,6 +174,8 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 12,
 }
 
 SIMPLE_JWT = {
@@ -182,7 +184,10 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Ventum API",
-    "DESCRIPTION": "Student skeleton. Health only — models and routers come later.",
+    "DESCRIPTION": (
+        "Ventum storefront catalog, homepage content blocks, lead submissions, "
+        "and email-based authentication."
+    ),
     "VERSION": "0.1.0",
 }
 
@@ -200,4 +205,47 @@ DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="Ventum <noreply@exam
 UNFOLD = {
     "SITE_TITLE": "Ventum Admin",
     "SITE_HEADER": "Ventum",
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Analytics",
+                "items": [
+                    {
+                        "title": "Analytics",
+                        "icon": "analytics",
+                        "link": "/api/admin/analytics/",
+                    }
+                ],
+            },
+            {
+                "title": "Catalog",
+                "items": [
+                    {"title": "Products", "icon": "inventory_2", "link": "/api/admin/catalog/product/"},
+                    {"title": "Categories", "icon": "category", "link": "/api/admin/catalog/category/"},
+                ],
+            },
+            {
+                "title": "Leads",
+                "items": [
+                    {"title": "Newsletter subscribers", "icon": "mail", "link": "/api/admin/leads/newslettersubscriber/"},
+                    {"title": "Wholesale inquiries", "icon": "business", "link": "/api/admin/leads/wholesaleinquiry/"},
+                ],
+            },
+            {
+                "title": "Content",
+                "items": [
+                    {"title": "Home blocks", "icon": "web", "link": "/api/admin/content/homeblock/"},
+                ],
+            },
+            {
+                "title": "Users",
+                "items": [
+                    {"title": "Users", "icon": "person", "link": "/api/admin/accounts/user/"},
+                    {"title": "Groups", "icon": "groups", "link": "/api/admin/auth/group/"},
+                ],
+            },
+        ],
+    },
 }
