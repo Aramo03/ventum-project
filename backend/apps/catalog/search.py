@@ -1,5 +1,7 @@
 from django.db.models import Q
 
+from apps.core.languages import LANGUAGE_CODES
+
 
 def search_products(queryset, query):
     """
@@ -23,6 +25,6 @@ def search_products(queryset, query):
         Q(sku__icontains=query)
         | Q(
             translations__name__icontains=query,
-            translations__language__in=("am", "en", "ru"),
+            translations__language__in=LANGUAGE_CODES,
         )
     ).distinct()
