@@ -16,15 +16,15 @@
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | — | каркас проверен, ведёт очередь |
-| 2 | Suro | `feat/suro-api` | api | Lead |  | ждёт PR |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro |  | ждёт PR |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel |  | ждёт PR |
-| 5 | Mariam | `feat/mariam-header` | header | Svet |  | ждёт PR |
-| 6 | Daniel | `feat/daniel-footer` | footer | Vach |  | ждёт PR |
-| 7 | Karen | `feat/karen-textile` | textile | Hayk |  | ждёт PR |
-| 8 | Svet | `feat/svet-baby` | baby | Karen |  | ждёт PR |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush |  | ждёт PR |
-| 10 | Ashot | `feat/ashot-ui` | ui | Mariam |  | ждёт PR |
+| 2 | Suro | `feat/suro-api` | api | Lead | #1 | в `dev` |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | #2 | в `dev` |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel | #3 | в `dev` |
+| 5 | Mariam | `feat/mariam-header` | header | Svet | #11 | в `dev` |
+| 6 | Daniel | `feat/daniel-footer` | footer | Vach | #4 | в `dev` |
+| 7 | Karen | `feat/karen-textile` | textile | Hayk | #10 | в `dev` |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #5, #9 | в `dev` |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | #7 | в `dev` |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | #8 | в `dev` |
 
 Очередь именами: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
 
@@ -49,15 +49,15 @@ Student **1**, branch `feat/lead`. The `#` column is the student number and matc
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | — | skeleton checked, runs the queue |
-| 2 | Suro | `feat/suro-api` | api | Lead |  | waiting for PR |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro |  | waiting for PR |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel |  | waiting for PR |
-| 5 | Mariam | `feat/mariam-header` | header | Svet |  | waiting for PR |
-| 6 | Daniel | `feat/daniel-footer` | footer | Vach |  | waiting for PR |
-| 7 | Karen | `feat/karen-textile` | textile | Hayk |  | waiting for PR |
-| 8 | Svet | `feat/svet-baby` | baby | Karen |  | waiting for PR |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush |  | waiting for PR |
-| 10 | Ashot | `feat/ashot-ui` | ui | Mariam |  | waiting for PR |
+| 2 | Suro | `feat/suro-api` | api | Lead | #1 | in `dev` |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | #2 | in `dev` |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel | #3 | in `dev` |
+| 5 | Mariam | `feat/mariam-header` | header | Svet | #11 | in `dev` |
+| 6 | Daniel | `feat/daniel-footer` | footer | Vach | #4 | in `dev` |
+| 7 | Karen | `feat/karen-textile` | textile | Hayk | #10 | in `dev` |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #5, #9 | in `dev` |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | #7 | in `dev` |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | #8 | in `dev` |
 
 Queue: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
 
@@ -70,15 +70,15 @@ The skeleton already passes migrate, check, health, and the admin login. Merge i
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
 | 1 | Lead | `feat/lead` | lead | — | — | կարկասը ստուգված է, վարում է հերթը |
-| 2 | Suro | `feat/suro-api` | api | Lead |  | սպասում է PR |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro |  | սպասում է PR |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel |  | սպասում է PR |
-| 5 | Mariam | `feat/mariam-header` | header | Svet |  | սպասում է PR |
-| 6 | Daniel | `feat/daniel-footer` | footer | Vach |  | սպասում է PR |
-| 7 | Karen | `feat/karen-textile` | textile | Hayk |  | սպասում է PR |
-| 8 | Svet | `feat/svet-baby` | baby | Karen |  | սպասում է PR |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush |  | սպասում է PR |
-| 10 | Ashot | `feat/ashot-ui` | ui | Mariam |  | սպասում է PR |
+| 2 | Suro | `feat/suro-api` | api | Lead | #1 | `dev`-ում |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | #2 | `dev`-ում |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Daniel | #3 | `dev`-ում |
+| 5 | Mariam | `feat/mariam-header` | header | Svet | #11 | `dev`-ում |
+| 6 | Daniel | `feat/daniel-footer` | footer | Vach | #4 | `dev`-ում |
+| 7 | Karen | `feat/karen-textile` | textile | Hayk | #10 | `dev`-ում |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #5, #9 | `dev`-ում |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | #7 | `dev`-ում |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | #8 | `dev`-ում |
 
 Հերթը՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։
 
