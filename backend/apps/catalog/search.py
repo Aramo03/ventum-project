@@ -23,6 +23,6 @@ def search_products(queryset, query):
         Q(sku__icontains=query)
         | Q(
             translations__name__icontains=query,
-            translations__language__code__in=("am", "en", "ru"),
+            translations__language__in=("am", "en", "ru"),
         )
     ).distinct()
