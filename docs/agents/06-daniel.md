@@ -1,109 +1,110 @@
-# Agent brief — Wave 1 — #6 Daniel
+# Agent brief — Wave 2 — #6 Daniel
 
-Отдай этот файл агенту целиком. Номер ученика — **6**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «6 — Daniel · footer» в [task-advanced.md](../../task-advanced.md). В очереди имён Daniel стоит после Vach.
+Отдай этот файл агенту целиком. Номер ученика — **6**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «6 — Daniel · footer» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: `NewsletterSubscriber` и `WholesaleInquiry` уже в `dev` и в админке. Полей не менять. Публичных ручек тогда не было. Теперь есть две, и формы в подвале.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 6, Daniel, ветка `feat/daniel-footer`, зона `footer`. README не удалять: [backend/apps/leads/README.md](../../backend/apps/leads/README.md). Страницу [frontend/src/components/Footer/](../../frontend/src/components/Footer/) не верстать.
+Ты делаешь зону ученика 6, Daniel, ветка `feat/daniel-footer`, зона `footer`. README не удалять: [backend/apps/leads/README.md](../../backend/apps/leads/README.md), [frontend/src/components/Footer/README.md](../../frontend/src/components/Footer/README.md).
 
-Старт от `dev`, ветка `feat/daniel-footer`, один PR в `dev`. В `main` не пушить. Postgres не поднимать. Срок — конец декабря.
+Старт: `git checkout dev && git pull`, затем `feat/daniel-footer` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-Ждать, пока Suro (2) заведёт пустой пакет `leads`. В очередь merge ты встаёшь после Vach: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Номер ученика при этом остаётся 6.
+Ждать, пока пакет `leads` в `dev` (он уже там с волны 1). В очереди ты после Hayk: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
 ### Карта репозитория
 
-- Модели заявок: `backend/apps/leads/`.
-- Админка уже на `/api/admin/`. Свои URL для отправки с сайта не добавлять в `urls.py`.
-- `Footer.jsx`, `footer.css`, `footer.js` не менять.
-- Это заявки посетителя, не товар. Товар пишет Vach (9).
+- `NewsletterSubscriber`: уникальный `email`, `created_at`.
+- `WholesaleInquiry`: `name`, `phone`, `email`, `text`, `created_at`.
+- `backend/apps/leads/urls.py` пустой и подключён как `api/leads/`.
+- Подвал — [frontend/src/components/Footer/](../../frontend/src/components/Footer/). Сейчас это ссылки без форм.
+- HTTP — [frontend/src/api/client.js](../../frontend/src/api/client.js). `react-hook-form` уже в стеке.
+- Авторизация на эти POST не нужна. Suro оставляет `AllowAny` по умолчанию.
 
 ### Зона ответственности
 
-Можно: модели, админка и миграции `leads`.
+Можно: `leads/serializers.py`, `leads/views.py`, заполнить `leads/urls.py`, `Footer.jsx`, `footer.css`, `footer.js`, новые ключи в трёх JSON.
 
-Нельзя: API-ручки и вёрстка подвала.
+Нельзя: поля моделей заявок, шапка, корзина, заказы.
 
 ### Шаги
 
-1. `NewsletterSubscriber`: email уникален, дата создания.
-2. `WholesaleInquiry`: имя, телефон, email, текст, дата. Это заявка опта, не товар.
-3. Обе модели видны в админке списком. Публичного URL нет.
+1. `POST /api/leads/newsletter/` принимает `{"email": "..."}`. Первая запись — **201**. Тот же email снова — **400** с ошибкой поля `email`, не 500, и вторая строка в базе не создаётся. Невалидный email — **400**.
+2. `POST /api/leads/wholesale/` принимает `name`, `phone`, `email`, `text`. Все четыре обязательны. Успех — **201** и `id`. Пустое поле — **400**.
+3. В Footer две формы на `react-hook-form`. Успех и ошибка видны в самой форме, не только в консоли. Отправка идёт через `api`.
+4. Новые строки — в `am.json`, `en.json` и `ru.json`.
 
 ### Definition of Done
 
-Lead не мержит, пока обе модели видны в `/api/admin/`, второй такой же email подписки база не принимает, в `urls` нет ручек этих заявок.
+Lead не мержит, пока: первая подписка даёт 201 и строку в `/api/admin/`; вторая с тем же email даёт 400 и не плодит строку; опт без `text` даёт 400; обе формы в Footer вызывают эти пути; поля моделей в diff нет.
 
 ### Проверка
 
 ```bash
 cd backend
-python manage.py makemigrations leads
-python manage.py migrate
 python manage.py runserver
 ```
 
-В админке создать подписчика. Повтор того же email должен завершиться ошибкой уникальности. `git diff` по `frontend/src/components/Footer/` пустой, новых path в `urls.py` нет.
+Дважды отправить один email через Swagger или форму. Открыть список подписчиков в админке: строка одна. Отправить опт без текста. На сайте заполнить обе формы до сообщения об успехе.
 
 ### Нельзя
 
-Не делать endpoint подписки. Не верстать Footer. Не менять каталог.
+Не ослаблять уникальность email. Не требовать JWT на эти две ручки. Не менять Header.
 
 ## English
 
-You are student **6**, Daniel, branch `feat/daniel-footer`, zone `footer`. Do not delete [backend/apps/leads/README.md](../../backend/apps/leads/README.md). Do not lay out [frontend/src/components/Footer/](../../frontend/src/components/Footer/).
+You are student **6**, Daniel, branch `feat/daniel-footer`, zone `footer`. Do not delete the leads or Footer READMEs.
 
-Branch from `dev`. One PR into `dev`. Do not push `main`. No Postgres. Finish by the end of December.
+Wave 1 models are in `dev`. Do not change their fields. This wave adds the two public POSTs and the footer forms.
 
-Wait until Suro (2) has created the empty `leads` package. Your merge place is after Vach: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Your student number stays 6.
+Pull `dev` into `feat/daniel-footer`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
-**Own:** `leads` models, admin, and migrations.
+**Own:** `leads/serializers.py`, `leads/views.py`, `leads/urls.py`, `Footer.jsx`, `footer.css`, `footer.js`, and new keys in all three JSON files.
 
-**Do not own:** public API routes and the footer layout. Products belong to Vach (9).
+**Do not own:** lead model fields, the header, cart, orders.
 
 **Steps**
 
-1. `NewsletterSubscriber`: unique email, created date.
-2. `WholesaleInquiry`: name, phone, email, text, date. This is a request, not a product.
-3. Both models appear as lists in admin. No public URL.
+1. `POST /api/leads/newsletter/` takes `{"email": "..."}`. First save is **201**. The same email again is **400** on the `email` field, not 500, and does not insert a second row.
+2. `POST /api/leads/wholesale/` takes `name`, `phone`, `email`, and `text`, all required. Success is **201** with `id`. A blank field is **400**. No JWT on either route.
+3. Two `react-hook-form` forms in the Footer. Show success and error in the form. Submit with `frontend/src/api/client.js`.
+4. Add every new string to `am.json`, `en.json`, and `ru.json`.
 
-**Done when** both models are in `/api/admin/`, a duplicate subscriber email is rejected, and `urls` has no routes for these forms.
+**Done when** the first subscription is 201 and visible in admin, the second is 400 with one row left, wholesale without `text` is 400, both forms call these paths, and the model fields are unchanged.
 
 ```bash
 cd backend
-python manage.py makemigrations leads
-python manage.py migrate
 python manage.py runserver
 ```
 
-`git diff` for the Footer folder must be empty.
+Do not require JWT on these two routes. Do not edit the Header.
 
 ## Հայերեն
 
-Դու աշակերտ **6**-ն ես, Daniel, ճյուղը՝ `feat/daniel-footer`, գոտին՝ `footer`։ Չջնջել [backend/apps/leads/README.md](../../backend/apps/leads/README.md)։ Չձևավորել [frontend/src/components/Footer/](../../frontend/src/components/Footer/)։
+Դու աշակերտ **6**-ն ես, Daniel, ճյուղը՝ `feat/daniel-footer`, գոտին՝ `footer`։ leads-ի և Footer-ի README-ները չջնջել։
 
-Ճյուղը `dev`-ից է։ Մեկ PR դեպի `dev`։ `main` չpush անել։ Postgres չբարձրացնել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Wave 1-ի մոդելներն արդեն `dev`-ում են։ Դաշտերը չփոխել։ Այս ալիքում ավելանում են երկու հրապարակային POST և Footer-ի ձևերը։
 
-Սպասիր, մինչև Suro-ն (2) ստեղծի դատարկ `leads` փաթեթը։ Merge-ի տեղդ Vach-ից հետո է՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ Համարը մնում է 6։
+Թարմ `dev`-ը ձուլիր `feat/daniel-footer`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
-**Քոնն է՝** `leads` մոդելները, ադմինը և միգրացիաները։
+**Քոնն է՝** `leads/serializers.py`, `leads/views.py`, `leads/urls.py`, `Footer.jsx`, `footer.css`, `footer.js` և նոր բանալիները երեք JSON-ում։
 
-**Քոնը չէ՝** հանրային API-ն և footer-ի դասավորությունը։ Ապրանքը Vach-ինն է (9)։
+**Քոնը չէ՝** հայտերի մոդելների դաշտերը, Header-ը, զամբյուղը, պատվերները։
 
 **Քայլեր**
 
-1. `NewsletterSubscriber`՝ եզակի email, ստեղծման ամսաթիվ։
-2. `WholesaleInquiry`՝ անուն, հեռախոս, email, տեքստ, ամսաթիվ։ Սա հայտ է, ոչ ապրանք։
-3. Երկու մոդելն էլ ադմինում են ցանկով։ Հանրային URL չկա։
+1. `POST /api/leads/newsletter/` ընդունում է `{"email": "..."}`։ Առաջին պահումը՝ **201**։ Նույն email-ը կրկին՝ **400** `email` դաշտի վրա, ոչ թե 500, և երկրորդ տող չի ստեղծում։
+2. `POST /api/leads/wholesale/` ընդունում է `name`, `phone`, `email`, `text`։ Բոլորը պարտադիր են։ Հաջողությունը՝ **201** և `id`։ Դատարկ դաշտը՝ **400**։ Երկու ուղին էլ առանց JWT։
+3. Footer-ում երկու ձև `react-hook-form`-ով։ Հաջողությունն ու սխալը ցույց տուր ձևի մեջ։ Ուղարկիր `frontend/src/api/client.js`-ով։
+4. Ամեն նոր տող գրիր `am.json`, `en.json` և `ru.json` ֆայլերում։
 
-**Ավարտված է, երբ** երկու մոդելն էլ երևում են `/api/admin/`-ում, կրկնակի email-ը մերժվում է, և `urls`-ում այդ հայտերի ճանապարհ չկա։
+**Ավարտված է, երբ** առաջին բաժանորդագրությունը 201 է և երևում է ադմինում, երկրորդը 400 է և մնում է մեկ տող, առանց `text` մեծածախը 400 է, երկու ձևն էլ կանչում են այս ուղիները, իսկ մոդելների դաշտերը չեն փոխվել։
 
 ```bash
 cd backend
-python manage.py makemigrations leads
-python manage.py migrate
 python manage.py runserver
 ```
 
-Footer պանակի `git diff`-ը պետք է դատարկ լինի։
+Այս երկու ուղուն JWT մի պահանջիր։ Header-ը չփոխել։

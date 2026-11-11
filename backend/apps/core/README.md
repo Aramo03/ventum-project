@@ -1,20 +1,24 @@
 # i18n — Artush
 
 **Ветка:** `feat/artush-i18n`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Artush · i18n».
+**Задание:** [task-wave2.md](../../../task-wave2.md) — «3 — Artush · i18n».  
+**Агент:** [docs/agents/03-artush.md](../../../docs/agents/03-artush.md).
 
-`views.py` ручки `/api/health/` не меняй.
+`languages.py` и `BaseTranslation` уже в `dev`. Вью `/api/health/` не менять.
 
-Добавь `languages.py`: коды `am`, `en`, `ru`. Добавь абстрактную модель перевода: язык из этого списка, пара с родителем уникальна. В docstring: если перевода нет, объект не пропадает, текст берётся из `en`.
+Добавь `backend/apps/core/translations.py`:
 
-Файлы `frontend/src/i18n/` не меняй.
+- `parse_language` — пустое значение даёт `en`, неизвестный код поднимает `ValueError`;
+- `pick_translation` — запрошенный язык, иначе `en`, иначе любая существующая строка.
 
-**Lead не мержит, пока:** три кода импортируются из одного модуля, миграция ядра проходит, health отвечает `{"status":"ok"}`.
+На фронте добавь `ru.json` и зарегистрируй `ru` в `frontend/src/i18n/index.js`. Значения `am.json` и `en.json` не переписывать. Кнопку языка в шапку не ставить: её ставит Mariam.
+
+**Lead не мержит, пока:** `de` не становится молча `en`, health отвечает `{"status":"ok"}`.
 
 ## English
 
-Artush. Language list and the abstract translation model. Do not change the health view or the frontend JSON.
+Artush. Add `parse_language` and `pick_translation`, plus `ru.json`. Do not change the health view or the header button.
 
 ## Հայերեն
 
-Artush։ Լեզուների ցանկը և թարգմանության աբստրակտ մոդելը։ Health-ը և frontend JSON-ը չփոխել։
+Artush։ Ավելացրու `parse_language` և `pick_translation`, նաև `ru.json`։ Health-ը և Header-ի կոճակը չփոխել։

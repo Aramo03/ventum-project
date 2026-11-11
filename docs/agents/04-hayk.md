@@ -1,109 +1,109 @@
-# Agent brief — Wave 1 — #4 Hayk
+# Agent brief — Wave 2 — #4 Hayk
 
-Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · gateway» в [task-advanced.md](../../task-advanced.md). Это не шаг очереди. В очереди имён Hayk стоит после Daniel.
+Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · gateway» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: модель `HomeBlock` и переводы `title` / `text` уже в `dev`. Поля модели не менять. Страницу `/` в той волне не верстали — теперь верстаешь.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 4, Hayk, ветка `feat/hayk-gateway`, зона `gateway`. README не удалять: [backend/apps/content/README.md](../../backend/apps/content/README.md). Страница [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/) в этом задании не верстается.
+Ты делаешь зону ученика 4, Hayk, ветка `feat/hayk-gateway`, зона `gateway`. README не удалять: [backend/apps/content/README.md](../../backend/apps/content/README.md), [frontend/src/pages/Gateway/README.md](../../frontend/src/pages/Gateway/README.md).
 
-Старт от `dev`, ветка `feat/hayk-gateway`, один PR в `dev`. В `main` не пушить. Postgres не поднимать. Срок — конец декабря.
+Старт: `git checkout dev && git pull`, затем `feat/hayk-gateway` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-Ждать, пока в `dev` есть пакет `content` от Suro (2) и абстрактный перевод Artush (3). В очередь merge ты встаёшь после Daniel: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+Ждать merge Artush (3): функции `parse_language` и `pick_translation` лежат в `apps.core.translations`. В очереди ты после Vach: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**. Номер 4 — номер ученика, не шаг очереди.
 
 ### Карта репозитория
 
-- Модель слота: `backend/apps/content/`. Пакет пустым создаёт Suro.
-- Класс перевода и коды `am`, `en`, `ru` импортируй у Artush из `apps/core`, не копируй список языков.
-- Страница `/` — `frontend/src/pages/Gateway/`. Её `jsx` / `css` / `js` не менять. Макет только смотреть: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495).
-- Админка: `/api/admin/`. База: `backend/ventum.sqlite3`.
+- `HomeBlock.slot` — `hero` или `stores`. Порядок — поле `order`.
+- `backend/apps/content/urls.py` сейчас пустой и уже подключён как `api/content/`.
+- Страница `/` — [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/). Ссылки на магазины уже есть в `gateway.js` как `STORE_LINKS`.
+- Запросы — через [frontend/src/api/client.js](../../frontend/src/api/client.js). На GET он сам добавляет `language`. Второй axios не создавать.
+- Макеты: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
 
 ### Зона ответственности
 
-Можно: приложение `backend/apps/content/` — модель, админка, миграции `content`.
+Можно: `content/serializers.py`, `content/views.py`, заполнить `content/urls.py`, файлы `Gateway.jsx`, `gateway.css`, `gateway.js`, новые ключи сразу в `am.json`, `en.json` и `ru.json`.
 
-Нельзя: `frontend/src/pages/Gateway/`, модели товара Vach (9), пользователь, заявки, `search.py`.
+Нельзя: поля `HomeBlock`, страницы Textile и Baby, модели каталога, свой список языков.
 
 ### Шаги
 
-1. `HomeBlock`: ключ слота (`hero` или `stores` — блоки входа в макете), порядок, переводы `title` и `text` на `am` / `en` / `ru` через класс Artush.
-2. Админка Unfold с инлайном переводов.
-3. Пара «слот + язык» уникальна, как требует базовый класс.
+1. `GET /api/content/home-blocks/?language=` возвращает JSON-массив, без пагинации. Элемент: `slot`, `order`, `title`, `text`. Сортировка как у модели: `order`, затем `id`.
+2. Язык читать только через `parse_language`. `ValueError` превращать в **400**. Текст брать через `pick_translation`. Нет перевода — блок всё равно в массиве.
+3. Страница `/` по макету: слот `hero` показывает `title` и `text`, выбор магазина ведёт на `/textile` и `/baby`. Маршруты в `App.jsx` не менять.
+4. Если запрос упал, выбор магазина всё равно на экране. Новые строки интерфейса — в трёх JSON.
 
 ### Definition of Done
 
-Lead не мержит, пока слот `hero` сохраняется в админке на трёх языках, модели товара не изменены, папка `frontend/src/pages/Gateway/` без новой вёрстки.
+Lead не мержит, пока: `hero` отдаётся на `am`, `en` и `ru`; `?language=de` даёт 400; отсутствующий язык не выкидывает блок; главная показывает текст слота и оба магазина; при ошибке сети ссылки на магазины видны; поля `HomeBlock` в diff нет.
 
 ### Проверка
 
 ```bash
 cd backend
-python manage.py makemigrations content
-python manage.py migrate
 python manage.py runserver
 ```
 
-В `/api/admin/` сохранить `HomeBlock` с ключом `hero`, переводы title и text на `am`, `en`, `ru`. `git diff` не должен содержать `frontend/src/pages/Gateway/` и `apps/catalog/models.py`.
+`GET /api/content/home-blocks/?language=ru` и `?language=de`. Сайт: `cd frontend && npm run dev`, открыть `/`.
 
 ### Нельзя
 
-Не верстать главную. Не менять каталог. Не регистрировать приложение заново, если Suro уже добавил его в `INSTALLED_APPS`.
+Не менять модели контента и каталога. Не собирать `/textile` и `/baby`. Не хардкодить `am` / `en` / `ru` вторым списком.
 
 ## English
 
-You are student **4**, Hayk, branch `feat/hayk-gateway`, zone `gateway`. Do not delete [backend/apps/content/README.md](../../backend/apps/content/README.md). Do not restyle [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/).
+You are student **4**, Hayk, branch `feat/hayk-gateway`, zone `gateway`. Do not delete the content or Gateway READMEs.
 
-Branch from `dev`. One PR into `dev`. Do not push `main`. No Postgres. Finish by the end of December.
+Wave 1 `HomeBlock` is in `dev`. Do not change its fields. This wave you do build `/`.
 
-Wait until Suro’s empty `content` package and Artush’s translation class are in `dev`. Your merge slot is after Daniel: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Your student number stays 4.
+Pull `dev` into `feat/hayk-gateway`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. Wait for Artush (3). Queue place is after Vach: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**. Student number 4 is not the queue step.
 
-**Own:** `backend/apps/content/` model, admin, and `content` migrations.
+**Own:** `content/serializers.py`, `content/views.py`, `content/urls.py`, `Gateway.jsx`, `gateway.css`, `gateway.js`, and new keys in all three JSON files.
 
-**Do not own:** the Gateway page, Vach’s product models, the user, leads, `search.py`.
+**Do not own:** `HomeBlock` fields, Textile and Baby pages, catalog models, a second language list.
 
 **Steps**
 
-1. `HomeBlock` with a slot key (`hero` or `stores`), an order, and `title` / `text` in `am` / `en` / `ru` through Artush’s class.
-2. Unfold admin with a translation inline.
-3. The pair of slot and language is unique.
+1. `GET /api/content/home-blocks/?language=` returns a JSON array, not a page. Fields: `slot`, `order`, `title`, `text`. Order by `order`, then `id`.
+2. Read language only with `parse_language`. Turn `ValueError` into **400**. Pick text with `pick_translation`. A missing translation keeps the block in the array.
+3. Build `/` from the Figma frames: hero title and text, store choice linking to `/textile` and `/baby`. Do not edit routes in `App.jsx`. Use `frontend/src/api/client.js`.
+4. If the request fails, the store choice still renders.
 
-**Done when** slot `hero` saves in admin in three languages, product models are unchanged, and `frontend/src/pages/Gateway/` has no new layout.
+**Done when** `hero` is served in `am`, `en`, and `ru`, `?language=de` is 400, the home page shows the slot and both stores, a failed request still shows the store links, and `HomeBlock` fields are unchanged.
 
 ```bash
 cd backend
-python manage.py makemigrations content
-python manage.py migrate
 python manage.py runserver
 ```
 
-Save a `hero` block in `/api/admin/`. `git diff` must not include the Gateway page or `apps/catalog/models.py`.
+Do not hardcode a second list of language codes.
 
 ## Հայերեն
 
-Դու աշակերտ **4**-ն ես, Hayk, ճյուղը՝ `feat/hayk-gateway`, գոտին՝ `gateway`։ Չջնջել [backend/apps/content/README.md](../../backend/apps/content/README.md)։ Չձևավորել [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/)։
+Դու աշակերտ **4**-ն ես, Hayk, ճյուղը՝ `feat/hayk-gateway`, գոտին՝ `gateway`։ content-ի և Gateway-ի README-ները չջնջել։
 
-Ճյուղը `dev`-ից է։ Մեկ PR դեպի `dev`։ `main` չpush անել։ Postgres չբարձրացնել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Wave 1-ի `HomeBlock`-ն արդեն `dev`-ում է։ Դաշտերը չփոխել։ Այս ալիքում `/` էջը հավաքում ես դու։
 
-Սպասիր, մինչև `dev`-ում լինեն Suro-ի դատարկ `content`-ը և Artush-ի թարգմանության դասը։ Merge-ի տեղդ Daniel-ից հետո է՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ Աշակերտի համարը մնում է 4։
+Թարմ `dev`-ը ձուլիր `feat/hayk-gateway`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Սպասիր Artush-ին (3)։ Հերթում Vach-ից հետո ես. **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։ Համար 4-ը հերթի քայլը չէ։
 
-**Քոնն է՝** `backend/apps/content/` մոդելը, ադմինը և `content` միգրացիաները։
+**Քոնն է՝** `content/serializers.py`, `content/views.py`, `content/urls.py`, `Gateway.jsx`, `gateway.css`, `gateway.js` և նոր բանալիները երեք JSON-ում։
 
-**Քոնը չէ՝** Gateway էջը, Vach-ի ապրանքի մոդելները, user-ը, հայտերը, `search.py`-ն։
+**Քոնը չէ՝** `HomeBlock`-ի դաշտերը, Textile և Baby էջերը, կատալոգի մոդելները, լեզուների երկրորդ ցանկը։
 
 **Քայլեր**
 
-1. `HomeBlock`՝ սլոթի բանալի (`hero` կամ `stores`), հերթ, `title` և `text` `am` / `en` / `ru` Artush-ի դասով։
-2. Unfold ադմին՝ թարգմանության inline-ով։
-3. Սլոթ + լեզու զույգը եզակի է։
+1. `GET /api/content/home-blocks/?language=` վերադարձնում է JSON զանգված, ոչ թե էջ։ Դաշտերը՝ `slot`, `order`, `title`, `text`։ Հերթը՝ `order`, ապա `id`։
+2. Լեզուն կարդա միայն `parse_language`-ով։ `ValueError`-ն դարձրու **400**։ Տեքստը վերցրու `pick_translation`-ով։ Բացակա թարգմանությունը բլոկը զանգվածից չի հանում։
+3. Հավաքիր `/` էջը մակետից՝ hero-ի title և text, խանութի ընտրություն դեպի `/textile` և `/baby`։ `App.jsx`-ի երթուղիները չփոխել։ Գործածիր `frontend/src/api/client.js`։
+4. Եթե հարցումը ձախողվի, խանութի ընտրությունը էլի երևա։
 
-**Ավարտված է, երբ** `hero` սլոթը պահվում է ադմինում երեք լեզվով, ապրանքի մոդելները չեն փոխվել, և Gateway էջում նոր դասավորություն չկա։
+**Ավարտված է, երբ** `hero`-ն գալիս է `am`, `en` և `ru` լեզվով, `?language=de`-ն 400 է, գլխավորը ցույց է տալիս սլոթը և երկու խանութը, ձախողված հարցումից հետո էլ հղումները երևում են, իսկ `HomeBlock`-ի դաշտերը չեն փոխվել։
 
 ```bash
 cd backend
-python manage.py makemigrations content
-python manage.py migrate
 python manage.py runserver
 ```
 
-`/api/admin/`-ում պահիր `hero`։ `git diff`-ում չպետք է լինեն Gateway էջը և `apps/catalog/models.py`-ն։
+Լեզուների երկրորդ ցանկ մի գրիր կոդի մեջ։

@@ -1,21 +1,23 @@
 # footer — Daniel
 
 **Ветка:** `feat/daniel-footer`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Daniel · footer».
+**Задание:** [task-wave2.md](../../../task-wave2.md) — «6 — Daniel · footer».  
+**Агент:** [docs/agents/06-daniel.md](../../../docs/agents/06-daniel.md).
 
-Пакет создаёт Suro. Добавь модели, не URL:
+Модели заявок уже в `dev`. Поля не менять.
 
-- `NewsletterSubscriber` — уникальный email и дата
-- `WholesaleInquiry` — имя, телефон, email, текст, дата
+- `POST /api/leads/newsletter/` — повторный email даёт 400 и не создаёт вторую строку
+- `POST /api/leads/wholesale/` — имя, телефон, email, текст обязательны
+- две формы в Footer на `react-hook-form`
 
-Страницу Footer не верстай. Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
+Страница: [frontend/src/components/Footer/README.md](../../../frontend/src/components/Footer/README.md).
 
-**Lead не мержит, пока:** обе модели видны в `/api/admin/`, повторный email подписки не сохраняется, ручек отправки нет.
+**Lead не мержит, пока:** первая подписка есть в админке, вторая отклонена, опт без текста даёт 400.
 
 ## English
 
-Daniel, `feat/daniel-footer`. Two models only. No public URL and no page layout.
+Daniel, `feat/daniel-footer`. Add the two POSTs and the Footer forms. Do not change the lead models.
 
 ## Հայերեն
 
-Daniel, `feat/daniel-footer`։ Միայն երկու մոդել, առանց URL և առանց էջի դասավորության։
+Daniel, `feat/daniel-footer`։ Ավելացրու երկու POST-ը և Footer-ի ձևերը։ Հայտերի մոդելները չփոխել։

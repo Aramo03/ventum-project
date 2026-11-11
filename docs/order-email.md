@@ -2,7 +2,7 @@
 
 **RU** · **EN** · **HY**
 
-Этот файл не входит в текущее задание. Его не реализовывать.
+Этот файл не входит в Wave 2. Его не реализовывать.
 
 Письмо уходит один раз, когда заказ первый раз становится `paid` после верного подтверждения оплаты. Повтор того же подтверждения второе письмо не шлёт.
 
@@ -60,6 +60,8 @@ ORDER_NOTIFY_EMAIL=aram1023aram@gmail.com
 
 ## English
 
+Not part of Wave 2. Do not implement this file.
+
 Send **one** email to `ORDER_NOTIFY_EMAIL` the first time an order becomes `paid` after a valid Idram confirmation. Not on precheck, not on the browser return, not on a duplicate callback.
 
 The sample recipient in `.env.example` is `aram1023aram@gmail.com`. Change it in `.env` when the shop inbox changes. Do not hardcode it in Python.
@@ -69,6 +71,8 @@ Body: order number, `EDP_BILL_NO`, customer name and email, lines (Russian name,
 Locally use the console email backend. On a shared server, use SMTP. Gmail needs an app password in the server `.env` only. If `ORDER_NOTIFY_EMAIL` is empty, keep `paid` and skip sending.
 
 ## Հայերեն
+
+Wave 2-ի մաս չէ։ Այս ֆայլը չիրականացնել։
 
 **Մեկ** նամակ `ORDER_NOTIFY_EMAIL`-ին, երբ պատվերն առաջին անգամ դառնում է `paid`՝ ճիշտ Idram հաստատումից հետո։ Precheck-ը, դիտարկիչի վերադարձը և կրկնակի callback-ը նամակ չեն ուղարկում։
 

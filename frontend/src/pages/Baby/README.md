@@ -1,21 +1,17 @@
 # baby — Svet
 
 **Ветка:** `feat/svet-baby`  
-**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Svet · baby».
+**Задание:** [task-wave2.md](../../../../task-wave2.md) — «8 — Svet · baby».  
+**Агент:** [docs/agents/08-svet.md](../../../../docs/agents/08-svet.md).
 
-Страницу `/baby` не собирать. После merge Vach (ученик 9, зона catalog) — `seed_baby`:
+Сид `seed_baby` уже в `dev`. Его и поля моделей не менять. Страницу Textile не трогать.
 
-- две категории `store=baby` и один товар, цена AMD
-- переводы `am`, `en`, `ru`
-- данные Karen не стирать
-- повторный запуск без дубликатов
-
-Поля модели не менять.
+Собери `/baby` из API с `store=baby`: категории, опубликованные товары, имя, цена AMD, картинка. Нужны состояния загрузки, пустого списка и ошибки сети.
 
 ## English
 
-Svet, student 8, `feat/svet-baby`. Seed `store=baby` after Vach (student 9, catalog) is merged. Do not build the page and do not delete Textile data.
+Svet, student 8, `feat/svet-baby`. Build `/baby` from the catalog API. Do not change the seed, the model fields, or the Textile page.
 
 ## Հայերեն
 
-Svet, աշակերտ 8, `feat/svet-baby`։ Vach-ի (աշակերտ 9, catalog) merge-ից հետո `store=baby`։ Էջը չհավաքել և Textile-ի տվյալները չջնջել։
+Svet, աշակերտ 8, `feat/svet-baby`։ Հավաքիր `/baby` էջը կատալոգի API-ից։ Seed-ը, մոդելի դաշտերը և Textile էջը չփոխել։

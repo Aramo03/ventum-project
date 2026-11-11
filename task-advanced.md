@@ -1,5 +1,11 @@
 # Ventum — Wave 1
 
+> **Закрыта.** Текущее задание — [task-wave2.md](task-wave2.md). Этот файл — архив моделей и админки.
+>
+> **Closed.** The current assignment is [task-wave2.md](task-wave2.md). This file is the models-and-admin archive.
+>
+> **Փակ է։** Ընթացիկ առաջադրանքը՝ [task-wave2.md](task-wave2.md)։ Այս ֆայլը մոդելների և ադմինի արխիվն է։
+
 Настоящий магазин: вход, витрина Textile и витрина Baby. Wave 1 собирает данные и админку, на которых магазин потом стоит. Вёрстку по макету здесь не делаем.
 
 Макеты интерфейса:

@@ -1,6 +1,8 @@
-# Agent brief — Wave 1 — #2 Suro
+# Agent brief — Wave 2 — #2 Suro
 
-Отдай этот файл агенту целиком. Номер ученика — **2**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «2 — Suro · api» в [task-advanced.md](../../task-advanced.md).
+Отдай этот файл агенту целиком. Номер ученика — **2**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «2 — Suro · api» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: `accounts.User` с логином-email, пустые пакеты и `include` уже в `dev`. Заново это не делать. В этой волне зона шире, чем у остальных.
 
 ## Русский
 
@@ -8,120 +10,121 @@
 
 Ты делаешь зону ученика 2, Suro, ветка `feat/suro-api`, зона `api`. README не удалять: [backend/apps/accounts/README.md](../../backend/apps/accounts/README.md).
 
-Старт: `git checkout dev && git pull`, затем `git checkout -b feat/suro-api`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец декабря. Вёрстку не делать.
+Старт: `git checkout dev && git pull`, затем свою `feat/suro-api` и влить в неё свежий `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-В очереди имён Suro первый среди кода, сразу после Lead: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+В очереди имён ты первый среди кода: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
 ### Карта репозитория
 
-- `backend/` — Django 5. База `backend/ventum.sqlite3`. Сейчас в `INSTALLED_APPS` есть `apps.core` и нет каталога.
-- `backend/config/settings.py` — сюда ты добавляешь приложения и `AUTH_USER_MODEL`.
-- `backend/config/urls.py` — админка уже на `api/admin/`. Сюда ты добавляешь `include` пустых приложений.
-- Health уже живёт в `apps.core` и отвечает `{"status":"ok"}`. Его не менять.
-- `frontend/` не трогать.
-- Только ты регистрируешь новые приложения в `INSTALLED_APPS`.
+- `backend/config/settings.py` — здесь уже есть `REST_FRAMEWORK`, `SIMPLE_JWT`, `UNFOLD`, `SPECTACULAR_SETTINGS`. Описание Spectacular всё ещё говорит, что живо только health.
+- `backend/config/urls.py` — админка на `api/admin/`. Каталог, заявки и контент уже подключены. У `accounts` своего `urls.py` ещё нет.
+- `AUTH_USER_MODEL = "accounts.User"`. `USERNAME_FIELD` — email. Модель не переписывать.
+- Health в `apps.core` отвечает `{"status":"ok"}`. Его не менять.
+- `frontend/` не трогать. Экрана входа в этой волне нет.
+- Новые приложения в `INSTALLED_APPS` по-прежнему не добавлять. `cart` и `orders` не наполнять.
 
 ### Зона ответственности
 
-Можно: `backend/apps/accounts/`, пустые пакеты `catalog`, `leads`, `content`, `INSTALLED_APPS`, `include` в `config/urls.py`.
+Можно: `backend/apps/accounts/` (вью входа, аналитика, шаблон, `urls.py`), точечно `REST_FRAMEWORK`, `SPECTACULAR_SETTINGS`, `UNFOLD` и два новых пути в `config/urls.py`.
 
-Нельзя: поля товара (их пишет Vach, 9), заявки (Daniel, 6), слоты главной (Hayk, 4), `search.py` (Mariam, 5), вью health.
+Нельзя: поля товара, заявок и `HomeBlock`, публичная страница аналитики, React, снятие `AllowAny` с API по умолчанию.
 
 ### Шаги
 
-1. `accounts.User` от `AbstractUser`. `USERNAME_FIELD = "email"`. Email уникален. Имя есть. `REQUIRED_FIELDS` без email.
-2. `AUTH_USER_MODEL = "accounts.User"` записать до `makemigrations`. Иначе Django оставит стандартного пользователя.
-3. Пакеты `backend/apps/catalog/`, `backend/apps/leads/`, `backend/apps/content/`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`. Модели в них не писать. README, которые уже лежат в этих папках, не удалять.
-4. Прописать три приложения и `accounts` в `INSTALLED_APPS`. Подключить их `include` в [backend/config/urls.py](../../backend/config/urls.py), не ломая админку, schema и health.
-5. `makemigrations` только для `accounts`.
+1. Staff-страница `GET /api/admin/analytics/`. Путь зарегистрировать в `config/urls.py` **выше** `path("api/admin/", admin.site.urls)`. Иначе include админки заберёт адрес и снаружи будет 404. Декоратор — `staff_member_required`, аргумент `login_url="/api/admin/login/"`. Гость уходит на логин админки и чисел не видит.
+2. Шаблон лежит в `backend/apps/accounts/templates/` и использует оформление Unfold, а не отдельный публичный сайт. В `UNFOLD["SIDEBAR"]` есть пункт на `/api/admin/analytics/`. Если `navigation` заменяет автоматический список моделей, в том же списке остаются Catalog, Leads, Content, Users и Groups.
+3. Только чтение, без новых моделей и без сырого SQL:
+   - товары published и unpublished, отдельно `textile` и `baby` (через `category__store`);
+   - число категорий в каждом магазине;
+   - подписчики: всего и с `created_at` за последние 7 дней;
+   - опт: всего и пять последних — имя, email, дата;
+   - пользователи: всего и сколько `is_staff`;
+   - число `HomeBlock`.
+   Ссылки ведут на существующие списки: `/api/admin/catalog/product/`, `/api/admin/catalog/category/`, `/api/admin/leads/newslettersubscriber/`, `/api/admin/leads/wholesaleinquiry/`, `/api/admin/accounts/user/`, `/api/admin/content/homeblock/`.
+4. JWT в `apps/accounts/urls.py`, include на `api/auth/`:
+   - `POST /api/auth/token/` — тело `email` и `password`, ответ `access` и `refresh`. Поле называется `email`, потому что `USERNAME_FIELD` уже email.
+   - `POST /api/auth/token/refresh/` — тело `refresh`, ответ `access`.
+   - `GET /api/auth/me/` — `IsAuthenticated`. Без заголовка **401**. С токеном — `email`, `first_name`, `last_name`.
+5. В `REST_FRAMEWORK`: `DEFAULT_PAGINATION_CLASS = "rest_framework.pagination.PageNumberPagination"` и `PAGE_SIZE = 12`. `DEFAULT_PERMISSION_CLASSES` оставить `AllowAny`. Сессионную аутентификацию в список по умолчанию не добавлять: иначе публичные POST витрины упрутся в CSRF.
+6. `SPECTACULAR_SETTINGS["DESCRIPTION"]` называет каталог, блоки главной, заявки и вход. Формулировку «Health only» убрать.
 
 ### Definition of Done
 
-Lead не мержит, пока: `createsuperuser` спрашивает email; пользователь виден в `/api/admin/`; Swagger открывается; в `catalog/models.py` нет товара; `migrate` на чистом SQLite проходит; health по-прежнему `{"status":"ok"}`.
+Lead не мержит, пока: staff видит шесть групп чисел, и они сходятся со списками админки; гость чисел не видит; `POST /api/auth/token/` с email суперпользователя возвращает `access` и `refresh`; `GET /api/auth/me/` без токена даёт 401; Swagger открывается и больше не описан как «Health only»; health по-прежнему `{"status":"ok"}`; `migrate` на чистом SQLite проходит; модели каталога, заявок и контента в diff нет.
 
 ### Проверка
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations accounts
-python manage.py migrate
-python manage.py createsuperuser
 python manage.py runserver
 ```
 
-На Linux/macOS: `rm -f ventum.sqlite3`. Открыть `/api/health/`, `/api/admin/`, `/api/schema/swagger-ui/`.
+Войти в `/api/admin/` как суперпользователь. Открыть `/api/admin/analytics/`. Сверить числа со списками. В Swagger вызвать `POST /api/auth/token/` телом `{"email":"...","password":"..."}`, затем `GET /api/auth/me/` с `Authorization: Bearer <access>` и без него. Выйти из админки и убедиться, что аналитика чисел не показывает.
 
 ### Нельзя
 
-Не заполнять модели каталога, заявок и слотов. Не менять `GET /api/health/`. Не создавать `search.py`.
+Не менять модели Vach, Daniel и Hayk. Не делать аналитику доступной без staff. Не ставить `IsAuthenticated` на весь API. Не строить страницу входа на React. Не наполнять `cart` и `orders`.
 
 ## English
 
 You are student **2**, Suro, branch `feat/suro-api`, zone `api`. Do not delete [backend/apps/accounts/README.md](../../backend/apps/accounts/README.md).
 
-Start from `dev`: `git checkout dev && git pull`, then `git checkout -b feat/suro-api`. One PR, base `dev`. Do not push `main`. No force-push. No Postgres. No page layout. Finish by the end of December.
+Wave 1 is in `dev`: email user, empty packages, URL includes. Do not redo that. This wave your zone is heavier than the others.
 
-You are first among the code, right after Lead. Queue: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+Start from `dev`: pull, update `feat/suro-api`, one PR, base `dev`. No force-push. No Postgres. No React login. Finish by the end of January.
 
-Django lives in `backend/`. Database file: `backend/ventum.sqlite3`. Add apps and `AUTH_USER_MODEL` in `backend/config/settings.py`. Add `include` entries in `backend/config/urls.py`. Health already returns `{"status":"ok"}` from `apps.core`. Do not change it. Do not touch `frontend/`. You are the only student who registers apps in `INSTALLED_APPS`.
+You are first among the code. Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
-**Own:** `backend/apps/accounts/`, empty packages `catalog`, `leads`, `content`, `INSTALLED_APPS`, URL includes.
+`AUTH_USER_MODEL` is already `accounts.User`. Do not rewrite the model. Do not register new apps. Do not touch health. Do not fill `cart` or `orders`.
 
-**Do not own:** product fields (Vach, 9), leads (Daniel, 6), home slots (Hayk, 4), `search.py` (Mariam, 5), the health view.
+**Own:** `backend/apps/accounts/` (analytics, JWT, template, `urls.py`), plus `PAGE_SIZE`, the Spectacular description, the Unfold sidebar item, and two paths in `config/urls.py`.
+
+**Do not own:** product, lead, and `HomeBlock` fields; a public analytics URL; the storefront.
 
 **Steps**
 
-1. `accounts.User` extends `AbstractUser`. `USERNAME_FIELD = "email"`. Email is unique. A name field exists. `REQUIRED_FIELDS` does not include email.
-2. Set `AUTH_USER_MODEL = "accounts.User"` before `makemigrations`.
-3. Create `catalog`, `leads`, and `content` with `apps.py`, `__init__.py`, empty `models.py`, empty `urls.py`. Leave existing READMEs in place. Do not write models.
-4. Register the apps and include their URLs without breaking admin, schema, or health.
-5. Run `makemigrations` only for `accounts`.
+1. Staff-only `GET /api/admin/analytics/`. Register it **before** `path("api/admin/", admin.site.urls)`. Use `staff_member_required` with `login_url="/api/admin/login/"`. A guest goes to the admin login and sees no numbers.
+2. Template under `backend/apps/accounts/templates/`, Unfold chrome, sidebar link to `/api/admin/analytics/`. If `navigation` replaces the automatic model list, keep Catalog, Leads, Content, Users, and Groups.
+3. Read-only, no new models, no raw SQL. Published and unpublished products for `textile` and for `baby`. Categories per store. Newsletter total and created in the last 7 days. Wholesale total and the five latest (name, email, date). Users total and staff. `HomeBlock` count. Link each group to `/api/admin/catalog/product/`, `/api/admin/catalog/category/`, `/api/admin/leads/newslettersubscriber/`, `/api/admin/leads/wholesaleinquiry/`, `/api/admin/accounts/user/`, `/api/admin/content/homeblock/`.
+4. `POST /api/auth/token/` with `email` and `password` returns `access` and `refresh`. `POST /api/auth/token/refresh/` takes `refresh`. `GET /api/auth/me/` is `IsAuthenticated`: 401 without a bearer token, otherwise `email`, `first_name`, `last_name`. Mount them at `api/auth/`.
+5. Set `PageNumberPagination` and `PAGE_SIZE = 12`. Leave `AllowAny` as the default permission. Do not add session authentication.
+6. Replace the Spectacular “Health only” description with catalog, home blocks, leads, and auth.
 
-**Done when** `createsuperuser` asks for email, the user is visible in `/api/admin/`, Swagger opens, `catalog/models.py` has no product, migrate passes on a fresh SQLite file, and health is still `{"status":"ok"}`.
+**Done when** the six groups match the admin lists, a guest sees no numbers, token login returns both tokens, `me` without a token is 401, Swagger no longer says “Health only”, health is still `{"status":"ok"}`, and catalog, lead, and content models are untouched.
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations accounts
-python manage.py migrate
-python manage.py createsuperuser
 python manage.py runserver
 ```
-
-Linux/macOS: `rm -f ventum.sqlite3`.
 
 ## Հայերեն
 
 Դու աշակերտ **2**-ն ես, Suro, ճյուղը՝ `feat/suro-api`, գոտին՝ `api`։ Չջնջել [backend/apps/accounts/README.md](../../backend/apps/accounts/README.md)։
 
-Սկսիր `dev`-ից՝ `git checkout dev && git pull`, հետո `git checkout -b feat/suro-api`։ Մեկ PR, base-ը `dev`։ `main` չpush անել։ `--force` չանել։ Postgres չբարձրացնել։ Էջ չձևավորել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Wave 1-ն արդեն `dev`-ում է՝ email user, դատարկ փաթեթներ, URL include-ներ։ Դա նորից չանել։ Այս ալիքում քո գոտին մյուսներից մեծ է։
 
-Կոդի մեջ առաջինը դու ես, Lead-ից հետո։ Հերթը՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։
+Սկսիր `dev`-ից, թարմացրու `feat/suro-api`, մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ React մուտքի էջ չսարքել։ Ավարտել մինչև հունվարի վերջ։
 
-Django-ն `backend/`-ում է։ Բազան՝ `backend/ventum.sqlite3`։ Հավելվածները և `AUTH_USER_MODEL`-ը ավելացրու `backend/config/settings.py`-ում։ `include`-ները՝ `backend/config/urls.py`-ում։ Health-ը `apps.core`-ից արդեն վերադարձնում է `{"status":"ok"}`։ Այն չփոխել։ `frontend/`-ին չդիպչել։ `INSTALLED_APPS`-ում նոր հավելված գրանցում ես միայն դու։
+Կոդի մեջ առաջինը դու ես։ Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
-**Քոնն է՝** `backend/apps/accounts/`, դատարկ `catalog`, `leads`, `content`, `INSTALLED_APPS`, URL include-ներ։
+`AUTH_USER_MODEL`-ն արդեն `accounts.User` է։ Մոդելը չվերաշարադրել։ Նոր հավելված չգրանցել։ Health-ը չփոխել։ `cart`-ը և `orders`-ը չլցնել։
 
-**Քոնը չէ՝** ապրանքի դաշտերը (Vach, 9), հայտերը (Daniel, 6), գլխավոր սլոթը (Hayk, 4), `search.py` (Mariam, 5), health view-ը։
+**Քոնն է՝** `backend/apps/accounts/` (անալիտիկա, JWT, շաբլոն, `urls.py`), `PAGE_SIZE`, Spectacular-ի նկարագիրը, Unfold-ի sidebar կետը և երկու ուղի `config/urls.py`-ում։
+
+**Քոնը չէ՝** ապրանքի, հայտի և `HomeBlock`-ի դաշտերը, հրապարակային անալիտիկայի URL-ը, խանութի էջերը։
 
 **Քայլեր**
 
-1. `accounts.User`-ը `AbstractUser`-ից է։ `USERNAME_FIELD = "email"`։ Email-ը եզակի է։ Անուն կա։ `REQUIRED_FIELDS`-ում email չկա։
-2. `AUTH_USER_MODEL = "accounts.User"` գրիր `makemigrations`-ից առաջ։
-3. Ստեղծիր `catalog`, `leads`, `content`՝ `apps.py`, `__init__.py`, դատարկ `models.py`, դատարկ `urls.py`։ README-ները թող։ Մոդելներ մի գրիր։
-4. Գրանցիր հավելվածները և մի կոտրիր ադմինը, schema-ն և health-ը։
-5. `makemigrations` միայն `accounts`-ի համար։
+1. Միայն staff-ի `GET /api/admin/analytics/`։ Գրանցիր այն **`path("api/admin/", admin.site.urls)`-ից առաջ**։ Գործածիր `staff_member_required`՝ `login_url="/api/admin/login/"`։ Հյուրը գնում է ադմինի մուտք և թվեր չի տեսնում։
+2. Շաբլոնը՝ `backend/apps/accounts/templates/`-ում, Unfold-ի տեսքով, sidebar հղում դեպի `/api/admin/analytics/`։ Եթե `navigation`-ը փոխարինում է ավտոմատ ցանկը, թող Catalog, Leads, Content, Users և Groups։
+3. Միայն կարդալ, առանց նոր մոդելի և առանց հում SQL. published և unpublished ապրանքներ `textile`-ի և `baby`-ի համար, կատեգորիաներ ըստ խանութի, բաժանորդներ՝ ընդամենը և վերջին 7 օրվա, մեծածախ՝ ընդամենը և վերջին հինգը (անուն, email, ամսաթիվ), user-ներ՝ ընդամենը և staff, `HomeBlock`-ի քանակ։ Հղումները՝ `/api/admin/catalog/product/`, `/api/admin/catalog/category/`, `/api/admin/leads/newslettersubscriber/`, `/api/admin/leads/wholesaleinquiry/`, `/api/admin/accounts/user/`, `/api/admin/content/homeblock/`։
+4. `POST /api/auth/token/`՝ `email` և `password`, պատասխանը՝ `access` և `refresh`։ `POST /api/auth/token/refresh/`՝ `refresh`։ `GET /api/auth/me/`՝ `IsAuthenticated`. առանց թոքենի 401, թոքենով՝ `email`, `first_name`, `last_name`։ Կախիր `api/auth/`-ից։
+5. Դիր `PageNumberPagination` և `PAGE_SIZE = 12`։ Լռելյայն իրավունքը թող `AllowAny`։ Session authentication մի ավելացրու։
+6. Spectacular-ի «Health only» նկարագրությունը փոխարինիր կատալոգով, գլխավորի բլոկներով, հայտերով և մուտքով։
 
-**Ավարտված է, երբ** `createsuperuser`-ը հարցնում է email, user-ը երևում է `/api/admin/`-ում, Swagger-ը բացվում է, `catalog/models.py`-ում ապրանք չկա, migrate-ը անցնում է մաքուր SQLite-ով, health-ը մնում է `{"status":"ok"}`։
+**Ավարտված է, երբ** վեց խումբը համընկնում է ադմինի ցանկերին, հյուրը թվեր չի տեսնում, token մուտքը վերադարձնում է երկու թոքեն, `me`-ն առանց թոքենի 401 է, Swagger-ը այլևս «Health only» չէ, health-ը մնում է `{"status":"ok"}`, իսկ կատալոգի, հայտի և կոնտենտի մոդելները չեն դիպչվել։
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations accounts
-python manage.py migrate
-python manage.py createsuperuser
 python manage.py runserver
 ```
-
-Linux/macOS՝ `rm -f ventum.sqlite3`։

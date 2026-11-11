@@ -1,5 +1,9 @@
 # 3 — Artush · i18n — ошибки и разбор
 
+> Журнал Wave 1. В Wave 2 этот разбор не переписывать. Текущее задание — [task-wave2.md](../../../task-wave2.md).
+> Wave 1 journal. Do not rewrite it for Wave 2.
+> Wave 1-ի մատյան։ Wave 2-ի համար չվերաշարադրել։
+
 **Ветка:** `feat/artush-i18n`  
 **Агент:** [docs/agents/03-artush.md](../../agents/03-artush.md)
 

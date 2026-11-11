@@ -1,24 +1,23 @@
 # api — Suro
 
-**Ветка:** `feat/suro-api`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Suro · api».
+**Номер ученика:** 2. **Ветка:** `feat/suro-api`  
+**Задание:** [task-wave2.md](../../../task-wave2.md) — «2 — Suro · api».  
+**Агент:** [docs/agents/02-suro.md](../../../docs/agents/02-suro.md). Отдай файл целиком.
 
-Сделай пользователя и пустые пакеты. README не удаляй.
+Wave 1 закрыта: пользователь с логином-email уже в `dev`. Модель не переписывать. README не удалять.
 
-- `accounts.User`: email — логин, имя есть, `AUTH_USER_MODEL` до первой миграции
-- пустые `catalog`, `leads`, `content`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`
-- пропиши их в `INSTALLED_APPS` и `include` в `config/urls.py`
-- `makemigrations` только для `accounts`
-- `GET /api/health/` не меняй
+Сделать три вещи:
 
-Модели товара пишет Vach (ученик 9), заявки — Daniel (ученик 6), слоты главной — Hayk (ученик 4). Сюда их не пиши.
+- страница аналитики только для staff: `/api/admin/analytics/`, пункт в сайдбаре Unfold, живые числа по товарам, категориям, подписчикам, опту, пользователям и `HomeBlock`;
+- `POST /api/auth/token/`, `POST /api/auth/token/refresh/`, `GET /api/auth/me/`;
+- `PAGE_SIZE = 12` и описание Swagger вместо «Health only». `AllowAny` по умолчанию не снимать.
 
-**Lead не мержит, пока:** суперпользователь создаётся с email, Swagger открывается, в каталоге нет модели товара, `migrate` на чистом SQLite проходит, health отвечает `{"status":"ok"}`.
+**Lead не мержит, пока:** staff видит числа, гость их не видит, токен по email выдаётся, `me` без токена даёт 401, health остаётся `{"status":"ok"}`.
 
 ## English
 
-Suro, student 2, `feat/suro-api`. Email login plus empty `catalog`, `leads`, and `content` packages. Vach (9) fills catalog, Daniel (6) fills leads, Hayk (4) fills content. Do not write their models. Do not delete this README.
+Suro, student 2, `feat/suro-api`. Wave 1 user stays. Add the staff analytics page, JWT token / refresh / me, and page size 12. Give your agent [02-suro.md](../../../docs/agents/02-suro.md) in full. Do not delete this README.
 
 ## Հայերեն
 
-Suro, աշակերտ 2, `feat/suro-api`։ Մուտք email-ով և դատարկ `catalog`, `leads`, `content`։ Կատալոգը լրացնում է Vach-ը (9), հայտերը՝ Daniel-ը (6), սլոթները՝ Hayk-ը (4)։ Դրանց մոդելները չլրացնել։ README-ն չջնջել։
+Suro, աշակերտ 2, `feat/suro-api`։ Wave 1-ի user-ը մնում է։ Ավելացրու staff-ի անալիտիկան, JWT token / refresh / me և էջի չափ 12։ Գործակալին տուր ամբողջ [02-suro.md](../../../docs/agents/02-suro.md)։ README-ն չջնջել։

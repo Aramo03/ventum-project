@@ -1,196 +1,125 @@
-# Agent brief — Wave 1 — #9 Vach
+# Agent brief — Wave 2 — #9 Vach
 
-Отдай этот файл агенту целиком. Номер ученика — **9**. Он совпадает с [TASK.md](../../TASK.md), с заголовком «9 — Vach · catalog» в [task-advanced.md](../../task-advanced.md) и с [backend/apps/catalog/README.md](../../backend/apps/catalog/README.md).
+Отдай этот файл агенту целиком. Номер ученика — **9**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «9 — Vach · catalog» в [task-wave2.md](../../task-wave2.md).
+
+Wave 1 закрыта: `Category`, `Product`, `ProductImage` и админка уже в `dev`. Поля не менять. `search.py` принадлежит Mariam: из списка одна строка его вызывает, файл целиком не переписывать. Публичного списка в волне 1 не было. Канон пути — `/api/catalog/`, не `/api/products/`.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 9, Vach, ветка `feat/vach-catalog`, зона `catalog`.
+Ты делаешь зону ученика 9, Vach, ветка `feat/vach-catalog`, зона `catalog`. README не удалять: [backend/apps/catalog/README.md](../../backend/apps/catalog/README.md).
 
-Старт: `git checkout dev && git pull`, затем `git checkout -b feat/vach-catalog`. Один pull request, **base = `dev`**. В `main` не пушить. `--force` на `dev` и `main` не делать. Postgres не поднимать. README не удалять. Срок — конец декабря. Страницы по макету не собирать.
+Старт: `git checkout dev && git pull`, затем `feat/vach-catalog` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
 
-Ждать merge Suro (2) и Artush (3). Пакет `catalog` уже пустой: его заводит Suro. В очередь имён ты встаёшь сразу после Artush и до Daniel:
-
-**Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**
-
-Номер 9 — это твой номер ученика. Это не четвёртый шаг очереди.
+Ждать Artush (3): `parse_language` и `pick_translation` в `apps.core.translations`. Ждать Suro (2): `PAGE_SIZE = 12`. В очереди ты сразу после Artush: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**. Номер 9 — номер ученика, не шаг очереди. В `INSTALLED_APPS` каталог второй раз не регистрировать.
 
 ### Карта репозитория
 
-- `backend/` — Django 5, DRF, Unfold, Pillow. База — `backend/ventum.sqlite3`.
-- Админка: `http://127.0.0.1:8000/api/admin/`.
-- Health: `http://127.0.0.1:8000/api/health/` должен остаться `{"status":"ok"}`. Его вью не менять.
-- Коды языков и абстрактный класс перевода — в `backend/apps/core/`, их пишет Artush. Импортируй класс, не копируй список языков в каталог.
-- Два магазина макета, Textile и Baby, — один каталог. Их делит поле `store` со значениями ровно `textile` или `baby`.
-- `frontend/` в этом задании не трогать. Karen (7) и Svet (8) потом нальют данные. Mariam (5) потом создаст `search.py`.
-- Новые приложения в `INSTALLED_APPS` регистрирует только Suro. Второй раз `catalog` не регистрировать.
-
-Макеты только для смысла полей, не для вёрстки:
-
-- [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
-- [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
+- Два магазина — один каталог. Их делит `Category.store`: `textile` или `baby`.
+- Цена — `Decimal` в AMD. Наружу она уходит строкой с двумя знаками.
+- Публичный список и карточка — только `is_published=True`.
+- Картинки упорядочены полем `order`. В списке нужна первая. В карточке — все.
+- `backend/apps/catalog/urls.py` пустой и уже подключён как `api/catalog/`.
+- `search_products(queryset, query)` уже умеет пустой запрос и поиск по sku и переведённому имени.
 
 ### Зона ответственности
 
-Можно менять только:
+Можно: `serializers.py`, `views.py`, заполнить `urls.py`.
 
-- `backend/apps/catalog/models.py`
-- `backend/apps/catalog/admin.py`
-- миграции приложения `catalog`
-
-Нельзя:
-
-- создавать `backend/apps/catalog/search.py`;
-- менять React: Textile, Baby, Header, Footer, Gateway, NotFound, `frontend/src/index.css`, `frontend/src/i18n/`;
-- менять пользователя Suro, заявки Daniel, `HomeBlock` Hayk, `languages.py` Artush;
-- добавлять URL и API-список товаров;
-- поднимать Postgres.
+Нельзя: `models.py`, миграции, переписывание `search.py`, страницы React, модели заявок и слотов, второй префикс `/api/products/`.
 
 ### Шаги
 
-1. `Category`
-   - родитель необязателен;
-   - `store` принимает ровно `textile` или `baby`;
-   - `slug` уникален;
-   - перевод `name` на `am`, `en`, `ru` через абстрактный класс Artush;
-   - пара «категория + язык» уникальна.
-2. `Product`
-   - внешний ключ на категорию;
-   - цена `Decimal` в AMD, не `float` и не строка;
-   - `sku` уникален;
-   - флаг публикации;
-   - переводы `name` и `description` на `am`, `en`, `ru`.
-3. `ProductImage`
-   - файл изображения (Pillow уже в зависимостях);
-   - `alt`;
-   - целое поле порядка.
-4. Админка Unfold
-   - категория и товар в `/api/admin/`;
-   - инлайн переводов у категории и у товара;
-   - инлайн картинок у товара;
-   - фильтр списка по `store`.
-
-Правило Artush не копировать в другой модуль: если перевода на язык нет, объект не исчезает; текст берётся из `en`, иначе из любого имеющегося перевода. Это уже в docstring его класса.
+1. `GET /api/catalog/categories/?store=&language=` — страница DRF (`count`, `next`, `previous`, `results`). Элемент: `slug`, `store`, `name`, `parent` (slug родителя или `null`). Плоский список. Размер страницы не хардкодить: его берёт глобальный `PAGE_SIZE`.
+2. `GET /api/catalog/products/?store=&language=&q=` — та же страница. Элемент: `sku`, `store`, `price`, `name`, `category` (`slug`, `name`), `image`. `image` — абсолютный URL первой картинки или `null`. `store` в ответе берётся из категории.
+3. `GET /api/catalog/products/<sku>/?language=` — карточка. Добавляет `description` и `images`: `{url, alt, order}`. Неопубликованный или неизвестный sku — **404**.
+4. `language` только через `parse_language`. `ValueError` — ответ **400**. Имя, описание и имя категории — через `pick_translation`. Нет `ru` — товар остаётся, текст из `en`, иначе из любой существующей строки.
+5. `store` можно не передавать: тогда оба магазина. Значение кроме `textile` и `baby` — **400**.
+6. После фильтра магазина и `is_published=True` одна строка: `search_products(queryset, request.query_params.get("q", ""))`. Пустой `q` не уменьшает `count`.
+7. У вью указать сериализатор, чтобы Swagger показал пути. Тег — `catalog`.
 
 ### Definition of Done
 
-Lead не мержит, пока одновременно верно всё:
-
-- в `/api/admin/` сохраняется категория с `name` на `am`, `en` и `ru`;
-- сохраняется товар: цена `Decimal` в AMD, уникальный sku, флаг публикации, `name` и `description` на трёх языках, картинка с alt и порядком;
-- фильтр `store` отделяет `textile` от `baby`;
-- `python manage.py migrate` проходит после удаления `backend/ventum.sqlite3`;
-- файла `search.py` нет;
-- diff не меняет модель пользователя, `HomeBlock` и страницы React.
+Lead не мержит, пока: опубликованный товар Textile есть в `store=textile` и отсутствует в `store=baby`; черновик отсутствует в списке и по sku даёт 404; товар без перевода `ru` остаётся в выдаче с английским именем; `?language=de` даёт 400; пустой `q` не уменьшает `count`; `models.py` и тело `search.py` в diff нет.
 
 ### Проверка
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations catalog
-python manage.py migrate
-python manage.py createsuperuser
+python manage.py seed_textile
+python manage.py seed_baby
 python manage.py runserver
 ```
 
-На Linux/macOS: `rm -f ventum.sqlite3`.
-
-Открыть `/api/admin/`. Создать категорию `store=textile` со slug и тремя переводами имени. Создать опубликованный товар: цена в AMD, sku, три имени, три описания, одна картинка. Фильтр `store` показывает эту категорию. В `git status` нет `search.py` и нет правок чужих приложений.
+Открыть `/api/catalog/products/?store=textile&language=en`, тот же список с `store=baby`, карточку sku, `?language=de` и `?q=` из пробелов. В Swagger три GET видны в группе catalog.
 
 ### Нельзя
 
-Не писать сиды Textile и Baby. Не писать поиск. Не писать тесты за Ashot (10), если для DoD они не требуются: твой DoD — админка и migrate.
+Не менять поля моделей ради формы ответа. Не фильтровать товар из выдачи только потому, что нет одного языка. Не писать поиск заново в сериализаторе.
 
 ## English
 
-You are student **9**, Vach, branch `feat/vach-catalog`, zone `catalog`.
+You are student **9**, Vach, branch `feat/vach-catalog`, zone `catalog`. Do not delete [backend/apps/catalog/README.md](../../backend/apps/catalog/README.md).
 
-Start with `git checkout dev && git pull`, then `git checkout -b feat/vach-catalog`. One pull request, base `dev`. Do not push `main`. No force-push. No Postgres. Do not delete the catalog README. Finish by the end of December. Do not build pages from the designs.
+Wave 1 models and admin are in `dev`. Do not change fields. Do not rewrite `search.py`. Call it once from the list. The public prefix is `/api/catalog/`, not `/api/products/`.
 
-Wait for Suro (2) and Artush (3). The `catalog` package is already an empty shell from Suro. In the name queue you are immediately after Artush and before Daniel:
+Pull `dev` into `feat/vach-catalog`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. Wait for Artush (3) and Suro’s `PAGE_SIZE`. You are immediately after Artush in the queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**. Do not register the app again.
 
-**Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**
+**Own:** `serializers.py`, `views.py`, and the empty `urls.py`.
 
-Number 9 is your student number. It is not “merge step 4”.
-
-Repository: Django in `backend/`, SQLite file `backend/ventum.sqlite3`, admin `/api/admin/`, health `/api/health/` stays `{"status":"ok"}`. Import Artush’s translation class from `backend/apps/core/`. Do not copy the language list. Textile and Baby are one catalog split by `store` (`textile` or `baby`). Do not touch `frontend/`. Do not register `catalog` in `INSTALLED_APPS` again.
-
-**You may edit only**
-
-- `backend/apps/catalog/models.py`
-- `backend/apps/catalog/admin.py`
-- catalog migrations
-
-**You do not touch** `search.py`, React pages, `index.css`, `frontend/src/i18n/`, the user, leads, `HomeBlock`, Artush’s `languages.py`, product URLs, or Postgres.
+**Do not own:** `models.py`, migrations, a rewrite of `search.py`, React pages, lead and home-block models.
 
 **Steps**
 
-1. `Category`: optional parent, `store` exactly `textile` or `baby`, unique slug, `name` in `am` / `en` / `ru` through Artush’s abstract class, unique pair of category and language.
-2. `Product`: foreign key to category, `Decimal` AMD price (not float, not a string), unique sku, published flag, `name` and `description` in three languages.
-3. `ProductImage`: image file (Pillow is installed), alt, integer order.
-4. Unfold admin: translation inlines, image inline, list filter on `store`.
+1. `GET /api/catalog/categories/?store=&language=` is a DRF page. Item: `slug`, `store`, `name`, `parent` slug or `null`. Flat list. Do not hardcode the page size.
+2. `GET /api/catalog/products/?store=&language=&q=` is a DRF page. Item: `sku`, `store`, `price`, `name`, `category` (`slug`, `name`), `image` as an absolute URL or `null`. `store` comes from the category. Published rows only.
+3. `GET /api/catalog/products/<sku>/?language=` adds `description` and `images` (`url`, `alt`, `order`). Unknown or unpublished sku is **404**.
+4. Language goes through `parse_language`. `ValueError` becomes **400**. Names and descriptions go through `pick_translation`. A missing `ru` keeps the product and uses `en`.
+5. Omit `store` to return both stores. Any other store value is **400**.
+6. After the store and published filters, one line calls `search_products(queryset, request.query_params.get("q", ""))`.
+7. Set the serializer on the view so Swagger lists the paths under the `catalog` tag.
 
-Do not reimplement Artush’s fallback. A missing language does not drop the row; text comes from `en`, otherwise from any translation that exists.
-
-**Done when** all of these are true: a category with three names saves in admin; a product saves with an AMD `Decimal` price, sku, published flag, three names, three descriptions, and an image; the `store` filter separates the shops; `migrate` passes on a deleted sqlite file; `search.py` does not exist; user, `HomeBlock`, and React are unchanged.
+**Done when** a published Textile product appears for `store=textile` and not for `store=baby`, a draft is missing from the list and is 404 by sku, a product with no `ru` stays with the English name, `?language=de` is 400, a blank `q` does not lower `count`, and `models.py` and the body of `search.py` are untouched.
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations catalog
-python manage.py migrate
-python manage.py createsuperuser
+python manage.py seed_textile
+python manage.py seed_baby
 python manage.py runserver
 ```
 
-Linux/macOS: `rm -f ventum.sqlite3`.
-
-Do not write Textile or Baby seeds, search, or Ashot’s tests. Your done-state is admin plus migrate.
+Do not drop a product only because one language is missing. Do not reimplement search inside the serializer.
 
 ## Հայերեն
 
-Դու աշակերտ **9**-ն ես, Vach, ճյուղը՝ `feat/vach-catalog`, գոտին՝ `catalog`։
+Դու աշակերտ **9**-ն ես, Vach, ճյուղը՝ `feat/vach-catalog`, գոտին՝ `catalog`։ Չջնջել [backend/apps/catalog/README.md](../../backend/apps/catalog/README.md)։
 
-Սկսիր `git checkout dev && git pull`, հետո `git checkout -b feat/vach-catalog`։ Մեկ PR, base-ը `dev`։ `main` չpush անել։ `--force` չանել։ Postgres չբարձրացնել։ README-ն չջնջել։ Ավարտել մինչև դեկտեմբերի վերջ։ Էջերը մակետից չհավաքել։
+Wave 1-ի մոդելներն ու ադմինն արդեն `dev`-ում են։ Դաշտերը չփոխել։ `search.py`-ն չվերաշարադրել։ Ցանկից այն կանչիր մեկ անգամ։ Հրապարակային նախդիրը `/api/catalog/` է, ոչ թե `/api/products/`։
 
-Սպասիր Suro-ի (2) և Artush-ի (3) merge-ին։ `catalog` փաթեթը դատարկ է թողել Suro-ն։ Անունների հերթում դու Artush-ից անմիջապես հետո ես և Daniel-ից առաջ.
+Թարմ `dev`-ը ձուլիր `feat/vach-catalog`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Սպասիր Artush-ին (3) և Suro-ի `PAGE_SIZE`-ին։ Հերթում Artush-ից անմիջապես հետո ես. **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։ Հավելվածը երկրորդ անգամ չգրանցել։
 
-**Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**
+**Քոնն է՝** `serializers.py`, `views.py` և դատարկ `urls.py`։
 
-9-ը քո աշակերտի համարն է։ Դա merge-ի չորրորդ քայլը չէ։
-
-Քարտեզ՝ Django `backend/`-ում, բազան `backend/ventum.sqlite3`, ադմին `/api/admin/`, health-ը մնում է `{"status":"ok"}`։ Artush-ի դասը ներմուծիր `backend/apps/core/`-ից։ Լեզուների ցանկը մի կրկնօրինակիր։ Textile-ը և Baby-ն մեկ կատալոգ են, բաժանված `store`-ով (`textile` կամ `baby`)։ `frontend/`-ին չդիպչել։ `catalog`-ը `INSTALLED_APPS`-ում երկրորդ անգամ չգրանցել։
-
-**Կարող ես փոխել միայն**
-
-- `backend/apps/catalog/models.py`
-- `backend/apps/catalog/admin.py`
-- catalog-ի միգրացիաները
-
-**Չդիպչել** `search.py`-ին, React էջերին, `index.css`-ին, `frontend/src/i18n/`-ին, user-ին, հայտերին, `HomeBlock`-ին, Artush-ի `languages.py`-ին, ապրանքի URL-ներին, Postgres-ին։
+**Քոնը չէ՝** `models.py`-ն, միգրացիաները, `search.py`-ի վերաշարադրումը, React էջերը, հայտերի և սլոթի մոդելները։
 
 **Քայլեր**
 
-1. `Category`՝ ծնողը պարտադիր չէ, `store`-ը ճիշտ `textile` կամ `baby`, եզակի slug, `name` `am` / `en` / `ru` Artush-ի դասով, կատեգորիա + լեզու զույգը եզակի է։
-2. `Product`՝ կապ կատեգորիայի հետ, գինը `Decimal` AMD-ով (ոչ float, ոչ տող), եզակի sku, հրապարակման դրոշ, `name` և `description` երեք լեզվով։
-3. `ProductImage`՝ նկարի ֆայլ (Pillow-ն կա), alt, հերթականության ամբողջ թիվ։
-4. Unfold ադմին՝ թարգմանությունների inline, նկարների inline, ֆիլտր `store`-ով։
+1. `GET /api/catalog/categories/?store=&language=` DRF էջ է։ Տարրը՝ `slug`, `store`, `name`, `parent` slug կամ `null`։ Հարթ ցանկ։ Էջի չափը կոդի մեջ մի գրիր։
+2. `GET /api/catalog/products/?store=&language=&q=` DRF էջ է։ Տարրը՝ `sku`, `store`, `price`, `name`, `category` (`slug`, `name`), `image` որպես բացարձակ URL կամ `null`։ `store`-ը գալիս է կատեգորիայից։ Միայն հրապարակված տողեր։
+3. `GET /api/catalog/products/<sku>/?language=` ավելացնում է `description` և `images` (`url`, `alt`, `order`)։ Անհայտ կամ չհրապարակված sku-ն **404** է։
+4. Լեզուն անցնում է `parse_language`-ով։ `ValueError`-ն դառնում է **400**։ Անուններն ու նկարագրությունը անցնում են `pick_translation`-ով։ Բացակա `ru`-ն ապրանքը թողնում է և վերցնում `en`։
+5. Առանց `store`-ի գալիս են երկու խանութը։ Ուրիշ արժեքը՝ **400**։
+6. Խանութի և published ֆիլտրից հետո մեկ տող կանչում է `search_products(queryset, request.query_params.get("q", ""))`։
+7. Վью-ի վրա դիր սերիալիզատորը, որպեսզի Swagger-ը ցույց տա ուղիները `catalog` թեգի տակ։
 
-Artush-ի կանոնը ուրիշ տեղ մի գրիր. լեզու չկա՝ տողը չի անհետանում. տեքստը `en`-ից է, այլապես առկա ցանկացած թարգմանությունից։
-
-**Ավարտված է, երբ** այս բոլորը ճիշտ են. երեք անունով կատեգորիան պահվում է ադմինում. ապրանքը պահվում է AMD `Decimal` գնով, sku-ով, դրոշով, երեք անունով, երեք նկարագրությամբ և նկարով. `store` ֆիլտրը բաժանում է խանութները. `migrate`-ը անցնում է ջնջված sqlite-ի վրա. `search.py` չկա. user-ը, `HomeBlock`-ը և React-ը չեն փոխվել։
+**Ավարտված է, երբ** հրապարակված Textile ապրանքը երևում է `store=textile`-ում և չի երևում `store=baby`-ում, սևագիրը ցանկում չկա և sku-ով 404 է, առանց `ru` ապրանքը մնում է անգլերեն անունով, `?language=de`-ն 400 է, դատարկ `q`-ն `count`-ը չի փոքրացնում, իսկ `models.py`-ն և `search.py`-ի մարմինը չեն դիպչվել։
 
 ```bash
 cd backend
-del ventum.sqlite3
-python manage.py makemigrations catalog
-python manage.py migrate
-python manage.py createsuperuser
+python manage.py seed_textile
+python manage.py seed_baby
 python manage.py runserver
 ```
 
-Linux/macOS՝ `rm -f ventum.sqlite3`։
-
-Textile/Baby seed, որոնում և Ashot-ի թեստերը չգրել։ Քո ավարտը ադմինն է և migrate-ը։
+Ապրանքը մի հանիր միայն այն պատճառով, որ մեկ լեզու չկա։ Որոնումը սերիալիզատորի մեջ նորից մի գրիր։

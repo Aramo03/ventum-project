@@ -1,18 +1,23 @@
 # gateway — Hayk
 
 **Ветка:** `feat/hayk-gateway`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Hayk · gateway».
+**Задание:** [task-wave2.md](../../../task-wave2.md) — «4 — Hayk · gateway».  
+**Агент:** [docs/agents/04-hayk.md](../../../docs/agents/04-hayk.md).
 
-Пакет создаёт Suro. После merge Artush добавь `HomeBlock`: слот `hero` или `stores`, порядок, переводы `title` и `text` на `am`, `en`, `ru`. Админка с инлайном.
+`HomeBlock` уже в `dev`. Поля модели не менять.
 
-Страницу `/` не верстай. Макеты лежат в задании. Папка страницы: [frontend/src/pages/Gateway/README.md](../../../frontend/src/pages/Gateway/README.md).
+- `GET /api/content/home-blocks/?language=` — массив `slot`, `order`, `title`, `text`
+- страница `/` по макету: hero и выбор Textile / Baby
+- если API молчит, ссылки на магазины всё равно видны
 
-**Lead не мержит, пока:** слот `hero` сохраняется в админке на трёх языках, модели товара не изменены.
+Папка страницы: [frontend/src/pages/Gateway/README.md](../../../frontend/src/pages/Gateway/README.md).
+
+**Lead не мержит, пока:** `hero` отдаётся на трёх языках, `?language=de` даёт 400, поля модели в diff нет.
 
 ## English
 
-Hayk, `feat/hayk-gateway`. `HomeBlock` only. Do not restyle the Gateway page.
+Hayk, `feat/hayk-gateway`. Serve home blocks and build `/`. Do not change `HomeBlock` fields.
 
 ## Հայերեն
 
-Hayk, `feat/hayk-gateway`։ Միայն `HomeBlock`։ Gateway էջը չձևավորել։
+Hayk, `feat/hayk-gateway`։ Տուր home block-երը և հավաքիր `/` էջը։ `HomeBlock`-ի դաշտերը չփոխել։
