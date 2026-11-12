@@ -1,0 +1,50 @@
+
+{
+  "brand": "Ventum",
+  "phone": "+374 10 55 44 33",
+  "delivery": "Доставка по всей Армении",
+  "searchPlaceholder": "Поиск товаров...",
+  "wholesale": "Оптовая продажа",
+  "account": "Аккаунт",
+  "cart": "Корзина",
+  "stores": {
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "choose": "Выберите магазин"
+  },
+  "nav": {
+    "bedLinen": "Постельное бельё",
+    "curtains": "Шторы",
+    "towels": "Полотенца",
+    "hotel": "Гостиничный текстиль",
+    "tablecloths": "Скатерти",
+    "blankets": "Одеяла",
+    "pillows": "Подушки",
+    "sheets": "Простыни"
+  },
+  "pageTitles": {
+    "gateway": "Ventum",
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "notFound": "Не найдено"
+  },
+  "pages": {
+    "gatewayLead": "Два магазина. Эта страница пока пуста.",
+    "textileLead": "Магазин текстиля пока пуст.",
+    "babyLead": "Откройте для себя нашу коллекцию для малышей.",
+    "notFound": "Эта страница не существует."
+  },
+  "footer": {
+    "note": "Нижняя часть сайта пока в разработке."
+  },
+  "common": {
+    "loading": "Загрузка..."
+  },
+  "baby": {
+    "loading": "Загрузка детских товаров...",
+    "error": "Не удалось загрузить товары. Попробуйте ещё раз.",
+    "empty": "В данный момент детских товаров нет.",
+    "categories": "Категории",
+    "products": "Наши товары"
+  }
+}
