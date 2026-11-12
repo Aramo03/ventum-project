@@ -34,7 +34,9 @@
     "notFound": "This page does not exist.",
     "goHome": "Back to home"
   },
-
+  "gateway": {
+    "contentUnavailable": "Welcome content is temporarily unavailable."
+  },
   "footer": {
     "note": "The footer is still a stub."
   },
