@@ -6,6 +6,7 @@ from django.views.static import serve
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
+    path("api/admin/analytics/", include("apps.accounts.analytics_urls")),
     path("api/admin/", admin.site.urls),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
@@ -17,6 +18,7 @@ urlpatterns = [
     path("api/catalog/", include("apps.catalog.urls")),
     path("api/leads/", include("apps.leads.urls")),
     path("api/content/", include("apps.content.urls")),
+    path("api/auth/", include("apps.accounts.urls")),
 ]
 
 if settings.DEBUG:
