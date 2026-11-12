@@ -8,3 +8,16 @@
   margin: 0 0 0.75rem;
   font-size: 1.75rem;
 }
+
+.not-found__home {
+  margin-top: 1.5rem;
+}
+
+.not-found__home a {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--color-brand);
+  color: #fff;
+  text-decoration: none;
+}
