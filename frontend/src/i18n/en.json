@@ -31,7 +31,8 @@
     "gatewayLead": "Two stores. This page is still empty.",
     "textileLead": "The textile shop is still empty.",
     "babyLead": "Discover our Baby collection.",
-    "notFound": "This page does not exist."
+    "notFound": "This page does not exist.",
+    "goHome": "Back to home"
   },
 
   "footer": {
