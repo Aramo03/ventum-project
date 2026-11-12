@@ -30,15 +30,21 @@
   "pages": {
     "gatewayLead": "Two stores. This page is still empty.",
     "textileLead": "The textile shop is still empty.",
-    "babyLead": "The baby shop is still empty.",
-    "notFound": "This page does not exist.",
-    "goHome": "Back to home"
+    "babyLead": "Discover our Baby collection.",
+    "notFound": "This page does not exist."
   },
 
   "footer": {
     "note": "The footer is still a stub."
   },
   "common": {
-    "loading": "Loading..."
-  }
+  "loading": "Loading..."
+},
+"baby": {
+  "loading": "Loading Baby products...",
+  "error": "Failed to load products. Please try again.",
+  "empty": "No Baby products available at the moment.",
+  "categories": "Categories",
+  "products": "Our Products"
+}
 }
