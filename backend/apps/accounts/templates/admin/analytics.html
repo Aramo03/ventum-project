@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Analytics | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="px-4 py-6 lg:px-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-semibold text-font-important-light dark:text-font-important-dark">Store analytics</h1>
+    <p class="mt-1 text-sm text-font-subtle-light dark:text-font-subtle-dark">Current totals from the catalog, leads, users, and homepage content.</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-4 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/catalog/product/">Products</a></h2>
+      {% for store_key, store in store_analytics.items %}
+      <div class="{% if not forloop.first %}mt-4 border-t border-base-200 pt-4 dark:border-base-800{% endif %}">
+        <h3 class="font-medium">{{ store.name }}</h3>
+        <dl class="mt-2 grid grid-cols-2 gap-2 text-sm">
+          <div><dt class="text-font-subtle-light dark:text-font-subtle-dark">Published</dt><dd class="text-lg font-semibold">{{ store.published_products }}</dd></div>
+          <div><dt class="text-font-subtle-light dark:text-font-subtle-dark">Unpublished</dt><dd class="text-lg font-semibold">{{ store.unpublished_products }}</dd></div>
+        </dl>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-4 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/catalog/category/">Categories</a></h2>
+      {% for store_key, store in store_analytics.items %}
+      <div class="flex items-center justify-between {% if not forloop.first %}mt-3 border-t border-base-200 pt-3 dark:border-base-800{% endif %}">
+        <span>{{ store.name }}</span><span class="text-2xl font-semibold">{{ store.categories }}</span>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-4 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/leads/newslettersubscriber/">Newsletter subscribers</a></h2>
+      <dl class="grid grid-cols-2 gap-3">
+        <div><dt class="text-sm text-font-subtle-light dark:text-font-subtle-dark">All time</dt><dd class="text-2xl font-semibold">{{ newsletter_total }}</dd></div>
+        <div><dt class="text-sm text-font-subtle-light dark:text-font-subtle-dark">Last 7 days</dt><dd class="text-2xl font-semibold">{{ newsletter_recent }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-1 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/leads/wholesaleinquiry/">Wholesale inquiries</a></h2>
+      <p class="mb-3 text-sm text-font-subtle-light dark:text-font-subtle-dark">{{ wholesale_total }} total</p>
+      {% if recent_wholesale %}
+      <ul class="divide-y divide-base-200 dark:divide-base-800">
+        {% for inquiry in recent_wholesale %}
+        <li class="py-2 text-sm">
+          <p class="font-medium">{{ inquiry.name }} <span class="font-normal text-font-subtle-light dark:text-font-subtle-dark">{{ inquiry.email }}</span></p>
+          <time class="text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ inquiry.created_at|date:"SHORT_DATETIME_FORMAT" }}</time>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}<p class="text-sm text-font-subtle-light dark:text-font-subtle-dark">No inquiries yet.</p>{% endif %}
+    </section>
+
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-4 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/accounts/user/">Users</a></h2>
+      <dl class="grid grid-cols-2 gap-3">
+        <div><dt class="text-sm text-font-subtle-light dark:text-font-subtle-dark">All users</dt><dd class="text-2xl font-semibold">{{ user_total }}</dd></div>
+        <div><dt class="text-sm text-font-subtle-light dark:text-font-subtle-dark">Staff</dt><dd class="text-2xl font-semibold">{{ staff_total }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="rounded-default border border-base-200 bg-white p-5 shadow-xs dark:border-base-800 dark:bg-base-900">
+      <h2 class="mb-4 text-lg font-semibold"><a class="text-primary-600 dark:text-primary-400" href="/api/admin/content/homeblock/">Homepage blocks</a></h2>
+      <p class="text-3xl font-semibold">{{ home_block_total }}</p>
+    </section>
+  </div>
+</div>
+{% endblock %}
