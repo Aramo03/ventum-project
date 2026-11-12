@@ -26,7 +26,32 @@ Wave 1 закрыта: все десять PR уже в `dev`. Чужие фич
 
 Очередь именами: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
+Колонка «Статус»:
+
+- `не начато` — ветка волны 2 ещё не в ревью
+- `ждёт PR` — работа есть, открытого PR в `dev` нет
+- `в ревью` — PR открыт, ворота ниже не пройдены
+- `в dev` — смержено, и имя из «После кого» уже было в `dev`
+
+Мержить только по этой очереди. Если «После кого» ещё не `в dev`, PR не принимать. Конфликт чинить вместе с владельцем файла. Чужую зону не переписывать. Номер PR не ставить, пока merge не случился.
+
+## Ворота merge
+
+Один PR = одна зона. Base — `dev`. Текст ворот — «Lead не мержит, пока» из раздела ученика в [task-wave2.md](../../../task-wave2.md).
+
+- **Suro.** Staff видит шесть групп чисел, и они сходятся со списками админки. Гость на `/api/admin/analytics/` чисел не видит. `POST /api/auth/token/` с email суперпользователя возвращает `access` и `refresh`. `GET /api/auth/me/` без токена даёт 401. Swagger открывается и больше не описан как «Health only». Health по-прежнему `{"status":"ok"}`. `migrate` на чистом SQLite проходит. В diff нет моделей каталога, заявок и `HomeBlock`.
+- **Artush.** Три кода по-прежнему импортируются из `languages.py`. Неизвестный язык не становится `en` молча. `i18n.changeLanguage('ru')` не падает. Health отвечает `{"status":"ok"}`.
+- **Vach.** Опубликованный товар Textile виден в списке `store=textile` и не виден в `store=baby`. Черновик отсутствует и в списке, и по sku (404). Товар без `ru` остаётся в выдаче, имя берётся из `en`. `?language=de` даёт 400. Пустой `q` не уменьшает `count`. `models.py` в diff нет.
+- **Hayk.** Слот `hero` отдаётся на `am`, `en` и `ru`. `?language=de` даёт 400. Главная показывает текст слота и оба магазина. Модели контента в diff не изменены.
+- **Daniel.** Первая подписка даёт 201 и строку в админке. Вторая с тем же email даёт 400 и не создаёт вторую строку. Опт без текста даёт 400. Формы в Footer вызывают эти пути.
+- **Mariam.** Товар находится по sku и по имени. Пустой ввод не сужает список на API. В diff нет `models.py`. Account и Cart выключены.
+- **Karen.** После `seed_textile` витрина показывает товар Textile и не показывает товар Baby. Черновик с `is_published=False` на витрину не попадает.
+- **Svet.** Витрина Baby показывает свой товар и не затирает страницу Textile.
+- **Ashot.** `python manage.py test` зелёный целиком. Страница 404 ведёт на `/`. В diff нет полей моделей и `index.css`.
+
 ## После PR ученика 10 (Ashot)
+
+Этот список не отмечать, пока ученик 10 не в `dev`. Wave 2 этим коммитом не закрывается.
 
 ```bash
 cd backend
@@ -36,7 +61,14 @@ python manage.py runserver
 
 Открыть `http://127.0.0.1:8000/api/health/`, Swagger, `http://127.0.0.1:8000/api/admin/analytics/` под staff, затем сайт: `/`, `/textile`, `/baby` и несуществующий путь.
 
-**Не закрывать Wave 2, пока:** health отвечает `{"status":"ok"}`; Swagger показывает пути контракта; аналитика видна только staff и числа живые; три витрины читают API; повторная подписка не создаёт вторую строку; `python manage.py test` зелёный; корзины, заказов и Postgres нет.
+- [ ] `/api/health/` отвечает `{"status":"ok"}`
+- [ ] Swagger показывает пути контракта
+- [ ] `/api/admin/analytics/` открывается только staff и показывает живые числа
+- [ ] `/`, `/textile` и `/baby` читают API
+- [ ] несуществующий путь открывается
+- [ ] повторная подписка не создаёт вторую строку
+- [ ] `python manage.py test` зелёный целиком
+- [ ] в diff волны нет корзины, заказов и Postgres
 
 ## English
 
@@ -59,7 +91,41 @@ Wave 1 is closed. Do not write Wave 2 features yourself. **Finish Wave 2 by the 
 
 Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
 
-After student 10, run `python manage.py test` and open health, Swagger, staff analytics, the three store routes, and an unknown path.
+Status column:
+
+- `not started` — the Wave 2 branch is not in review yet
+- `waiting for PR` — the work exists, and there is no open PR into `dev`
+- `in review` — the PR is open, and the gate below is not passed
+- `in dev` — merged, and the name in “After” was already in `dev`
+
+Merge only in this order. If “After” is not yet `in dev`, do not merge. Fix a conflict with the file owner. Do not rewrite their zone. Do not write a PR number before the merge.
+
+### Merge gates
+
+One pull request is one zone. Base is `dev`. Each gate is the “Lead does not merge until” line in that student’s section of [task-wave2.md](../../../task-wave2.md).
+
+- **Suro.** Staff sees six groups of numbers, and they match the admin lists. A guest on `/api/admin/analytics/` sees no numbers. `POST /api/auth/token/` with the superuser email returns `access` and `refresh`. `GET /api/auth/me/` without a token is 401. Swagger opens and is no longer described as “Health only”. Health is still `{"status":"ok"}`. `migrate` passes on a clean SQLite file. The diff has no catalog, lead, or `HomeBlock` models.
+- **Artush.** The three codes still come from `languages.py`. An unknown language does not become `en` silently. `i18n.changeLanguage('ru')` does not throw. Health is `{"status":"ok"}`.
+- **Vach.** A published Textile product is in `store=textile` and absent from `store=baby`. A draft is missing from the list and by sku (404). A product with no `ru` stays in the list, and the name comes from `en`. `?language=de` is 400. A blank `q` does not lower `count`. `models.py` is not in the diff.
+- **Hayk.** Slot `hero` is served in `am`, `en`, and `ru`. `?language=de` is 400. The home page shows the slot text and both stores. Content models are unchanged in the diff.
+- **Daniel.** The first subscription is 201 and a row in admin. The same email again is 400 and does not insert a second row. Wholesale without text is 400. The Footer forms call these paths.
+- **Mariam.** A product is found by sku and by name. An empty query does not narrow the API list. `models.py` is not in the diff. Account and Cart stay disabled.
+- **Karen.** After `seed_textile`, the storefront shows the Textile product and does not show the Baby product. A draft with `is_published=False` is absent.
+- **Svet.** The Baby storefront shows its own product and does not overwrite the Textile page.
+- **Ashot.** `python manage.py test` is green end to end. The 404 page links to `/`. The diff has no model fields and no `index.css`.
+
+### After student 10 (Ashot)
+
+Leave every box empty until student 10 is in `dev`. This commit does not close Wave 2.
+
+- [ ] `/api/health/` returns `{"status":"ok"}`
+- [ ] Swagger lists the contract paths
+- [ ] `/api/admin/analytics/` opens for staff only and shows live numbers
+- [ ] `/`, `/textile`, and `/baby` read the API
+- [ ] an unknown path opens
+- [ ] a duplicate subscription does not insert a second row
+- [ ] `python manage.py test` is green end to end
+- [ ] the wave diff has no cart, orders, or Postgres
 
 ## Հայերեն
 
@@ -82,7 +148,41 @@ Wave 1-ը փակ է։ Wave 2-ի ֆիչերն ինքդ չգրել։ **Wave 2-ն �
 
 Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
-10-րդ աշակերտից հետո՝ `python manage.py test`, health, Swagger, staff անալիտիկա, երեք էջ և անհայտ ուղի։
+«Կարգավիճակ» սյունը.
+
+- `չի սկսվել` — Wave 2-ի ճյուղը դեռ վերանայման մեջ չէ
+- `սպասում է PR` — աշխատանք կա, բաց PR դեպի `dev` չկա
+- `վերանայման մեջ` — PR-ը բաց է, ներքևի դուռը չի անցել
+- `dev-ում` — merge է արված, և «Ումից հետո» անունն արդեն `dev`-ում էր
+
+Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ Կոնֆլիկտը լուծիր ֆայլի տիրոջ հետ։ Նրա գոտին չվերաշարադրել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
+
+### Merge-ի դռներ
+
+Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ Դռան տեքստը՝ [task-wave2.md](../../../task-wave2.md)-ի այդ աշակերտի «Lead-ը չի merge անում, քանի դեռ» տողը։
+
+- **Suro.** Staff-ը տեսնում է թվերի վեց խումբ, և դրանք համընկնում են ադմինի ցանկերի հետ։ Հյուրը `/api/admin/analytics/`-ում թվեր չի տեսնում։ `POST /api/auth/token/`-ը սուպերօգտատիրոջ email-ով վերադարձնում է `access` և `refresh`։ `GET /api/auth/me/`-ը առանց թոքենի 401 է։ Swagger-ը բացվում է և այլևս «Health only» չի նկարագրվում։ Health-ը մնում է `{"status":"ok"}`։ `migrate`-ը մաքուր SQLite-ով անցնում է։ Diff-ում չկան կատալոգի, հայտերի և `HomeBlock`-ի մոդելներ։
+- **Artush.** Երեք կոդերը առաջվա պես գալիս են `languages.py`-ից։ Անհայտ լեզուն լուռ `en` չի դառնում։ `i18n.changeLanguage('ru')`-ն չի ընկնում։ Health-ը `{"status":"ok"}` է։
+- **Vach.** Հրապարակված Textile ապրանքը կա `store=textile` ցանկում և չկա `store=baby`-ում։ Սևագիրը չկա ոչ ցանկում, ոչ sku-ով (404)։ Առանց `ru` ապրանքը մնում է ցանկում, անունը գալիս է `en`-ից։ `?language=de`-ն 400 է։ Դատարկ `q`-ն `count`-ը չի փոքրացնում։ `models.py`-ն diff-ում չկա։
+- **Hayk.** `hero` սլոթը գալիս է `am`, `en` և `ru` լեզուներով։ `?language=de`-ն 400 է։ Գլխավոր էջը ցույց է տալիս սլոթի տեքստը և երկու խանութը։ Կոնտենտի մոդելները diff-ում չեն փոխվել։
+- **Daniel.** Առաջին բաժանորդագրությունը 201 է և տող ադմինում։ Նույն email-ը կրկին 400 է և երկրորդ տող չի ստեղծում։ Մեծածախն առանց տեքստի 400 է։ Footer-ի ձևերը կանչում են այս ուղիները։
+- **Mariam.** Ապրանքը գտնվում է sku-ով և անունով։ Դատարկ մուտքը API-ի ցանկը չի նեղացնում։ `models.py`-ն diff-ում չկա։ Account-ը և Cart-ը անջատված են։
+- **Karen.** `seed_textile`-ից հետո խանութը ցույց է տալիս Textile-ի ապրանքը և չի ցույց տալիս Baby-ին։ `is_published=False` սևագիրը խանութում չկա։
+- **Svet.** Baby-ի խանութը ցույց է տալիս իր ապրանքը և չի վրագրում Textile-ի էջը։
+- **Ashot.** `python manage.py test`-ը ամբողջովին կանաչ է։ 404 էջը տանում է `/`։ Diff-ում չկան մոդելների դաշտեր և `index.css`։
+
+### 10-րդ աշակերտից հետո (Ashot)
+
+Բոլոր վանդակները թող դատարկ, քանի դեռ 10-րդ աշակերտը `dev`-ում չէ։ Այս կոմիտը Wave 2-ը չի փակում։
+
+- [ ] `/api/health/`-ը վերադարձնում է `{"status":"ok"}`
+- [ ] Swagger-ում երևում են պայմանագրի ուղիները
+- [ ] `/api/admin/analytics/`-ը բացվում է միայն staff-ի համար և ցույց է տալիս կենդանի թվեր
+- [ ] `/`, `/textile` և `/baby` կարդում են API-ն
+- [ ] անհայտ ուղին բացվում է
+- [ ] կրկնակի բաժանորդագրությունը երկրորդ տող չի ստեղծում
+- [ ] `python manage.py test`-ը ամբողջովին կանաչ է
+- [ ] ալիքի diff-ում չկան զամբյուղ, պատվեր և Postgres
 
 ---
 
