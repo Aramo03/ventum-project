@@ -37,6 +37,14 @@
     "note": "The footer is still a stub."
   },
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "All",
+    "loading": "Loading...",
+    "empty": "No products found",
+    "error": "Network error. Failed to load data.",
+    "currency": "AMD"
+  }
   }
 }
