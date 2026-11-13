@@ -124,3 +124,109 @@ Store-ի ստուգում `update_or_create`-ից առաջ չկար. Baby-ի slu
 - [x] երկրորդ անգամը նոր նկարի ֆայլ չի ստեղծում
 - [x] `store=baby` slug-ը չի վերագրվում
 - [x] `frontend/src/pages/Textile/` diff-ում չկա
+
+# Wave 2
+
+Журнал выше — волна 1. Ниже ошибки merge [#29](https://github.com/Aramo03/ventum-project/pull/29) `feat/karen-textile` в `dev` (`b5fe41a`). Текст волны 1 не менялся.
+
+## Русский
+
+### Ошибка 1: `am.json` не парсится
+
+**Симптом:** `npm run build` останавливается на [frontend/src/i18n/am.json](../../../frontend/src/i18n/am.json), строка 54. Vite: invalid JSON at position 1423.
+
+**Причина:** после объекта `textile` осталась строка `"loading"` без запятой. Объект `baby` из-за этого выпал из корня.
+
+**Сделано:** строка `"loading"` удалена, после `textile` стоит запятая, `baby` снова сосед `textile`. Тексты блока `textile` те же.
+
+### Ошибка 2: `en.json` не парсится, `textile` вложен в `common`
+
+**Симптом:** [frontend/src/i18n/en.json](../../../frontend/src/i18n/en.json) ломается на той же строке 54.
+
+**Причина:** объект `textile` оказался внутри `common`, а следом та же строка `"loading"` без запятой. Страница читает `textile.title`, а не `common.textile.title`.
+
+**Сделано:** `common` снова только `loading`. `textile` поднят на верхний уровень с теми же строками: title, allCategories, loading, empty, error, currency. Перед `baby` стоит запятая.
+
+### Ошибка 3: в `ru.json` нет ключей `textile`
+
+**Симптом:** [frontend/src/i18n/ru.json](../../../frontend/src/i18n/ru.json) парсится, блока `textile` нет. На русском витрина показывает английский запасной текст из `t()`.
+
+**Причина:** бриф просит новые строки в трёх JSON. В diff #29 есть только `am.json` и `en.json`.
+
+**Сделано:** добавлен соседний блок `textile`: «Все», «Загрузка...», «Товары не найдены», «Ошибка сети. Не удалось загрузить данные.», валюта `AMD`.
+
+### Ошибка 4: в `Textile.jsx` два компонента
+
+**Симптом:** после починки JSON сборка всё равно падает: в одном модуле два `export default`.
+
+**Причина:** стаб волны 1 (`stores.textile`, `pages.textileLead`) оставлен над новым компонентом, который зовёт `fetchTextileCatalog`.
+
+**Сделано:** стаб удалён. Остался один компонент с ключами `textile.*`. [textile.js](../../../frontend/src/pages/Textile/textile.js) и стили не менялись.
+
+### Ошибка 5: второй сид в папке с опечаткой
+
+**Симптом:** в diff #29 есть [backend/apps/catalog/managment/commands/seed_textile.py](../../../backend/apps/catalog/managment/commands/seed_textile.py). Django команду оттуда не видит: пакет называется `management`.
+
+**Причина:** бриф запрещает менять `seed_textile`. Файл лежит рядом с настоящим [management/commands/seed_textile.py](../../../backend/apps/catalog/management/commands/seed_textile.py) и задаёт другие slug.
+
+**Сделано:** файл из `managment` удалён. Настоящая команда `seed_textile` не менялась.
+
+### Ошибка 6: `textile.js` импортирует несуществующий default
+
+**Симптом:** после правок JSON и `Textile.jsx` `npm run build` падает на [textile.js](../../../frontend/src/pages/Textile/textile.js): `"default" is not exported by "src/api/client.js"`.
+
+**Причина:** строка `import api from '../../api/client'`. В [client.js](../../../frontend/src/api/client.js) клиент экспортируется как `export const api`. Так его берут Header, Gateway и Baby.
+
+**Сделано:** импорт заменён на `import { api } from '../../api/client'`. Остальной файл не менялся.
+
+## English
+
+### Mistake 1: `am.json` does not parse
+
+`npm run build` stops on [am.json](../../../frontend/src/i18n/am.json) line 54: invalid JSON at position 1423. After the `textile` object a `"loading"` line had no comma, so `baby` fell out of the root. That line is gone, the comma is back, and `baby` sits next to `textile`. The `textile` strings are unchanged.
+
+### Mistake 2: `en.json` does not parse, and `textile` sat inside `common`
+
+[en.json](../../../frontend/src/i18n/en.json) breaks at the same line 54. `textile` was nested in `common`, then the same bare `"loading"` line. The page reads `textile.title`, not `common.textile.title`. `common` is only `loading` again. `textile` is a top-level object with the same title, allCategories, loading, empty, error, and currency strings. A comma sits before `baby`.
+
+### Mistake 3: `ru.json` has no `textile` keys
+
+[ru.json](../../../frontend/src/i18n/ru.json) parses, but it has no `textile` block, so Russian falls back to the English string inside `t()`. The brief asks for the new strings in all three JSON files. PR #29 touched only `am.json` and `en.json`. A sibling `textile` block is now there: «Все», «Загрузка...», «Товары не найдены», «Ошибка сети. Не удалось загрузить данные.», currency `AMD`.
+
+### Mistake 4: `Textile.jsx` contains two components
+
+After the JSON parses, the build still fails: one module has two `export default` declarations. The Wave 1 stub (`stores.textile`, `pages.textileLead`) was left above the component that calls `fetchTextileCatalog`. The stub is removed. One component remains, using `textile.*`. [textile.js](../../../frontend/src/pages/Textile/textile.js) and the styles are unchanged.
+
+### Mistake 5: a second seed in a misspelled folder
+
+PR #29 added [managment/commands/seed_textile.py](../../../backend/apps/catalog/managment/commands/seed_textile.py). Django never loads it: the real package is `management`. The brief forbids a second seed. The file used different slugs from [management/commands/seed_textile.py](../../../backend/apps/catalog/management/commands/seed_textile.py). The stray file is deleted. The real `seed_textile` command is unchanged.
+
+### Mistake 6: `textile.js` imports a default that does not exist
+
+After the JSON and `Textile.jsx` fixes, `npm run build` fails on [textile.js](../../../frontend/src/pages/Textile/textile.js): `"default" is not exported by "src/api/client.js"`. The file used `import api from '../../api/client'`. [client.js](../../../frontend/src/api/client.js) exports `export const api`. Header, Gateway, and Baby import that named binding. The import is now `import { api } from '../../api/client'`. The rest of the file is unchanged.
+
+## Հայերեն
+
+### Սխալ 1. `am.json`-ը չի վերլուծվում
+
+`npm run build`-ը կանգնում է [am.json](../../../frontend/src/i18n/am.json)-ի 54-րդ տողում. անվավեր JSON, դիրք 1423։ `textile` օբյեկտից հետո `"loading"` տողը ստորակետ չուներ, և `baby`-ն դուրս էր ընկել արմատից։ Այդ տողը հանված է, ստորակետը վերադարձված է, `baby`-ն նորից `textile`-ի կողքին է։ `textile` բլոկի տեքստերը նույնն են։
+
+### Սխալ 2. `en.json`-ը չի վերլուծվում, `textile`-ը `common`-ի մեջ էր
+
+[en.json](../../../frontend/src/i18n/en.json)-ը կոտրվում է նույն 54-րդ տողում։ `textile`-ը հայտնվել էր `common`-ի ներսում, հետո նույն `"loading"` տողն առանց ստորակետի։ Էջը կարդում է `textile.title`, ոչ թե `common.textile.title`։ `common`-ը նորից միայն `loading` է։ `textile`-ը վերին մակարդակում է՝ նույն title, allCategories, loading, empty, error, currency տողերով։ `baby`-ից առաջ ստորակետ կա։
+
+### Սխալ 3. `ru.json`-ում `textile` բանալիներ չկան
+
+[ru.json](../../../frontend/src/i18n/ru.json)-ը վերլուծվում է, բայց `textile` բլոկ չունի։ Ռուսերենում ցուցադրվում է `t()`-ի անգլերեն պահուստային տեքստը։ Բրիֆը նոր տողեր է ուզում երեք JSON-ում։ #29-ի diff-ում միայն `am.json` և `en.json` կան։ Ավելացված է հարևան `textile` բլոկ՝ «Все», «Загрузка...», «Товары не найдены», «Ошибка сети. Не удалось загрузить данные.», արժույթ `AMD`։
+
+### Սխալ 4. `Textile.jsx`-ում երկու բաղադրիչ կա
+
+JSON-ը ուղղելուց հետո հավաքումը դարձյալ ընկնում է. մեկ մոդուլում երկու `export default` կա։ Wave 1-ի նախապատրաստվածքը (`stores.textile`, `pages.textileLead`) մնացել էր `fetchTextileCatalog` կանչող բաղադրիչի վրա։ Նախապատրաստվածքը հանված է։ Մնացել է մեկ բաղադրիչ `textile.*` բանալիներով։ [textile.js](../../../frontend/src/pages/Textile/textile.js)-ը և ոճերը չեն փոխվել։
+
+### Սխալ 5. երկրորդ սիդ՝ սխալ գրված պանակում
+
+#29-ի diff-ում կա [managment/commands/seed_textile.py](../../../backend/apps/catalog/managment/commands/seed_textile.py)։ Django-ն այն չի տեսնում. փաթեթը `management` է։ Բրիֆն արգելում է երկրորդ սիդը։ Ֆայլի slug-երը տարբեր են [management/commands/seed_textile.py](../../../backend/apps/catalog/management/commands/seed_textile.py)-ից։ Ավելորդ ֆայլը ջնջված է։ Իսկական `seed_textile` հրամանը չի փոխվել։
+
+### Սխալ 6. `textile.js`-ը ներմուծում է գոյություն չունեցող default
+
+JSON-ը և `Textile.jsx`-ը ուղղելուց հետո `npm run build`-ը ընկնում է [textile.js](../../../frontend/src/pages/Textile/textile.js)-ի վրա. `"default" is not exported by "src/api/client.js"`։ Ֆայլում էր `import api from '../../api/client'`։ [client.js](../../../frontend/src/api/client.js)-ը արտահանում է `export const api`։ Header-ը, Gateway-ը և Baby-ն վերցնում են հենց այդ անունով կապը։ Իմպորտը դարձել է `import { api } from '../../api/client'`։ Ֆայլի մնացած մասը չի փոխվել։

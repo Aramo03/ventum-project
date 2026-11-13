@@ -41,23 +41,21 @@
     "note": "The footer is still a stub."
   },
   "common": {
-    "loading": "Loading...",
-    "textile": {
+    "loading": "Loading..."
+  },
+  "textile": {
     "title": "Ventum Textile",
     "allCategories": "All",
     "loading": "Loading...",
     "empty": "No products found",
     "error": "Network error. Failed to load data.",
     "currency": "AMD"
+  },
+  "baby": {
+    "loading": "Loading Baby products...",
+    "error": "Failed to load products. Please try again.",
+    "empty": "No Baby products available at the moment.",
+    "categories": "Categories",
+    "products": "Our Products"
   }
-  }
-  "loading": "Loading..."
-},
-"baby": {
-  "loading": "Loading Baby products...",
-  "error": "Failed to load products. Please try again.",
-  "empty": "No Baby products available at the moment.",
-  "categories": "Categories",
-  "products": "Our Products"
-}
 }

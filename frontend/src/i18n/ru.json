@@ -43,6 +43,14 @@
   "common": {
     "loading": "Загрузка..."
   },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "Все",
+    "loading": "Загрузка...",
+    "empty": "Товары не найдены",
+    "error": "Ошибка сети. Не удалось загрузить данные.",
+    "currency": "AMD"
+  },
   "baby": {
     "loading": "Загрузка товаров Baby...",
     "error": "Не удалось загрузить товары. Попробуйте ещё раз.",
