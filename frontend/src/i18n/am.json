@@ -38,7 +38,20 @@
     "contentUnavailable": "Բարի գալուստի տեքստը ժամանակավորապես հասանելի չէ։"
   },
   "footer": {
-    "note": "Ֆուտերը դեռ նախապատրաստվածք է։"
+    "note": "Հարցեր առաքման և մեծածախի մասին։",
+    "newsletterTitle": "Բաժանորդագրություն",
+    "newsletterEmail": "Էլ. փոստ",
+    "newsletterSubmit": "Բաժանորդագրվել",
+    "newsletterSuccess": "Դուք բաժանորդագրված եք։",
+    "wholesaleTitle": "Մեծածախ",
+    "wholesaleName": "Անուն",
+    "wholesalePhone": "Հեռախոս",
+    "wholesaleEmail": "Էլ. փոստ",
+    "wholesaleText": "Տեքստ",
+    "wholesaleSubmit": "Ուղարկել",
+    "wholesaleSuccess": "Հայտն ուղարկված է։",
+    "required": "Այս դաշտը պարտադիր է։",
+    "submitError": "Ձևը չուղարկվեց։ Փորձեք կրկին։"
   },
   "common": {
     "loading": "Բեռնվում է..."

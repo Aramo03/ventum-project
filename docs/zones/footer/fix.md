@@ -1,6 +1,6 @@
 # 6 — Daniel · footer — ошибки и разбор
 
-> Журнал Wave 1. В Wave 2 этот разбор не переписывать. Текущее задание — [task-wave2.md](../../../task-wave2.md).
+> Журнал Wave 1. Этот разбор не переписывать. Wave 2 закрыта. Текущее задание — [task-wave3.md](../../../task-wave3.md).
 > Wave 1 journal. Do not rewrite it for Wave 2.
 > Wave 1-ի մատյան։ Wave 2-ի համար չվերաշարադրել։
 
@@ -121,3 +121,15 @@ Both POSTs exist. The first subscription is 201. The same email again is 400 on 
 ### Արդեն համընկնում է
 
 Երկու POST-ը կա։ Առաջին բաժանորդագրությունը 201 է։ Նույն email-ը կրկին 400 է `email` դաշտի վրա և երկրորդ տող չի ստեղծում։ Սխալ email-ը 400 է։ Մեծածախը ընդունում է `name`, `phone`, `email`, `text`։ Դատարկ դաշտը 400 է, պատասխանում կա `id`։ Այս վյուերին JWT պետք չէ։ Հայտերի դաշտերը և Header-ը չեն փոխվել։
+
+## Закрыто в коммите волны 3
+
+Журнал выше оставлен как был. Формы подвала в этом коммите сделаны: `react-hook-form`, отправка через `api` на `/api/leads/newsletter/` и `/api/leads/wholesale/`, успех и ошибка внутри формы, строки в `am.json`, `en.json` и `ru.json`. Модели заявок не менялись.
+
+## Closed in the Wave 3 commit
+
+The journal above is unchanged. This commit adds the footer forms: `react-hook-form`, submit through `api` to both lead POSTs, success and error inside the form, and strings in all three JSON files. Lead models are unchanged.
+
+## Փակված է Wave 3-ի կոմիտում
+
+Վերևի մատյանը չի փոխվել։ Այս կոմիտում Footer-ի ձևերը կան՝ `react-hook-form`, ուղարկում `api`-ով երկու POST-ին, հաջողություն և սխալ ձևի մեջ, տողեր երեք JSON-ում։ Հայտերի մոդելները չեն փոխվել։

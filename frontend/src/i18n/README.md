@@ -1,16 +1,16 @@
 # i18n — Artush (интерфейс)
 
 **Ветка:** `feat/artush-i18n`  
-**Задание:** [task-wave2.md](../../../task-wave2.md) — «3 — Artush · i18n».
+**Задание:** [task-wave3.md](../../../task-wave3.md) — «3 — Artush · i18n».
 
-`am.json` и `en.json` не переписывать. Добавить `ru.json` с теми же ключами и зарегистрировать `ru` в `index.js`.
+`ru.json` уже зарегистрирован. Файлы `am.json`, `en.json` и `ru.json` в этой волне не переписывать: новые строки кладут владельцы страниц.
 
-Остальная работа — в [backend/apps/core/README.md](../../../backend/apps/core/README.md). Кнопку в шапке ставит Mariam.
+Работа волны 3 — `idram_language` в [backend/apps/core/README.md](../../../backend/apps/core/README.md).
 
 ## English
 
-Add `ru.json` and register `ru`. Do not rewrite `am.json` or `en.json`. Mariam adds the header button.
+`ru` is already registered. Do not rewrite the three JSON files. Wave 3 is `idram_language` in the core app.
 
 ## Հայերեն
 
-Ավելացրու `ru.json` և գրանցիր `ru`։ `am.json`-ը և `en.json`-ը չվերաշարադրել։ Կոճակը Header-ում դնում է Mariam-ը։
+`ru`-ն արդեն գրանցված է։ Երեք JSON-ը չվերաշարադրել։ Wave 3-ը `idram_language`-ն է core հավելվածում։

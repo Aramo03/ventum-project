@@ -38,7 +38,20 @@
     "contentUnavailable": "Текст приветствия временно недоступен."
   },
   "footer": {
-    "note": "Нижняя часть сайта пока не готова."
+    "note": "Вопросы о доставке и опте.",
+    "newsletterTitle": "Рассылка",
+    "newsletterEmail": "Эл. почта",
+    "newsletterSubmit": "Подписаться",
+    "newsletterSuccess": "Вы подписаны.",
+    "wholesaleTitle": "Опт",
+    "wholesaleName": "Имя",
+    "wholesalePhone": "Телефон",
+    "wholesaleEmail": "Эл. почта",
+    "wholesaleText": "Текст",
+    "wholesaleSubmit": "Отправить",
+    "wholesaleSuccess": "Заявка отправлена.",
+    "required": "Это поле обязательно.",
+    "submitError": "Не удалось отправить форму. Попробуйте ещё раз."
   },
   "common": {
     "loading": "Загрузка..."
