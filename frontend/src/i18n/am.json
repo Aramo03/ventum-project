@@ -41,6 +41,16 @@
     "note": "Ֆուտերը դեռ նախապատրաստվածք է։"
   },
   "common": {
+    "loading": "Բեռնվում է..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "Բոլորը",
+    "loading": "Բեռնվում է...",
+    "empty": "Ապրանքներ չեն գտնվել",
+    "error": "Ցանցի սխալ։ Չհաջողվեց բեռնել տվյալները։",
+    "currency": "AMD"
+  }
   "loading": "Բեռնվում է..."
 },
 "baby": {
