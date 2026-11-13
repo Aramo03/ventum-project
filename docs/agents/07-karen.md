@@ -1,112 +1,52 @@
-# Agent brief — Wave 2 — #7 Karen
+# Agent brief — Wave 3 — #7 Karen
 
-Отдай этот файл агенту целиком. Номер ученика — **7**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «7 — Karen · textile» в [task-wave2.md](../../task-wave2.md).
+Отдай этот файл агенту целиком. Номер ученика — **7**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «7 — Karen · textile» в [task-wave3.md](../../task-wave3.md).
 
-Wave 1 закрыта: команда `seed_textile` уже кладёт категории и товар `store=textile`. Сид и поля моделей не менять. Страницу `/textile` в той волне не собирали. Теперь собираешь её из API.
+Страница `/textile` уже читает каталог. Сид и модели не трогать. Страницу Baby не трогать.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 7, Karen, ветка `feat/karen-textile`, зона `textile`. README не удалять: [frontend/src/pages/Textile/README.md](../../frontend/src/pages/Textile/README.md).
+Ты делаешь зону ученика 7, Karen, ветка `feat/karen-textile`. Срок — конец января 2027.
 
-Старт: `git checkout dev && git pull`, затем `feat/karen-textile` со свежим `dev`. Один PR, base = `dev`. В `main` не пушить. `--force` не делать. Postgres не поднимать. Срок — конец января.
+Один PR, base = `dev`. В `main` не пушить. Postgres не поднимать.
 
-Ждать merge Vach (9): без `GET /api/catalog/products/?store=textile` витрину собирать не из чего. В очереди ты после Mariam: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
-
-### Карта репозитория
-
-- Страница — [frontend/src/pages/Textile/](../../frontend/src/pages/Textile/): `Textile.jsx`, `textile.css`, `textile.js`.
-- Данные читать через [frontend/src/api/client.js](../../frontend/src/api/client.js). Клиент сам добавляет `language` на GET.
-- Список товаров пагинирован, размер страницы 12. В элементе есть `sku`, `store`, `price`, `name`, `category`, `image`. `image` — абсолютный URL или `null`.
-- Цена на экране — строка с подписью AMD. Конвертации валют нет.
-- Макет: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495).
+В очереди ты после Vach: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
 ### Зона ответственности
 
-Можно: три файла страницы Textile и новые ключи в `am.json`, `en.json`, `ru.json`.
+Можно: `frontend/src/pages/Textile/` и новые ключи в трёх JSON.
 
-Нельзя: `seed_textile`, `models.py`, вью и сериализаторы каталога, страница Baby, корзина.
+Нельзя: `seed_textile`, модели, `/baby`, API корзины.
 
 ### Шаги
 
-1. Запросить `GET /api/catalog/categories/?store=textile` и `GET /api/catalog/products/?store=textile`.
-2. Показать категории, опубликованные товары, имя, цену AMD и картинку. Если `image` равен `null`, место картинки остаётся пустым, без битой иконки.
-3. Три состояния: загрузка, пустой список, ошибка сети. Текст этих состояний — в трёх JSON.
-4. Черновик на витрину не попадает: это уже делает API. Свой фильтр `is_published` на фронте не выдумывать вторым источником правды, но и не рисовать товар другого магазина, если он внезапно пришёл.
+1. На каждом опубликованном товаре кнопка шлёт `POST /api/cart/items/` с его `sku` и `qty: 1` через `api`.
+2. **401** показывает на карточке, что нужен вход. Не уводить на `/account`: страницу входа делает Hayk.
+3. Успех виден на карточке.
+4. Строки кнопки, успеха и 401 — в `am.json`, `en.json`, `ru.json`.
 
 ### Definition of Done
 
-Lead не мержит, пока: после `seed_textile` на `/textile` виден товар Textile и не виден товар Baby; пустая выдача и ошибка сети не оставляют белый экран без сообщения; сид и поля моделей в diff нет.
-
-### Проверка
-
-```bash
-cd backend
-python manage.py seed_textile
-python manage.py runserver
-```
-
-Во втором окне `cd frontend && npm run dev`. Открыть `/textile`. Сменить язык в шапке, когда кнопка `ru` уже есть: имя должно прийти на языке запроса.
+Кнопка кладёт товар Textile. Товар Baby на этой странице не появляется.
 
 ### Нельзя
 
-Не править `seed_baby` и файлы Svet. Не добавлять товар руками в обход API. Не открывать корзину.
+Менять список, который уже фильтрует `store=textile`.
 
 ## English
 
-You are student **7**, Karen, branch `feat/karen-textile`, zone `textile`. Do not delete the Textile README.
+You are student **7**, Karen, branch `feat/karen-textile`. Add an add-to-cart button on each published product at `/textile`. Post `{sku, qty: 1}` through `api`. A 401 says sign-in is required and stays on the card. Show success on the card. Add the strings to all three JSON files.
 
-Wave 1 `seed_textile` is in `dev`. Do not change the seed or the model fields. This wave you build `/textile` from the API.
+Do not change the seed, the models, or `/baby`.
 
-Pull `dev` into `feat/karen-textile`. One PR, base `dev`. No force-push. No Postgres. Finish by the end of January. Wait for Vach (9). Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
-
-**Own:** `Textile.jsx`, `textile.css`, `textile.js`, and new keys in all three JSON files.
-
-**Do not own:** `seed_textile`, `models.py`, catalog views, the Baby page, cart.
-
-**Steps**
-
-1. Request `GET /api/catalog/categories/?store=textile` and `GET /api/catalog/products/?store=textile` through `frontend/src/api/client.js`.
-2. Show categories, published products, name, AMD price, and `image`. When `image` is `null`, leave a quiet empty place.
-3. Loading, empty, and network-error states. Put those strings in all three JSON files.
-4. Drafts stay off the page because the API already filters them. Do not render a product from the other store.
-
-**Done when** after `seed_textile` the Textile product is visible and the Baby product is not, empty and error states show a message, and the seed and model fields are untouched.
-
-```bash
-cd backend
-python manage.py seed_textile
-python manage.py runserver
-```
-
-Do not edit Svet’s files. Do not open a cart.
+**Done when** the button adds a Textile product and a Baby product is still absent.
 
 ## Հայերեն
 
-Դու աշակերտ **7**-ն ես, Karen, ճյուղը՝ `feat/karen-textile`, գոտին՝ `textile`։ Textile-ի README-ն չջնջել։
+Դու աշակերտ **7**-ն ես, Karen, ճյուղը՝ `feat/karen-textile`։ `/textile`-ի յուրաքանչյուր հրապարակված ապրանքի վրա դիր «զամբյուղ» կոճակ։ Ուղարկիր `{sku, qty: 1}` `api`-ով։ 401-ը ասում է, որ մուտք է պետք, և մնում է քարտի վրա։ Հաջողությունը երևում է քարտի վրա։ Տողերը՝ երեք JSON-ում։
 
-Wave 1-ի `seed_textile`-ն արդեն `dev`-ում է։ Seed-ը և մոդելի դաշտերը չփոխել։ Այս ալիքում `/textile` էջը հավաքում ես API-ից։
+Seed-ը, մոդելները և `/baby`-ն չփոխել։
 
-Թարմ `dev`-ը ձուլիր `feat/karen-textile`-ի մեջ։ Մեկ PR, base-ը `dev`։ `--force` չանել։ Postgres չբարձրացնել։ Ավարտել մինչև հունվարի վերջ։ Սպասիր Vach-ին (9)։ Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
-
-**Քոնն է՝** `Textile.jsx`, `textile.css`, `textile.js` և նոր բանալիները երեք JSON-ում։
-
-**Քոնը չէ՝** `seed_textile`-ը, `models.py`-ն, կատալոգի վью-ները, Baby էջը, զամբյուղը։
-
-**Քայլեր**
-
-1. Խնդրիր `GET /api/catalog/categories/?store=textile` և `GET /api/catalog/products/?store=textile`՝ `frontend/src/api/client.js`-ով։
-2. Ցույց տուր կատեգորիաներ, հրապարակված ապրանքներ, անուն, AMD գին և `image`։ Երբ `image`-ը `null` է, թող դատարկ տեղ առանց կոտրված պատկերակի։
-3. Լինեն բեռնման, դատարկ ցանկի և ցանցի սխալի վիճակներ։ Այդ տողերը գրիր երեք JSON-ում։
-4. Սևագրերը էջ չեն հասնում, որովհետև API-ն արդեն զտում է։ Ուրիշ խանութի ապրանք մի նկարիր։
-
-**Ավարտված է, երբ** `seed_textile`-ից հետո երևում է Textile ապրանքը և չի երևում Baby ապրանքը, դատարկն ու սխալը հաղորդագրություն ունեն, իսկ seed-ը և մոդելի դաշտերը չեն դիպչվել։
-
-```bash
-cd backend
-python manage.py seed_textile
-python manage.py runserver
-```
-
-Svet-ի ֆայլերը չփոխել։ Զամբյուղ չբացել։
+**Ավարտված է, երբ** կոճակը դնում է Textile ապրանք, և Baby ապրանքը էջում չկա։

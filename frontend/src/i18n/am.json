@@ -30,13 +30,45 @@
   "pages": {
     "gatewayLead": "Երկու խանութ։ Էջը դեռ դատարկ է։",
     "textileLead": "Տեքստիլի վիտրինան դեռ դատարկ է։",
-    "babyLead": "Baby վիտրինան դեռ դատարկ է։",
-    "notFound": "Այս էջը չկա։"
+    "babyLead": "Բացահայտեք մեր փոքրիկների համար նախատեսված հավաքածուն։",
+    "notFound": "Այս էջը չկա։",
+    "goHome": "Գլխավոր էջ"
+  },
+  "gateway": {
+    "contentUnavailable": "Բարի գալուստի տեքստը ժամանակավորապես հասանելի չէ։"
   },
   "footer": {
-    "note": "Ֆուտերը դեռ նախապատրաստվածք է։"
+    "note": "Հարցեր առաքման և մեծածախի մասին։",
+    "newsletterTitle": "Բաժանորդագրություն",
+    "newsletterEmail": "Էլ. փոստ",
+    "newsletterSubmit": "Բաժանորդագրվել",
+    "newsletterSuccess": "Դուք բաժանորդագրված եք։",
+    "wholesaleTitle": "Մեծածախ",
+    "wholesaleName": "Անուն",
+    "wholesalePhone": "Հեռախոս",
+    "wholesaleEmail": "Էլ. փոստ",
+    "wholesaleText": "Տեքստ",
+    "wholesaleSubmit": "Ուղարկել",
+    "wholesaleSuccess": "Հայտն ուղարկված է։",
+    "required": "Այս դաշտը պարտադիր է։",
+    "submitError": "Ձևը չուղարկվեց։ Փորձեք կրկին։"
   },
   "common": {
     "loading": "Բեռնվում է..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "Բոլորը",
+    "loading": "Բեռնվում է...",
+    "empty": "Ապրանքներ չեն գտնվել",
+    "error": "Ցանցի սխալ։ Չհաջողվեց բեռնել տվյալները։",
+    "currency": "AMD"
+  },
+  "baby": {
+    "loading": "Baby ապրանքները բեռնվում են...",
+    "error": "Չհաջողվեց բեռնել ապրանքները։ Փորձեք կրկին։",
+    "empty": "Այս պահին Baby ապրանքներ չկան։",
+    "categories": "Կատեգորիաներ",
+    "products": "Մեր ապրանքները"
   }
 }

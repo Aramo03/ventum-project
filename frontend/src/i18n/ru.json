@@ -1,0 +1,74 @@
+{
+  "brand": "Ventum",
+  "phone": "+374 10 55 44 33",
+  "delivery": "Доставка по всей Армении",
+  "searchPlaceholder": "Поиск товаров...",
+  "wholesale": "Оптовые продажи",
+  "account": "Личный кабинет",
+  "cart": "Корзина",
+  "stores": {
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "choose": "Выберите магазин"
+  },
+  "nav": {
+    "bedLinen": "Постельное бельё",
+    "curtains": "Шторы",
+    "towels": "Полотенца",
+    "hotel": "Текстиль для гостиниц",
+    "tablecloths": "Скатерти",
+    "blankets": "Одеяла",
+    "pillows": "Подушки",
+    "sheets": "Простыни"
+  },
+  "pageTitles": {
+    "gateway": "Ventum",
+    "textile": "Ventum Textile",
+    "baby": "Ventum Baby",
+    "notFound": "Страница не найдена"
+  },
+  "pages": {
+    "gatewayLead": "Два магазина. Эта страница пока пуста.",
+    "textileLead": "Магазин текстиля пока пуст.",
+    "babyLead": "Откройте нашу коллекцию для малышей.",
+    "notFound": "Этой страницы не существует.",
+    "goHome": "На главную"
+  },
+  "gateway": {
+    "contentUnavailable": "Текст приветствия временно недоступен."
+  },
+  "footer": {
+    "note": "Вопросы о доставке и опте.",
+    "newsletterTitle": "Рассылка",
+    "newsletterEmail": "Эл. почта",
+    "newsletterSubmit": "Подписаться",
+    "newsletterSuccess": "Вы подписаны.",
+    "wholesaleTitle": "Опт",
+    "wholesaleName": "Имя",
+    "wholesalePhone": "Телефон",
+    "wholesaleEmail": "Эл. почта",
+    "wholesaleText": "Текст",
+    "wholesaleSubmit": "Отправить",
+    "wholesaleSuccess": "Заявка отправлена.",
+    "required": "Это поле обязательно.",
+    "submitError": "Не удалось отправить форму. Попробуйте ещё раз."
+  },
+  "common": {
+    "loading": "Загрузка..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "Все",
+    "loading": "Загрузка...",
+    "empty": "Товары не найдены",
+    "error": "Ошибка сети. Не удалось загрузить данные.",
+    "currency": "AMD"
+  },
+  "baby": {
+    "loading": "Загрузка товаров Baby...",
+    "error": "Не удалось загрузить товары. Попробуйте ещё раз.",
+    "empty": "Сейчас товаров Baby нет.",
+    "categories": "Категории",
+    "products": "Наши товары"
+  }
+}

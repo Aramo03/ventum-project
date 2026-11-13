@@ -30,13 +30,45 @@
   "pages": {
     "gatewayLead": "Two stores. This page is still empty.",
     "textileLead": "The textile shop is still empty.",
-    "babyLead": "The baby shop is still empty.",
-    "notFound": "This page does not exist."
+    "babyLead": "Discover our Baby collection.",
+    "notFound": "This page does not exist.",
+    "goHome": "Back to home"
+  },
+  "gateway": {
+    "contentUnavailable": "Welcome content is temporarily unavailable."
   },
   "footer": {
-    "note": "The footer is still a stub."
+    "note": "Questions about delivery and wholesale.",
+    "newsletterTitle": "Newsletter",
+    "newsletterEmail": "Email",
+    "newsletterSubmit": "Subscribe",
+    "newsletterSuccess": "You are subscribed.",
+    "wholesaleTitle": "Wholesale",
+    "wholesaleName": "Name",
+    "wholesalePhone": "Phone",
+    "wholesaleEmail": "Email",
+    "wholesaleText": "Message",
+    "wholesaleSubmit": "Send",
+    "wholesaleSuccess": "Request sent.",
+    "required": "This field is required.",
+    "submitError": "Could not send the form. Try again."
   },
   "common": {
     "loading": "Loading..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "All",
+    "loading": "Loading...",
+    "empty": "No products found",
+    "error": "Network error. Failed to load data.",
+    "currency": "AMD"
+  },
+  "baby": {
+    "loading": "Loading Baby products...",
+    "error": "Failed to load products. Please try again.",
+    "empty": "No Baby products available at the moment.",
+    "categories": "Categories",
+    "products": "Our Products"
   }
 }

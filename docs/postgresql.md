@@ -2,11 +2,11 @@
 
 **RU** · **EN** · **HY**
 
-Сейчас команда работает на **SQLite** (`backend/ventum.sqlite3`). PostgreSQL подключают в финале проекта, не в Wave 2.
+Сейчас команда работает на **SQLite** (`backend/ventum.sqlite3`). PostgreSQL подключают в финале проекта. Это не Wave 2 и не Wave 3: ученическая волна его не делает.
 
 ## Когда переключаться
 
-- Wave 2 уже в `dev`
+- Wave 3 уже в `dev`
 - Lead готовит production, это не ученическая волна
 - нужен общий сервер БД, не файл на диске у каждого
 
@@ -37,8 +37,8 @@ DB_PORT=5432
 
 ## English
 
-The team uses **SQLite** through Wave 2. PostgreSQL is the final phase, not this wave. Then switch `backend/.env` to PostgreSQL, run migrations, and use Docker Compose for deploy. See steps above.
+The team uses **SQLite** through Wave 3. PostgreSQL is the final phase, not a student wave. Then switch `backend/.env` to PostgreSQL, run migrations, and use Docker Compose for deploy. See steps above.
 
 ## Հայերեն
 
-Հիմա, ներառյալ Wave 2-ը, աշխատում ենք **SQLite**-ով։ PostgreSQL-ը վերջնափուլն է, ոչ թե այս ալիքը։ Հետո՝ `backend/.env`-ում PostgreSQL, `migrate`, Docker Compose։ Քայլերը վերևում են։
+Հիմա, ներառյալ Wave 3-ը, աշխատում ենք **SQLite**-ով։ PostgreSQL-ը վերջնափուլն է, ոչ թե աշակերտական ալիք։ Հետո՝ `backend/.env`-ում PostgreSQL, `migrate`, Docker Compose։ Քայլերը վերևում են։

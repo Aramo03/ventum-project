@@ -1,5 +1,11 @@
 # Ventum — Wave 2
 
+> **Закрыта.** Текущее задание — [task-wave3.md](task-wave3.md). Этот файл — архив публичного API и витрины.
+>
+> **Closed.** The current assignment is [task-wave3.md](task-wave3.md). This file is the public-API and storefront archive.
+>
+> **Փակ է։** Ընթացիկ առաջադրանքը՝ [task-wave3.md](task-wave3.md)։ Այս ֆայլը հրապարակային API-ի և խանութի էջերի արխիվն է։
+
 Wave 1 закрыта и уже лежит в `dev`: пользователь с логином-email, языки `am` / `en` / `ru`, `HomeBlock`, каталог, заявки, `search_products`, сиды Textile и Baby, тесты моделей. Заново это не делать и не ломать.
 
 Wave 2 открывает магазин наружу: публичное API и страницы по макету. Админка остаётся. База — SQLite.
