@@ -1,10 +1,10 @@
 # Ventum — Wave 1
 
-> **Закрыта.** Текущее задание — [task-wave2.md](task-wave2.md). Этот файл — архив моделей и админки.
+> **Закрыта.** Текущее задание — [task-wave3.md](task-wave3.md). Этот файл — архив моделей и админки. Волна 2 — [task-wave2.md](task-wave2.md).
 >
-> **Closed.** The current assignment is [task-wave2.md](task-wave2.md). This file is the models-and-admin archive.
+> **Closed.** The current assignment is [task-wave3.md](task-wave3.md). This file is the models-and-admin archive. Wave 2 is [task-wave2.md](task-wave2.md).
 >
-> **Փակ է։** Ընթացիկ առաջադրանքը՝ [task-wave2.md](task-wave2.md)։ Այս ֆայլը մոդելների և ադմինի արխիվն է։
+> **Փակ է։** Ընթացիկ առաջադրանքը՝ [task-wave3.md](task-wave3.md)։ Այս ֆայլը մոդելների և ադմինի արխիվն է։ Wave 2-ը՝ [task-wave2.md](task-wave2.md)։
 
 Настоящий магазин: вход, витрина Textile и витрина Baby. Wave 1 собирает данные и админку, на которых магазин потом стоит. Вёрстку по макету здесь не делаем.
 

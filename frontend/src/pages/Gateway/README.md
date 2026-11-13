@@ -1,18 +1,14 @@
 # gateway — Hayk (страница)
 
 **Ветка:** `feat/hayk-gateway`  
-**Задание:** [task-wave2.md](../../../../task-wave2.md) — «4 — Hayk · gateway».
+**Задание волны 2 закрыто.** Страница `/` уже читает `GET /api/content/home-blocks/`. В Wave 3 эту папку не переписывать.
 
-Собери `/` по макету: текст слота `hero` и выбор магазина. Данные — `GET /api/content/home-blocks/`. Ссылки на `/textile` и `/baby` оставить. Если запрос упал, выбор магазина всё равно на экране.
-
-Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
-
-Модель слота: [backend/apps/content/README.md](../../../../backend/apps/content/README.md). Поля не менять.
+Текущее задание Hayk — оплата и `/account`: [task-wave3.md](../../../../task-wave3.md) — «4 — Hayk · payments». Новая страница — `frontend/src/pages/Account/`.
 
 ## English
 
-Build `/` from the home-block API: hero text and the store choice. Keep the Textile and Baby links.
+The Wave 2 home page is done. Do not rebuild `/` in Wave 3. Hayk’s current zone is payments and `/account`.
 
 ## Հայերեն
 
-Հավաքիր `/` էջը home-block API-ից՝ hero-ի տեքստ և խանութի ընտրություն։ Թող Textile և Baby հղումները։
+Wave 2-ի գլխավոր էջը պատրաստ է։ Wave 3-ում `/`-ը չվերաշարադրել։ Hayk-ի ընթացիկ գոտին վճարումն է և `/account`-ը։

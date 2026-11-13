@@ -1,22 +1,19 @@
 # header — Mariam
 
 **Ветка:** `feat/mariam-header`  
-**Задание:** [task-wave2.md](../../../../task-wave2.md) — «5 — Mariam · header».  
+**Задание:** [task-wave3.md](../../../../task-wave3.md) — «5 — Mariam · cart-page».  
 **Агент:** [docs/agents/05-mariam.md](../../../../docs/agents/05-mariam.md).
 
-`search.py` уже в `dev`. Вью списка пишет Vach.
+Поиск и кнопка `ru` закрыты волной 2. Их не ломать.
 
-- поле поиска вызывает `GET /api/catalog/products/?q=&language=`
-- под полем имя, sku, цена AMD и магазин
-- в `header.js` появляется язык `ru`
-- кнопки Account и Cart остаются выключенными
+В этой волне Account ведёт на `/account`, Cart — на `/cart`. С токеном рядом виден `count`. Страница корзины — новая папка `frontend/src/pages/Cart/`. Query `success=1` не означает «оплачено».
 
-**Lead не мержит, пока:** товар находится по sku и по имени, `models.py` в diff нет.
+**Lead не мержит, пока:** обе ссылки живые, а `success=1` не написано как оплата.
 
 ## English
 
-Mariam, student 5. Connect the header search to `/api/catalog/products/`. Add the `ru` button. Leave Account and Cart disabled.
+Mariam, student 5. Keep the Wave 2 search. Link Account to `/account` and Cart to `/cart`. Build the cart page. `?success=1` is not paid.
 
 ## Հայերեն
 
-Mariam, աշակերտ 5։ Որոնումը միացրու `/api/catalog/products/`-ին։ Ավելացրու `ru` կոճակը։ Account-ը և Cart-ը թող անջատված։
+Mariam, աշակերտ 5։ Wave 2-ի որոնումը թող։ Account-ը տանի `/account`, Cart-ը՝ `/cart`։ Սարքի զամբյուղի էջը։ `?success=1`-ը վճարված չէ։

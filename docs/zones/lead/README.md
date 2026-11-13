@@ -1,34 +1,34 @@
 # 1 — Lead
 
-**Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave2.md](../../../task-wave2.md).  
+**Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave3.md](../../../task-wave3.md).  
 **Ветка:** `feat/lead`  
-**Задание:** [task-wave2.md](../../../task-wave2.md), раздел «1 — Lead».  
+**Задание:** [task-wave3.md](../../../task-wave3.md), раздел «1 — Lead».  
 **Агент:** [docs/agents/01-lead.md](../../agents/01-lead.md). Отдай агенту файл целиком.
 
-Wave 1 закрыта: все десять PR уже в `dev`. Чужие фичи волны 2 не писать. PR принимать только по очереди ниже. **Срок волны 2:** до конца января.
+Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писать. PR принимать только по очереди ниже. **Срок волны 3:** до конца января 2027. Postgres не поднимать.
 
-## Доска merge — Wave 2
+## Доска merge — Wave 3
 
 Колонка `#` — номер ученика, не шаг очереди. Колонка «После кого» — кто уже должен лежать в `dev`, прежде чем мержить эту строку.
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | ведёт очередь волны 2 |
+| 1 | Lead | `feat/lead` | lead | — | — | ведёт очередь волны 3 |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | не начато |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | не начато |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | не начато |
-| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | не начато |
-| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | не начато |
-| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | не начато |
+| 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | не начато |
+| 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | не начато |
+| 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | не начато |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | не начато |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | не начато |
-| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | не начато |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | не начато |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | не начато |
 
-Очередь именами: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+Очередь именами: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
 Колонка «Статус»:
 
-- `не начато` — ветка волны 2 ещё не в ревью
+- `не начато` — ветка волны 3 ещё не в ревью
 - `ждёт PR` — работа есть, открытого PR в `dev` нет
 - `в ревью` — PR открыт, ворота ниже не пройдены
 - `в dev` — смержено, и имя из «После кого» уже было в `dev`
@@ -37,152 +37,221 @@ Wave 1 закрыта: все десять PR уже в `dev`. Чужие фич
 
 ## Ворота merge
 
-Один PR = одна зона. Base — `dev`. Текст ворот — «Lead не мержит, пока» из раздела ученика в [task-wave2.md](../../../task-wave2.md).
+Один PR = одна зона. Base — `dev`. Текст ворот — «Lead не мержит, пока» из раздела ученика в [task-wave3.md](../../../task-wave3.md).
 
-- **Suro.** Staff видит шесть групп чисел, и они сходятся со списками админки. Гость на `/api/admin/analytics/` чисел не видит. `POST /api/auth/token/` с email суперпользователя возвращает `access` и `refresh`. `GET /api/auth/me/` без токена даёт 401. Swagger открывается и больше не описан как «Health only». Health по-прежнему `{"status":"ok"}`. `migrate` на чистом SQLite проходит. В diff нет моделей каталога, заявок и `HomeBlock`.
-- **Artush.** Три кода по-прежнему импортируются из `languages.py`. Неизвестный язык не становится `en` молча. `i18n.changeLanguage('ru')` не падает. Health отвечает `{"status":"ok"}`.
-- **Vach.** Опубликованный товар Textile виден в списке `store=textile` и не виден в `store=baby`. Черновик отсутствует и в списке, и по sku (404). Товар без `ru` остаётся в выдаче, имя берётся из `en`. `?language=de` даёт 400. Пустой `q` не уменьшает `count`. `models.py` в diff нет.
-- **Hayk.** Слот `hero` отдаётся на `am`, `en` и `ru`. `?language=de` даёт 400. Главная показывает текст слота и оба магазина. Модели контента в diff не изменены.
-- **Daniel.** Первая подписка даёт 201 и строку в админке. Вторая с тем же email даёт 400 и не создаёт вторую строку. Опт без текста даёт 400. Формы в Footer вызывают эти пути.
-- **Mariam.** Товар находится по sku и по имени. Пустой ввод не сужает список на API. В diff нет `models.py`. Account и Cart выключены.
-- **Karen.** После `seed_textile` витрина показывает товар Textile и не показывает товар Baby. Черновик с `is_published=False` на витрину не попадает.
-- **Svet.** Витрина Baby показывает свой товар и не затирает страницу Textile.
-- **Ashot.** `python manage.py test` зелёный целиком. Страница 404 ведёт на `/`. В diff нет полей моделей и `index.css`.
+- **Suro.** `cart` и `orders` стоят в `INSTALLED_APPS`. `migrate` на чистом SQLite проходит. В `settings` читаются `IDRAM_REC_ACCOUNT`, `IDRAM_SECRET_KEY`, `IDRAM_PAYMENT_URL`, `IDRAM_LANGUAGE`, `ORDER_NOTIFY_EMAIL`. В diff нет моделей и платёжных вью.
+- **Artush.** `idram_language('am'|'en'|'ru')` даёт `AM` / `EN` / `RU`. `de` не становится `EN` молча. Health отвечает `{"status":"ok"}`.
+- **Vach.** Без токена `GET /api/cart/` даёт 401. Неизвестный или снятый sku — 404. Повторный POST того же sku увеличивает количество, а не плодит строку. `qty` 0 удаляет строку. Цена — строка с двумя знаками. `models.py` каталога в diff нет.
+- **Karen.** На `/textile` кнопка кладёт товар Textile в корзину и не рисует товар Baby.
+- **Svet.** На `/baby` кнопка кладёт товар Baby и не меняет страницу Textile.
+- **Daniel.** Заказ создаётся со статусом `pending` и уникальным `bill_no`. Чужой пользователь по этому номеру получает 404. `send_order_paid_email` не меняет статус. Пустой `ORDER_NOTIFY_EMAIL` не роняет вызов. В diff нет вью Idram и нет правок Footer.
+- **Hayk.** Пустая корзина на `POST /api/checkout/` даёт 400. Непустая создаёт `pending`, очищает корзину и не ставит `paid`. Precheck с верной суммой отвечает `OK` и не меняет статус. Верный checksum ставит `paid` и шлёт одно письмо. Повтор того же POST снова `OK` и без второго письма. Плохой checksum оставляет `pending`. `/account` логинит через уже существующий `POST /api/auth/token/` и `setAuthToken`.
+- **Mariam.** Account ведёт на `/account`, Cart — на `/cart`. С токеном в шапке виден `count`. Страница корзины показывает строки. `?success=1` на экране не написано как «оплачено».
+- **Ashot.** `/checkout/success` и `/checkout/fail` читают `GET /api/orders/<bill_no>/`. Слово «оплачено» есть только при `status=paid`. `python manage.py test` зелёный целиком. В diff нет полей чужих моделей и нет `index.css`.
 
 ## После PR ученика 10 (Ashot)
 
-Этот список не отмечать, пока ученик 10 не в `dev`. Wave 2 этим коммитом не закрывается.
-
-```bash
-cd backend
-python manage.py test
-python manage.py runserver
-```
-
-Открыть `http://127.0.0.1:8000/api/health/`, Swagger, `http://127.0.0.1:8000/api/admin/analytics/` под staff, затем сайт: `/`, `/textile`, `/baby` и несуществующий путь.
+Этот список не отмечать, пока ученик 10 не в `dev`. Wave 3 этим коммитом не закрывается.
 
 - [ ] `/api/health/` отвечает `{"status":"ok"}`
-- [ ] Swagger показывает пути контракта
-- [ ] `/api/admin/analytics/` открывается только staff и показывает живые числа
-- [ ] `/`, `/textile` и `/baby` читают API
-- [ ] несуществующий путь открывается
-- [ ] повторная подписка не создаёт вторую строку
+- [ ] Swagger показывает корзину, checkout, callback Idram и заказ
+- [ ] `/`, `/textile` и `/baby` по-прежнему читают API
+- [ ] `/cart`, `/account` и `/checkout/success` открываются
+- [ ] повторный callback Idram не шлёт второе письмо
 - [ ] `python manage.py test` зелёный целиком
-- [ ] в diff волны нет корзины, заказов и Postgres
+- [ ] Postgres в diff волны нет
 
 ## English
 
-Student **1**, branch `feat/lead`. The `#` column is the student number and matches [TASK.md](../../../TASK.md) and the headings in [task-wave2.md](../../../task-wave2.md). “After” is the person who must already be in `dev`. Give your agent [01-lead.md](../../agents/01-lead.md) in full.
+Student **1**, branch `feat/lead`. The `#` column is the student number and matches [TASK.md](../../../TASK.md) and the headings in [task-wave3.md](../../../task-wave3.md). “After” is the person who must already be in `dev`. Give your agent [01-lead.md](../../agents/01-lead.md) in full.
 
-Wave 1 is closed. Do not write Wave 2 features yourself. **Finish Wave 2 by the end of January.**
+Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wave 3 by the end of January 2027.** Do not start Postgres.
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | runs the Wave 2 queue |
+| 1 | Lead | `feat/lead` | lead | — | — | runs the Wave 3 queue |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | not started |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | not started |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | not started |
-| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | not started |
-| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | not started |
-| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | not started |
+| 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | not started |
+| 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | not started |
+| 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | not started |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | not started |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | not started |
-| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | not started |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | not started |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | not started |
 
-Queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+Queue: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-Status column:
-
-- `not started` — the Wave 2 branch is not in review yet
-- `waiting for PR` — the work exists, and there is no open PR into `dev`
-- `in review` — the PR is open, and the gate below is not passed
-- `in dev` — merged, and the name in “After” was already in `dev`
-
-Merge only in this order. If “After” is not yet `in dev`, do not merge. Fix a conflict with the file owner. Do not rewrite their zone. Do not write a PR number before the merge.
+Merge only in this order. If “After” is not yet `in dev`, do not merge. Do not write a PR number before the merge.
 
 ### Merge gates
 
-One pull request is one zone. Base is `dev`. Each gate is the “Lead does not merge until” line in that student’s section of [task-wave2.md](../../../task-wave2.md).
+One pull request is one zone. Base is `dev`. Each gate is the “Lead does not merge until” line in that student’s section of [task-wave3.md](../../../task-wave3.md).
 
-- **Suro.** Staff sees six groups of numbers, and they match the admin lists. A guest on `/api/admin/analytics/` sees no numbers. `POST /api/auth/token/` with the superuser email returns `access` and `refresh`. `GET /api/auth/me/` without a token is 401. Swagger opens and is no longer described as “Health only”. Health is still `{"status":"ok"}`. `migrate` passes on a clean SQLite file. The diff has no catalog, lead, or `HomeBlock` models.
-- **Artush.** The three codes still come from `languages.py`. An unknown language does not become `en` silently. `i18n.changeLanguage('ru')` does not throw. Health is `{"status":"ok"}`.
-- **Vach.** A published Textile product is in `store=textile` and absent from `store=baby`. A draft is missing from the list and by sku (404). A product with no `ru` stays in the list, and the name comes from `en`. `?language=de` is 400. A blank `q` does not lower `count`. `models.py` is not in the diff.
-- **Hayk.** Slot `hero` is served in `am`, `en`, and `ru`. `?language=de` is 400. The home page shows the slot text and both stores. Content models are unchanged in the diff.
-- **Daniel.** The first subscription is 201 and a row in admin. The same email again is 400 and does not insert a second row. Wholesale without text is 400. The Footer forms call these paths.
-- **Mariam.** A product is found by sku and by name. An empty query does not narrow the API list. `models.py` is not in the diff. Account and Cart stay disabled.
-- **Karen.** After `seed_textile`, the storefront shows the Textile product and does not show the Baby product. A draft with `is_published=False` is absent.
-- **Svet.** The Baby storefront shows its own product and does not overwrite the Textile page.
-- **Ashot.** `python manage.py test` is green end to end. The 404 page links to `/`. The diff has no model fields and no `index.css`.
+- **Suro.** `cart` and `orders` are installed. `migrate` passes on a clean SQLite file. Settings read the Idram keys and `ORDER_NOTIFY_EMAIL`. The diff has no models and no payment views.
+- **Artush.** `idram_language` maps `am`/`en`/`ru` to `AM`/`EN`/`RU`. `de` does not become `EN`. Health is `{"status":"ok"}`.
+- **Vach.** `GET /api/cart/` without a token is 401. An unknown or unpublished sku is 404. A second POST of the same sku increases quantity. `qty` 0 deletes the line. Price is a two-decimal string. Catalog `models.py` is not in the diff.
+- **Karen.** `/textile` adds a Textile product and does not show a Baby product.
+- **Svet.** `/baby` adds a Baby product and does not change the Textile page.
+- **Daniel.** An order starts `pending` with a unique `bill_no`. Another user gets 404 for that number. `send_order_paid_email` does not change status. An empty `ORDER_NOTIFY_EMAIL` does not raise. No Idram view and no Footer edits.
+- **Hayk.** An empty cart is 400 on checkout. A filled cart becomes `pending`, the cart is cleared, and the order is not `paid`. A matching precheck is `OK` and does not change status. A valid checksum sets `paid` and sends one email. The same POST again is `OK` with no second email. A bad checksum leaves `pending`. `/account` logs in through the existing token endpoint and `setAuthToken`.
+- **Mariam.** Account links to `/account`, Cart links to `/cart`, and the header shows `count` when a token exists. `?success=1` is not rendered as paid.
+- **Ashot.** Success and fail pages read the order GET. The paid word appears only when `status` is `paid`. `python manage.py test` is green. No foreign model fields and no `index.css` in the diff.
 
 ### After student 10 (Ashot)
 
-Leave every box empty until student 10 is in `dev`. This commit does not close Wave 2.
+Leave every box empty until student 10 is in `dev`. This commit does not close Wave 3.
 
 - [ ] `/api/health/` returns `{"status":"ok"}`
-- [ ] Swagger lists the contract paths
-- [ ] `/api/admin/analytics/` opens for staff only and shows live numbers
-- [ ] `/`, `/textile`, and `/baby` read the API
-- [ ] an unknown path opens
-- [ ] a duplicate subscription does not insert a second row
+- [ ] Swagger lists cart, checkout, the Idram callback, and the order
+- [ ] `/`, `/textile`, and `/baby` still read the API
+- [ ] `/cart`, `/account`, and `/checkout/success` open
+- [ ] a duplicate Idram callback does not send a second email
 - [ ] `python manage.py test` is green end to end
-- [ ] the wave diff has no cart, orders, or Postgres
+- [ ] the wave diff has no Postgres
 
 ## Հայերեն
 
-Աշակերտ **1**, ճյուղը՝ `feat/lead`։ `#` սյունը աշակերտի համարն է և համընկնում է [TASK.md](../../../TASK.md)-ի ու [task-wave2.md](../../../task-wave2.md)-ի վերնագրերի հետ։ «Ումից հետո» նշանակում է՝ ով արդեն պետք է լինի `dev`-ում։ Գործակալին տուր ամբողջ [01-lead.md](../../agents/01-lead.md) ֆայլը։
+Աշակերտ **1**, ճյուղը՝ `feat/lead`։ `#` սյունը աշակերտի համարն է և համընկնում է [TASK.md](../../../TASK.md)-ի ու [task-wave3.md](../../../task-wave3.md)-ի վերնագրերի հետ։ «Ումից հետո» նշանակում է՝ ով արդեն պետք է լինի `dev`-ում։ Գործակալին տուր ամբողջ [01-lead.md](../../agents/01-lead.md) ֆայլը։
 
-Wave 1-ը փակ է։ Wave 2-ի ֆիչերն ինքդ չգրել։ **Wave 2-ն ավարտել մինչև հունվարի վերջ։**
+Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել։ **Wave 3-ն ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres չբարձրացնել։
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | վարում է Wave 2-ի հերթը |
+| 1 | Lead | `feat/lead` | lead | — | — | վարում է Wave 3-ի հերթը |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | չի սկսվել |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | չի սկսվել |
-| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | չի սկսվել |
-| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | չի սկսվել |
-| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | չի սկսվել |
-| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | չի սկսվել |
+| 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | չի սկսվել |
+| 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | չի սկսվել |
+| 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | չի սկսվել |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | չի սկսվել |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | չի սկսվել |
-| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | չի սկսվել |
-| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | չի սկսվել |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | չի սկսվել |
+| 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | չի սկսվել |
 
-Հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
+Հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։
 
-«Կարգավիճակ» սյունը.
-
-- `չի սկսվել` — Wave 2-ի ճյուղը դեռ վերանայման մեջ չէ
-- `սպասում է PR` — աշխատանք կա, բաց PR դեպի `dev` չկա
-- `վերանայման մեջ` — PR-ը բաց է, ներքևի դուռը չի անցել
-- `dev-ում` — merge է արված, և «Ումից հետո» անունն արդեն `dev`-ում էր
-
-Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ Կոնֆլիկտը լուծիր ֆայլի տիրոջ հետ։ Նրա գոտին չվերաշարադրել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
+Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
 
 ### Merge-ի դռներ
 
-Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ Դռան տեքստը՝ [task-wave2.md](../../../task-wave2.md)-ի այդ աշակերտի «Lead-ը չի merge անում, քանի դեռ» տողը։
+Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ Դռան տեքստը՝ [task-wave3.md](../../../task-wave3.md)-ի այդ աշակերտի «Lead-ը չի merge անում, քանի դեռ» տողը։
 
-- **Suro.** Staff-ը տեսնում է թվերի վեց խումբ, և դրանք համընկնում են ադմինի ցանկերի հետ։ Հյուրը `/api/admin/analytics/`-ում թվեր չի տեսնում։ `POST /api/auth/token/`-ը սուպերօգտատիրոջ email-ով վերադարձնում է `access` և `refresh`։ `GET /api/auth/me/`-ը առանց թոքենի 401 է։ Swagger-ը բացվում է և այլևս «Health only» չի նկարագրվում։ Health-ը մնում է `{"status":"ok"}`։ `migrate`-ը մաքուր SQLite-ով անցնում է։ Diff-ում չկան կատալոգի, հայտերի և `HomeBlock`-ի մոդելներ։
-- **Artush.** Երեք կոդերը առաջվա պես գալիս են `languages.py`-ից։ Անհայտ լեզուն լուռ `en` չի դառնում։ `i18n.changeLanguage('ru')`-ն չի ընկնում։ Health-ը `{"status":"ok"}` է։
-- **Vach.** Հրապարակված Textile ապրանքը կա `store=textile` ցանկում և չկա `store=baby`-ում։ Սևագիրը չկա ոչ ցանկում, ոչ sku-ով (404)։ Առանց `ru` ապրանքը մնում է ցանկում, անունը գալիս է `en`-ից։ `?language=de`-ն 400 է։ Դատարկ `q`-ն `count`-ը չի փոքրացնում։ `models.py`-ն diff-ում չկա։
-- **Hayk.** `hero` սլոթը գալիս է `am`, `en` և `ru` լեզուներով։ `?language=de`-ն 400 է։ Գլխավոր էջը ցույց է տալիս սլոթի տեքստը և երկու խանութը։ Կոնտենտի մոդելները diff-ում չեն փոխվել։
-- **Daniel.** Առաջին բաժանորդագրությունը 201 է և տող ադմինում։ Նույն email-ը կրկին 400 է և երկրորդ տող չի ստեղծում։ Մեծածախն առանց տեքստի 400 է։ Footer-ի ձևերը կանչում են այս ուղիները։
-- **Mariam.** Ապրանքը գտնվում է sku-ով և անունով։ Դատարկ մուտքը API-ի ցանկը չի նեղացնում։ `models.py`-ն diff-ում չկա։ Account-ը և Cart-ը անջատված են։
-- **Karen.** `seed_textile`-ից հետո խանութը ցույց է տալիս Textile-ի ապրանքը և չի ցույց տալիս Baby-ին։ `is_published=False` սևագիրը խանութում չկա։
-- **Svet.** Baby-ի խանութը ցույց է տալիս իր ապրանքը և չի վրագրում Textile-ի էջը։
-- **Ashot.** `python manage.py test`-ը ամբողջովին կանաչ է։ 404 էջը տանում է `/`։ Diff-ում չկան մոդելների դաշտեր և `index.css`։
+- **Suro.** `cart`-ը և `orders`-ը `INSTALLED_APPS`-ում են։ `migrate`-ը մաքուր SQLite-ով անցնում է։ Settings-ը կարդում է Idram-ի բանալիները և `ORDER_NOTIFY_EMAIL`-ը։ Diff-ում չկան մոդելներ և վճարման վյուեր։
+- **Artush.** `idram_language`-ը `am`/`en`/`ru`-ն դարձնում է `AM`/`EN`/`RU`։ `de`-ն լուռ `EN` չի դառնում։ Health-ը `{"status":"ok"}` է։
+- **Vach.** Առանց թոքենի `GET /api/cart/`-ը 401 է։ Անհայտ կամ չհրապարակված sku-ն 404 է։ Նույն sku-ի երկրորդ POST-ը քանակն է ավելացնում։ `qty` 0-ն ջնջում է տողը։ Գինը երկու նիշով տող է։ Կատալոգի `models.py`-ն diff-ում չկա։
+- **Karen.** `/textile`-ը Textile ապրանք է դնում զամբյուղ և Baby չի ցույց տալիս։
+- **Svet.** `/baby`-ը Baby ապրանք է դնում և Textile էջը չի փոխում։
+- **Daniel.** Պատվերը սկսում է `pending`-ով և եզակի `bill_no`-ով։ Ուրիշ օգտատերը այդ համարով 404 է ստանում։ `send_order_paid_email`-ը կարգավիճակը չի փոխում։ Դատարկ `ORDER_NOTIFY_EMAIL`-ը կանչը չի գցում։ Idram-ի վյու և Footer-ի ուղղում չկա։
+- **Hayk.** Դատարկ զամբյուղը checkout-ում 400 է։ Լիքը զամբյուղը դառնում է `pending`, զամբյուղը մաքրվում է, `paid` չի դրվում։ Ճիշտ precheck-ը `OK` է և կարգավիճակը չի փոխում։ Ճիշտ checksum-ը դնում է `paid` և ուղարկում է մեկ նամակ։ Նույն POST-ը կրկին `OK` է՝ առանց երկրորդ նամակի։ Վատ checksum-ը թողնում է `pending`։ `/account`-ը մտնում է արդեն եղած token endpoint-ով և `setAuthToken`-ով։
+- **Mariam.** Account-ը տանում է `/account`, Cart-ը՝ `/cart`։ Թոքենով վերնագրում երևում է `count`։ `?success=1`-ը էկրանին «վճարված» չի գրվում։
+- **Ashot.** Հաջողության և ձախողման էջերը կարդում են պատվերի GET-ը։ «Վճարված» բառը կա միայն `status=paid` դեպքում։ `python manage.py test`-ը կանաչ է։ Diff-ում չկան ուրիշի մոդելների դաշտեր և `index.css`։
 
 ### 10-րդ աշակերտից հետո (Ashot)
 
-Բոլոր վանդակները թող դատարկ, քանի դեռ 10-րդ աշակերտը `dev`-ում չէ։ Այս կոմիտը Wave 2-ը չի փակում։
+Բոլոր վանդակները թող դատարկ, քանի դեռ 10-րդ աշակերտը `dev`-ում չէ։ Այս կոմիտը Wave 3-ը չի փակում։
 
 - [ ] `/api/health/`-ը վերադարձնում է `{"status":"ok"}`
-- [ ] Swagger-ում երևում են պայմանագրի ուղիները
-- [ ] `/api/admin/analytics/`-ը բացվում է միայն staff-ի համար և ցույց է տալիս կենդանի թվեր
-- [ ] `/`, `/textile` և `/baby` կարդում են API-ն
-- [ ] անհայտ ուղին բացվում է
-- [ ] կրկնակի բաժանորդագրությունը երկրորդ տող չի ստեղծում
+- [ ] Swagger-ում երևում են զամբյուղը, checkout-ը, Idram callback-ը և պատվերը
+- [ ] `/`, `/textile` և `/baby` առաջվա պես կարդում են API-ն
+- [ ] `/cart`, `/account` և `/checkout/success` բացվում են
+- [ ] Idram-ի կրկնակի callback-ը երկրորդ նամակ չի ուղարկում
 - [ ] `python manage.py test`-ը ամբողջովին կանաչ է
-- [ ] ալիքի diff-ում չկան զամբյուղ, պատվեր և Postgres
+- [ ] ալիքի diff-ում Postgres չկա
+
+---
+
+# Архив — доска Wave 2 (закрыта)
+
+Не выполнять и не мержить заново. Публичное API и витрина уже в этом дереве. Подробности: [task-wave2.md](../../../task-wave2.md).
+
+Номера PR сюда не переносятся: на рабочей доске волны их не было. Выдумывать номер нельзя. Колонка PR остаётся `—`.
+
+| # | Имя | Ветка | Зона | После кого | PR | Статус |
+|---|-----|--------|------|------------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | закрыта в этом дереве |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | закрыта в этом дереве |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | закрыта в этом дереве |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | закрыта в этом дереве |
+| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | закрыта в этом дереве |
+| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | закрыта в этом дереве |
+| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | закрыта в этом дереве |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | закрыта в этом дереве |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | закрыта в этом дереве |
+| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | закрыта в этом дереве |
+
+Очередь волны 2: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+
+Проверки закрытия. Галочка стоит только на том, что проверено в коммите, который закрыл волну. Остальное не отмечено: эти адреса в том коммите в браузере не открывались.
+
+- [ ] `/api/health/` отвечает `{"status":"ok"}`
+- [ ] Swagger показывает пути контракта волны 2
+- [ ] `/api/admin/analytics/` открывается только staff и показывает живые числа
+- [x] `/`, `/textile` и `/baby` читают API
+- [ ] несуществующий путь открывается
+- [x] повторная подписка не создаёт вторую строку
+- [x] `python manage.py test` зелёный целиком
+- [x] в diff закрытия нет корзины, заказов и Postgres
+
+## English
+
+Wave 2 board, closed. Do not merge it again. PR numbers stay `—`: the working board never had them, and they are not invented here. Detail: [task-wave2.md](../../../task-wave2.md).
+
+| # | Name | Branch | Zone | After | PR | Status |
+|---|------|--------|------|-------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | closed in this tree |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | closed in this tree |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | closed in this tree |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | closed in this tree |
+| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | closed in this tree |
+| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | closed in this tree |
+| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | closed in this tree |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | closed in this tree |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | closed in this tree |
+| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | closed in this tree |
+
+Wave 2 queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+
+A box is checked only when that close commit actually ran the check.
+
+- [ ] `/api/health/` returns `{"status":"ok"}`
+- [ ] Swagger lists the Wave 2 contract paths
+- [ ] `/api/admin/analytics/` opens for staff only and shows live numbers
+- [x] `/`, `/textile`, and `/baby` read the API
+- [ ] an unknown path opens
+- [x] a duplicate subscription does not insert a second row
+- [x] `python manage.py test` is green end to end
+- [x] the close diff has no cart, orders, or Postgres
+
+## Հայերեն
+
+Wave 2-ի տախտակ, փակ է։ Նորից չmerge անել։ PR-ի համարները մնում են `—`. աշխատանքային տախտակին չկային և այստեղ չեն հորինվում։ Մանրամասն՝ [task-wave2.md](../../../task-wave2.md)։
+
+| # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
+|---|------|--------|------|------------|----|------------|
+| 1 | Lead | `feat/lead` | lead | — | — | փակ է այս ծառում |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | փակ է այս ծառում |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | փակ է այս ծառում |
+| 4 | Hayk | `feat/hayk-gateway` | gateway | Vach | — | փակ է այս ծառում |
+| 5 | Mariam | `feat/mariam-header` | header | Daniel | — | փակ է այս ծառում |
+| 6 | Daniel | `feat/daniel-footer` | footer | Hayk | — | փակ է այս ծառում |
+| 7 | Karen | `feat/karen-textile` | textile | Mariam | — | փակ է այս ծառում |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | փակ է այս ծառում |
+| 9 | Vach | `feat/vach-catalog` | catalog | Artush | — | փակ է այս ծառում |
+| 10 | Ashot | `feat/ashot-ui` | ui | Svet | — | փակ է այս ծառում |
+
+Wave 2-ի հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
+
+Վանդակը նշվում է միայն այն ժամանակ, երբ փակող կոմիտն իրոք ստուգել է այդ կետը։
+
+- [ ] `/api/health/`-ը վերադարձնում է `{"status":"ok"}`
+- [ ] Swagger-ում երևում են Wave 2-ի ուղիները
+- [ ] `/api/admin/analytics/`-ը բացվում է միայն staff-ի համար
+- [x] `/`, `/textile` և `/baby` կարդում են API-ն
+- [ ] անհայտ ուղին բացվում է
+- [x] կրկնակի բաժանորդագրությունը երկրորդ տող չի ստեղծում
+- [x] `python manage.py test`-ը ամբողջովին կանաչ է
+- [x] փակող diff-ում չկան զամբյուղ, պատվեր և Postgres
 
 ---
 
