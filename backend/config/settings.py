@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     "apps.catalog",
     "apps.leads",
     "apps.content",
+    "apps.cart",
+    "apps.orders",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -201,6 +203,15 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="Ventum <noreply@example.com>")
+
+IDRAM_REC_ACCOUNT = env.str("IDRAM_REC_ACCOUNT", default="")
+IDRAM_SECRET_KEY = env.str("IDRAM_SECRET_KEY", default="")
+IDRAM_PAYMENT_URL = env.str(
+    "IDRAM_PAYMENT_URL",
+    default="https://web.idram.am/payment.aspx",
+)
+IDRAM_LANGUAGE = env.str("IDRAM_LANGUAGE", default="RU")
+ORDER_NOTIFY_EMAIL = env.str("ORDER_NOTIFY_EMAIL", default="")
 
 UNFOLD = {
     "SITE_TITLE": "Ventum Admin",
