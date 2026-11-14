@@ -4,7 +4,6 @@
   "delivery": "Доставка по всей Армении",
   "searchPlaceholder": "Поиск товаров...",
   "wholesale": "Оптовые продажи",
-  "account": "Личный кабинет",
   "cart": "Корзина",
   "stores": {
     "textile": "Ventum Textile",
@@ -25,6 +24,7 @@
     "gateway": "Ventum",
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
+    "account": "Личный кабинет",
     "notFound": "Страница не найдена"
   },
   "pages": {

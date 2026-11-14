@@ -7,12 +7,14 @@ import Gateway from './pages/Gateway/Gateway.jsx'
 
 const Textile = lazy(() => import('./pages/Textile/Textile.jsx'))
 const Baby = lazy(() => import('./pages/Baby/Baby.jsx'))
+const Account = lazy(() => import('./pages/Account/Account.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
 
 function pageTitleKey(pathname) {
   if (pathname === '/') return 'pageTitles.gateway'
   if (pathname === '/textile') return 'pageTitles.textile'
   if (pathname === '/baby') return 'pageTitles.baby'
+  if (pathname === '/account') return 'pageTitles.account'
   return 'pageTitles.notFound'
 }
 
@@ -43,6 +45,7 @@ export default function App() {
           <Route path="/" element={<Gateway />} />
           <Route path="/textile" element={<Textile />} />
           <Route path="/baby" element={<Baby />} />
+          <Route path="/account" element={<Account />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

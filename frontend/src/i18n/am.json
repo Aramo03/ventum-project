@@ -4,7 +4,6 @@
   "delivery": "Առաքում ամբողջ Հայաստանում",
   "searchPlaceholder": "Որոնել ապրանքներ...",
   "wholesale": "Մեծածախ",
-  "account": "Հաշիվ",
   "cart": "Զամբյուղ",
   "stores": {
     "textile": "Ventum Textile",
@@ -25,6 +24,7 @@
     "gateway": "Ventum",
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
+    "account": "Իմ հաշիվը",
     "notFound": "Չի գտնվել"
   },
   "pages": {
@@ -70,5 +70,21 @@
     "empty": "Այս պահին Baby ապրանքներ չկան։",
     "categories": "Կատեգորիաներ",
     "products": "Մեր ապրանքները"
+  },
+  "account": {
+    "title": "Իմ հաշիվը",
+    "loading": "Հաշիվը ստուգվում է...",
+    "profileError": "Չհաջողվեց ստուգել հաշիվը։ Ստուգեք կապը և փորձեք կրկին։",
+    "retry": "Փորձել կրկին",
+    "signedInAs": "Դուք մուտք եք գործել։",
+    "email": "Էլ. փոստ",
+    "name": "Անուն",
+    "password": "Գաղտնաբառ",
+    "loginPrompt": "Մուտք գործեք էլ. փոստով և գաղտնաբառով։",
+    "login": "Մուտք գործել",
+    "signingIn": "Մուտք է կատարվում...",
+    "logout": "Դուրս գալ",
+    "invalidCredentials": "Էլ. փոստը կամ գաղտնաբառը սխալ է։",
+    "loginError": "Չհաջողվեց մուտք գործել։ Փորձեք կրկին։"
   }
 }

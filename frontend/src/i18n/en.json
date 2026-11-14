@@ -4,7 +4,6 @@
   "delivery": "Delivery across Armenia",
   "searchPlaceholder": "Search products...",
   "wholesale": "Wholesale",
-  "account": "Account",
   "cart": "Cart",
   "stores": {
     "textile": "Ventum Textile",
@@ -25,6 +24,7 @@
     "gateway": "Ventum",
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
+    "account": "My account",
     "notFound": "Not found"
   },
   "pages": {
