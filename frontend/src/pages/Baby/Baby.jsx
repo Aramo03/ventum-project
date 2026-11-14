@@ -4,6 +4,65 @@ import { useTranslation } from 'react-i18next'
 import { api, mediaUrl } from '../../api/client'
 import './baby.css'
 
+
+function AddToCartButton({ sku }) {
+  const { t } = useTranslation()
+  const [status, setStatus] = useState('idle')
+
+  async function handleAddToCart() {
+    if (status === 'loading') return
+
+    setStatus('loading')
+
+    try {
+      await api.post('/api/cart/items/', {
+        sku,
+        qty: 1,
+      })
+
+      setStatus('success')
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setStatus('unauthorized')
+      } else {
+        setStatus('error')
+      }
+    }
+  }
+
+  return (
+    <div className="baby-cart-actions">
+      <button
+        type="button"
+        className="baby-cart-button"
+        onClick={handleAddToCart}
+        disabled={status === 'loading'}
+      >
+        {status === 'loading'
+          ? t('baby.cartAdding')
+          : t('baby.addToCart')}
+      </button>
+
+      {status === 'success' && (
+        <p className="baby-cart-success" role="status">
+          {t('baby.cartSuccess')}
+        </p>
+      )}
+
+      {status === 'unauthorized' && (
+        <p className="baby-cart-error" role="alert">
+          {t('baby.cartSignIn')}
+        </p>
+      )}
+
+      {status === 'error' && (
+        <p className="baby-cart-error" role="alert">
+          {t('baby.cartError')}
+        </p>
+      )}
+    </div>
+  )
+}
 export default function Baby() {
   const { t, i18n } = useTranslation()
 
@@ -145,6 +204,7 @@ export default function Baby() {
                         )}{' '}
                         AMD
                       </p>
+                      <AddToCartButton sku={product.sku} />
                     </div>
                   </article>
                 ))}

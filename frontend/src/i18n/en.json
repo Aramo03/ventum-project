@@ -69,6 +69,11 @@
     "error": "Failed to load products. Please try again.",
     "empty": "No Baby products available at the moment.",
     "categories": "Categories",
-    "products": "Our Products"
+    "products": "Our Products",
+    "addToCart": "Add to cart",
+    "cartAdding": "Adding...",
+    "cartSuccess": "Product added to cart.",
+    "cartSignIn": "Please sign in to add items to your cart.",
+    "cartError": "Failed to add product to cart."
   }
 }
