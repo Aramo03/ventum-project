@@ -86,7 +86,6 @@
 }
 
 .site-header__nav-item,
-.site-header__icon,
 .site-header__lang {
   background: none;
   border: 0;
@@ -96,12 +95,42 @@
   cursor: default;
 }
 
+.site-header__icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.site-header__icon:hover {
+  color: var(--color-brand);
+}
+
+.site-header__icon:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
 .site-header__lang {
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .site-header__lang:hover {
   color: var(--color-brand);
+}
+
+.site-header__lang[aria-pressed='true'] {
+  color: var(--color-brand);
+  font-weight: 700;
 }
 
 .site-header__wholesale {
@@ -123,5 +152,9 @@
 
   .site-header__tools {
     gap: 0.75rem;
+  }
+
+  .site-header__icon {
+    font-size: 0.9rem;
   }
 }
