@@ -13,10 +13,7 @@ def _product_name(product, language):
     translation = pick_translation(product.translations.all(), language)
     return translation.name if translation else product.sku
 
-
 class CheckoutView(APIView):
-    """Create a pending order and return the fields for Idram's POST form."""
-
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
@@ -26,7 +23,8 @@ class CheckoutView(APIView):
 
         try:
             language = idram_language(
-                request.query_params.get("language")
+                request.data.get("language")
+                or request.query_params.get("language")
                 or request.headers.get("Accept-Language", "en")
                 .split(",", 1)[0]
                 .split("-", 1)[0]
@@ -42,8 +40,6 @@ class CheckoutView(APIView):
             )
             if cart is None:
                 return Response({"detail": "Your cart is empty."}, status=400)
-
-            # Vach's cart contract exposes its rows through the `items` relation.
             cart_items = list(cart.items.select_related("product").all())
             if not cart_items:
                 return Response({"detail": "Your cart is empty."}, status=400)
