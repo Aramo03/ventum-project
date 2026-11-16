@@ -15,6 +15,7 @@ function pageTitleKey(pathname) {
   if (pathname === '/') return 'pageTitles.gateway'
   if (pathname === '/textile') return 'pageTitles.textile'
   if (pathname === '/baby') return 'pageTitles.baby'
+  if (pathname === '/account') return 'pageTitles.account'
   if (pathname === '/cart') return 'pageTitles.cart'
   return 'pageTitles.notFound'
 }
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/" element={<Gateway />} />
           <Route path="/textile" element={<Textile />} />
           <Route path="/baby" element={<Baby />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
