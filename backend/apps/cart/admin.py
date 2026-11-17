@@ -1,15 +1,18 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin, TabularInline
 
 from .models import Cart, CartItem
 
 
-class CartItemInline(admin.TabularInline):
+class CartItemInline(TabularInline):
     model = CartItem
     extra = 0
+    fields = ("product", "qty")
+    autocomplete_fields = ("product",)
 
 
 @admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "updated_at")
+class CartAdmin(ModelAdmin):
+    list_display = ("user", "created_at")
     search_fields = ("user__email",)
-    inlines = (CartItemInline,)
+    inlines = [CartItemInline]
