@@ -13,7 +13,7 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | ведёт очередь волны 3 |
+| 1 | Lead | `feat/lead` | lead | — | — | в ревью |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | не начато |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | не начато |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | не начато |
@@ -69,7 +69,7 @@ Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wa
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | runs the Wave 3 queue |
+| 1 | Lead | `feat/lead` | lead | — | — | in review |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | not started |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | not started |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | not started |
@@ -118,7 +118,7 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | վարում է Wave 3-ի հերթը |
+| 1 | Lead | `feat/lead` | lead | — | — | գրախոսության մեջ |
 | 2 | Suro | `feat/suro-api` | api | Lead | — | չի սկսվել |
 | 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | չի սկսվել |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | չի սկսվել |
