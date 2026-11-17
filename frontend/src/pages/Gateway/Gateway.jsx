@@ -9,8 +9,8 @@ import './gateway.css'
 const STORE_COPY = {
   '/textile': {
     kind: 'textile',
-    eyebrow: 'gateway.textileEyebrow',
     caption: 'gateway.textileCaption',
+    type: 'gateway.textileType',
     title: 'gateway.textileTitle',
     titleFallback: 'Woven for quiet mornings.',
     description: 'gateway.textileDescription',
@@ -22,8 +22,8 @@ const STORE_COPY = {
   },
   '/baby': {
     kind: 'baby',
-    eyebrow: 'gateway.babyEyebrow',
     caption: 'gateway.babyCaption',
+    type: 'gateway.babyType',
     title: 'gateway.babyTitle',
     titleFallback: 'Little moments, endless love.',
     description: 'gateway.babyDescription',
@@ -78,8 +78,14 @@ export default function Gateway() {
 
   return (
     <main className="gateway-page">
-      <h1 className="gateway-visually-hidden">{hero?.title || t('stores.choose')}</h1>
-      {hero?.text && <p className="gateway-welcome">{hero.text}</p>}
+      {hero?.title || hero?.text ? (
+        <section className="gateway-welcome" aria-labelledby="gateway-welcome-title">
+          <h1 id="gateway-welcome-title">{hero?.title || t('stores.choose')}</h1>
+          {hero?.text && <p>{hero.text}</p>}
+        </section>
+      ) : (
+        <h1 className="gateway-visually-hidden">{t('stores.choose')}</h1>
+      )}
       {requestFailed && (
         <p className="gateway-status" role="status">
           {t('gateway.contentUnavailable')}
@@ -91,12 +97,12 @@ export default function Gateway() {
           return (
             <Link className={`gateway-store gateway-store--${copy.kind}`} key={store.to} to={store.to}>
               <span className="gateway-store__topline">
-                <span>{t(copy.eyebrow, { defaultValue: t(store.key).toUpperCase() })}</span>
+                <span>{t(store.key).toUpperCase()}</span>
                 <span>{t(copy.caption, { defaultValue: copy.kind === 'textile' ? 'Sanctuary for your home' : 'A gentle world for little ones' })}</span>
               </span>
               <span className="gateway-store__identity">
                 <span className="gateway-store__brand">VENTUM</span>
-                <span className="gateway-store__type">{copy.kind}</span>
+                <span className="gateway-store__type">{t(copy.type)}</span>
               </span>
               <span className="gateway-store__message">
                 <span className="gateway-store__title">{t(copy.title, { defaultValue: copy.titleFallback })}</span>

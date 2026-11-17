@@ -17,10 +17,26 @@
 }
 
 .gateway-welcome {
-  margin: 0 0 0.85rem;
+  max-width: 72rem;
+  margin: 0 auto 1.25rem;
   color: #72736d;
-  font-size: 0.85rem;
   text-align: center;
+}
+
+.gateway-welcome h1 {
+  margin: 0;
+  color: #373735;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.gateway-welcome p {
+  max-width: 44rem;
+  margin: 0.5rem auto 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
 }
 
 .gateway-status {
