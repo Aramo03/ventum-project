@@ -43,15 +43,17 @@
   "common": {
     "loading": "Loading...",
     "textile": {
-    "title": "Ventum Textile",
-    "allCategories": "All",
-    "loading": "Loading...",
-    "empty": "No products found",
-    "error": "Network error. Failed to load data.",
-    "currency": "AMD"
-  }
-  }
-  "loading": "Loading..."
+      "title": "Ventum Textile",
+      "allCategories": "All",
+      "loading": "Loading...",
+      "empty": "No products found",
+      "error": "Network error. Failed to load data.",
+      "currency": "AMD",
+      "textile_cart_add": "Add to cart",
+      "textile_cart_success": "Added to cart",
+      "textile_cart_401": "Sign in required"
+    }
+
 },
 "baby": {
   "loading": "Loading Baby products...",
