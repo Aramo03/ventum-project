@@ -54,6 +54,27 @@
     "submitError": "Could not send the form. Try again."
   },
   "common": {
+    "loading": "Loading...",
+    "textile": {
+      "title": "Ventum Textile",
+      "allCategories": "All",
+      "loading": "Loading...",
+      "empty": "No products found",
+      "error": "Network error. Failed to load data.",
+      "currency": "AMD",
+      "textile_cart_add": "Add to cart",
+      "textile_cart_success": "Added to cart",
+      "textile_cart_401": "Sign in required"
+    }
+
+},
+"baby": {
+  "loading": "Loading Baby products...",
+  "error": "Failed to load products. Please try again.",
+  "empty": "No Baby products available at the moment.",
+  "categories": "Categories",
+  "products": "Our Products"
+}
     "loading": "Loading..."
   },
   "textile": {
