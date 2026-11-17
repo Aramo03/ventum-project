@@ -1,0 +1,56 @@
+from decimal import Decimal
+
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from rest_framework.test import APIClient
+
+from apps.catalog.models import Category, Product, ProductTranslation
+
+User = get_user_model()
+
+
+class CartApiTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user(
+            email="cart-user@example.com",
+            password="secret-pass",
+        )
+        self.category = Category.objects.create(slug="cart-textile", store="textile")
+        self.published = Product.objects.create(
+            category=self.category,
+            price=Decimal("12000.00"),
+            sku="TX-CART-001",
+            is_published=True,
+        )
+        ProductTranslation.objects.create(
+            product=self.published,
+            language="en",
+            name="Sheet",
+            description="Cotton",
+        )
+        self.unpublished = Product.objects.create(
+            category=self.category,
+            price=Decimal("5000.00"),
+            sku="TX-CART-DRAFT",
+            is_published=False,
+        )
+        ProductTranslation.objects.create(
+            product=self.unpublished,
+            language="en",
+            name="Draft",
+            description="Hidden",
+        )
+
+    def test_cart_without_token_returns_401(self):
+        response = self.client.get("/api/cart/")
+        self.assertEqual(response.status_code, 401)
+
+    def test_unpublished_sku_returns_404(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(
+            "/api/cart/items/",
+            {"sku": self.unpublished.sku, "qty": 1},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 404)

@@ -25,6 +25,9 @@
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
     "account": "Личный кабинет",
+    "cart": "Корзина",
+    "checkoutSuccess": "Возврат с оплаты",
+    "checkoutFail": "Оплата не завершена",
     "notFound": "Страница не найдена"
   },
   "pages": {
@@ -33,6 +36,15 @@
     "babyLead": "Откройте нашу коллекцию для малышей.",
     "notFound": "Этой страницы не существует.",
     "goHome": "На главную"
+  },
+  "checkout": {
+    "neutral": "Ожидаем подтверждение оплаты.",
+    "failNeutral": "Оплата не была завершена.",
+    "paid": "Оплачено",
+    "notPaidYet": "Оплата пока не подтверждена.",
+    "lookupFailed": "Не удалось загрузить заказ.",
+    "billLabel": "Заказ",
+    "backToCart": "Вернуться в корзину"
   },
   "gateway": {
     "contentUnavailable": "Текст приветствия временно недоступен."

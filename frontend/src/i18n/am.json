@@ -25,6 +25,9 @@
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
     "account": "Իմ հաշիվը",
+    "cart": "Զամբյուղ",
+    "checkoutSuccess": "Վճարման վերադարձ",
+    "checkoutFail": "Վճարումը չի ավարտվել",
     "notFound": "Չի գտնվել"
   },
   "pages": {
@@ -33,6 +36,15 @@
     "babyLead": "Բացահայտեք մեր փոքրիկների համար նախատեսված հավաքածուն։",
     "notFound": "Այս էջը չկա։",
     "goHome": "Գլխավոր էջ"
+  },
+  "checkout": {
+    "neutral": "Սպասում ենք վճարման հաստատմանը։",
+    "failNeutral": "Վճարումը չի ավարտվել։",
+    "paid": "Վճարված",
+    "notPaidYet": "Վճարումը դեռ հաստատված չէ։",
+    "lookupFailed": "Չհաջողվեց բեռնել պատվերը։",
+    "billLabel": "Պատվեր",
+    "backToCart": "Վերադառնալ զամբյուղ"
   },
   "gateway": {
     "contentUnavailable": "Բարի գալուստի տեքստը ժամանակավորապես հասանելի չէ։"

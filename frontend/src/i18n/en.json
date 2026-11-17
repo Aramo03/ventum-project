@@ -25,6 +25,9 @@
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
     "account": "My account",
+    "cart": "Cart",
+    "checkoutSuccess": "Payment return",
+    "checkoutFail": "Payment not completed",
     "notFound": "Not found"
   },
   "pages": {
@@ -33,6 +36,15 @@
     "babyLead": "Discover our Baby collection.",
     "notFound": "This page does not exist.",
     "goHome": "Back to home"
+  },
+  "checkout": {
+    "neutral": "Waiting for payment confirmation.",
+    "failNeutral": "Payment was not completed.",
+    "paid": "Paid",
+    "notPaidYet": "Payment is not confirmed yet.",
+    "lookupFailed": "Could not load this order.",
+    "billLabel": "Order",
+    "backToCart": "Back to cart"
   },
   "gateway": {
     "contentUnavailable": "Welcome content is temporarily unavailable."
