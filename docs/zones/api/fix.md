@@ -1,5 +1,9 @@
 # 2 — Suro · api — ошибки и разбор
 
+> Журнал Wave 1. Этот разбор не переписывать. Wave 2 закрыта. Текущее задание — [task-wave3.md](../../../task-wave3.md).
+> Wave 1 journal. Do not rewrite it for Wave 2.
+> Wave 1-ի մատյան։ Wave 2-ի համար չվերաշարադրել։
+
 **Ветка:** `feat/suro-api`  
 **Агент:** [docs/agents/02-suro.md](../../agents/02-suro.md)
 

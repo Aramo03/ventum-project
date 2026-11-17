@@ -1,0 +1,125 @@
+.account-page {
+  display: flex;
+  justify-content: center;
+  min-height: 55vh;
+  padding: 3rem 1.25rem 4rem;
+}
+
+.account-card {
+  align-self: flex-start;
+  width: min(100%, 30rem);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0.75rem 2rem rgb(17 24 39 / 6%);
+}
+
+.account-card h1 {
+  margin: 0 0 1.5rem;
+  color: #111827;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  line-height: 1.2;
+}
+
+.account-form,
+.account-profile {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.account-form__intro,
+.account-profile__intro {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.account-field {
+  display: grid;
+  gap: 0.5rem;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.account-field input {
+  width: 100%;
+  min-height: 2.85rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  color: #111827;
+  font: inherit;
+  font-weight: 400;
+}
+
+.account-field input:focus-visible,
+.account-button:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 35%);
+  outline-offset: 2px;
+}
+
+.account-button {
+  min-height: 2.9rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #111827;
+  border-radius: 0.5rem;
+  background: #111827;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.account-button:hover:not(:disabled) {
+  border-color: #374151;
+  background: #374151;
+}
+
+.account-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.account-button--secondary {
+  width: 100%;
+}
+
+.account-profile__details {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.account-profile__details div {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.account-profile__details dt {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.account-profile__details dd {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: #111827;
+}
+
+.account-message {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.account-message--error {
+  color: #b91c1c;
+}
+
+.account-status {
+  align-self: flex-start;
+  margin: 0;
+  color: #4b5563;
+}

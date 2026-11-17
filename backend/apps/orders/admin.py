@@ -15,3 +15,5 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('bill_no', 'email', 'name', 'idram_trans_id')
     inlines = [OrderLineInline]
     readonly_fields = ('bill_no', 'created_at', 'paid_at', 'idram_trans_id')
+
+

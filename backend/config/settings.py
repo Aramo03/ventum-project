@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     "apps.catalog",
     "apps.leads",
     "apps.content",
+    "apps.cart",
+    "apps.orders",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -150,6 +152,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Unfold's login form does not send ``next``. Without this, Django sends a
+# successful admin login to the missing ``/accounts/profile/`` page.
+LOGIN_REDIRECT_URL = "/api/admin/"
+
 _DEFAULT_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -170,6 +176,8 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 12,
 }
 
 SIMPLE_JWT = {
@@ -178,7 +186,10 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Ventum API",
-    "DESCRIPTION": "Student skeleton. Health only — models and routers come later.",
+    "DESCRIPTION": (
+        "Ventum storefront catalog, homepage content blocks, lead submissions, "
+        "and email-based authentication."
+    ),
     "VERSION": "0.1.0",
 }
 
@@ -193,7 +204,59 @@ EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="Ventum <noreply@example.com>")
 
+IDRAM_REC_ACCOUNT = env.str("IDRAM_REC_ACCOUNT", default="")
+IDRAM_SECRET_KEY = env.str("IDRAM_SECRET_KEY", default="")
+IDRAM_PAYMENT_URL = env.str(
+    "IDRAM_PAYMENT_URL",
+    default="https://web.idram.am/payment.aspx",
+)
+IDRAM_LANGUAGE = env.str("IDRAM_LANGUAGE", default="RU")
+ORDER_NOTIFY_EMAIL = env.str("ORDER_NOTIFY_EMAIL", default="")
+
 UNFOLD = {
     "SITE_TITLE": "Ventum Admin",
     "SITE_HEADER": "Ventum",
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Analytics",
+                "items": [
+                    {
+                        "title": "Analytics",
+                        "icon": "analytics",
+                        "link": "/api/admin/analytics/",
+                    }
+                ],
+            },
+            {
+                "title": "Catalog",
+                "items": [
+                    {"title": "Products", "icon": "inventory_2", "link": "/api/admin/catalog/product/"},
+                    {"title": "Categories", "icon": "category", "link": "/api/admin/catalog/category/"},
+                ],
+            },
+            {
+                "title": "Leads",
+                "items": [
+                    {"title": "Newsletter subscribers", "icon": "mail", "link": "/api/admin/leads/newslettersubscriber/"},
+                    {"title": "Wholesale inquiries", "icon": "business", "link": "/api/admin/leads/wholesaleinquiry/"},
+                ],
+            },
+            {
+                "title": "Content",
+                "items": [
+                    {"title": "Home blocks", "icon": "web", "link": "/api/admin/content/homeblock/"},
+                ],
+            },
+            {
+                "title": "Users",
+                "items": [
+                    {"title": "Users", "icon": "person", "link": "/api/admin/accounts/user/"},
+                    {"title": "Groups", "icon": "groups", "link": "/api/admin/auth/group/"},
+                ],
+            },
+        ],
+    },
 }

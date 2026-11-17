@@ -1,23 +1,19 @@
 # header — Mariam
 
 **Ветка:** `feat/mariam-header`  
-**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Mariam · header».
+**Задание:** [task-wave3.md](../../../../task-wave3.md) — «5 — Mariam · cart-page».  
+**Агент:** [docs/agents/05-mariam.md](../../../../docs/agents/05-mariam.md).
 
-`Header.jsx` и стили не менять.
+Поиск и кнопка `ru` закрыты волной 2. Их не ломать.
 
-Только `backend/apps/catalog/search.py`, после merge Vach (ученик 9), Karen (ученик 7) и Svet (ученик 8):
+В этой волне Account ведёт на `/account`, Cart — на `/cart`. С токеном рядом виден `count`. Страница корзины — новая папка `frontend/src/pages/Cart/`. Query `success=1` не означает «оплачено».
 
-- `search_products(queryset, query)`
-- пустой запрос ничего не фильтрует
-- иначе sku и переведённое имя, без учёта регистра, языки `am` / `en` / `ru`
-- URL не добавлять
-
-**Lead не мержит, пока:** поиск находит товар по sku и по имени, `models.py` в diff нет.
+**Lead не мержит, пока:** обе ссылки живые, а `success=1` не написано как оплата.
 
 ## English
 
-Mariam, student 5. `search.py` only, after Vach (student 9), Karen (7), and Svet (8) are merged. Do not redesign the header.
+Mariam, student 5. Keep the Wave 2 search. Link Account to `/account` and Cart to `/cart`. Build the cart page. `?success=1` is not paid.
 
 ## Հայերեն
 
-Mariam, աշակերտ 5։ Միայն `search.py`, Vach-ի (աշակերտ 9), Karen-ի (7) և Svet-ի (8) merge-ից հետո։ Header-ը չձևավորել։
+Mariam, աշակերտ 5։ Wave 2-ի որոնումը թող։ Account-ը տանի `/account`, Cart-ը՝ `/cart`։ Սարքի զամբյուղի էջը։ `?success=1`-ը վճարված չէ։

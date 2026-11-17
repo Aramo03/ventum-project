@@ -1,17 +1,14 @@
 # gateway — Hayk (страница)
 
-**Ветка:** `feat/hayk-gateway`
+**Ветка:** `feat/hayk-gateway`  
+**Задание волны 2 закрыто.** Страница `/` уже читает `GET /api/content/home-blocks/`. В Wave 3 эту папку не переписывать.
 
-`Gateway.jsx`, `gateway.css`, `gateway.js` в этом задании не верстать.
-
-Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
-
-Сейчас работа в [backend/apps/content/README.md](../../../../backend/apps/content/README.md): модель `HomeBlock`.
+Текущее задание Hayk — оплата и `/account`: [task-wave3.md](../../../../task-wave3.md) — «4 — Hayk · payments». Новая страница — `frontend/src/pages/Account/`.
 
 ## English
 
-Do not restyle this page in this assignment. Hayk’s work is the `HomeBlock` model.
+The Wave 2 home page is done. Do not rebuild `/` in Wave 3. Hayk’s current zone is payments and `/account`.
 
 ## Հայերեն
 
-Այս առաջադրանքում էջը չձևավորել։ Hayk-ի աշխատանքը `HomeBlock` մոդելն է։
+Wave 2-ի գլխավոր էջը պատրաստ է։ Wave 3-ում `/`-ը չվերաշարադրել։ Hayk-ի ընթացիկ գոտին վճարումն է և `/account`-ը։

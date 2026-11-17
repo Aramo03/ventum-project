@@ -1,5 +1,9 @@
 # 4 — Hayk · gateway — ошибки и разбор
 
+> Журнал Wave 1. Этот разбор не переписывать. Wave 2 закрыта. Текущее задание — [task-wave3.md](../../../task-wave3.md).
+> Wave 1 journal. Do not rewrite it for Wave 2.
+> Wave 1-ի մատյան։ Wave 2-ի համար չվերաշարադրել։
+
 **Ветка:** `feat/hayk-gateway`  
 **Агент:** [docs/agents/04-hayk.md](../../agents/04-hayk.md)
 

@@ -2,7 +2,7 @@
 
 **RU** · **EN** · **HY**
 
-Этот файл не входит в текущее задание. Его не реализовывать.
+Это спека Wave 3. Функцию `send_order_paid_email` пишет Daniel. Hayk только вызывает её после первого перехода в `paid`. Чужую зону по этому файлу не писать.
 
 Письмо уходит один раз, когда заказ первый раз становится `paid` после верного подтверждения оплаты. Повтор того же подтверждения второе письмо не шлёт.
 
@@ -60,6 +60,8 @@ ORDER_NOTIFY_EMAIL=aram1023aram@gmail.com
 
 ## English
 
+This is the Wave 3 spec. Daniel writes `send_order_paid_email`. Hayk calls it only on the first transition to `paid`. Do not build another student’s zone from this file.
+
 Send **one** email to `ORDER_NOTIFY_EMAIL` the first time an order becomes `paid` after a valid Idram confirmation. Not on precheck, not on the browser return, not on a duplicate callback.
 
 The sample recipient in `.env.example` is `aram1023aram@gmail.com`. Change it in `.env` when the shop inbox changes. Do not hardcode it in Python.
@@ -69,6 +71,8 @@ Body: order number, `EDP_BILL_NO`, customer name and email, lines (Russian name,
 Locally use the console email backend. On a shared server, use SMTP. Gmail needs an app password in the server `.env` only. If `ORDER_NOTIFY_EMAIL` is empty, keep `paid` and skip sending.
 
 ## Հայերեն
+
+Սա Wave 3-ի սպեկն է։ `send_order_paid_email`-ը գրում է Daniel-ը։ Hayk-ը այն կանչում է միայն առաջին `paid` անցման ժամանակ։ Այս ֆայլով ուրիշի գոտի չգրել։
 
 **Մեկ** նամակ `ORDER_NOTIFY_EMAIL`-ին, երբ պատվերն առաջին անգամ դառնում է `paid`՝ ճիշտ Idram հաստատումից հետո։ Precheck-ը, դիտարկիչի վերադարձը և կրկնակի callback-ը նամակ չեն ուղարկում։
 

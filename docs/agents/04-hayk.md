@@ -1,109 +1,67 @@
-# Agent brief — Wave 1 — #4 Hayk
+# Agent brief — Wave 3 — #4 Hayk
 
-Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · gateway» в [task-advanced.md](../../task-advanced.md). Это не шаг очереди. В очереди имён Hayk стоит после Daniel.
+Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · payments» в [task-wave3.md](../../task-wave3.md).
+
+Ветка по-прежнему `feat/hayk-gateway`. Зона этой волны — `payments`, не главная. `HomeBlock` и страницу `/` не переписывать.
 
 ## Русский
 
 ### Кто ты
 
-Ты делаешь зону ученика 4, Hayk, ветка `feat/hayk-gateway`, зона `gateway`. README не удалять: [backend/apps/content/README.md](../../backend/apps/content/README.md). Страница [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/) в этом задании не верстается.
+Ты делаешь зону ученика 4, Hayk, ветка `feat/hayk-gateway`. Срок — конец января 2027.
 
-Старт от `dev`, ветка `feat/hayk-gateway`, один PR в `dev`. В `main` не пушить. Postgres не поднимать. Срок — конец декабря.
+Один PR, base = `dev`. В `main` не пушить. Postgres не поднимать. Карту, срок и CVV не принимать.
 
-Ждать, пока в `dev` есть пакет `content` от Suro (2) и абстрактный перевод Artush (3). В очередь merge ты встаёшь после Daniel: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+В очереди ты после Daniel: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
 ### Карта репозитория
 
-- Модель слота: `backend/apps/content/`. Пакет пустым создаёт Suro.
-- Класс перевода и коды `am`, `en`, `ru` импортируй у Artush из `apps/core`, не копируй список языков.
-- Страница `/` — `frontend/src/pages/Gateway/`. Её `jsx` / `css` / `js` не менять. Макет только смотреть: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495).
-- Админка: `/api/admin/`. База: `backend/ventum.sqlite3`.
+- Спека оплаты: [docs/idram.md](../idram.md).
+- Письмо пишет Daniel: `send_order_paid_email(order)` в `apps/orders/mail.py`. Ты её вызываешь и не переписываешь.
+- Язык Idram: `idram_language` Artush.
+- Токен уже умеет [frontend/src/api/client.js](../../frontend/src/api/client.js): `setAuthToken`. Второй перехватчик не писать.
+- Пустой `payment_urls.py` подключает Suro. Ты заполняешь его.
 
 ### Зона ответственности
 
-Можно: приложение `backend/apps/content/` — модель, админка, миграции `content`.
+Можно: `apps/orders/checkout.py`, `apps/orders/idram.py`, `payment_urls.py`, `frontend/src/pages/Account/` (`Account.jsx`, `account.css`, `account.js`), одна строка маршрута `/account` в `App.jsx`.
 
-Нельзя: `frontend/src/pages/Gateway/`, модели товара Vach (9), пользователь, заявки, `search.py`.
+Нельзя: `mail.py`, модели корзины и заказа, страница `/cart`, новый пакет JWT.
 
 ### Шаги
 
-1. `HomeBlock`: ключ слота (`hero` или `stores` — блоки входа в макете), порядок, переводы `title` и `text` на `am` / `en` / `ru` через класс Artush.
-2. Админка Unfold с инлайном переводов.
-3. Пара «слот + язык» уникальна, как требует базовый класс.
+1. `POST /api/checkout/` только с JWT. Пустая корзина — **400**. Иначе заказ `pending`, строки скопированы, корзина пустая, `paid` не ставить. `bill_no` = `VNT-` и первичный ключ. Ответ: `bill_no`, `payment_url`, `fields` из контракта. `EDP_LANGUAGE` только из `idram_language`.
+2. `POST /api/payments/idram/result/` без JWT, CSRF снят, тело — голое `OK` или не `OK`. Precheck статус не меняет. Верный MD5 ставит `paid`, пишет `EDP_TRANS_ID` и время, один раз зовёт письмо. Повтор не зовёт. Плохой checksum, чужая сумма или чужой счёт оставляют `pending`.
+3. `/account`: форма email и пароль на `POST /api/auth/token/`. Успех — `setAuthToken(access)`. Выход — `setAuthToken(null)`. С токеном показать `GET /api/auth/me/`.
 
 ### Definition of Done
 
-Lead не мержит, пока слот `hero` сохраняется в админке на трёх языках, модели товара не изменены, папка `frontend/src/pages/Gateway/` без новой вёрстки.
-
-### Проверка
-
-```bash
-cd backend
-python manage.py makemigrations content
-python manage.py migrate
-python manage.py runserver
-```
-
-В `/api/admin/` сохранить `HomeBlock` с ключом `hero`, переводы title и text на `am`, `en`, `ru`. `git diff` не должен содержать `frontend/src/pages/Gateway/` и `apps/catalog/models.py`.
+Пустой checkout — 400. Precheck не ставит `paid`. Верный checksum ставит `paid` и шлёт одно письмо. Повтор письма не шлёт. `/account` берёт токен из уже существующей ручки.
 
 ### Нельзя
 
-Не верстать главную. Не менять каталог. Не регистрировать приложение заново, если Suro уже добавил его в `INSTALLED_APPS`.
+Считать query `success=1` оплатой. Хранить номер карты.
 
 ## English
 
-You are student **4**, Hayk, branch `feat/hayk-gateway`, zone `gateway`. Do not delete [backend/apps/content/README.md](../../backend/apps/content/README.md). Do not restyle [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/).
+You are student **4**, Hayk, branch `feat/hayk-gateway`, zone `payments`. Do not rebuild the home page.
 
-Branch from `dev`. One PR into `dev`. Do not push `main`. No Postgres. Finish by the end of December.
+`POST /api/checkout/` creates a `pending` order, clears the cart, and returns the Idram fields. An empty cart is 400. It does not set `paid`. `EDP_LANGUAGE` comes from `idram_language`.
 
-Wait until Suro’s empty `content` package and Artush’s translation class are in `dev`. Your merge slot is after Daniel: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. Your student number stays 4.
+`POST /api/payments/idram/result/` is public, CSRF-exempt, and returns plain `OK`. Precheck does not change status. A valid checksum sets `paid`, stores `EDP_TRANS_ID`, and calls `send_order_paid_email` once. A duplicate does not call it again. A bad checksum leaves `pending`.
 
-**Own:** `backend/apps/content/` model, admin, and `content` migrations.
+`/account` uses the existing token endpoint and `setAuthToken`. Do not rewrite `mail.py` or add a second JWT client.
 
-**Do not own:** the Gateway page, Vach’s product models, the user, leads, `search.py`.
-
-**Steps**
-
-1. `HomeBlock` with a slot key (`hero` or `stores`), an order, and `title` / `text` in `am` / `en` / `ru` through Artush’s class.
-2. Unfold admin with a translation inline.
-3. The pair of slot and language is unique.
-
-**Done when** slot `hero` saves in admin in three languages, product models are unchanged, and `frontend/src/pages/Gateway/` has no new layout.
-
-```bash
-cd backend
-python manage.py makemigrations content
-python manage.py migrate
-python manage.py runserver
-```
-
-Save a `hero` block in `/api/admin/`. `git diff` must not include the Gateway page or `apps/catalog/models.py`.
+**Done when** empty checkout is 400, precheck is not paid, a good checksum pays once, and the duplicate sends no second email.
 
 ## Հայերեն
 
-Դու աշակերտ **4**-ն ես, Hayk, ճյուղը՝ `feat/hayk-gateway`, գոտին՝ `gateway`։ Չջնջել [backend/apps/content/README.md](../../backend/apps/content/README.md)։ Չձևավորել [frontend/src/pages/Gateway/](../../frontend/src/pages/Gateway/)։
+Դու աշակերտ **4**-ն ես, Hayk, ճյուղը՝ `feat/hayk-gateway`, գոտին՝ `payments`։ Գլխավոր էջը չվերաշարադրել։
 
-Ճյուղը `dev`-ից է։ Մեկ PR դեպի `dev`։ `main` չpush անել։ Postgres չբարձրացնել։ Ավարտել մինչև դեկտեմբերի վերջ։
+`POST /api/checkout/`-ը ստեղծում է `pending` պատվեր, մաքրում է զամբյուղը և վերադարձնում է Idram-ի դաշտերը։ Դատարկ զամբյուղը 400 է։ `paid` չի դրվում։ `EDP_LANGUAGE`-ը գալիս է `idram_language`-ից։
 
-Սպասիր, մինչև `dev`-ում լինեն Suro-ի դատարկ `content`-ը և Artush-ի թարգմանության դասը։ Merge-ի տեղդ Daniel-ից հետո է՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ Աշակերտի համարը մնում է 4։
+`POST /api/payments/idram/result/`-ը հրապարակային է, առանց CSRF, պատասխանը մերկ `OK`։ Precheck-ը կարգավիճակը չի փոխում։ Ճիշտ checksum-ը դնում է `paid`, պահում է `EDP_TRANS_ID` և մեկ անգամ կանչում է `send_order_paid_email`։ Կրկնօրինակը նորից չի կանչում։ Վատ checksum-ը թողնում է `pending`։
 
-**Քոնն է՝** `backend/apps/content/` մոդելը, ադմինը և `content` միգրացիաները։
+`/account`-ը գործածում է արդեն եղած token endpoint-ը և `setAuthToken`-ը։ `mail.py`-ն չվերաշարադրել և երկրորդ JWT հաճախորդ չավելացնել։
 
-**Քոնը չէ՝** Gateway էջը, Vach-ի ապրանքի մոդելները, user-ը, հայտերը, `search.py`-ն։
-
-**Քայլեր**
-
-1. `HomeBlock`՝ սլոթի բանալի (`hero` կամ `stores`), հերթ, `title` և `text` `am` / `en` / `ru` Artush-ի դասով։
-2. Unfold ադմին՝ թարգմանության inline-ով։
-3. Սլոթ + լեզու զույգը եզակի է։
-
-**Ավարտված է, երբ** `hero` սլոթը պահվում է ադմինում երեք լեզվով, ապրանքի մոդելները չեն փոխվել, և Gateway էջում նոր դասավորություն չկա։
-
-```bash
-cd backend
-python manage.py makemigrations content
-python manage.py migrate
-python manage.py runserver
-```
-
-`/api/admin/`-ում պահիր `hero`։ `git diff`-ում չպետք է լինեն Gateway էջը և `apps/catalog/models.py`-ն։
+**Ավարտված է, երբ** դատարկ checkout-ը 400 է, precheck-ը `paid` չի դնում, ճիշտ checksum-ը վճարում է մեկ անգամ, և կրկնօրինակը երկրորդ նամակ չի ուղարկում։

@@ -1,17 +1,14 @@
 # footer — Daniel (страница)
 
-**Ветка:** `feat/daniel-footer`
+**Ветка:** `feat/daniel-footer`  
+**Задание волны 2 закрыто.** Формы подписки и опта уже в этой папке. В Wave 3 подвал не трогать.
 
-`Footer.jsx` и стили в этом задании не верстать.
-
-Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
-
-Модели заявок: [backend/apps/leads/README.md](../../../../backend/apps/leads/README.md).
+Текущее задание Daniel — заказы, не эта папка: [task-wave3.md](../../../../task-wave3.md) — «6 — Daniel · orders». Агент: [docs/agents/06-daniel.md](../../../../docs/agents/06-daniel.md).
 
 ## English
 
-Daniel. Do not lay out this page now. Add the two models in `backend/apps/leads`.
+The Wave 2 footer forms are done. Do not edit this folder in Wave 3. Daniel’s current zone is orders.
 
 ## Հայերեն
 
-Daniel։ Էջը հիմա չձևավորել։ Երկու մոդելը՝ `backend/apps/leads`։
+Wave 2-ի Footer-ի ձևերը պատրաստ են։ Wave 3-ում այս թղթապանակը չխմբագրել։ Daniel-ի ընթացիկ գոտին պատվերներն են։

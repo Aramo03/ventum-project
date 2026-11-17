@@ -1,24 +1,19 @@
 # api — Suro
 
-**Ветка:** `feat/suro-api`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Suro · api».
+**Номер ученика:** 2. **Ветка:** `feat/suro-api`  
+**Задание:** [task-wave3.md](../../../task-wave3.md) — «2 — Suro · api».  
+**Агент:** [docs/agents/02-suro.md](../../../docs/agents/02-suro.md). Отдай файл целиком.
 
-Сделай пользователя и пустые пакеты. README не удаляй.
+Wave 2 закрыта: аналитика, JWT и `PAGE_SIZE` 12 уже здесь. Не переписывать. README не удалять.
 
-- `accounts.User`: email — логин, имя есть, `AUTH_USER_MODEL` до первой миграции
-- пустые `catalog`, `leads`, `content`: `apps.py`, `__init__.py`, пустой `models.py`, пустой `urls.py`
-- пропиши их в `INSTALLED_APPS` и `include` в `config/urls.py`
-- `makemigrations` только для `accounts`
-- `GET /api/health/` не меняй
+В этой волне пакеты `cart` и `orders` становятся пустыми устанавливаемыми приложениями. Их надо зарегистрировать, подключить три `include` и прочитать из env пять настроек Idram и `ORDER_NOTIFY_EMAIL`. Модели и вью оплаты не писать.
 
-Модели товара пишет Vach (ученик 9), заявки — Daniel (ученик 6), слоты главной — Hayk (ученик 4). Сюда их не пиши.
-
-**Lead не мержит, пока:** суперпользователь создаётся с email, Swagger открывается, в каталоге нет модели товара, `migrate` на чистом SQLite проходит, health отвечает `{"status":"ok"}`.
+**Lead не мержит, пока:** `migrate` на чистом SQLite проходит, а в diff нет моделей.
 
 ## English
 
-Suro, student 2, `feat/suro-api`. Email login plus empty `catalog`, `leads`, and `content` packages. Vach (9) fills catalog, Daniel (6) fills leads, Hayk (4) fills content. Do not write their models. Do not delete this README.
+Suro, student 2, `feat/suro-api`. Wave 2 analytics and JWT stay. Install empty `cart` and `orders`, wire the includes, and read the five settings from env. No models and no payment views. Give your agent [02-suro.md](../../../docs/agents/02-suro.md) in full.
 
 ## Հայերեն
 
-Suro, աշակերտ 2, `feat/suro-api`։ Մուտք email-ով և դատարկ `catalog`, `leads`, `content`։ Կատալոգը լրացնում է Vach-ը (9), հայտերը՝ Daniel-ը (6), սլոթները՝ Hayk-ը (4)։ Դրանց մոդելները չլրացնել։ README-ն չջնջել։
+Suro, աշակերտ 2, `feat/suro-api`։ Wave 2-ի անալիտիկան և JWT-ն մնում են։ Դատարկ `cart` և `orders`, include-ներ և հինգ կարգավորում env-ից։ Առանց մոդելի և առանց վճարման վյուի։ Գործակալին տուր ամբողջ [02-suro.md](../../../docs/agents/02-suro.md)։

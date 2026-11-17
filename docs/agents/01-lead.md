@@ -1,112 +1,71 @@
-# Agent brief — Wave 1 — #1 Lead
+# Agent brief — Wave 3 — #1 Lead
 
-Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-advanced.md](../../task-advanced.md). Очередь merge — список имён, не второй номер.
+Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-wave3.md](../../task-wave3.md).
+
+Wave 1 и Wave 2 закрыты. Их модели, API и страницы не переписывать. Очередь этой волны — список имён, не второй номер.
 
 ## Русский
 
 ### Кто ты
 
-Ты ведёшь ученика 1, Lead, ветка `feat/lead`. Wave 1 — модели и админка магазина Ventum на SQLite. Вёрстку по макету не делать. Срок — конец декабря.
+Ты ведёшь ученика 1, Lead, ветка `feat/lead`. Wave 3 — корзина, заказ, Idram и одно письмо магазину, на SQLite. Срок — конец января 2027.
 
-Один PR = одна зона. Base PR = `dev`. В `main` не пушить. `--force` на `dev` и `main` не делать. Postgres не поднимать. README зоны не удалять: [docs/zones/lead/README.md](../zones/lead/README.md).
+Один PR = одна зона. Base PR = `dev`. В `main` не пушить. `--force` на `dev` и `main` не делать. Postgres не поднимать. README доски не удалять: [docs/zones/lead/README.md](../zones/lead/README.md).
 
 ### Карта репозитория
 
-- `backend/` — Django 5, DRF, Unfold, Pillow. База — файл `backend/ventum.sqlite3`.
-- Админка: `http://127.0.0.1:8000/api/admin/`.
+- Контракт — [task-wave3.md](../../task-wave3.md). Оплата — [docs/idram.md](../idram.md). Письмо — [docs/order-email.md](../order-email.md).
 - Health: `http://127.0.0.1:8000/api/health/` отвечает `{"status":"ok"}`.
-- Swagger: `http://127.0.0.1:8000/api/schema/swagger-ui/`.
-- `frontend/` — React. Страницы `/`, `/textile`, `/baby`, 404 в этом задании пустые. Их не верстать.
-- Новые приложения в `INSTALLED_APPS` регистрирует только Suro (2).
+- Сайт: `http://127.0.0.1:3000/`.
 
 ### Очередь
 
-Имена, не номера: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**.
+**Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-На доске колонка `#` — номер ученика. Колонка «После кого» — кто уже должен быть в `dev`.
+Suro ставит пустые приложения. Artush — `idram_language`. Vach — API корзины. Karen и Svet — кнопки. Daniel — модели заказа и письмо. Hayk — checkout и callback. Mariam — страница корзины. Ashot последний.
 
 ### Зона ответственности
 
-Порядок PR и сборка `dev`. Конфликт чинить вместе с владельцем файла. Чужие модели и вёрстку не переписывать.
+Порядок PR и сборка `dev`. Колонка статуса на доске волны 3. Конфликт чинить вместе с владельцем файла. Чужие вью, модели и вёрстку не переписывать. Номер PR не писать до merge.
 
 ### Шаги
 
-1. Каркас уже проверен: `migrate`, `manage.py check`, health и `/api/admin/login/`.
-2. Принимать PR в `dev` только в очереди имён выше.
-3. После merge Ashot (ученик 10) удалить `backend/ventum.sqlite3`, снова `migrate`, создать суперпользователя с email, открыть health и админку.
+1. Принимать PR в `dev` только в очереди имён выше.
+2. Сверять PR с разделом ученика в [task-wave3.md](../../task-wave3.md) и с его файлом в `docs/agents/`.
+3. После merge Ashot прогнать тесты и открыть health, Swagger, `/`, `/textile`, `/baby`, `/cart`, `/account`, `/checkout/success`.
 
 ### Definition of Done
 
-Wave 1 не закрыта, пока в админке без правки кода видны: пользователь с логином-email, категории и товары Textile и Baby с переводами `am` / `en` / `ru`, подписчик рассылки, слот главной. Health и Swagger живы.
-
-### Проверка
-
-```bash
-cd backend
-del ventum.sqlite3
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
-
-На Linux/macOS вместо `del` — `rm -f ventum.sqlite3`.
+Wave 3 не закрыта, пока тесты зелёные целиком, повторный callback не шлёт второе письмо, страницы возврата не называют заказ оплаченным без `status=paid`, а Postgres в diff нет.
 
 ### Нельзя
 
-Писать модели каталога, пользователя, заявок, слотов, поиск, сиды и тесты за других учеников.
+Писать корзину, заказ, Idram, письмо и страницы за других учеников.
 
 ## English
 
-You are student **1**, Lead, branch `feat/lead`. Wave 1 is Ventum models and admin on SQLite. Do not build the Figma layout. Finish by the end of December.
+You are student **1**, Lead, branch `feat/lead`. Wave 3 is the cart, the order, Idram, and one shop email, on SQLite. Finish by the end of January 2027. Wave 1 and Wave 2 stay. Do not rebuild them.
 
-One pull request is one zone. Base is `dev`. Do not push `main`. Do not force-push `dev` or `main`. Do not start Postgres. Do not delete [docs/zones/lead/README.md](../zones/lead/README.md).
+One pull request is one zone. Base is `dev`. Do not push `main`. Do not force-push. Do not start Postgres. Do not delete [docs/zones/lead/README.md](../zones/lead/README.md).
 
-Repository: Django in `backend/` with SQLite file `backend/ventum.sqlite3`. Admin `/api/admin/`. Health `/api/health/` returns `{"status":"ok"}`. Swagger `/api/schema/swagger-ui/`. React in `frontend/` stays unstyled in this wave. Only Suro (2) registers new apps in `INSTALLED_APPS`.
+Merge queue, by name: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-Merge queue, by name: **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**. The `#` column is the student number.
+You own the queue and the status column. After Ashot, run `python manage.py test` and open health, Swagger, the three store routes, `/cart`, `/account`, and `/checkout/success`.
 
-You own the merge board. Fix a conflict with the file owner. Do not rewrite their models.
+**Done when** the suite is green, a duplicate callback does not send a second email, return pages say paid only when `status` is `paid`, and Postgres is absent.
 
-After Ashot (student 10) is merged, delete `backend/ventum.sqlite3`, migrate, create a superuser with email, and open health and admin.
-
-**Done when** admin shows an email user, Textile and Baby categories and products in `am` / `en` / `ru`, a newsletter subscriber, and a home slot, and health and Swagger respond.
-
-```bash
-cd backend
-del ventum.sqlite3
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
-
-On Linux/macOS use `rm -f ventum.sqlite3` instead of `del`.
-
-Do not write catalog, user, lead, home-slot, search, seed, or test code for other students.
+Do not write cart, order, Idram, email, or pages for other students.
 
 ## Հայերեն
 
-Դու աշակերտ **1**-ն ես, Lead, ճյուղը՝ `feat/lead`։ Wave 1-ը Ventum-ի մոդելներն ու ադմինն են SQLite-ով։ Մակետը չհավաքել։ Ավարտել մինչև դեկտեմբերի վերջ։
+Դու աշակերտ **1**-ն ես, Lead, ճյուղը՝ `feat/lead`։ Wave 3-ը զամբյուղն է, պատվերը, Idram-ը և մեկ նամակը, SQLite։ Ավարտել մինչև 2027-ի հունվարի վերջ։ Wave 1-ը և Wave 2-ը թող։
 
-Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ `main` չpush անել։ `dev` և `main` `--force` չանել։ Postgres չբարձրացնել։ Չջնջել [docs/zones/lead/README.md](../zones/lead/README.md)։
+Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ `main` չpush անել։ Postgres չբարձրացնել։ [docs/zones/lead/README.md](../zones/lead/README.md)-ն չջնջել։
 
-Քարտեզ՝ Django `backend/`-ում, բազան `backend/ventum.sqlite3`։ Ադմին `/api/admin/`։ Health `/api/health/`-ը վերադարձնում է `{"status":"ok"}`։ Swagger `/api/schema/swagger-ui/`։ React-ը `frontend/`-ում այս ալիքում չձևավորել։ Նոր հավելվածները `INSTALLED_APPS`-ում գրանցում է միայն Suro-ն (2)։
+Հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։
 
-Հերթը անուններով՝ **Lead → Suro → Artush → Vach → Daniel → Hayk → Karen → Svet → Mariam → Ashot**։ `#` սյունը աշակերտի համարն է։
+Քոնն է հերթը և կարգավիճակի սյունը։ Ashot-ից հետո՝ `python manage.py test`, health, Swagger, երեք խանութի էջ, `/cart`, `/account`, `/checkout/success`։
 
-Քոնն է merge-ի տախտակը։ Կոնֆլիկտը լուծիր ֆայլի տիրոջ հետ։ Նրանց մոդելները մի վերաշարադրիր։
+**Ավարտված է, երբ** թեստերը կանաչ են, կրկնակի callback-ը երկրորդ նամակ չի ուղարկում, վերադարձի էջերը «վճարված» են գրում միայն `status=paid` դեպքում, և Postgres չկա։
 
-Ashot-ի (աշակերտ 10) merge-ից հետո ջնջիր `backend/ventum.sqlite3`, արա `migrate`, ստեղծիր email-ով superuser, բացիր health և ադմին։
-
-**Ավարտված է, երբ** ադմինում երևում են email-ով user, Textile և Baby կատեգորիաներ ու ապրանքներ `am` / `en` / `ru`, բաժանորդ և գլխավոր սլոթ, իսկ health-ը և Swagger-ը պատասխանում են։
-
-```bash
-cd backend
-del ventum.sqlite3
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-```
-
-Linux/macOS-ում `del`-ի փոխարեն՝ `rm -f ventum.sqlite3`։
-
-Ուրիշների կատալոգը, user-ը, հայտերը, սլոթը, որոնումը, seed-ը և թեստերը չգրել։
+Ուրիշների զամբյուղը, պատվերը, Idram-ը, նամակը և էջերը չգրել։

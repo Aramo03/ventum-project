@@ -1,21 +1,17 @@
 # baby — Svet
 
 **Ветка:** `feat/svet-baby`  
-**Задание:** [task-advanced.md](../../../../task-advanced.md) — «Svet · baby».
+**Задание:** [task-wave3.md](../../../../task-wave3.md) — «8 — Svet · baby».  
+**Агент:** [docs/agents/08-svet.md](../../../../docs/agents/08-svet.md).
 
-Страницу `/baby` не собирать. После merge Vach (ученик 9, зона catalog) — `seed_baby`:
+Витрина `/baby` закрыта как чтение каталога. Сид и поля моделей не менять. Файлы Textile не трогать.
 
-- две категории `store=baby` и один товар, цена AMD
-- переводы `am`, `en`, `ru`
-- данные Karen не стирать
-- повторный запуск без дубликатов
-
-Поля модели не менять.
+В этой волне на карточке товара кнопка `POST /api/cart/items/` с `sku` и `qty: 1`. Ответ 401 говорит, что нужен вход.
 
 ## English
 
-Svet, student 8, `feat/svet-baby`. Seed `store=baby` after Vach (student 9, catalog) is merged. Do not build the page and do not delete Textile data.
+Svet, student 8, `feat/svet-baby`. The catalog page stays. Add an add-to-cart button only. Do not change the seed or the Textile page.
 
 ## Հայերեն
 
-Svet, աշակերտ 8, `feat/svet-baby`։ Vach-ի (աշակերտ 9, catalog) merge-ից հետո `store=baby`։ Էջը չհավաքել և Textile-ի տվյալները չջնջել։
+Svet, աշակերտ 8, `feat/svet-baby`։ Կատալոգի էջը մնում է։ Ավելացրու միայն «զամբյուղ» կոճակը։ Seed-ը և Textile էջը չփոխել։

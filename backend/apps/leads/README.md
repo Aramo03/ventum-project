@@ -1,21 +1,19 @@
-# footer — Daniel
+# leads — Daniel
 
 **Ветка:** `feat/daniel-footer`  
-**Задание:** [task-advanced.md](../../../task-advanced.md) — «Daniel · footer».
+**Задание:** [task-wave3.md](../../../task-wave3.md) — «6 — Daniel · orders».  
+**Агент:** [docs/agents/06-daniel.md](../../../docs/agents/06-daniel.md).
 
-Пакет создаёт Suro. Добавь модели, не URL:
+`POST /api/leads/newsletter/`, `POST /api/leads/wholesale/` и формы Footer закрыты. Поля заявок не менять. Эту папку в волне 3 не наполнять.
 
-- `NewsletterSubscriber` — уникальный email и дата
-- `WholesaleInquiry` — имя, телефон, email, текст, дата
+Зона этой волны — [backend/apps/orders/README.md](../orders/README.md): модели заказа, GET владельца и `send_order_paid_email`.
 
-Страницу Footer не верстай. Макеты: [магазин](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
-
-**Lead не мержит, пока:** обе модели видны в `/api/admin/`, повторный email подписки не сохраняется, ручек отправки нет.
+**Lead не мержит, пока:** чужой номер заказа даёт 404, а функция письма не меняет статус.
 
 ## English
 
-Daniel, `feat/daniel-footer`. Two models only. No public URL and no page layout.
+Daniel, `feat/daniel-footer`. The lead API and the Footer forms are closed. Wave 3 is the order app. Do not edit this folder.
 
 ## Հայերեն
 
-Daniel, `feat/daniel-footer`։ Միայն երկու մոդել, առանց URL և առանց էջի դասավորության։
+Daniel, `feat/daniel-footer`։ Հայտերի API-ն և Footer-ի ձևերը փակ են։ Wave 3-ը պատվերի հավելվածն է։ Այս թղթապանակը չխմբագրել։

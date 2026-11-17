@@ -1,6 +1,8 @@
+
 export const LANGUAGES = [
   { code: 'am', label: 'Հայ' },
   { code: 'en', label: 'EN' },
+  { code: 'ru', label: 'RU' },
 ]
 
 export const NAV_ITEMS = [

@@ -1,13 +1,16 @@
 # i18n — Artush (интерфейс)
 
-**Ветка:** `feat/artush-i18n`
+**Ветка:** `feat/artush-i18n`  
+**Задание:** [task-wave3.md](../../../task-wave3.md) — «3 — Artush · i18n».
 
-В этом задании `am.json` и `en.json` не менять. Работа Artush — в [backend/apps/core/README.md](../../../backend/apps/core/README.md).
+`ru.json` уже зарегистрирован. Файлы `am.json`, `en.json` и `ru.json` в этой волне не переписывать: новые строки кладут владельцы страниц.
+
+Работа волны 3 — `idram_language` в [backend/apps/core/README.md](../../../backend/apps/core/README.md).
 
 ## English
 
-Do not edit these JSON files in this assignment. Artush’s work is in `backend/apps/core`.
+`ru` is already registered. Do not rewrite the three JSON files. Wave 3 is `idram_language` in the core app.
 
 ## Հայերեն
 
-Այս առաջադրանքում JSON-երը չփոխել։ Artush-ի աշխատանքը `backend/apps/core`-ում է։
+`ru`-ն արդեն գրանցված է։ Երեք JSON-ը չվերաշարադրել։ Wave 3-ը `idram_language`-ն է core հավելվածում։
