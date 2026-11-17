@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #4 Hayk
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «4 — Hayk · кабинет». Только `frontend/src/pages/Account/`: вход, загрузка, ошибка, сессия. Checkout не переписывать. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “4 — Hayk · account”. Only `frontend/src/pages/Account/`: sign-in, loading, error, session. Do not rewrite checkout. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «4 — Hayk · հաշիվ»։ Միայն `frontend/src/pages/Account/`՝ մուտք, բեռնում, սխալ, սեսիա։ Checkout-ը չվերաշարադրել։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · payments» в [task-wave3.md](../../task-wave3.md).
 
 Ветка по-прежнему `feat/hayk-gateway`. Зона этой волны — `payments`, не главная. `HomeBlock` и страницу `/` не переписывать.

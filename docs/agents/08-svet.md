@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #8 Svet
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «8 — Svet · baby». Только `frontend/src/pages/Baby/` по кадру, та же карточка Vach, без товара Textile. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “8 — Svet · baby”. Only `frontend/src/pages/Baby/` from the frame, the same card, no Textile product. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «8 — Svet · baby»։ Միայն `frontend/src/pages/Baby/` կադրից, նույն քարտով, առանց Textile ապրանքի։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **8**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «8 — Svet · baby» в [task-wave3.md](../../task-wave3.md).
 
 Страница `/baby` уже читает каталог. Сид и модели не трогать. Файлы Textile не трогать.

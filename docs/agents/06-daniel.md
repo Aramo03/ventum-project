@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #6 Daniel
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «6 — Daniel · подвал». Только `frontend/src/components/Footer/` по кадру. Модели заказа не трогать. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “6 — Daniel · footer”. Only `frontend/src/components/Footer/` from the frame. Do not touch order models. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «6 — Daniel · ներքև»։ Միայն `frontend/src/components/Footer/` կադրից։ Պատվերի մոդելները չկպնել։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **6**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «6 — Daniel · orders» в [task-wave3.md](../../task-wave3.md).
 
 Ветка по-прежнему `feat/daniel-footer`. Зона этой волны — заказы, не подвал. Формы Footer не трогать. Модели заявок не трогать.

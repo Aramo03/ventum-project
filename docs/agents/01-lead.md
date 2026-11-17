@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #1 Lead
 
+**Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «1 — Lead». Доска и ворота. Экраны не рисовать. Текст ниже не стирать: волна 3 остаётся контрактом покупки.
+
+**Wave 4.** Current screens: [task-wave4.md](../../task-wave4.md), section “1 — Lead”. Board and gates. Do not draw screens. The text below stays: Wave 3 is the purchase contract.
+
+**Wave 4.** Ընթացիկ էկրանները՝ [task-wave4.md](../../task-wave4.md), «1 — Lead»։ Տախտակ և դռներ։ Էկրաններ չնկարել։ Ներքևի տեքստը մնում է. Wave 3-ը գնման պայմանագիրն է։
+
 Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-wave3.md](../../task-wave3.md).
 
 Wave 1 и Wave 2 закрыты. Их модели, API и страницы не переписывать. Очередь этой волны — список имён, не второй номер.

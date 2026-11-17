@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #2 Suro
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «2 — Suro · главная». Папка `frontend/src/pages/Gateway/`: герой и выбор магазина. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “2 — Suro · home”. Folder `frontend/src/pages/Gateway/`: hero and store choice. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «2 — Suro · գլխավոր»։ Պանակ `frontend/src/pages/Gateway/`՝ վերնագիր և խանութի ընտրություն։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **2**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «2 — Suro · api» в [task-wave3.md](../../task-wave3.md).
 
 Wave 2 закрыта: аналитика, JWT и `PAGE_SIZE` 12 уже есть. Заново это не делать.
