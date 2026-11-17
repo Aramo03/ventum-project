@@ -9,6 +9,9 @@ import Gateway from './pages/Gateway/Gateway.jsx'
 const Textile = lazy(() => import('./pages/Textile/Textile.jsx'))
 const Baby = lazy(() => import('./pages/Baby/Baby.jsx'))
 const Cart = lazy(() => import('./pages/Cart/Cart.jsx'))
+const Account = lazy(() => import('./pages/Account/Account.jsx'))
+const CheckoutSuccess = lazy(() => import('./pages/Checkout/CheckoutSuccess.jsx'))
+const CheckoutFail = lazy(() => import('./pages/Checkout/CheckoutFail.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
 
 function pageTitleKey(pathname) {
@@ -17,6 +20,8 @@ function pageTitleKey(pathname) {
   if (pathname === '/baby') return 'pageTitles.baby'
   if (pathname === '/account') return 'pageTitles.account'
   if (pathname === '/cart') return 'pageTitles.cart'
+  if (pathname === '/checkout/success') return 'pageTitles.checkoutSuccess'
+  if (pathname === '/checkout/fail') return 'pageTitles.checkoutFail'
   return 'pageTitles.notFound'
 }
 
@@ -52,6 +57,8 @@ export default function App() {
           <Route path="/baby" element={<Baby />} />
           <Route path="/account" element={<Account />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/fail" element={<CheckoutFail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
