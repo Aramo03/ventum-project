@@ -4,7 +4,6 @@
   "delivery": "Delivery across Armenia",
   "searchPlaceholder": "Search products...",
   "wholesale": "Wholesale",
-  "account": "Account",
   "cart": "Cart",
   "stores": {
     "textile": "Ventum Textile",
@@ -25,6 +24,7 @@
     "gateway": "Ventum",
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
+    "account": "My account",
     "notFound": "Not found"
   },
   "pages": {
@@ -38,7 +38,20 @@
     "contentUnavailable": "Welcome content is temporarily unavailable."
   },
   "footer": {
-    "note": "The footer is still a stub."
+    "note": "Questions about delivery and wholesale.",
+    "newsletterTitle": "Newsletter",
+    "newsletterEmail": "Email",
+    "newsletterSubmit": "Subscribe",
+    "newsletterSuccess": "You are subscribed.",
+    "wholesaleTitle": "Wholesale",
+    "wholesaleName": "Name",
+    "wholesalePhone": "Phone",
+    "wholesaleEmail": "Email",
+    "wholesaleText": "Message",
+    "wholesaleSubmit": "Send",
+    "wholesaleSuccess": "Request sent.",
+    "required": "This field is required.",
+    "submitError": "Could not send the form. Try again."
   },
   "common": {
     "loading": "Loading...",
@@ -62,4 +75,43 @@
   "categories": "Categories",
   "products": "Our Products"
 }
+    "loading": "Loading..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "All",
+    "loading": "Loading...",
+    "empty": "No products found",
+    "error": "Network error. Failed to load data.",
+    "currency": "AMD"
+  },
+  "baby": {
+    "loading": "Loading Baby products...",
+    "error": "Failed to load products. Please try again.",
+    "empty": "No Baby products available at the moment.",
+    "categories": "Categories",
+    "products": "Our Products",
+    "addToCart": "Add to cart",
+    "cartAdding": "Adding...",
+    "cartSuccess": "Product added to cart.",
+    "cartSignIn": "Please sign in to add items to your cart.",
+    "cartError": "Failed to add product to cart."
+    "products": "Our Products"
+  },
+  "account": {
+    "title": "My account",
+    "loading": "Checking your account...",
+    "profileError": "Could not check your account. Check your connection and try again.",
+    "retry": "Try again",
+    "signedInAs": "You are signed in.",
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "loginPrompt": "Sign in with your email and password.",
+    "login": "Sign in",
+    "signingIn": "Signing in...",
+    "logout": "Sign out",
+    "invalidCredentials": "The email or password is incorrect.",
+    "loginError": "Could not sign in. Try again."
+  }
 }

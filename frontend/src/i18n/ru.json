@@ -4,7 +4,6 @@
   "delivery": "Доставка по всей Армении",
   "searchPlaceholder": "Поиск товаров...",
   "wholesale": "Оптовые продажи",
-  "account": "Личный кабинет",
   "cart": "Корзина",
   "stores": {
     "textile": "Ventum Textile",
@@ -25,6 +24,7 @@
     "gateway": "Ventum",
     "textile": "Ventum Textile",
     "baby": "Ventum Baby",
+    "account": "Личный кабинет",
     "notFound": "Страница не найдена"
   },
   "pages": {
@@ -38,16 +38,59 @@
     "contentUnavailable": "Текст приветствия временно недоступен."
   },
   "footer": {
-    "note": "Нижняя часть сайта пока не готова."
+    "note": "Вопросы о доставке и опте.",
+    "newsletterTitle": "Рассылка",
+    "newsletterEmail": "Эл. почта",
+    "newsletterSubmit": "Подписаться",
+    "newsletterSuccess": "Вы подписаны.",
+    "wholesaleTitle": "Опт",
+    "wholesaleName": "Имя",
+    "wholesalePhone": "Телефон",
+    "wholesaleEmail": "Эл. почта",
+    "wholesaleText": "Текст",
+    "wholesaleSubmit": "Отправить",
+    "wholesaleSuccess": "Заявка отправлена.",
+    "required": "Это поле обязательно.",
+    "submitError": "Не удалось отправить форму. Попробуйте ещё раз."
   },
   "common": {
     "loading": "Загрузка..."
+  },
+  "textile": {
+    "title": "Ventum Textile",
+    "allCategories": "Все",
+    "loading": "Загрузка...",
+    "empty": "Товары не найдены",
+    "error": "Ошибка сети. Не удалось загрузить данные.",
+    "currency": "AMD"
   },
   "baby": {
     "loading": "Загрузка товаров Baby...",
     "error": "Не удалось загрузить товары. Попробуйте ещё раз.",
     "empty": "Сейчас товаров Baby нет.",
     "categories": "Категории",
+    "products": "Наши товары",
+    "addToCart": "Добавить в корзину",
+    "cartAdding": "Добавление...",
+    "cartSuccess": "Товар добавлен в корзину.",
+    "cartSignIn": "Войдите в аккаунт, чтобы добавить товар в корзину.",
+    "cartError": "Не удалось добавить товар в корзину."
     "products": "Наши товары"
+  },
+  "account": {
+    "title": "Личный кабинет",
+    "loading": "Проверяем аккаунт...",
+    "profileError": "Не удалось проверить аккаунт. Проверьте подключение и попробуйте ещё раз.",
+    "retry": "Попробовать снова",
+    "signedInAs": "Вы вошли в аккаунт.",
+    "email": "Эл. почта",
+    "name": "Имя",
+    "password": "Пароль",
+    "loginPrompt": "Войдите с помощью электронной почты и пароля.",
+    "login": "Войти",
+    "signingIn": "Входим...",
+    "logout": "Выйти",
+    "invalidCredentials": "Неверная почта или пароль.",
+    "loginError": "Не удалось войти. Попробуйте ещё раз."
   }
 }

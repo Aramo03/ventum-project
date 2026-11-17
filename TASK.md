@@ -1,85 +1,152 @@
-# Ventum — Wave 2
+# Ventum — Wave 3
 
-**Подробно:** [task-wave2.md](task-wave2.md)  
+**Подробно:** [task-wave3.md](task-wave3.md)  
 **Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
 **Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)  
+**Архив волны 2:** [task-wave2.md](task-wave2.md)  
 **Архив волны 1:** [task-advanced.md](task-advanced.md)
 
-Номер в таблице — номер ученика. Тот же номер стоит в заголовке его раздела в [task-wave2.md](task-wave2.md) и в файле, который он отдаёт агенту: `docs/agents/`.
+Номер в таблице — номер ученика. Тот же номер стоит в заголовке его раздела в [task-wave3.md](task-wave3.md) и в файле, который он отдаёт агенту: `docs/agents/`.
 
-Wave 1 закрыта и лежит в `dev`. Сейчас публичное API и витрина на SQLite. **Срок: до конца января.** Postgres, корзина, заказы, Idram и письмо об оплате не входят.
+Wave 1 и Wave 2 закрыты. Сейчас корзина, заказ, оплата Idram и письмо магазину. База — SQLite. **Срок: до конца января 2027.** Postgres не входит.
 
-Макеты:
-
-- [Ventum — кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
-- [Ventum — второй файл макета](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
+Оплата: [docs/idram.md](docs/idram.md). Письмо: [docs/order-email.md](docs/order-email.md).
 
 | # | Имя | Ветка | Зона | Агент |
 |---|-----|--------|------|--------|
-| 1 | Lead | `feat/lead` | Доска merge волны 2. После Ashot: тесты, health, Swagger, аналитика staff, `/`, `/textile`, `/baby` | [01-lead.md](docs/agents/01-lead.md) |
-| 2 | Suro | `feat/suro-api` | Аналитика `/api/admin/analytics/`, JWT, `PAGE_SIZE` 12 | [02-suro.md](docs/agents/02-suro.md) |
-| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, словарь `ru` | [03-artush.md](docs/agents/03-artush.md) |
-| 4 | Hayk | `feat/hayk-gateway` | `GET /api/content/home-blocks/` и страница `/` | [04-hayk.md](docs/agents/04-hayk.md) |
-| 5 | Mariam | `feat/mariam-header` | Поиск в шапке и кнопка `ru` | [05-mariam.md](docs/agents/05-mariam.md) |
-| 6 | Daniel | `feat/daniel-footer` | POST подписки и опта, формы в Footer | [06-daniel.md](docs/agents/06-daniel.md) |
-| 7 | Karen | `feat/karen-textile` | Страница `/textile` из API | [07-karen.md](docs/agents/07-karen.md) |
-| 8 | Svet | `feat/svet-baby` | Страница `/baby` из API | [08-svet.md](docs/agents/08-svet.md) |
-| 9 | Vach | `feat/vach-catalog` | Читающее API категорий и товаров | [09-vach.md](docs/agents/09-vach.md) |
-| 10 | Ashot | `feat/ashot-ui` | Тесты API и страница 404 | [10-ashot.md](docs/agents/10-ashot.md) |
+| 1 | Lead | `feat/lead` | Доска merge волны 3. После Ashot: тесты, health, Swagger, `/`, `/textile`, `/baby`, `/cart`, `/account`, `/checkout/success` | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Пустые приложения `cart` и `orders`, env Idram и `ORDER_NOTIFY_EMAIL` | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | `idram_language`: `am`/`en`/`ru` → `AM`/`EN`/`RU` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | `POST /api/checkout/`, callback Idram, страница `/account` | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Ссылки Account и Cart, страница `/cart` | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Модели заказа, `GET` заказа, `send_order_paid_email` | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | Кнопка «в корзину» на `/textile` | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | Кнопка «в корзину» на `/baby` | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | API корзины | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Страницы успеха и неуспеха, тесты оплаты | [10-ashot.md](docs/agents/10-ashot.md) |
 
-Очередь merge: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+Очередь merge: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-Один PR = одна зона. В `main` не пушить. Каталог снаружи — `/api/catalog/`, не `/api/products/`. Админка: `http://127.0.0.1:8000/api/admin/`. Аналитика: `http://127.0.0.1:8000/api/admin/analytics/`. Health: `http://127.0.0.1:8000/api/health/`.
+Один PR = одна зона. В `main` не пушить. Каталог снаружи — `/api/catalog/`. Корзина — `/api/cart/`. Заказ — `/api/orders/<bill_no>/`. Оплата — `POST /api/checkout/` и `POST /api/payments/idram/result/`.
 
 ## English
 
-**Detail:** [task-wave2.md](task-wave2.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md). **Wave 1 archive:** [task-advanced.md](task-advanced.md).
+**Detail:** [task-wave3.md](task-wave3.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md). **Wave 2 archive:** [task-wave2.md](task-wave2.md). **Wave 1 archive:** [task-advanced.md](task-advanced.md).
 
-The number in the table is the student number. The same number is the heading in [task-wave2.md](task-wave2.md) and the file in `docs/agents/`.
+The number in the table is the student number. The same number is the heading in [task-wave3.md](task-wave3.md) and the file in `docs/agents/`.
 
-Wave 1 is closed and already in `dev`. This wave is the public API and the storefront on SQLite. **Finish by the end of January.** Postgres, cart, orders, Idram, and the payment email are out.
+Wave 1 and Wave 2 are closed. This wave is the cart, the order, Idram, and the shop email, on SQLite. **Finish by the end of January 2027.** Postgres is out.
+
+Payment: [docs/idram.md](docs/idram.md). Email: [docs/order-email.md](docs/order-email.md).
 
 | # | Name | Branch | Zone | Agent |
 |---|------|--------|------|--------|
-| 1 | Lead | `feat/lead` | Wave 2 merge board. After Ashot: tests, health, Swagger, staff analytics, `/`, `/textile`, `/baby` | [01-lead.md](docs/agents/01-lead.md) |
-| 2 | Suro | `feat/suro-api` | `/api/admin/analytics/`, JWT, page size 12 | [02-suro.md](docs/agents/02-suro.md) |
-| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, `ru` catalog | [03-artush.md](docs/agents/03-artush.md) |
-| 4 | Hayk | `feat/hayk-gateway` | `GET /api/content/home-blocks/` and `/` | [04-hayk.md](docs/agents/04-hayk.md) |
-| 5 | Mariam | `feat/mariam-header` | Header search and the `ru` button | [05-mariam.md](docs/agents/05-mariam.md) |
-| 6 | Daniel | `feat/daniel-footer` | Newsletter and wholesale POSTs, Footer forms | [06-daniel.md](docs/agents/06-daniel.md) |
-| 7 | Karen | `feat/karen-textile` | `/textile` from the API | [07-karen.md](docs/agents/07-karen.md) |
-| 8 | Svet | `feat/svet-baby` | `/baby` from the API | [08-svet.md](docs/agents/08-svet.md) |
-| 9 | Vach | `feat/vach-catalog` | Read API for categories and products | [09-vach.md](docs/agents/09-vach.md) |
-| 10 | Ashot | `feat/ashot-ui` | API tests and the 404 page | [10-ashot.md](docs/agents/10-ashot.md) |
+| 1 | Lead | `feat/lead` | Wave 3 merge board. After Ashot: tests, health, Swagger, `/`, `/textile`, `/baby`, `/cart`, `/account`, `/checkout/success` | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Empty `cart` and `orders` apps, Idram env and `ORDER_NOTIFY_EMAIL` | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | `idram_language`: `am`/`en`/`ru` → `AM`/`EN`/`RU` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | `POST /api/checkout/`, Idram callback, `/account` | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Account and Cart links, `/cart` | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Order models, order GET, `send_order_paid_email` | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | Add to cart on `/textile` | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | Add to cart on `/baby` | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Cart API | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Success and fail pages, payment tests | [10-ashot.md](docs/agents/10-ashot.md) |
 
-Merge queue: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+Merge queue: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-One pull request is one zone. Do not push `main`. The public catalog prefix is `/api/catalog/`. Admin is `/api/admin/`. Analytics is `/api/admin/analytics/`. Health is `/api/health/`.
+One pull request is one zone. Do not push `main`. Catalog is `/api/catalog/`. Cart is `/api/cart/`. An order is `/api/orders/<bill_no>/`. Payment is `POST /api/checkout/` and `POST /api/payments/idram/result/`.
 
 ## Հայերեն
 
-**Մանրամասն՝** [task-wave2.md](task-wave2.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Lead-ի տախտակը՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։ **Wave 1-ի արխիվ՝** [task-advanced.md](task-advanced.md)։
+**Մանրամասն՝** [task-wave3.md](task-wave3.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Lead-ի տախտակը՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։ **Wave 2-ի արխիվ՝** [task-wave2.md](task-wave2.md)։ **Wave 1-ի արխիվ՝** [task-advanced.md](task-advanced.md)։
 
-Աղյուսակի համարը աշակերտի համարն է։ Նույն համարը [task-wave2.md](task-wave2.md)-ի վերնագիրն է և `docs/agents/` ֆայլը, որը տալիս ես գործակալին։
+Աղյուսակի համարը աշակերտի համարն է։ Նույն համարը [task-wave3.md](task-wave3.md)-ի վերնագիրն է և `docs/agents/` ֆայլը։
 
-Wave 1-ը փակ է և արդեն `dev`-ում է։ Հիմա հրապարակային API և խանութի էջեր, SQLite։ **Ավարտել մինչև հունվարի վերջ։** Postgres-ը, զամբյուղը, պատվերը, Idram-ը և վճարման նամակը դուրս են։
+Wave 1-ը և Wave 2-ը փակ են։ Հիմա զամբյուղ, պատվեր, Idram և նամակ խանութին, SQLite։ **Ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres-ը դուրս է։
+
+Վճարում՝ [docs/idram.md](docs/idram.md)։ Նամակ՝ [docs/order-email.md](docs/order-email.md)։
 
 | # | Անուն | Ճյուղ | Գոտի | Գործակալ |
 |---|------|--------|------|-----------|
-| 1 | Lead | `feat/lead` | Wave 2-ի merge-ի տախտակ։ Ashot-ից հետո՝ թեստեր, health, Swagger, staff անալիտիկա, `/`, `/textile`, `/baby` | [01-lead.md](docs/agents/01-lead.md) |
-| 2 | Suro | `feat/suro-api` | `/api/admin/analytics/`, JWT, էջի չափ 12 | [02-suro.md](docs/agents/02-suro.md) |
-| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, `ru` բառարան | [03-artush.md](docs/agents/03-artush.md) |
-| 4 | Hayk | `feat/hayk-gateway` | `GET /api/content/home-blocks/` և `/` էջը | [04-hayk.md](docs/agents/04-hayk.md) |
-| 5 | Mariam | `feat/mariam-header` | Որոնում վերնագրում և `ru` կոճակ | [05-mariam.md](docs/agents/05-mariam.md) |
-| 6 | Daniel | `feat/daniel-footer` | Բաժանորդագրության և մեծածախի POST, Footer-ի ձևեր | [06-daniel.md](docs/agents/06-daniel.md) |
-| 7 | Karen | `feat/karen-textile` | `/textile` էջը API-ից | [07-karen.md](docs/agents/07-karen.md) |
-| 8 | Svet | `feat/svet-baby` | `/baby` էջը API-ից | [08-svet.md](docs/agents/08-svet.md) |
-| 9 | Vach | `feat/vach-catalog` | Կատեգորիաների և ապրանքների կարդացող API | [09-vach.md](docs/agents/09-vach.md) |
-| 10 | Ashot | `feat/ashot-ui` | API թեստեր և 404 էջ | [10-ashot.md](docs/agents/10-ashot.md) |
+| 1 | Lead | `feat/lead` | Wave 3-ի merge-ի տախտակ։ Ashot-ից հետո՝ թեստեր, health, Swagger, `/`, `/textile`, `/baby`, `/cart`, `/account`, `/checkout/success` | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Դատարկ `cart` և `orders`, Idram env և `ORDER_NOTIFY_EMAIL` | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | `idram_language`՝ `am`/`en`/`ru` → `AM`/`EN`/`RU` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | `POST /api/checkout/`, Idram callback, `/account` | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Account և Cart հղումներ, `/cart` | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Պատվերի մոդելներ, GET, `send_order_paid_email` | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | «Զամբյուղ» կոճակ `/textile`-ում | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | «Զամբյուղ» կոճակ `/baby`-ում | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Զամբյուղի API | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Հաջողության և ձախողման էջեր, վճարման թեստեր | [10-ashot.md](docs/agents/10-ashot.md) |
 
-Merge-ի հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
+Merge-ի հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։
 
-Մեկ PR = մեկ գոտի։ `main` չենք push անում։ Կատալոգը դրսից՝ `/api/catalog/`։ Ադմինը՝ `/api/admin/`։ Անալիտիկան՝ `/api/admin/analytics/`։ Health-ը՝ `/api/health/`։
+Մեկ PR = մեկ գոտի։ `main` չենք push անում։ Կատալոգը՝ `/api/catalog/`։ Զամբյուղը՝ `/api/cart/`։ Պատվերը՝ `/api/orders/<bill_no>/`։ Վճարումը՝ `POST /api/checkout/` և `POST /api/payments/idram/result/`։
+
+---
+
+# Архив — Wave 2 (закрыта)
+
+Не выполнять. Публичное API и витрина уже в этом дереве. Подробности: [task-wave2.md](task-wave2.md).
+
+**Do not start this wave.** The public API and the storefront are already in this tree. Detail: [task-wave2.md](task-wave2.md).
+
+**Այս ալիքը չսկսել։** Հրապարակային API-ն և խանութի էջերն արդեն այս ծառում են։ Մանրամասն՝ [task-wave2.md](task-wave2.md)։
+
+Номера PR в эту таблицу не переносятся: в доске волны их не было, и выдумывать их нельзя. Статус — закрыта в этом дереве.
+
+| # | Имя | Ветка | Зона | PR | Статус |
+|---|-----|--------|------|----|--------|
+| 1 | Lead | `feat/lead` | Доска merge волны 2 | — | закрыта в этом дереве |
+| 2 | Suro | `feat/suro-api` | Аналитика, JWT, `PAGE_SIZE` 12 | — | закрыта в этом дереве |
+| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, словарь `ru` | — | закрыта в этом дереве |
+| 4 | Hayk | `feat/hayk-gateway` | `GET /api/content/home-blocks/` и `/` | — | закрыта в этом дереве |
+| 5 | Mariam | `feat/mariam-header` | Поиск в шапке и кнопка `ru` | — | закрыта в этом дереве |
+| 6 | Daniel | `feat/daniel-footer` | POST подписки и опта, формы в Footer | — | закрыта в этом дереве |
+| 7 | Karen | `feat/karen-textile` | Страница `/textile` | — | закрыта в этом дереве |
+| 8 | Svet | `feat/svet-baby` | Страница `/baby` | — | закрыта в этом дереве |
+| 9 | Vach | `feat/vach-catalog` | Читающее API каталога | — | закрыта в этом дереве |
+| 10 | Ashot | `feat/ashot-ui` | Тесты API и страница 404 | — | закрыта в этом дереве |
+
+Очередь той волны: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+
+## English
+
+Wave 2 is closed. Do not start it. PR numbers are not listed: the Wave 2 board never had them, and they are not invented here. Status: closed in this tree.
+
+| # | Name | Branch | Zone | PR | Status |
+|---|------|--------|------|----|--------|
+| 1 | Lead | `feat/lead` | Wave 2 merge board | — | closed in this tree |
+| 2 | Suro | `feat/suro-api` | Analytics, JWT, page size 12 | — | closed in this tree |
+| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, `ru` catalog | — | closed in this tree |
+| 4 | Hayk | `feat/hayk-gateway` | Home blocks and `/` | — | closed in this tree |
+| 5 | Mariam | `feat/mariam-header` | Header search and the `ru` button | — | closed in this tree |
+| 6 | Daniel | `feat/daniel-footer` | Newsletter and wholesale POSTs, Footer forms | — | closed in this tree |
+| 7 | Karen | `feat/karen-textile` | `/textile` | — | closed in this tree |
+| 8 | Svet | `feat/svet-baby` | `/baby` | — | closed in this tree |
+| 9 | Vach | `feat/vach-catalog` | Catalog read API | — | closed in this tree |
+| 10 | Ashot | `feat/ashot-ui` | API tests and the 404 page | — | closed in this tree |
+
+That queue was **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+
+## Հայերեն
+
+Wave 2-ը փակ է։ Չսկսել։ PR-ի համարները չեն գրվում. Wave 2-ի տախտակին չկային, և այստեղ չեն հորինվում։ Կարգավիճակը՝ փակ է այս ծառում։
+
+| # | Անուն | Ճյուղ | Գոտի | PR | Կարգավիճակ |
+|---|------|--------|------|----|------------|
+| 1 | Lead | `feat/lead` | Wave 2-ի merge-ի տախտակ | — | փակ է այս ծառում |
+| 2 | Suro | `feat/suro-api` | Անալիտիկա, JWT, էջի չափ 12 | — | փակ է այս ծառում |
+| 3 | Artush | `feat/artush-i18n` | `parse_language`, `pick_translation`, `ru` | — | փակ է այս ծառում |
+| 4 | Hayk | `feat/hayk-gateway` | Home block-եր և `/` | — | փակ է այս ծառում |
+| 5 | Mariam | `feat/mariam-header` | Որոնում և `ru` կոճակ | — | փակ է այս ծառում |
+| 6 | Daniel | `feat/daniel-footer` | POST-եր և Footer-ի ձևեր | — | փակ է այս ծառում |
+| 7 | Karen | `feat/karen-textile` | `/textile` | — | փակ է այս ծառում |
+| 8 | Svet | `feat/svet-baby` | `/baby` | — | փակ է այս ծառում |
+| 9 | Vach | `feat/vach-catalog` | Կատալոգի կարդացող API | — | փակ է այս ծառում |
+| 10 | Ashot | `feat/ashot-ui` | API թեստեր և 404 | — | փակ է այս ծառում |
+
+Այդ հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
 
 ---
 
@@ -95,7 +162,7 @@ Merge-ի հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel �
 **Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
 **Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)
 
-Таблица ниже — история волны 1. Агенту её не отдавать: файлы в `docs/agents/` теперь описывают волну 2.
+Таблица ниже — история волны 1. Агенту её не отдавать: файлы в `docs/agents/` теперь описывают волну 3. Текст волны 2 лежит в [task-wave2.md](task-wave2.md).
 
 Макеты, на которые опиралась волна 1:
 
@@ -125,7 +192,7 @@ Merge-ի հերթը՝ **Lead → Suro → Artush → Vach → Hayk → Daniel �
 
 **Detail:** [task-advanced.md](task-advanced.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md).
 
-The table below is Wave 1 history. Do not hand it to an agent. The files in `docs/agents/` now describe Wave 2.
+The table below is Wave 1 history. Do not hand it to an agent. The files in `docs/agents/` now describe Wave 3. The Wave 2 text lives in [task-wave2.md](task-wave2.md).
 
 Designs that wave used:
 
@@ -155,7 +222,7 @@ One pull request is one zone. Do not push `main`. Do not start Postgres. Admin i
 
 **Մանրամասն՝** [task-advanced.md](task-advanced.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Lead-ի տախտակը՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։
 
-Ներքևի աղյուսակը Wave 1-ի պատմությունն է։ Գործակալին այն չտալ. `docs/agents/` ֆայլերն արդեն նկարագրում են Wave 2-ը։
+Ներքևի աղյուսակը Wave 1-ի պատմությունն է։ Գործակալին այն չտալ. `docs/agents/` ֆայլերն արդեն նկարագրում են Wave 3-ը։ Wave 2-ի տեքստը՝ [task-wave2.md](task-wave2.md)։
 
 Այն մակետները, որոնց վրա հենվում էր ալիքը.
 

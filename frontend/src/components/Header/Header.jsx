@@ -1,19 +1,55 @@
-
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LANGUAGES, NAV_ITEMS, PHONE } from './header.js'
 import { api } from '../../api/client'
 import './header.css'
 
+const TOKEN_KEY = 'ventum_access_token'
+
 export default function Header() {
   const { t, i18n } = useTranslation()
+  const { pathname } = useLocation()
 
   const [query, setQuery] = useState('')
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [cartCount, setCartCount] = useState(null)
 
+  // Load cart count for authenticated users
+  useEffect(() => {
+    const token = localStorage.getItem(TOKEN_KEY)
+
+    if (!token) {
+      setCartCount(null)
+      return
+    }
+
+    let cancelled = false
+
+    async function loadCartCount() {
+      try {
+        const response = await api.get('/api/cart/')
+
+        if (!cancelled) {
+          setCartCount(response.data?.count ?? 0)
+        }
+      } catch {
+        if (!cancelled) {
+          setCartCount(null)
+        }
+      }
+    }
+
+    loadCartCount()
+
+    return () => {
+      cancelled = true
+    }
+  }, [pathname])
+
+  // Product search
   useEffect(() => {
     const search = query.trim()
 
@@ -32,27 +68,20 @@ export default function Header() {
         setError('')
 
         const response = await api.get('/api/catalog/products/', {
-          params: {
-            q: search,
-          },
+          params: { q: search },
         })
 
         if (cancelled) return
 
         const data = response.data
-
-        setProducts(
-          Array.isArray(data) ? data : data.results || []
-        )
-      } catch (err) {
+        setProducts(Array.isArray(data) ? data : data.results || [])
+      } catch {
         if (!cancelled) {
           setProducts([])
           setError(t('searchError'))
         }
       } finally {
-        if (!cancelled) {
-          setLoading(false)
-        }
+        if (!cancelled) setLoading(false)
       }
     }, 300)
 
@@ -87,13 +116,9 @@ export default function Header() {
 
           {query.trim() !== '' && (
             <div className="site-header__search-results">
-              {loading && (
-                <p>{t('searchLoading')}</p>
-              )}
+              {loading && <p>{t('searchLoading')}</p>}
 
-              {!loading && error && (
-                <p>{error}</p>
-              )}
+              {!loading && error && <p>{error}</p>}
 
               {!loading && !error && products.length === 0 && (
                 <p>{t('searchEmpty')}</p>
@@ -102,18 +127,13 @@ export default function Header() {
               {!loading && !error && products.map((product) => (
                 <div
                   className="site-header__search-product"
-                  key={product.id}
+                  key={product.sku}
                 >
                   <strong>{product.name}</strong>
-
                   <span>SKU: {product.sku}</span>
-
+                  <span>{product.price} AMD</span>
                   <span>
-                    {product.price} AMD
-                  </span>
-
-                  <span>
-                    {product.store_name || product.store?.name || ''}
+                    {product.store?.name || product.store_name || ''}
                   </span>
                 </div>
               ))}
@@ -127,10 +147,11 @@ export default function Header() {
               key={language.code}
               type="button"
               className="site-header__lang"
-              aria-pressed={
-                (i18n.resolvedLanguage || i18n.language || 'en')
-                  .startsWith(language.code)
-              }
+              aria-pressed={(
+                i18n.resolvedLanguage ||
+                i18n.language ||
+                'en'
+              ).startsWith(language.code)}
               onClick={() => i18n.changeLanguage(language.code)}
             >
               {language.label}
@@ -138,21 +159,14 @@ export default function Header() {
           ))}
         </div>
 
-        <button
-          type="button"
-          className="site-header__icon"
-          disabled
-        >
+        <Link className="site-header__icon" to="/account">
           {t('account')}
-        </button>
+        </Link>
 
-        <button
-          type="button"
-          className="site-header__icon"
-          disabled
-        >
-          {t('cart')} 0
-        </button>
+        <Link className="site-header__icon" to="/cart">
+          {t('cart')}
+          {cartCount !== null && ` ${cartCount}`}
+        </Link>
       </div>
 
       <nav className="site-header__nav" aria-label={t('brand')}>

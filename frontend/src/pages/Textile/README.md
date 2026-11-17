@@ -1,24 +1,17 @@
 # textile — Karen
 
 **Ветка:** `feat/karen-textile`  
-**Задание:** [task-wave2.md](../../../../task-wave2.md) — «7 — Karen · textile».  
+**Задание:** [task-wave3.md](../../../../task-wave3.md) — «7 — Karen · textile».  
 **Агент:** [docs/agents/07-karen.md](../../../../docs/agents/07-karen.md).
 
-Сид `seed_textile` уже в `dev`. Его и поля моделей не менять.
+Витрина `/textile` закрыта как чтение каталога. Сид и поля моделей не менять. Страницу Baby не трогать.
 
-Собери `/textile` из API:
-
-- `GET /api/catalog/categories/?store=textile`
-- `GET /api/catalog/products/?store=textile`
-- имя, цена AMD, картинка, категории
-- загрузка, пустой список, ошибка сети
-
-Товар Baby на эту страницу не попадает.
+В этой волне на карточке товара кнопка `POST /api/cart/items/` с `sku` и `qty: 1`. Ответ 401 говорит, что нужен вход, и остаётся на карточке.
 
 ## English
 
-Karen, student 7, `feat/karen-textile`. Build `/textile` from the catalog API. Do not change the seed or model fields.
+Karen, student 7, `feat/karen-textile`. The catalog page stays. Add an add-to-cart button only. Do not change the seed or the Baby page.
 
 ## Հայերեն
 
-Karen, աշակերտ 7, `feat/karen-textile`։ Հավաքիր `/textile` էջը կատալոգի API-ից։ Seed-ը և մոդելի դաշտերը չփոխել։
+Karen, աշակերտ 7, `feat/karen-textile`։ Կատալոգի էջը մնում է։ Ավելացրու միայն «զամբյուղ» կոճակը։ Seed-ը և Baby էջը չփոխել։

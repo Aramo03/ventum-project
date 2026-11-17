@@ -1,104 +1,71 @@
-# Agent brief — Wave 2 — #1 Lead
+# Agent brief — Wave 3 — #1 Lead
 
-Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-wave2.md](../../task-wave2.md).
+Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-wave3.md](../../task-wave3.md).
 
-Wave 1 закрыта и уже в `dev`. Её модели, сиды и тесты не переписывать. Очередь этой волны — список имён, не второй номер.
+Wave 1 и Wave 2 закрыты. Их модели, API и страницы не переписывать. Очередь этой волны — список имён, не второй номер.
 
 ## Русский
 
 ### Кто ты
 
-Ты ведёшь ученика 1, Lead, ветка `feat/lead`. Wave 2 — публичное API и витрина Ventum на SQLite. Срок — конец января.
+Ты ведёшь ученика 1, Lead, ветка `feat/lead`. Wave 3 — корзина, заказ, Idram и одно письмо магазину, на SQLite. Срок — конец января 2027.
 
-Один PR = одна зона. Base PR = `dev`. В `main` не пушить. `--force` на `dev` и `main` не делать. Postgres не поднимать. Корзину, заказы, Idram и письмо об оплате не принимать в эту волну. README доски не удалять: [docs/zones/lead/README.md](../zones/lead/README.md).
+Один PR = одна зона. Base PR = `dev`. В `main` не пушить. `--force` на `dev` и `main` не делать. Postgres не поднимать. README доски не удалять: [docs/zones/lead/README.md](../zones/lead/README.md).
 
 ### Карта репозитория
 
-- `backend/` — Django 5, DRF, Unfold, SimpleJWT. База — `backend/ventum.sqlite3`.
-- Админка: `http://127.0.0.1:8000/api/admin/`. Аналитика Suro: `http://127.0.0.1:8000/api/admin/analytics/`.
+- Контракт — [task-wave3.md](../../task-wave3.md). Оплата — [docs/idram.md](../idram.md). Письмо — [docs/order-email.md](../order-email.md).
 - Health: `http://127.0.0.1:8000/api/health/` отвечает `{"status":"ok"}`.
-- Swagger: `http://127.0.0.1:8000/api/schema/swagger-ui/`.
-- Сайт: `http://127.0.0.1:3000/` — маршруты `/`, `/textile`, `/baby`.
-- Контракт путей — в [task-wave2.md](../../task-wave2.md). Канон каталога — `/api/catalog/`, не `/api/products/`.
+- Сайт: `http://127.0.0.1:3000/`.
 
 ### Очередь
 
-**Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+**Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-Suro первый среди кода: размер страницы и ручки входа. Artush — выбор перевода. Vach — список товаров. Страницы идут после API. Ashot последний.
+Suro ставит пустые приложения. Artush — `idram_language`. Vach — API корзины. Karen и Svet — кнопки. Daniel — модели заказа и письмо. Hayk — checkout и callback. Mariam — страница корзины. Ashot последний.
 
 ### Зона ответственности
 
-Порядок PR и сборка `dev`. Колонка статуса на доске волны 2. Конфликт чинить вместе с владельцем файла. Чужие вью, модели и вёрстку не переписывать.
+Порядок PR и сборка `dev`. Колонка статуса на доске волны 3. Конфликт чинить вместе с владельцем файла. Чужие вью, модели и вёрстку не переписывать. Номер PR не писать до merge.
 
 ### Шаги
 
 1. Принимать PR в `dev` только в очереди имён выше.
-2. Сверять PR с разделом ученика в [task-wave2.md](../../task-wave2.md) и с его файлом в `docs/agents/`.
-3. После merge Ashot (ученик 10) прогнать тесты и открыть health, Swagger, аналитику под staff, `/`, `/textile`, `/baby` и несуществующий путь.
+2. Сверять PR с разделом ученика в [task-wave3.md](../../task-wave3.md) и с его файлом в `docs/agents/`.
+3. После merge Ashot прогнать тесты и открыть health, Swagger, `/`, `/textile`, `/baby`, `/cart`, `/account`, `/checkout/success`.
 
 ### Definition of Done
 
-Wave 2 не закрыта, пока health отвечает `{"status":"ok"}`, Swagger показывает пути контракта, аналитика открывается только staff и показывает живые числа, три витрины читают API, повторная подписка не создаёт вторую строку, `python manage.py test` зелёный целиком, корзины, заказов и Postgres в diff нет.
-
-### Проверка
-
-```bash
-cd backend
-python manage.py test
-python manage.py runserver
-```
-
-Сайт — во втором окне: `cd frontend && npm run dev`.
+Wave 3 не закрыта, пока тесты зелёные целиком, повторный callback не шлёт второе письмо, страницы возврата не называют заказ оплаченным без `status=paid`, а Postgres в diff нет.
 
 ### Нельзя
 
-Писать аналитику, JWT, сериализаторы, формы, страницы магазинов и тесты за других учеников.
+Писать корзину, заказ, Idram, письмо и страницы за других учеников.
 
 ## English
 
-You are student **1**, Lead, branch `feat/lead`. Wave 2 is the Ventum public API and storefront on SQLite. Finish by the end of January. Wave 1 is already in `dev`. Do not rebuild it.
+You are student **1**, Lead, branch `feat/lead`. Wave 3 is the cart, the order, Idram, and one shop email, on SQLite. Finish by the end of January 2027. Wave 1 and Wave 2 stay. Do not rebuild them.
 
-One pull request is one zone. Base is `dev`. Do not push `main`. Do not force-push. Do not start Postgres, cart, orders, Idram, or the payment email. Do not delete [docs/zones/lead/README.md](../zones/lead/README.md).
+One pull request is one zone. Base is `dev`. Do not push `main`. Do not force-push. Do not start Postgres. Do not delete [docs/zones/lead/README.md](../zones/lead/README.md).
 
-Admin `/api/admin/`. Analytics `/api/admin/analytics/`. Health `/api/health/` returns `{"status":"ok"}`. Swagger `/api/schema/swagger-ui/`. Site routes `/`, `/textile`, `/baby`. The catalog prefix is `/api/catalog/`.
+Merge queue, by name: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
-Merge queue, by name: **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**.
+You own the queue and the status column. After Ashot, run `python manage.py test` and open health, Swagger, the three store routes, `/cart`, `/account`, and `/checkout/success`.
 
-You own the queue and the status column. Fix a conflict with the file owner. Do not rewrite their code.
+**Done when** the suite is green, a duplicate callback does not send a second email, return pages say paid only when `status` is `paid`, and Postgres is absent.
 
-After Ashot (student 10), run `python manage.py test` and open health, Swagger, staff analytics, the three store routes, and an unknown path.
-
-**Done when** health is ok, Swagger lists the contract, analytics shows live counts for staff only, the three pages read the API, a duplicate subscription does not insert a second row, the whole test suite is green, and cart, orders, and Postgres are absent.
-
-```bash
-cd backend
-python manage.py test
-python manage.py runserver
-```
-
-Do not write analytics, JWT, serializers, forms, store pages, or tests for other students.
+Do not write cart, order, Idram, email, or pages for other students.
 
 ## Հայերեն
 
-Դու աշակերտ **1**-ն ես, Lead, ճյուղը՝ `feat/lead`։ Wave 2-ը Ventum-ի հրապարակային API-ն ու խանութն են SQLite-ով։ Ավարտել մինչև հունվարի վերջ։ Wave 1-ն արդեն `dev`-ում է։ Այն նորից չսարքել։
+Դու աշակերտ **1**-ն ես, Lead, ճյուղը՝ `feat/lead`։ Wave 3-ը զամբյուղն է, պատվերը, Idram-ը և մեկ նամակը, SQLite։ Ավարտել մինչև 2027-ի հունվարի վերջ։ Wave 1-ը և Wave 2-ը թող։
 
-Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ `main` չpush անել։ `--force` չանել։ Postgres, զամբյուղ, պատվեր, Idram և վճարման նամակ չընդունել։ Չջնջել [docs/zones/lead/README.md](../zones/lead/README.md)։
+Մեկ PR = մեկ գոտի։ Base-ը `dev` է։ `main` չpush անել։ Postgres չբարձրացնել։ [docs/zones/lead/README.md](../zones/lead/README.md)-ն չջնջել։
 
-Ադմին `/api/admin/`։ Անալիտիկա `/api/admin/analytics/`։ Health `/api/health/`-ը վերադարձնում է `{"status":"ok"}`։ Swagger `/api/schema/swagger-ui/`։ Կայքի երթուղիները՝ `/`, `/textile`, `/baby`։ Կատալոգի նախդիրը՝ `/api/catalog/`։
+Հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։
 
-Հերթը անուններով՝ **Lead → Suro → Artush → Vach → Hayk → Daniel → Mariam → Karen → Svet → Ashot**։
+Քոնն է հերթը և կարգավիճակի սյունը։ Ashot-ից հետո՝ `python manage.py test`, health, Swagger, երեք խանութի էջ, `/cart`, `/account`, `/checkout/success`։
 
-Քոնն են հերթը և կարգավիճակի սյունը։ Կոնֆլիկտը լուծիր ֆայլի տիրոջ հետ։ Նրանց կոդը մի վերաշարադրիր։
+**Ավարտված է, երբ** թեստերը կանաչ են, կրկնակի callback-ը երկրորդ նամակ չի ուղարկում, վերադարձի էջերը «վճարված» են գրում միայն `status=paid` դեպքում, և Postgres չկա։
 
-Ashot-ից (աշակերտ 10) հետո աշխատացրու `python manage.py test` և բացիր health, Swagger, staff անալիտիկան, երեք էջը և անհայտ ուղին։
-
-**Ավարտված է, երբ** health-ը կարգին է, Swagger-ում երևում է պայմանագիրը, անալիտիկան կենդանի թվեր է ցույց տալիս միայն staff-ին, երեք էջը կարդում են API-ն, կրկնակի բաժանորդագրությունը երկրորդ տող չի ստեղծում, թեստերն ամբողջովին կանաչ են, իսկ զամբյուղը, պատվերը և Postgres-ը չկան։
-
-```bash
-cd backend
-python manage.py test
-python manage.py runserver
-```
-
-Ուրիշների անալիտիկան, JWT-ն, սերիալիզատորները, ձևերը, խանութի էջերը և թեստերը չգրել։
+Ուրիշների զամբյուղը, պատվերը, Idram-ը, նամակը և էջերը չգրել։
