@@ -2,10 +2,29 @@
 
 **Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave3.md](../../../task-wave3.md).  
 **Ветка:** `feat/lead`  
-**Задание:** [task-wave3.md](../../../task-wave3.md), раздел «1 — Lead».  
+**Задание:** экраны — [task-wave4.md](../../../task-wave4.md), раздел «1 — Lead». Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
 **Агент:** [docs/agents/01-lead.md](../../agents/01-lead.md). Отдай агенту файл целиком.
 
 Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писать. PR принимать только по очереди ниже. **Срок волны 3:** до конца января 2027. Postgres не поднимать.
+
+## Доска merge — Wave 4
+
+Текущая работа — один большой экран по Figma. Статус каждой строки: `не начато`. Эта таблица волну 3 не закрывает.
+
+| # | Имя | Ветка | Зона | После кого | PR | Статус |
+|---|-----|--------|------|------------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | не начато |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | не начато |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | не начато |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | не начато |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | не начато |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | не начато |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | не начато |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | не начато |
+
+Очередь именами: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
 
 ## Доска merge — Wave 3
 
@@ -14,14 +33,14 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | — | в ревью |
-| 2 | Suro | `feat/suro-api` | api | Lead | — | не начато |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | не начато |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | в dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | в dev |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | не начато |
 | 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | не начато |
 | 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | не начато |
 | 7 | Karen | `feat/karen-textile` | textile | Vach | — | не начато |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
-| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | не начато |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | в dev |
 | 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | не начато |
 
 Очередь именами: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
@@ -67,17 +86,38 @@ Student **1**, branch `feat/lead`. The `#` column is the student number and matc
 
 Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wave 3 by the end of January 2027.** Do not start Postgres.
 
+### Wave 4 board
+
+The current work is one large Figma screen. Every row is `not started`. This table does not close Wave 3.
+
+| # | Name | Branch | Zone | After | PR | Status |
+|---|------|--------|------|-------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | not started |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | not started |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | not started |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | not started |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | not started |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | not started |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | not started |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | not started |
+
+Queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
+
+### Wave 3 board
+
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | — | in review |
-| 2 | Suro | `feat/suro-api` | api | Lead | — | not started |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | not started |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | in dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | in dev |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | not started |
 | 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | not started |
 | 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | not started |
 | 7 | Karen | `feat/karen-textile` | textile | Vach | — | not started |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
-| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | not started |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | in dev |
 | 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | not started |
 
 Queue: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
@@ -116,17 +156,38 @@ Leave every box empty until student 10 is in `dev`. This commit does not close W
 
 Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել։ **Wave 3-ն ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres չբարձրացնել։
 
+### Wave 4-ի տախտակ
+
+Ընթացիկ աշխատանքը մեկ մեծ Figma էկրան է։ Ամեն տողը `չի սկսվել` է։ Այս աղյուսակը Wave 3-ը չի փակում։
+
+| # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
+|---|------|--------|------|------------|----|------------|
+| 1 | Lead | `feat/lead` | lead | — | — | չի սկսվել |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | չի սկսվել |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | չի սկսվել |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | չի սկսվել |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | չի սկսվել |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չի սկսվել |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | չի սկսվել |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չի սկսվել |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | չի սկսվել |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | չի սկսվել |
+
+Հերթը՝ **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**։
+
+### Wave 3-ի տախտակ
+
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
 | 1 | Lead | `feat/lead` | lead | — | — | գրախոսության մեջ |
-| 2 | Suro | `feat/suro-api` | api | Lead | — | չի սկսվել |
-| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | չի սկսվել |
+| 2 | Suro | `feat/suro-api` | api | Lead | — | dev-ում |
+| 3 | Artush | `feat/artush-i18n` | i18n | Suro | — | dev-ում |
 | 4 | Hayk | `feat/hayk-gateway` | payments | Daniel | — | չի սկսվել |
 | 5 | Mariam | `feat/mariam-header` | cart-page | Hayk | — | չի սկսվել |
 | 6 | Daniel | `feat/daniel-footer` | orders | Svet | — | չի սկսվել |
 | 7 | Karen | `feat/karen-textile` | textile | Vach | — | չի սկսվել |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | — | չի սկսվել |
-| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | չի սկսվել |
+| 9 | Vach | `feat/vach-catalog` | cart | Artush | — | dev-ում |
 | 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | չի սկսվել |
 
 Հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։

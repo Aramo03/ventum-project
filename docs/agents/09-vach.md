@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #9 Vach
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «9 — Vach · карточка товара». Папка `frontend/src/components/ProductCard/`. Импорт `api` именной. Карточка не знает витрину. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “9 — Vach · product card”. Folder `frontend/src/components/ProductCard/`. Import `api` by name. The card does not know the shop. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «9 — Vach · ապրանքի քարտ»։ Պանակ `frontend/src/components/ProductCard/`։ `api`-ն ներմուծել անունով։ Քարտը խանութը չգիտի։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **9**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «9 — Vach · cart» в [task-wave3.md](../../task-wave3.md).
 
 Каталог волны 2 не переписывать. Поля `Product` не менять. `search.py` не переписывать.

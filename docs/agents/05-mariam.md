@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #5 Mariam
 
+**Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «5 — Mariam · шапка и корзина». Шапка и `frontend/src/pages/Cart/` по кадру. `t('account')` заменить на строковый ключ. `?success=1` не писать как оплату. Текст ниже не стирать.
+
+**Wave 4.** Current screens: [task-wave4.md](../../task-wave4.md), section “5 — Mariam · header and cart”. Header and `frontend/src/pages/Cart/` from the frame. Replace `t('account')` with a string key. Do not call `?success=1` paid. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանները՝ [task-wave4.md](../../task-wave4.md), «5 — Mariam · վերնագիր և զամբյուղ»։ Վերնագիր և `frontend/src/pages/Cart/` կադրից։ `t('account')`-ը փոխարինել տողային բանալիով։ `?success=1`-ը վճարված չգրել։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **5**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «5 — Mariam · cart-page» в [task-wave3.md](../../task-wave3.md).
 
 Поиск волны 2 не ломать. Кнопки Account и Cart сейчас выключены.

@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #10 Ashot
 
+**Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «10 — Ashot · возврат и 404». `/checkout/success`, `/checkout/fail`, `/404` по кадру. Слово оплаты только при `status === 'paid'`. `index.css` не трогать. Текст ниже не стирать.
+
+**Wave 4.** Current screens: [task-wave4.md](../../task-wave4.md), section “10 — Ashot · return and 404”. `/checkout/success`, `/checkout/fail`, and `/404` from the frame. The paid word only when `status === 'paid'`. Do not touch `index.css`. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանները՝ [task-wave4.md](../../task-wave4.md), «10 — Ashot · վերադարձ և 404»։ `/checkout/success`, `/checkout/fail`, `/404` կադրից։ «Վճարված» բառը միայն `status === 'paid'` դեպքում։ `index.css`-ին չկպնել։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **10**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «10 — Ashot · ui» в [task-wave3.md](../../task-wave3.md).
 
 Страница 404 уже есть. Её не ломать. Тесты волны 1 и волны 2 не удалять. `index.css` не менять.

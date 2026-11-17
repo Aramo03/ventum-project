@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #7 Karen
 
+**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «7 — Karen · textile». Только `frontend/src/pages/Textile/` по кадру, карточка Vach, без товара Baby. Текст ниже не стирать.
+
+**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “7 — Karen · textile”. Only `frontend/src/pages/Textile/` from the frame, Vach’s card, no Baby product. The text below stays.
+
+**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «7 — Karen · textile»։ Միայն `frontend/src/pages/Textile/` կադրից, Vach-ի քարտով, առանց Baby ապրանքի։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **7**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «7 — Karen · textile» в [task-wave3.md](../../task-wave3.md).
 
 Страница `/textile` уже читает каталог. Сид и модели не трогать. Страницу Baby не трогать.

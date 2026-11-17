@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #3 Artush
 
+**Волна 4.** Текущая зона — [task-wave4.md](../../task-wave4.md), раздел «3 — Artush · подписи». Только `frontend/src/i18n/`: три JSON по кадру, без вёрстки чужих страниц. В очереди ты после Mariam. Текст ниже не стирать.
+
+**Wave 4.** Current zone: [task-wave4.md](../../task-wave4.md), section “3 — Artush · copy”. Only `frontend/src/i18n/`: three JSON files from the frame, no other pages. You follow Mariam in the queue. The text below stays.
+
+**Wave 4.** Ընթացիկ գոտին՝ [task-wave4.md](../../task-wave4.md), «3 — Artush · գրություններ»։ Միայն `frontend/src/i18n/`՝ երեք JSON կադրից, ուրիշի էջեր չհավաքել։ Հերթում դու Mariam-ից հետո ես։ Ներքևի տեքստը մնում է։
+
 Отдай этот файл агенту целиком. Номер ученика — **3**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «3 — Artush · i18n» в [task-wave3.md](../../task-wave3.md).
 
 `parse_language` и `pick_translation` уже в `dev`. Их не ослаблять. `ru.json` уже есть.
