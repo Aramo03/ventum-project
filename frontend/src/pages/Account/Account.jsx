@@ -3,6 +3,28 @@ import { useTranslation } from 'react-i18next'
 import { fetchCurrentUser, loginWithEmail, logout } from './account.js'
 import './account.css'
 
+function AccountLayout({ brand, children }) {
+  return (
+    <main className="account-page">
+      <div className="account-layout">
+        <aside className="account-aside" aria-hidden="true">
+          <div className="account-aside__brand">
+            <span className="account-aside__mark">V</span>
+            <span>{brand}</span>
+          </div>
+          <div className="account-aside__art">
+            <span className="account-aside__shape account-aside__shape--one" />
+            <span className="account-aside__shape account-aside__shape--two" />
+            <span className="account-aside__shape account-aside__shape--three" />
+          </div>
+          <div className="account-aside__rule" />
+        </aside>
+        {children}
+      </div>
+    </main>
+  )
+}
+
 export default function Account() {
   const { t } = useTranslation()
   const [user, setUser] = useState(null)
@@ -65,17 +87,19 @@ export default function Account() {
 
   if (checkingSession) {
     return (
-      <main className="account-page">
-        <p className="account-status" role="status">
-          {t('account.loading')}
-        </p>
-      </main>
+      <AccountLayout brand={t('brand')}>
+        <section className="account-card" aria-labelledby="account-title">
+          <p className="account-status" id="account-title" role="status">
+            {t('account.loading')}
+          </p>
+        </section>
+      </AccountLayout>
     )
   }
 
   if (loadError) {
     return (
-      <main className="account-page">
+      <AccountLayout brand={t('brand')}>
         <section className="account-card" aria-labelledby="account-title">
           <h1 id="account-title">{t('account.title')}</h1>
           <p className="account-message account-message--error" role="alert">
@@ -89,14 +113,17 @@ export default function Account() {
             {t('account.retry')}
           </button>
         </section>
-      </main>
+      </AccountLayout>
     )
   }
 
   return (
-    <main className="account-page">
+    <AccountLayout brand={t('brand')}>
       <section className="account-card" aria-labelledby="account-title">
-        <h1 id="account-title">{t('account.title')}</h1>
+        <div className="account-card__heading">
+          <span className="account-card__eyebrow">{t('brand')}</span>
+          <h1 id="account-title">{t('account.title')}</h1>
+        </div>
 
         {user ? (
           <div className="account-profile">
@@ -161,6 +188,6 @@ export default function Account() {
           </form>
         )}
       </section>
-    </main>
+    </AccountLayout>
   )
 }
