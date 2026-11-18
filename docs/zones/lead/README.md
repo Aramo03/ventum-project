@@ -122,6 +122,13 @@ Queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Maria
 
 Queue: **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**.
 
+Status column:
+
+- `not started` — the Wave 3 branch is not in review yet
+- `waiting for a PR` — the work exists, and there is no open pull request into `dev`
+- `in review` — a pull request is open, and the gates below are not passed
+- `in dev` — it is merged, and the name in “After” was already in `dev`
+
 Merge only in this order. If “After” is not yet `in dev`, do not merge. Do not write a PR number before the merge.
 
 ### Merge gates
@@ -191,6 +198,13 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 | 10 | Ashot | `feat/ashot-ui` | ui | Mariam | — | չի սկսվել |
 
 Հերթը՝ **Lead → Suro → Artush → Vach → Karen → Svet → Daniel → Hayk → Mariam → Ashot**։
+
+«Կարգավիճակ» սյունը.
+
+- `չի սկսվել` — Wave 3-ի ճյուղը դեռ գրախոսության մեջ չէ
+- `սպասում է PR` — աշխատանքը կա, բաց PR դեպի `dev` չկա
+- `գրախոսության մեջ` — PR-ը բաց է, ներքևի դռները անցած չեն
+- `dev-ում` — միավորված է, և «Ումից հետո» սյան անունն արդեն `dev`-ում էր
 
 Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
 
