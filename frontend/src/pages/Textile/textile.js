@@ -26,3 +26,7 @@ export async function fetchTextileCatalog() {
 
   return { categories, products };
 }
+
+export function addTextileToCart(sku) {
+  return api.post('/api/cart/items/', { sku, qty: 1 });
+}

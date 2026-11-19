@@ -75,9 +75,9 @@
     "empty": "No products found",
     "error": "Network error. Failed to load data.",
     "currency": "AMD",
-    "textile_cart_add": "Add to cart",
-    "textile_cart_success": "Added to cart",
-    "textile_cart_401": "Sign in required"
+    "addToCart": "Add to cart",
+    "cartSuccess": "Added to cart",
+    "cartSignIn": "Sign in required"
   },
   "baby": {
     "loading": "Loading Baby products...",
