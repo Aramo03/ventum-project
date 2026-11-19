@@ -80,6 +80,14 @@
   "common": {
     "loading": "Բեռնվում է..."
   },
+  "productCard": {
+    "addToCart": "Ավելացնել զամբյուղ",
+    "adding": "Ավելացվում է...",
+    "added": "Ավելացված է զամբյուղ",
+    "signIn": "Ապրանքը զամբյուղ ավելացնելու համար մուտք գործեք։",
+    "failed": "Չհաջողվեց ավելացնել։ Փորձեք կրկին։",
+    "currency": "AMD"
+  },
   "textile": {
     "title": "Ventum Textile",
     "allCategories": "Բոլորը",
