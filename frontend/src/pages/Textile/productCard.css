@@ -3,7 +3,7 @@
   flex-direction: column;
   overflow: hidden;
   border: 1px solid #e5e9e1;
-  border-radius: 1.5rem;
+  border-radius: 0.9rem;
   background: #fff;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
@@ -69,10 +69,11 @@
 }
 
 .textile-card-button {
+  width: 100%;
   margin-top: auto;
   padding: 0.7rem 1rem;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0.45rem;
   background: #6fbf3a;
   color: #fff;
   font: inherit;
