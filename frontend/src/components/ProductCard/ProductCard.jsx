@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { addProductToCart } from './productCard'
+import { addProductToCart, formatProductPrice, productImageSrc } from './productCard'
 import './productCard.css'
 
 export default function ProductCard({ product }) {
   const { t } = useTranslation()
   const [status, setStatus] = useState('idle')
+  const imageSrc = productImageSrc(product?.image)
+  const categoryName = product?.category?.name
 
   async function handleAddToCart() {
     if (status === 'loading' || !product?.sku) return
@@ -30,10 +32,10 @@ export default function ProductCard({ product }) {
   return (
     <article className="product-card">
       <div className="product-card__media">
-        {product?.image ? (
+        {imageSrc ? (
           <img
-            src={product.image}
-            alt={product.name || ''}
+            src={imageSrc}
+            alt={product?.name || ''}
             className="product-card__image"
           />
         ) : (
@@ -41,9 +43,12 @@ export default function ProductCard({ product }) {
         )}
       </div>
       <div className="product-card__body">
+        {categoryName ? (
+          <span className="product-card__category">{categoryName}</span>
+        ) : null}
         <h2 className="product-card__name">{product?.name}</h2>
         <p className="product-card__price">
-          {product?.price} {t('productCard.currency')}
+          {formatProductPrice(product?.price)} {t('productCard.currency')}
         </p>
         <button
           type="button"

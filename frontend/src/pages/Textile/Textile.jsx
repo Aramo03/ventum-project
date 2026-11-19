@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ProductCard from './ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard.jsx';
 import { fetchTextileCatalog } from './textile';
 import './textile.css';
 

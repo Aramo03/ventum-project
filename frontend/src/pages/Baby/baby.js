@@ -26,7 +26,3 @@ export async function fetchBabyCatalog() {
 
   return { categories, products }
 }
-
-export function addBabyToCart(sku) {
-  return api.post('/api/cart/items/', { sku, qty: 1 })
-}

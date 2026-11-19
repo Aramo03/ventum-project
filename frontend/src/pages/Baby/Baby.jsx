@@ -1,75 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { mediaUrl } from '../../api/client'
-import { addBabyToCart, fetchBabyCatalog } from './baby'
+import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import { fetchBabyCatalog } from './baby'
 import './baby.css'
-
-function ProductCard({ product }) {
-  const { t } = useTranslation()
-  const [status, setStatus] = useState('idle')
-
-  async function handleAddToCart() {
-    if (status === 'loading') return
-
-    setStatus('loading')
-
-    try {
-      await addBabyToCart(product.sku)
-      setStatus('success')
-    } catch (error) {
-      if (error.response?.status === 401) {
-        setStatus('unauthorized')
-      } else {
-        setStatus('error')
-      }
-    }
-  }
-
-  return (
-    <article className="baby-card">
-      <div className="baby-card-image">
-        {product.image ? (
-          <img
-            src={mediaUrl(product.image)}
-            alt={product.name || ''}
-            loading="lazy"
-          />
-        ) : (
-          <div className="baby-card-placeholder" aria-hidden="true" />
-        )}
-      </div>
-      <div className="baby-card-body">
-        <h3>{product.name}</h3>
-        <p className="baby-card-price">
-          {Number(product.price).toLocaleString('hy-AM')} AMD
-        </p>
-        <button
-          type="button"
-          className="baby-card-button"
-          onClick={handleAddToCart}
-          disabled={status === 'loading'}
-        >
-          {status === 'loading' ? t('baby.cartAdding') : t('baby.addToCart')}
-        </button>
-        {status === 'success' && (
-          <p className="baby-card-success" role="status">
-            {t('baby.cartSuccess')}
-          </p>
-        )}
-        {status === 'unauthorized' && (
-          <p className="baby-card-signin" role="alert">
-            {t('baby.cartSignIn')}
-          </p>
-        )}
-        {status === 'error' && (
-          <p className="baby-card-signin" role="alert">
-            {t('baby.cartError')}
-          </p>
-        )}
-      </div>
-    </article>
-  )
-}
 
 export default function Baby() {
   const { t, i18n } = useTranslation()
