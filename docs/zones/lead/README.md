@@ -26,6 +26,8 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 Очередь именами: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
 
+Текущие PR экранов мержить по этой очереди. Base — `dev`.
+
 ## Доска merge — Wave 3
 
 Колонка `#` — номер ученика, не шаг очереди. Колонка «После кого» — кто уже должен лежать в `dev`, прежде чем мержить эту строку.
@@ -52,7 +54,7 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 - `в ревью` — PR открыт, ворота ниже не пройдены
 - `в dev` — смержено, и имя из «После кого» уже было в `dev`
 
-Мержить только по этой очереди. Если «После кого» ещё не `в dev`, PR не принимать. Конфликт чинить вместе с владельцем файла. Чужую зону не переписывать. Номер PR не ставить, пока merge не случился.
+Контракт покупки мержить по очереди волны 3. Экран волны 4 она не задерживает. Если «После кого» ещё не `в dev`, PR контракта не принимать. Конфликт чинить вместе с владельцем файла. Чужую зону не переписывать. Номер PR не ставить, пока merge не случился.
 
 ## Ворота merge
 
@@ -105,6 +107,8 @@ The current work is one large Figma screen. Every row is `not started`. This tab
 
 Queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
 
+Merge current screen pull requests in this order. Base is `dev`.
+
 ### Wave 3 board
 
 | # | Name | Branch | Zone | After | PR | Status |
@@ -129,7 +133,7 @@ Status column:
 - `in review` — a pull request is open, and the gates below are not passed
 - `in dev` — it is merged, and the name in “After” was already in `dev`
 
-Merge only in this order. If “After” is not yet `in dev`, do not merge. Do not write a PR number before the merge.
+Merge the purchase contract in the Wave 3 order. That order does not hold a Wave 4 screen. If “After” is not yet `in dev`, do not merge that contract pull request. Do not write a PR number before the merge.
 
 ### Merge gates
 
@@ -182,6 +186,8 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 
 Հերթը՝ **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**։
 
+Ընթացիկ էկրանների PR-ները միավորել այս հերթով։ Base-ը `dev` է։
+
 ### Wave 3-ի տախտակ
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
@@ -206,7 +212,7 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 - `գրախոսության մեջ` — PR-ը բաց է, ներքևի դռները անցած չեն
 - `dev-ում` — միավորված է, և «Ումից հետո» սյան անունն արդեն `dev`-ում էր
 
-Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
+Գնման պայմանագիրը միավորել Wave 3-ի հերթով։ Այդ հերթը Wave 4-ի էկրանը չի պահում։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, պայմանագրի PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
 
 ### Merge-ի դռներ
 
