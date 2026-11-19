@@ -47,7 +47,19 @@
     "backToCart": "Back to cart"
   },
   "gateway": {
-    "contentUnavailable": "Welcome content is temporarily unavailable."
+    "contentUnavailable": "Welcome content is temporarily unavailable.",
+    "textileCaption": "Sanctuary for your home",
+    "textileType": "textile",
+    "textileTitle": "Woven for quiet mornings.",
+    "textileDescription": "Breathable natural fabrics and timeless linen crafted to bring effortless serenity to your everyday living.",
+    "textileAction": "Explore Home",
+    "textileCategories": "Bed Linen · Natural Fabrics · Home Textiles",
+    "babyCaption": "A gentle world for little ones",
+    "babyType": "baby",
+    "babyTitle": "Little moments, endless love.",
+    "babyDescription": "Pure, cloud-soft essentials thoughtfully designed to cradle your baby from their very first breath.",
+    "babyAction": "Explore Baby",
+    "babyCategories": "Apparel · Bedding Sets · Nursery · Essentials"
   },
   "footer": {
     "note": "Questions about delivery and wholesale.",
