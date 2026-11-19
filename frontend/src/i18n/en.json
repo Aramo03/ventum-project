@@ -107,7 +107,17 @@
     "cartAdding": "Adding...",
     "cartSuccess": "Product added to cart.",
     "cartSignIn": "Please sign in to add items to your cart.",
-    "cartError": "Failed to add product to cart."
+    "cartError": "Failed to add product to cart.",
+    "allCategories": "All",
+    "heroTitle": "Big love for the littlest people",
+    "heroText": "Soft cotton for quiet naps, first mornings, and small hands.",
+    "favoritesTitle": "Little Favorites",
+    "storyTitle": "Care woven into every single stitch",
+    "storyText": "Cloth that stays gentle on the skin, from the first wrap to the next nap.",
+    "giftTitle": "A gift as gentle as your baby's skin",
+    "giftText": "A small set, chosen for softness and slow mornings.",
+    "noteTitle": "A soft note for the bedside",
+    "noteText": "Breathable cotton, calm colours, and room to grow."
   },
   "account": {
     "title": "My account",
