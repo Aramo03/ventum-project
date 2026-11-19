@@ -209,3 +209,152 @@
 .baby-cart-error {
   color: #c0392b;
 }
+
+.baby-page {
+  max-width: 1320px;
+  padding: 36px 24px 80px;
+  background: #faf8f3;
+}
+
+.baby-header {
+  text-align: left;
+  margin-bottom: 36px;
+}
+
+.baby-header h1 {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: #252525;
+}
+
+.baby-header p {
+  color: #77746e;
+  font-size: 14px;
+}
+
+.baby-categories {
+  margin-bottom: 40px;
+}
+
+.baby-category {
+  background: #fff;
+  border: 1px solid #e7e4dd;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.baby-products-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.baby-section-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #71815c;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.baby-products-heading h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+
+.baby-product-count {
+  color: #888;
+  font-size: 13px;
+}
+
+.baby-products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.baby-product-card {
+  border: 1px solid #ebe8e2;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.baby-product-image {
+  aspect-ratio: 3 / 4;
+  background: #f2efe9;
+}
+
+.baby-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.baby-product-info {
+  padding: 14px;
+}
+
+.baby-product-info h3 {
+  min-height: 42px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.baby-product-price {
+  margin: 12px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.baby-cart-button {
+  background: #4f753b;
+  border-radius: 6px;
+  padding: 11px;
+  font-size: 12px;
+}
+
+.baby-cart-button:hover:not(:disabled) {
+  background: #3e5e2e;
+}
+
+@media (max-width: 1000px) {
+  .baby-products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .baby-products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .baby-page {
+    padding: 24px 14px 48px;
+  }
+
+  .baby-product-info {
+    padding: 10px;
+  }
+
+  .baby-product-info h3 {
+    font-size: 12px;
+  }
+
+  .baby-product-price {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .baby-products {
+    grid-template-columns: 1fr;
+  }
+}
