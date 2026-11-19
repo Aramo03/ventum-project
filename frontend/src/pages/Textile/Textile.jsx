@@ -46,34 +46,45 @@ export default function Textile() {
     ? products.filter((item) => item.category?.slug === selectedCategory)
     : products;
 
+  const heroImage = products.find((item) => item.image)?.image;
+
   return (
     <section className="textile-page">
-      <div className="textile-header">
-        <p className="textile-eyebrow">{t('brand')}</p>
-        <h1 className="textile-title">{t('textile.title', 'Ventum Textile')}</h1>
-      </div>
-
-      {categories.length > 0 && (
-        <div className="textile-categories" role="tablist">
-          <button
-            type="button"
-            className={`textile-category-btn ${selectedCategory === null ? 'active' : ''}`}
-            onClick={() => setSelectedCategory(null)}
-          >
-            {t('textile.allCategories', 'All')}
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.slug}
-              type="button"
-              className={`textile-category-btn ${selectedCategory === cat.slug ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(cat.slug)}
-            >
-              {cat.name}
-            </button>
-          ))}
+      <header className="textile-hero">
+        <div className="textile-hero-copy">
+          <p className="textile-eyebrow">{t('brand')}</p>
+          <h1 className="textile-title">{t('textile.heroTitle')}</h1>
+          <p className="textile-hero-text">{t('textile.heroText')}</p>
         </div>
-      )}
+        <div className="textile-hero-media">
+          {heroImage ? (
+            <img src={heroImage} alt="" className="textile-hero-image" />
+          ) : (
+            <div className="textile-hero-placeholder" aria-hidden="true" />
+          )}
+        </div>
+        {categories.length > 0 && (
+          <div className="textile-categories" role="tablist">
+            <button
+              type="button"
+              className={`textile-category-btn ${selectedCategory === null ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(null)}
+            >
+              {t('textile.allCategories', 'All')}
+            </button>
+            {categories.map((cat) => (
+              <button
+                key={cat.slug}
+                type="button"
+                className={`textile-category-btn ${selectedCategory === cat.slug ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(cat.slug)}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
 
       {loading && (
         <div className="textile-status" data-testid="textile-loading">
@@ -94,12 +105,34 @@ export default function Textile() {
       )}
 
       {!loading && !error && visibleProducts.length > 0 && (
-        <div className="textile-grid">
-          {visibleProducts.map((product) => (
-            <ProductCard key={product.sku} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="textile-grid">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.sku} product={product} />
+            ))}
+          </div>
+
+          <blockquote className="textile-quote">
+            <p>{t('textile.quote')}</p>
+          </blockquote>
+
+          <section className="textile-collection" aria-labelledby="textile-collection-title">
+            <h2 id="textile-collection-title" className="textile-collection-title">
+              {t('textile.collectionTitle')}
+            </h2>
+            <div className="textile-grid">
+              {visibleProducts.map((product) => (
+                <ProductCard key={`collection-${product.sku}`} product={product} />
+              ))}
+            </div>
+          </section>
+        </>
       )}
+
+      <aside className="textile-note">
+        <h2>{t('textile.noteTitle')}</h2>
+        <p>{t('textile.noteText')}</p>
+      </aside>
     </section>
   );
 }

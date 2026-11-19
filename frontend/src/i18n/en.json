@@ -77,7 +77,13 @@
     "currency": "AMD",
     "addToCart": "Add to cart",
     "cartSuccess": "Added to cart",
-    "cartSignIn": "Sign in required"
+    "cartSignIn": "Sign in required",
+    "heroTitle": "Woven for quiet, sunlit mornings",
+    "heroText": "Linen and cotton for a slower start to the day.",
+    "quote": "Quality you feel at the very first touch",
+    "collectionTitle": "The Gentle Collection",
+    "noteTitle": "A slower note on linen for your bedside",
+    "noteText": "Soft cloth, quiet colours, and mornings that take their time."
   },
   "baby": {
     "loading": "Loading Baby products...",
