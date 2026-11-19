@@ -22,6 +22,7 @@ function pageTitleKey(pathname) {
   if (pathname === '/cart') return 'pageTitles.cart'
   if (pathname === '/checkout/success') return 'pageTitles.checkoutSuccess'
   if (pathname === '/checkout/fail') return 'pageTitles.checkoutFail'
+  if (pathname === '/404') return 'pageTitles.notFound'
   return 'pageTitles.notFound'
 }
 
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/fail" element={<CheckoutFail />} />
+          <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
