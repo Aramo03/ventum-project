@@ -80,6 +80,14 @@
   "common": {
     "loading": "Загрузка..."
   },
+  "productCard": {
+    "addToCart": "В корзину",
+    "adding": "Добавление...",
+    "added": "Товар добавлен в корзину",
+    "signIn": "Войдите, чтобы добавить товар в корзину.",
+    "failed": "Не удалось добавить товар. Попробуйте ещё раз.",
+    "currency": "AMD"
+  },
   "textile": {
     "title": "Ventum Textile",
     "allCategories": "Все",

@@ -80,6 +80,14 @@
   "common": {
     "loading": "Loading..."
   },
+  "productCard": {
+    "addToCart": "Add to cart",
+    "adding": "Adding...",
+    "added": "Added to cart",
+    "signIn": "Sign in to add this item to your cart.",
+    "failed": "Could not add this item. Try again.",
+    "currency": "AMD"
+  },
   "textile": {
     "title": "Ventum Textile",
     "allCategories": "All",
