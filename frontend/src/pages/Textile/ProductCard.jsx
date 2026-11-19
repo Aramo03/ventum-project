@@ -1,67 +1,71 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next'; // Adjust based on your i18n setup
-import api from '../../api/client'; // Must use the existing client as per instructions
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { addTextileToCart } from './textile';
+import './productCard.css';
 
-const ProductCard = ({ product }) => {
+export default function ProductCard({ product }) {
   const { t } = useTranslation();
-  
-  // States: 'idle' | 'loading' | 'success' | 'unauthorized'
-  const [cartStatus, setCartStatus] = useState('idle');
+  const [status, setStatus] = useState('idle');
 
-  const handleAddToCart = async () => {
-    setCartStatus('loading');
-    
+  async function handleAddToCart() {
+    if (status === 'loading') return;
+
+    setStatus('loading');
+
     try {
-      // Send POST /api/cart/items/ with sku and qty: 1
-      await api.post('/api/cart/items/', {
-        sku: product.sku,
-        qty: 1
-      });
-      
-      // Show success directly on the card
-      setCartStatus('success');
-      
-      // Optional: Reset button after a few seconds
-      setTimeout(() => setCartStatus('idle'), 3000);
-      
+      await addTextileToCart(product.sku);
+      setStatus('success');
     } catch (error) {
-      // Handle 401 Unauthorized directly on the card, do not redirect to /account
-      if (error.response && error.response.status === 401) {
-        setCartStatus('unauthorized');
+      if (error.response?.status === 401) {
+        setStatus('unauthorized');
       } else {
-        setCartStatus('idle');
-        console.error("Cart error:", error);
+        setStatus('idle');
       }
     }
-  };
+  }
 
   return (
-    <div className="product-card">
-      {/* Existing product display code (Image, Name, Price, etc.) */}
-      <h3>{product.name}</h3>
-      <p>{product.price} AMD</p>
-
-      {/* Cart Button & Status Messages */}
-      <div className="cart-actions">
-        {cartStatus === 'unauthorized' && (
-          <p className="error-msg">{t('textile_cart_401')}</p>
-        )}
-        
-        {cartStatus === 'success' && (
-          <p className="success-msg">{t('textile_cart_success')}</p>
-        )}
-
-        {cartStatus !== 'success' && (
-          <button 
-            onClick={handleAddToCart} 
-            disabled={cartStatus === 'loading'}
-          >
-            {cartStatus === 'loading' ? '...' : t('textile_cart_add')}
-          </button>
+    <article className="textile-card">
+      <div className="textile-card-image-box">
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="textile-card-image"
+          />
+        ) : (
+          <div className="textile-card-image-placeholder" aria-hidden="true" />
         )}
       </div>
-    </div>
+      <div className="textile-card-body">
+        {product.category?.name && (
+          <span className="textile-card-category">{product.category.name}</span>
+        )}
+        <h2 className="textile-card-name">{product.name}</h2>
+        <p className="textile-card-price">
+          {product.price} {t('textile.currency', 'AMD')}
+        </p>
+        <button
+          type="button"
+          className="textile-card-button"
+          onClick={handleAddToCart}
+          disabled={status === 'loading'}
+        >
+          {status === 'loading'
+            ? t('textile.loading')
+            : t('textile.addToCart')}
+        </button>
+        {status === 'success' && (
+          <p className="textile-card-success" role="status">
+            {t('textile.cartSuccess')}
+          </p>
+        )}
+        {status === 'unauthorized' && (
+          <p className="textile-card-signin" role="alert">
+            {t('textile.cartSignIn')}
+          </p>
+        )}
+      </div>
+    </article>
   );
-};
-
-export default ProductCard;
+}

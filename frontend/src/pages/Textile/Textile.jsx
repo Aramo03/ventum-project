@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ProductCard from './ProductCard';
 import { fetchTextileCatalog } from './textile';
 import './textile.css';
 
@@ -48,6 +49,7 @@ export default function Textile() {
   return (
     <section className="textile-page">
       <div className="textile-header">
+        <p className="textile-eyebrow">{t('brand')}</p>
         <h1 className="textile-title">{t('textile.title', 'Ventum Textile')}</h1>
       </div>
 
@@ -94,33 +96,7 @@ export default function Textile() {
       {!loading && !error && visibleProducts.length > 0 && (
         <div className="textile-grid">
           {visibleProducts.map((product) => (
-            <article key={product.sku} className="textile-card">
-              <div className="textile-card-image-box">
-                {product.image ? (
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="textile-card-image"
-                  />
-                ) : (
-                  <div
-                    className="textile-card-image-placeholder"
-                    aria-hidden="true"
-                  />
-                )}
-              </div>
-              <div className="textile-card-body">
-                {product.category?.name && (
-                  <span className="textile-card-category">
-                    {product.category.name}
-                  </span>
-                )}
-                <h2 className="textile-card-name">{product.name}</h2>
-                <div className="textile-card-price">
-                  {product.price} {t('textile.currency', 'AMD')}
-                </div>
-              </div>
-            </article>
+            <ProductCard key={product.sku} product={product} />
           ))}
         </div>
       )}

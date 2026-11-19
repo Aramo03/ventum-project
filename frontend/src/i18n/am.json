@@ -75,10 +75,9 @@
     "empty": "Ապրանքներ չեն գտնվել",
     "error": "Ցանցի սխալ։ Չհաջողվեց բեռնել տվյալները։",
     "currency": "AMD",
-    "textile_cart_add": "Ավելացնել զամբյուղ",
-    "textile_cart_success": "Ավելացված է",
-    "textile_cart_401": "Անհրաժեշտ է մուտք գործել",
-    "currency": "AMD"
+    "addToCart": "Ավելացնել զամբյուղ",
+    "cartSuccess": "Ավելացված է զամբյուղ",
+    "cartSignIn": "Անհրաժեշտ է մուտք"
   },
   "baby": {
     "loading": "Baby ապրանքները բեռնվում են...",

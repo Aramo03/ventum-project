@@ -1,0 +1,117 @@
+.textile-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e5e9e1;
+  border-radius: 1.5rem;
+  background: #fff;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.textile-card:hover {
+  transform: translateY(-3px);
+  border-color: #b7d4a2;
+  box-shadow: 0 1rem 2.5rem rgb(29 43 37 / 9%);
+}
+
+.textile-card-image-box {
+  display: flex;
+  aspect-ratio: 4 / 3;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #eef5e8;
+}
+
+.textile-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textile-card-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, #eef5e8 0%, #f7f6f2 58%, #e5efdc 100%);
+}
+
+.textile-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.1rem 1.15rem 1.2rem;
+}
+
+.textile-card-category {
+  color: #537c38;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.textile-card-name {
+  margin: 0;
+  color: #1d2b25;
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.textile-card-price {
+  margin: 0;
+  color: #1d2b25;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.textile-card-button {
+  margin-top: auto;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: #6fbf3a;
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.textile-card-button:hover {
+  background: #5a9633;
+}
+
+.textile-card-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.textile-card-button:focus-visible {
+  outline: 3px solid #5a9633;
+  outline-offset: 3px;
+}
+
+.textile-card-success,
+.textile-card-signin {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.textile-card-success {
+  color: #3d6b22;
+}
+
+.textile-card-signin {
+  color: #8a3d2f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textile-card {
+    transition: none;
+  }
+}
