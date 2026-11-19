@@ -47,6 +47,8 @@
     "notPaidYet": "Оплата пока не подтверждена.",
     "lookupFailed": "Не удалось загрузить заказ.",
     "billLabel": "Заказ",
+    "amountLabel": "Сумма",
+    "currency": "AMD",
     "backToCart": "Вернуться в корзину"
   },
   "gateway": {

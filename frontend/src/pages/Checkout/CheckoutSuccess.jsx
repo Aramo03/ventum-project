@@ -5,7 +5,9 @@ import {
   billFromSearch,
   checkoutStatusMessage,
   fetchOrderByBill,
+  formatOrderAmount,
   isPaidStatus,
+  orderLineRows,
 } from './checkout.js'
 import './checkout.css'
 
@@ -50,6 +52,8 @@ export default function CheckoutSuccess() {
   }, [bill])
 
   const paid = order != null && isPaidStatus(order.status)
+  const amount = order && !loading && !loadError ? formatOrderAmount(order.amount) : ''
+  const lines = order && !loading && !loadError ? orderLineRows(order) : []
   const statusText = checkoutStatusMessage({
     bill,
     loading,
@@ -92,10 +96,31 @@ export default function CheckoutSuccess() {
             {statusText}
           </p>
 
-          {bill ? (
-            <p className="checkout-card__meta">
-              {t('checkout.billLabel')}: <strong>{bill}</strong>
-            </p>
+          {bill || amount || lines.length > 0 ? (
+            <div className="checkout-card__meta">
+              {bill ? (
+                <p>
+                  {t('checkout.billLabel')}: <strong>{bill}</strong>
+                </p>
+              ) : null}
+              {amount ? (
+                <p>
+                  {t('checkout.amountLabel')}:{' '}
+                  <strong>
+                    {amount} {t('checkout.currency')}
+                  </strong>
+                </p>
+              ) : null}
+              {lines.length > 0 ? (
+                <ul className="checkout-card__lines">
+                  {lines.map((line) => (
+                    <li key={line.key}>
+                      {line.name} × {line.qty}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           ) : null}
 
           <div className="checkout-card__actions">

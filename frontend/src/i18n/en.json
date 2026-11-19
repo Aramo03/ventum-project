@@ -47,6 +47,8 @@
     "notPaidYet": "Payment is not confirmed yet.",
     "lookupFailed": "Could not load this order.",
     "billLabel": "Order",
+    "amountLabel": "Amount",
+    "currency": "AMD",
     "backToCart": "Back to cart"
   },
   "gateway": {

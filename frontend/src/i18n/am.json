@@ -47,6 +47,8 @@
     "notPaidYet": "Վճարումը դեռ հաստատված չէ։",
     "lookupFailed": "Չհաջողվեց բեռնել պատվերը։",
     "billLabel": "Պատվեր",
+    "amountLabel": "Գումար",
+    "currency": "AMD",
     "backToCart": "Վերադառնալ զամբյուղ"
   },
   "gateway": {

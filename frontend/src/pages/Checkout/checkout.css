@@ -178,9 +178,23 @@
   line-height: 1.45;
 }
 
+.checkout-card__meta p {
+  margin: 0;
+}
+
+.checkout-card__meta p + p,
+.checkout-card__lines {
+  margin-top: 0.45rem;
+}
+
 .checkout-card__meta strong {
   color: #1d2b25;
   font-weight: 650;
+}
+
+.checkout-card__lines {
+  margin-bottom: 0;
+  padding-left: 1.1rem;
 }
 
 .checkout-card__actions {
