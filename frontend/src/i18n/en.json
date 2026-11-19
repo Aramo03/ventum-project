@@ -35,9 +35,12 @@
     "textileLead": "The textile shop is still empty.",
     "babyLead": "Discover our Baby collection.",
     "notFound": "This page does not exist.",
+    "notFoundEyebrow": "Missing page",
     "goHome": "Back to home"
   },
   "checkout": {
+    "eyebrowSuccess": "Payment return",
+    "eyebrowFail": "Payment interrupted",
     "neutral": "Waiting for payment confirmation.",
     "failNeutral": "Payment was not completed.",
     "paid": "Paid",
