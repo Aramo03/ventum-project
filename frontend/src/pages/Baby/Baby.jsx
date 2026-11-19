@@ -172,8 +172,15 @@ export default function Baby() {
           </section>
 
           <section className="baby-products-section">
-            <h2>{t('baby.products')}</h2>
-
+  <div className="baby-products-heading">
+    <div>
+      <span className="baby-section-label">VENTUM BABY</span>
+      <h2>{t('baby.products')}</h2>
+    </div>
+    <span className="baby-product-count">
+      {products.length}
+    </span>
+  </div>
             {products.length === 0 ? (
               <p className="baby-message">
                 {t('baby.empty')}
