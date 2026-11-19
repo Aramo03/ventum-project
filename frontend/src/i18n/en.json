@@ -147,5 +147,28 @@
     "logout": "Sign out",
     "invalidCredentials": "The email or password is incorrect.",
     "loginError": "Could not sign in. Try again."
+  },
+  "accountLink": "My account",
+  "searchError": "Search failed. Please try again.",
+  "searchLoading": "Searching…",
+  "searchEmpty": "No products found.",
+  "cartPage": {
+    "signInTitle": "Please sign in",
+    "signInMessage": "You need to sign in to view your shopping cart.",
+    "loading": "Loading cart…",
+    "loadError": "Could not load your cart. Please try again.",
+    "updateError": "Could not update product quantity.",
+    "removeError": "Could not remove product from cart.",
+    "checkoutError": "Checkout failed. Please try again.",
+    "paymentReturn": "Payment return received. Payment has not been confirmed yet.",
+    "emptyTitle": "Your cart is empty",
+    "emptyMessage": "Add products to your cart to see them here.",
+    "noImage": "No image",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "remove": "Remove",
+    "total": "Total",
+    "processing": "Processing…",
+    "checkout": "Checkout"
   }
 }
