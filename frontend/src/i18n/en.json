@@ -11,6 +11,10 @@
     "choose": "Choose a store"
   },
   "nav": {
+    "home": "Home",
+    "textile": "Textile",
+    "baby": "Baby",
+    "cart": "Cart",
     "bedLinen": "Bed linen",
     "curtains": "Curtains",
     "towels": "Towels",
@@ -52,6 +56,8 @@
     "backToCart": "Back to cart"
   },
   "gateway": {
+    "identitiesTitle": "Two identities.",
+    "identitiesLead": "One considered shopping experience.",
     "contentUnavailable": "Welcome content is temporarily unavailable.",
     "textileCaption": "Sanctuary for your home",
     "textileType": "textile",
@@ -67,6 +73,12 @@
     "babyCategories": "Apparel · Bedding Sets · Nursery · Essentials"
   },
   "footer": {
+    "description": "Textile and baby goods. One considered shopping experience.",
+    "navigation": "Navigation",
+    "newsletterHint": "Offers and news, occasionally.",
+    "wholesaleHint": "A short request for wholesale.",
+    "closeForm": "Close form",
+    "rights": "All rights reserved.",
     "note": "Questions about delivery and wholesale.",
     "newsletterTitle": "Newsletter",
     "newsletterEmail": "Email",
@@ -127,6 +139,7 @@
     "favoritesTitle": "Little Favorites",
     "storyTitle": "Care woven into every single stitch",
     "storyText": "Cloth that stays gentle on the skin, from the first wrap to the next nap.",
+    "giftAction": "See the set",
     "giftTitle": "A gift as gentle as your baby's skin",
     "giftText": "A small set, chosen for softness and slow mornings.",
     "noteTitle": "A soft note for the bedside",

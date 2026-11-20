@@ -8,6 +8,9 @@ import {
   BABY_NAV_ITEMS,
 } from './header.js'
 import { api } from '../../api/client'
+import { LANGUAGES, NAV_ITEMS, PHONE } from './header.js'
+import { api, AUTH_CHANGED_EVENT } from '../../api/client'
+import { CART_UPDATED_EVENT } from '../../pages/Cart/cart.js'
 import './header.css'
 
 const TOKEN_KEY = 'ventum_access_token'
@@ -27,16 +30,14 @@ export default function Header() {
 
   // Load cart count
   useEffect(() => {
-    const token = localStorage.getItem(TOKEN_KEY)
-
-    if (!token) {
-      setCartCount(null)
-      return
-    }
-
     let cancelled = false
 
     async function loadCartCount() {
+      if (!localStorage.getItem(TOKEN_KEY)) {
+        if (!cancelled) setCartCount(null)
+        return
+      }
+
       try {
         const response = await api.get('/api/cart/')
 
@@ -51,9 +52,13 @@ export default function Header() {
     }
 
     loadCartCount()
+    window.addEventListener(CART_UPDATED_EVENT, loadCartCount)
+    window.addEventListener(AUTH_CHANGED_EVENT, loadCartCount)
 
     return () => {
       cancelled = true
+      window.removeEventListener(CART_UPDATED_EVENT, loadCartCount)
+      window.removeEventListener(AUTH_CHANGED_EVENT, loadCartCount)
     }
   }, [pathname])
 
@@ -128,6 +133,60 @@ export default function Header() {
               className={`site-header__switch-item ${
                 isBaby ? 'is-active' : ''
               }`}
+      <div className="site-header__tools">
+        <Link className="site-header__brand" to="/">
+          {t('brand')}
+        </Link>
+
+        <div className="site-header__search">
+          <input
+            className="vt-input"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t('searchPlaceholder')}
+            aria-label={t('searchPlaceholder')}
+          />
+
+          {query.trim() !== '' && (
+            <div className="site-header__search-results">
+              {loading && <p>{t('searchLoading')}</p>}
+
+              {!loading && error && <p>{error}</p>}
+
+              {!loading && !error && products.length === 0 && (
+                <p>{t('searchEmpty')}</p>
+              )}
+
+              {!loading && !error && products.map((product) => (
+                <div
+                  className="site-header__search-product"
+                  key={product.sku}
+                >
+                  <strong>{product.name}</strong>
+                  <span>SKU: {product.sku}</span>
+                  <span>{product.price} AMD</span>
+                  <span>
+                    {product.store?.name || product.store_name || ''}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="site-header__languages">
+          {LANGUAGES.map((language) => (
+            <button
+              key={language.code}
+              type="button"
+              className="vt-chip site-header__lang"
+              aria-pressed={(
+                i18n.resolvedLanguage ||
+                i18n.language ||
+                'en'
+              ).startsWith(language.code)}
+              onClick={() => i18n.changeLanguage(language.code)}
             >
               Ventum Baby
               <span className="site-header__switch-dot" />
@@ -179,6 +238,9 @@ export default function Header() {
             {query.trim() !== '' && (
               <div className="site-header__search-results">
                 {loading && <p>{t('searchLoading')}</p>}
+        <Link className="site-header__icon" to="/account">
+          {t('accountLink')}
+        </Link>
 
                 {!loading && error && <p>{error}</p>}
 
@@ -267,6 +329,19 @@ export default function Header() {
             </button>
           )}
         </div>
+        {NAV_ITEMS.map((item) => (
+          <span key={item.key} className="site-header__nav-item">
+            {t(item.key)}
+          </span>
+        ))}
+
+        <button
+          type="button"
+          className="vt-button vt-button--ghost site-header__wholesale"
+          disabled
+        >
+          {t('wholesale')}
+        </button>
       </nav>
     </header>
   )

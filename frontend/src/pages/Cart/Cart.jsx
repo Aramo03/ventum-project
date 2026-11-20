@@ -1,12 +1,20 @@
-
 import { useCallback, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { api } from '../../api/client'
+import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { mediaUrl } from '../../api/client'
+import {
+  checkout as startCheckout,
+  deleteCartItem,
+  getCart,
+  submitPaymentForm,
+  updateCartItem,
+} from './cart.js'
 import './cart.css'
 
 const TOKEN_KEY = 'ventum_access_token'
 
 export default function Cart() {
+  const { t } = useTranslation()
   const location = useLocation()
 
   const [cart, setCart] = useState({
@@ -20,9 +28,7 @@ export default function Cart() {
   const [checkoutLoading, setCheckoutLoading] = useState(false)
 
   const isAuthenticated = Boolean(localStorage.getItem(TOKEN_KEY))
-
-  const paymentReturn =
-    new URLSearchParams(location.search).get('success') === '1'
+  const paymentReturn = new URLSearchParams(location.search).get('success') === '1'
 
   const loadCart = useCallback(async () => {
     if (!localStorage.getItem(TOKEN_KEY)) {
@@ -33,18 +39,18 @@ export default function Cart() {
 
     try {
       setError('')
-      const response = await api.get('/api/cart/')
+      const data = await getCart()
       setCart({
-        items: response.data?.items || [],
-        count: response.data?.count ?? 0,
-        total: response.data?.total ?? '0.00',
+        items: data?.items || [],
+        count: data?.count ?? 0,
+        total: data?.total ?? '0.00',
       })
     } catch {
-      setError('Could not load your cart. Please try again.')
+      setError(t('cartPage.loadError'))
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [t])
 
   useEffect(() => {
     loadCart()
@@ -56,15 +62,10 @@ export default function Cart() {
     try {
       setUpdatingSku(sku)
       setError('')
-
-      await api.patch(
-        `/api/cart/items/${encodeURIComponent(sku)}/`,
-        { qty }
-      )
-
+      await updateCartItem(sku, qty)
       await loadCart()
     } catch {
-      setError('Could not update product quantity.')
+      setError(t('cartPage.updateError'))
     } finally {
       setUpdatingSku(null)
     }
@@ -74,14 +75,10 @@ export default function Cart() {
     try {
       setUpdatingSku(sku)
       setError('')
-
-      await api.delete(
-        `/api/cart/items/${encodeURIComponent(sku)}/`
-      )
-
+      await deleteCartItem(sku)
       await loadCart()
     } catch {
-      setError('Could not remove product from cart.')
+      setError(t('cartPage.removeError'))
     } finally {
       setUpdatingSku(null)
     }
@@ -92,195 +89,148 @@ export default function Cart() {
       setCheckoutLoading(true)
       setError('')
 
-      const response = await api.post('/api/checkout/')
-      const { payment_url, fields } = response.data || {}
+      const data = await startCheckout()
+      const { payment_url: paymentUrl, fields } = data || {}
+      const resolved = new URL(paymentUrl, window.location.origin)
 
-      if (
-        !payment_url ||
-        !fields ||
-        typeof fields !== 'object' ||
-        Array.isArray(fields)
-      ) {
-        throw new Error('Invalid checkout response')
-      }
-
-      const paymentUrl = new URL(payment_url, window.location.origin)
-
-      if (!['http:', 'https:'].includes(paymentUrl.protocol)) {
+      if (!['http:', 'https:'].includes(resolved.protocol)) {
         throw new Error('Invalid payment URL')
       }
 
-      const form = document.createElement('form')
-      form.method = 'POST'
-      form.action = paymentUrl.href
-      form.style.display = 'none'
-
-      Object.entries(fields).forEach(([name, value]) => {
-        if (value === null || value === undefined) return
-
-        const input = document.createElement('input')
-        input.type = 'hidden'
-        input.name = name
-        input.value = String(value)
-        form.appendChild(input)
-      })
-
-      document.body.appendChild(form)
-      form.submit()
+      submitPaymentForm(resolved.href, fields)
     } catch {
-      setError('Checkout failed. Please try again.')
+      setError(t('cartPage.checkoutError'))
       setCheckoutLoading(false)
     }
   }
 
-  if (!isAuthenticated) {
-    return (
-      <main className="cart-page">
-        <div className="cart-container">
-          <h1 className="cart-title">Shopping cart</h1>
-          <div className="cart-empty">
-            <h2>Please sign in</h2>
-            <p>You need to sign in to view your shopping cart.</p>
-          </div>
-        </div>
-      </main>
-    )
-  }
-
-  if (loading) {
-    return (
-      <main className="cart-page">
-        <div className="cart-container">
-          <p className="cart-message">Loading cart...</p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <main className="cart-page">
-      <div className="cart-container">
-        <h1 className="cart-title">Shopping cart</h1>
+      <header className="vt-type">
+        <p className="vt-eyebrow">{t('brand')}</p>
+        <h1>{t('pageTitles.cart')}</h1>
+      </header>
 
-        {paymentReturn && (
-          <p className="cart-message" role="status">
-            Payment return received. Payment has not been confirmed yet.
-          </p>
-        )}
+      {paymentReturn && (
+        <p className="vt-status" role="status">
+          {t('cartPage.paymentReturn')}
+        </p>
+      )}
 
-        {error && (
-          <p className="cart-error" role="alert">
-            {error}
-          </p>
-        )}
+      {!isAuthenticated && (
+        <section className="vt-status">
+          <h2>{t('cartPage.signInTitle')}</h2>
+          <p>{t('cartPage.signInMessage')}</p>
+          <Link className="vt-button" to="/account">
+            {t('accountLink')}
+          </Link>
+        </section>
+      )}
 
-        {cart.items.length === 0 ? (
-          <div className="cart-empty">
-            <h2>Your cart is empty</h2>
-            <p>Add products to your cart to see them here.</p>
-          </div>
-        ) : (
-          <>
-            <div className="cart-items">
-              {cart.items.map((item) => {
-                const sku = item.sku
-                const quantity = item.qty ?? item.quantity ?? 1
-                const product = item.product || {}
-                const name =
-                  item.name ||
-                  product.name ||
-                  item.title ||
-                  product.title ||
-                  sku
-                const price = item.price ?? product.price
-                const image =
-                  item.image ||
-                  item.image_url ||
-                  product.image ||
-                  product.image_url
+      {isAuthenticated && loading && (
+        <p className="vt-status" role="status">
+          {t('cartPage.loading')}
+        </p>
+      )}
 
-                return (
-                  <article className="cart-item" key={sku}>
-                    <div className="cart-item__image">
-                      {image ? (
-                        <img src={image} alt={name} />
-                      ) : (
-                        <span className="cart-item__placeholder">
-                          No image
-                        </span>
-                      )}
-                    </div>
+      {error && (
+        <p className="vt-status vt-status--error" role="alert">
+          {error}
+        </p>
+      )}
 
-                    <div className="cart-item__info">
-                      <h2>{name}</h2>
-                      <p className="cart-item__sku">SKU: {sku}</p>
+      {isAuthenticated && !loading && cart.items.length === 0 && (
+        <section className="vt-status">
+          <h2>{t('cartPage.emptyTitle')}</h2>
+          <p>{t('cartPage.emptyMessage')}</p>
+        </section>
+      )}
 
-                      {price !== undefined && (
-                        <p className="cart-item__price">
-                          {price} AMD
-                        </p>
-                      )}
-                    </div>
+      {isAuthenticated && !loading && cart.items.length > 0 && (
+        <>
+          <div className="cart-items">
+            {cart.items.map((item) => {
+              const sku = item.sku
+              const quantity = item.qty ?? item.quantity ?? 1
+              const product = item.product || {}
+              const name = item.name || product.name || item.title || product.title || sku
+              const price = item.price ?? product.price
+              const image = item.image || item.image_url || product.image || product.image_url
+              const imageSrc = mediaUrl(image)
 
-                    <div className="cart-item__actions">
-                      <div className="cart-quantity">
-                        <button
-                          type="button"
-                          aria-label="Decrease quantity"
-                          disabled={updatingSku === sku || quantity <= 1}
-                          onClick={() =>
-                            updateQuantity(sku, quantity - 1)
-                          }
-                        >
-                          −
-                        </button>
+              return (
+                <article className="cart-item" key={sku}>
+                  <div className="cart-item__image">
+                    {imageSrc ? (
+                      <img src={imageSrc} alt={name} />
+                    ) : (
+                      <span className="cart-item__placeholder">{t('cartPage.noImage')}</span>
+                    )}
+                  </div>
 
-                        <span>{quantity}</span>
+                  <div className="cart-item__info">
+                    <h2>{name}</h2>
+                    <p>{sku}</p>
+                    {price !== undefined && (
+                      <p>
+                        {price} {t('checkout.currency')}
+                      </p>
+                    )}
+                  </div>
 
-                        <button
-                          type="button"
-                          aria-label="Increase quantity"
-                          disabled={updatingSku === sku}
-                          onClick={() =>
-                            updateQuantity(sku, quantity + 1)
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-
+                  <div className="cart-item__actions">
+                    <div className="vt-qty">
                       <button
                         type="button"
-                        className="cart-remove"
-                        disabled={updatingSku === sku}
-                        onClick={() => removeItem(sku)}
+                        aria-label={t('cartPage.decreaseQuantity')}
+                        disabled={updatingSku === sku || quantity <= 1}
+                        onClick={() => updateQuantity(sku, quantity - 1)}
                       >
-                        Remove
+                        −
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        type="button"
+                        aria-label={t('cartPage.increaseQuantity')}
+                        disabled={updatingSku === sku}
+                        onClick={() => updateQuantity(sku, quantity + 1)}
+                      >
+                        +
                       </button>
                     </div>
-                  </article>
-                )
-              })}
-            </div>
+                    <button
+                      type="button"
+                      className="vt-button vt-button--ghost"
+                      disabled={updatingSku === sku}
+                      onClick={() => removeItem(sku)}
+                    >
+                      {t('cartPage.remove')}
+                    </button>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
 
-            <div className="cart-summary">
-              <div className="cart-summary__total">
-                <span>Total</span>
-                <strong>{cart.total} AMD</strong>
-              </div>
-
-              <button
-                type="button"
-                className="cart-checkout"
-                disabled={checkoutLoading || cart.items.length === 0}
-                onClick={checkout}
-              >
-                {checkoutLoading ? 'Processing...' : 'Checkout'}
-              </button>
+          <div className="cart-summary">
+            <div>
+              <span>{t('cartPage.total')}</span>
+              {' '}
+              <strong>
+                {cart.total} {t('checkout.currency')}
+              </strong>
             </div>
-          </>
-        )}
-      </div>
+            <button
+              type="button"
+              className="vt-button"
+              disabled={checkoutLoading || cart.items.length === 0}
+              onClick={checkout}
+            >
+              {checkoutLoading ? t('cartPage.processing') : t('cartPage.checkout')}
+            </button>
+          </div>
+        </>
+      )}
     </main>
   )
 }

@@ -52,24 +52,24 @@ export default function ProductCard({ product }) {
         </p>
         <button
           type="button"
-          className="product-card__button"
+          className="vt-button vt-button--block product-card__button"
           onClick={handleAddToCart}
           disabled={status === 'loading'}
         >
           {buttonLabel}
         </button>
         {status === 'added' && (
-          <p className="product-card__note product-card__note--added" role="status">
+          <p className="vt-status vt-status--ok product-card__note" role="status">
             {t('productCard.added')}
           </p>
         )}
         {status === 'signIn' && (
-          <p className="product-card__note product-card__note--signin" role="alert">
+          <p className="vt-status vt-status--error product-card__note" role="alert">
             {t('productCard.signIn')}
           </p>
         )}
         {status === 'failed' && (
-          <p className="product-card__note product-card__note--failed" role="alert">
+          <p className="vt-status vt-status--error product-card__note" role="alert">
             {t('productCard.failed')}
           </p>
         )}
