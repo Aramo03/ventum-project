@@ -320,13 +320,9 @@ export default function Header() {
   </span>
 ))}
           {!isBaby && (
-            <button
-              type="button"
-              className="site-header__wholesale"
-              disabled
-            >
-              {t('wholesale')}
-            </button>
+          <Link to="/wholesale" className="site-header__wholesale">
+            Wholesale
+          </Link>
           )}
         </div>
         {NAV_ITEMS.map((item) => (
