@@ -7,7 +7,7 @@
 ## С чего начать
 
 1. [CONTRIBUTING.md](CONTRIBUTING.md) — git: `main` не трогать, работа в своей ветке, PR только в `dev`. День задания, следующий день — merge
-2. [task-wave3.md](task-wave3.md) — текущее задание, Wave 3: корзина, заказ, Idram и письмо. Срок — до конца января 2027. Номер ученика совпадает с [TASK.md](TASK.md). Файл для агента — в `docs/agents/`
+2. [task-wave3.md](task-wave3.md) — текущее задание, Wave 3: корзина, заказ,  и письмо. Срок — до конца января 2027. Номер ученика совпадает с [TASK.md](TASK.md). Файл для агента — в `docs/agents/`
 3. [TASK.md](TASK.md) — короткий список зон волны 3. Архив волны 2 — [task-wave2.md](task-wave2.md). Архив волны 1 — [task-advanced.md](task-advanced.md)
 4. Макет: [Figma Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495)
 
