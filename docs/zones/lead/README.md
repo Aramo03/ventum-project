@@ -9,20 +9,20 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 ## Доска merge — Wave 4
 
-Текущая работа — один большой экран по Figma. Статус каждой строки: `не начато`. Эта таблица волну 3 не закрывает.
+Волна 4 закрыта в этом дереве: десять экранов лежат в `dev`, три JSON открываются, `/checkout/success` без `status=paid` не пишет «оплачено». Эта таблица волну 3 не закрывает.
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | не начато |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | не начато |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | не начато |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | не начато |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | не начато |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | не начато |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | не начато |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | не начато |
+| 1 | Lead | `feat/lead` | lead | — | — | закрыта |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | закрыта |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | закрыта |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | закрыта |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | закрыта |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | закрыта |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | закрыта |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | закрыта |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | закрыта |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | закрыта |
 
 Очередь именами: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
 
@@ -90,20 +90,20 @@ Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wa
 
 ### Wave 4 board
 
-The current work is one large Figma screen. Every row is `not started`. This table does not close Wave 3.
+Wave 4 is closed in this tree: the ten screens are in `dev`, the three JSON files parse, and `/checkout/success` does not say paid without `status=paid`. This table does not close Wave 3.
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | not started |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | not started |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | not started |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | not started |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | not started |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | not started |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | not started |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | not started |
+| 1 | Lead | `feat/lead` | lead | — | — | closed |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | closed |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | closed |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | closed |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | closed |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | closed |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | closed |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | closed |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | closed |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | closed |
 
 Queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
 
@@ -169,20 +169,20 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 
 ### Wave 4-ի տախտակ
 
-Ընթացիկ աշխատանքը մեկ մեծ Figma էկրան է։ Ամեն տողը `չի սկսվել` է։ Այս աղյուսակը Wave 3-ը չի փակում։
+Wave 4-ը այս ծառում փակ է. տասը էկրանը `dev`-ում են, երեք JSON-ը բացվում են, և `/checkout/success`-ը առանց `status=paid` «վճարված» չի գրում։ Այս աղյուսակը Wave 3-ը չի փակում։
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | չի սկսվել |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | չի սկսվել |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | չի սկսվել |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | չի սկսվել |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | չի սկսվել |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չի սկսվել |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | չի սկսվել |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չի սկսվել |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | չի սկսվել |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | չի սկսվել |
+| 1 | Lead | `feat/lead` | lead | — | — | փակված |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | փակված |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | փակված |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | փակված |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | փակված |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | փակված |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | փակված |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | փակված |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | փակված |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | փակված |
 
 Հերթը՝ **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**։
 

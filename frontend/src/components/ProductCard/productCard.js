@@ -1,7 +1,11 @@
 import { api, mediaUrl } from '../../api/client'
+import { notifyCartUpdated } from '../../pages/Cart/cart.js'
 
 export function addProductToCart(sku) {
-  return api.post('/api/cart/items/', { sku, qty: 1 })
+  return api.post('/api/cart/items/', { sku, qty: 1 }).then((response) => {
+    notifyCartUpdated()
+    return response
+  })
 }
 
 export function productImageSrc(image) {

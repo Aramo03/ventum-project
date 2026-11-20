@@ -65,36 +65,15 @@ export default function CheckoutFail() {
 
   return (
     <main className="checkout-page">
-      <div className="checkout-layout">
-        <aside className="checkout-aside checkout-aside--fail" aria-hidden="true">
-          <div className="checkout-aside__brand">
-            <span className="checkout-aside__mark">V</span>
-            <span>{t('brand')}</span>
-          </div>
-          <div className="checkout-aside__art">
-            <span className="checkout-aside__shape checkout-aside__shape--one" />
-            <span className="checkout-aside__shape checkout-aside__shape--two" />
-            <span className="checkout-aside__shape checkout-aside__shape--three" />
-          </div>
-          <div className="checkout-aside__rule" />
-        </aside>
+      <section className="vt-panel" aria-labelledby="checkout-fail-title">
+        <div className="vt-type">
+          <p className="vt-eyebrow">{t('checkout.eyebrowFail')}</p>
+          <h1 id="checkout-fail-title">{t('pageTitles.checkoutFail')}</h1>
+        </div>
 
-        <section className="checkout-card" aria-labelledby="checkout-fail-title">
-          <div>
-            <span className="checkout-card__eyebrow">{t('checkout.eyebrowFail')}</span>
-            <h1 id="checkout-fail-title">{t('pageTitles.checkoutFail')}</h1>
-          </div>
-
-          <p
-            className={
-              paid
-                ? 'checkout-card__status checkout-card__status--paid'
-                : 'checkout-card__status'
-            }
-            role="status"
-          >
-            {statusText}
-          </p>
+        <p className={paid ? 'vt-status vt-status--ok' : 'vt-status'} role="status">
+          {statusText}
+        </p>
 
           {bill || amount || lines.length > 0 ? (
             <div className="checkout-card__meta">
@@ -124,13 +103,12 @@ export default function CheckoutFail() {
           ) : null}
 
           <div className="checkout-card__actions">
-            <Link to="/cart">{t('checkout.backToCart')}</Link>
-            <Link className="checkout-card__link--ghost" to="/">
+            <Link className="vt-button" to="/cart">{t('checkout.backToCart')}</Link>
+            <Link className="vt-button vt-button--ghost" to="/">
               {t('pages.goHome')}
             </Link>
           </div>
-        </section>
-      </div>
+      </section>
     </main>
   )
 }

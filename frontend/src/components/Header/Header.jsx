@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LANGUAGES, NAV_ITEMS, PHONE } from './header.js'
-import { api } from '../../api/client'
+import { api, AUTH_CHANGED_EVENT } from '../../api/client'
+import { CART_UPDATED_EVENT } from '../../pages/Cart/cart.js'
 import './header.css'
 
 const TOKEN_KEY = 'ventum_access_token'
@@ -19,16 +20,14 @@ export default function Header() {
 
   // Load cart count for authenticated users
   useEffect(() => {
-    const token = localStorage.getItem(TOKEN_KEY)
-
-    if (!token) {
-      setCartCount(null)
-      return
-    }
-
     let cancelled = false
 
     async function loadCartCount() {
+      if (!localStorage.getItem(TOKEN_KEY)) {
+        if (!cancelled) setCartCount(null)
+        return
+      }
+
       try {
         const response = await api.get('/api/cart/')
 
@@ -43,9 +42,13 @@ export default function Header() {
     }
 
     loadCartCount()
+    window.addEventListener(CART_UPDATED_EVENT, loadCartCount)
+    window.addEventListener(AUTH_CHANGED_EVENT, loadCartCount)
 
     return () => {
       cancelled = true
+      window.removeEventListener(CART_UPDATED_EVENT, loadCartCount)
+      window.removeEventListener(AUTH_CHANGED_EVENT, loadCartCount)
     }
   }, [pathname])
 
@@ -107,6 +110,7 @@ export default function Header() {
 
         <div className="site-header__search">
           <input
+            className="vt-input"
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -146,7 +150,7 @@ export default function Header() {
             <button
               key={language.code}
               type="button"
-              className="site-header__lang"
+              className="vt-chip site-header__lang"
               aria-pressed={(
                 i18n.resolvedLanguage ||
                 i18n.language ||
@@ -160,7 +164,7 @@ export default function Header() {
         </div>
 
         <Link className="site-header__icon" to="/account">
-          {t('account')}
+          {t('accountLink')}
         </Link>
 
         <Link className="site-header__icon" to="/cart">
@@ -178,7 +182,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="site-header__wholesale"
+          className="vt-button vt-button--ghost site-header__wholesale"
           disabled
         >
           {t('wholesale')}
