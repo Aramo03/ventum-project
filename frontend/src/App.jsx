@@ -13,6 +13,7 @@ const Account = lazy(() => import('./pages/Account/Account.jsx'))
 const CheckoutSuccess = lazy(() => import('./pages/Checkout/CheckoutSuccess.jsx'))
 const CheckoutFail = lazy(() => import('./pages/Checkout/CheckoutFail.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
+const Design = lazy(() => import('./design/Design.jsx'))
 
 function pageTitleKey(pathname) {
   if (pathname === '/') return 'pageTitles.gateway'
@@ -31,6 +32,11 @@ export default function App() {
   const { pathname } = useLocation()
 
   useEffect(() => {
+    if (pathname === '/design') {
+      document.title = 'Ventum · Design system'
+      return
+    }
+
     document.title = t(pageTitleKey(pathname))
   }, [pathname, t, i18n.language])
 
@@ -60,6 +66,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/fail" element={<CheckoutFail />} />
+          <Route path="/design" element={<Design />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
