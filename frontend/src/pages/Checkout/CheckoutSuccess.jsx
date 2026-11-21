@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { billFromSearch, fetchOrderByBill, isPaidStatus } from './checkout.js'
+import {
+  billFromSearch,
+  checkoutStatusMessage,
+  fetchOrderByBill,
+  formatOrderAmount,
+  isPaidStatus,
+  orderLineRows,
+} from './checkout.js'
 import './checkout.css'
 
 export default function CheckoutSuccess() {
@@ -45,30 +52,63 @@ export default function CheckoutSuccess() {
   }, [bill])
 
   const paid = order != null && isPaidStatus(order.status)
-
-  let statusText = t('checkout.neutral')
-  if (bill && loading) {
-    statusText = t('common.loading')
-  } else if (bill && loadError) {
-    statusText = t('checkout.lookupFailed')
-  } else if (paid) {
-    statusText = t('checkout.paid')
-  } else if (bill && order) {
-    statusText = t('checkout.notPaidYet')
-  }
+  const amount = order && !loading && !loadError ? formatOrderAmount(order.amount) : ''
+  const lines = order && !loading && !loadError ? orderLineRows(order) : []
+  const statusText = checkoutStatusMessage({
+    bill,
+    loading,
+    loadError,
+    order,
+    t,
+    variant: 'success',
+  })
 
   return (
-    <main className="page checkout-result checkout-result--success">
-      <h1>{t('pageTitles.checkoutSuccess')}</h1>
-      <p className="checkout-result__status">{statusText}</p>
-      {bill ? (
-        <p className="checkout-result__meta">
-          {t('checkout.billLabel')}: {bill}
+    <main className="checkout-page">
+      <section className="vt-panel" aria-labelledby="checkout-success-title">
+        <div className="vt-type">
+          <p className="vt-eyebrow">{t('checkout.eyebrowSuccess')}</p>
+          <h1 id="checkout-success-title">{t('pageTitles.checkoutSuccess')}</h1>
+        </div>
+
+        <p className={paid ? 'vt-status vt-status--ok' : 'vt-status'} role="status">
+          {statusText}
         </p>
-      ) : null}
-      <p className="checkout-result__home">
-        <Link to="/">{t('pages.goHome')}</Link>
-      </p>
+
+          {bill || amount || lines.length > 0 ? (
+            <div className="checkout-card__meta">
+              {bill ? (
+                <p>
+                  {t('checkout.billLabel')}: <strong>{bill}</strong>
+                </p>
+              ) : null}
+              {amount ? (
+                <p>
+                  {t('checkout.amountLabel')}:{' '}
+                  <strong>
+                    {amount} {t('checkout.currency')}
+                  </strong>
+                </p>
+              ) : null}
+              {lines.length > 0 ? (
+                <ul className="checkout-card__lines">
+                  {lines.map((line) => (
+                    <li key={line.key}>
+                      {line.name} × {line.qty}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ) : null}
+
+          <div className="checkout-card__actions">
+            <Link className="vt-button" to="/">{t('pages.goHome')}</Link>
+            <Link className="vt-button vt-button--ghost" to="/cart">
+              {t('checkout.backToCart')}
+            </Link>
+          </div>
+      </section>
     </main>
   )
 }

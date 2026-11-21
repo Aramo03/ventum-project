@@ -1,26 +1,437 @@
 @import "tailwindcss";
 
 :root {
-  --color-brand: #6fbf3a;
-  --color-ink: #1d2b25;
-  --color-canvas: #f7f6f2;
-  --color-surface: #ffffff;
+  --tx-ink: #1a1a1a;
+  --tx-muted: #4a4a4a;
+  --tx-green: #76b82a;
+  --tx-canvas: #f9f9f9;
+  --tx-text: #333333;
+  --bb-ink: #5c6b4a;
+  --bb-muted: #8a9a7b;
+  --bb-sage: #a3b18a;
+  --bb-canvas: #f8f8f5;
+  --bb-text: #3e4a38;
+  --vt-ink: var(--tx-ink);
+  --vt-muted: var(--tx-muted);
+  --vt-green: var(--tx-green);
+  --vt-canvas: #f7f6f2;
+  --vt-text: var(--tx-text);
+  --vt-surface: #ffffff;
+  --vt-line: #e4e4e4;
+  --vt-danger: #b42318;
+  --vt-on-green: #ffffff;
+  --shop-ink: var(--vt-ink);
+  --shop-muted: var(--vt-muted);
+  --shop-accent: var(--vt-green);
+  --shop-canvas: var(--vt-canvas);
+  --shop-text: var(--vt-text);
+  --color-brand: var(--vt-green);
+  --color-ink: var(--vt-ink);
+  --color-canvas: var(--vt-canvas);
+  --color-surface: var(--vt-surface);
+}
+
+[data-shop="textile"] {
+  --shop-ink: var(--tx-ink);
+  --shop-muted: var(--tx-muted);
+  --shop-accent: var(--tx-green);
+  --shop-canvas: var(--tx-canvas);
+  --shop-text: var(--tx-text);
+}
+
+[data-shop="baby"] {
+  --shop-ink: var(--bb-ink);
+  --shop-muted: var(--bb-muted);
+  --shop-accent: var(--bb-sage);
+  --shop-canvas: var(--bb-canvas);
+  --shop-text: var(--bb-text);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   font-family: ui-sans-serif, system-ui, sans-serif;
-  color: var(--color-ink);
-  background: var(--color-canvas);
+  color: var(--vt-text);
+  background: var(--vt-canvas);
 }
 
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root > main {
+  flex: 1;
 }
 
 .page {
   max-width: 72rem;
   margin: 0 auto;
   padding: 2rem 1rem 3rem;
+}
+
+.vt-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--shop-muted);
+}
+
+.vt-type h1,
+.vt-panel h1 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--shop-ink);
+}
+
+.vt-lead {
+  margin: 0.75rem 0 0;
+  max-width: 38rem;
+  color: var(--shop-muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.vt-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--vt-green);
+  border-radius: 8px;
+  background: var(--vt-green);
+  color: var(--vt-on-green);
+  font: inherit;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vt-button:hover {
+  filter: brightness(0.96);
+}
+
+.vt-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.vt-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--vt-green) 45%, white);
+  outline-offset: 2px;
+}
+
+.vt-button--ghost {
+  background: transparent;
+  color: var(--shop-ink);
+  border-color: var(--shop-ink);
+}
+
+.vt-button--block {
+  width: 100%;
+}
+
+.vt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--vt-text);
+  font-size: 0.92rem;
+}
+
+.vt-field input,
+.vt-field textarea,
+.vt-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--vt-line);
+  border-radius: 8px;
+  background: var(--vt-surface);
+  color: var(--vt-ink);
+  font: inherit;
+}
+
+.vt-field textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.vt-field input:focus,
+.vt-field textarea:focus,
+.vt-input:focus {
+  outline: 2px solid var(--vt-green);
+  border-color: var(--vt-green);
+}
+
+.vt-chip {
+  border: 1px solid var(--vt-line);
+  background: var(--vt-surface);
+  color: var(--shop-ink);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.vt-chip[aria-pressed="true"],
+.vt-chip.is-active {
+  background: var(--shop-ink);
+  border-color: var(--shop-ink);
+  color: var(--vt-surface);
+}
+
+.vt-status {
+  margin: 0;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--vt-line);
+  border-radius: 12px;
+  background: var(--vt-surface);
+  color: var(--vt-text);
+}
+
+.vt-status h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  color: var(--vt-ink);
+}
+
+.vt-status p {
+  margin: 0;
+}
+
+.vt-status .vt-button {
+  margin-top: 0.85rem;
+}
+
+.vt-status--error {
+  border-color: var(--vt-danger);
+  color: var(--vt-danger);
+}
+
+.vt-status--ok {
+  border-color: var(--vt-green);
+}
+
+.vt-identity {
+  --id-ink: var(--tx-ink);
+  --id-muted: var(--tx-muted);
+  --id-accent: var(--tx-green);
+  --id-canvas: var(--tx-canvas);
+  --id-text: var(--tx-text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--vt-line);
+  border-radius: 16px;
+  background: var(--id-canvas);
+  color: var(--id-text);
+  text-decoration: none;
+}
+
+.vt-identity--baby {
+  --id-ink: var(--bb-ink);
+  --id-muted: var(--bb-muted);
+  --id-accent: var(--bb-sage);
+  --id-canvas: var(--bb-canvas);
+  --id-text: var(--bb-text);
+}
+
+.vt-identity h2 {
+  margin: 0;
+  color: var(--id-ink);
+  font-size: 1.7rem;
+  letter-spacing: -0.03em;
+}
+
+.vt-identity p {
+  margin: 0;
+  color: var(--id-muted);
+  line-height: 1.45;
+}
+
+.vt-identity strong {
+  color: var(--id-ink);
+  font-weight: 650;
+}
+
+.vt-identity .vt-button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.vt-identity__kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--id-muted);
+}
+
+.vt-swatches {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.vt-swatch {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--vt-line);
+}
+
+.vt-swatch--ink {
+  background: var(--id-ink);
+}
+
+.vt-swatch--muted {
+  background: var(--id-muted);
+}
+
+.vt-swatch--accent {
+  background: var(--id-accent);
+}
+
+.vt-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--vt-line);
+  border-radius: 8px;
+  background: var(--vt-surface);
+}
+
+.vt-qty button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--vt-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.vt-qty button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.vt-qty span {
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.vt-panel {
+  width: min(32rem, 100%);
+  margin: 2.5rem auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--vt-surface);
+  border: 1px solid var(--vt-line);
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.shop-page,
+.gateway-page,
+.cart-page {
+  width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  box-sizing: border-box;
+}
+
+.shop-page {
+  background: var(--shop-canvas);
+  color: var(--shop-text);
+}
+
+.shop-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.shop-hero__media {
+  min-height: 14rem;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--vt-surface);
+  border: 1px solid var(--vt-line);
+}
+
+.shop-hero__media img,
+.shop-hero__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 14rem;
+  object-fit: cover;
+}
+
+.shop-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  gap: 1rem;
+}
+
+.shop-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.shop-block h2 {
+  margin: 0;
+  color: var(--shop-ink);
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+}
+
+.shop-gift {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--vt-line);
+  border-radius: 16px;
+  background: var(--vt-surface);
+}
+
+.shop-gift h2 {
+  margin: 0 0 0.35rem;
+  color: var(--shop-ink);
+}
+
+.shop-gift p {
+  margin: 0;
+  color: var(--shop-muted);
+}
+
+@media (max-width: 800px) {
+  .shop-hero,
+  .shop-gift {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
 }

@@ -1,82 +1,69 @@
 .site-footer {
-  border-top: 1px solid #e6e4de;
-  background: var(--color-surface);
+  padding: 2.5rem 1.25rem 2rem;
+  border-top: 1px solid var(--vt-line);
+  background: var(--vt-surface);
+  color: var(--vt-text);
 }
 
-.site-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  align-items: center;
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 1.25rem 1rem;
-}
-
-.site-footer a {
-  color: inherit;
-}
-
-.site-footer__forms {
+.site-footer__grid,
+.site-footer__form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1.5rem;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 0 1rem 1.5rem;
+}
+
+.site-footer__grid {
+  grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+}
+
+.site-footer h2 {
+  margin: 0 0 0.75rem;
+  color: var(--vt-ink);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer a {
+  color: var(--vt-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.site-footer a {
+  text-decoration: none;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.site-footer form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
 .site-footer__form {
-  display: grid;
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--vt-line);
+  border-radius: 16px;
+  background: var(--vt-canvas);
 }
 
-.site-footer__form h2 {
-  margin: 0;
-  font-size: 1rem;
+.site-footer__wide {
+  grid-column: 1 / -1;
 }
 
-.site-footer__form label {
-  display: grid;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-}
-
-.site-footer__form input,
-.site-footer__form textarea {
-  font: inherit;
-  color: inherit;
-  background: var(--color-canvas);
-  border: 1px solid #e6e4de;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.65rem;
-}
-
-.site-footer__form button {
-  justify-self: start;
-  font: inherit;
-  color: #fff;
-  background: var(--color-brand);
-  border: 0;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0.9rem;
-  cursor: pointer;
-}
-
-.site-footer__form button:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.site-footer__field-error,
-.site-footer__note--bad {
-  margin: 0;
-  color: #8a2b2b;
-  font-size: 0.875rem;
-}
-
-.site-footer__note--ok {
-  margin: 0;
-  color: #2d6a32;
-  font-size: 0.875rem;
+@media (max-width: 900px) {
+  .site-footer__grid,
+  .site-footer__form {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #9 Vach
 
+**Волна 5.** Карточка и состояния каталога. Папки `frontend/src/components/ProductCard/` и `frontend/src/components/CatalogState/`. Ветка `feat/vach-catalog`, после Ashot. Анатомия, Card и Cash, шесть состояний, пусто, скелет, ошибка с повтором. Карточка не знает витрину. `Textile.jsx` и `Baby.jsx` не править. Раздел «9 — Vach · карточка и состояния каталога» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5.** The card and the catalog states. Folders `frontend/src/components/ProductCard/` and `frontend/src/components/CatalogState/`. Branch `feat/vach-catalog`, after Ashot. Anatomy, Card and Cash, six states, empty, skeleton, and error with retry. The card does not know the shop. Do not edit `Textile.jsx` or `Baby.jsx`. Section “9 — Vach · card and catalog states” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5.** Քարտը և կատալոգի վիճակները։ Պանակներ `frontend/src/components/ProductCard/` և `frontend/src/components/CatalogState/`։ Ճյուղ `feat/vach-catalog`, Ashot-ից հետո։ Անատոմիա, Card և Cash, վեց վիճակ, դատարկ, սկելետոն, սխալ՝ կրկնելով։ Քարտը խանութը չգիտի։ `Textile.jsx`-ը և `Baby.jsx`-ը չփոխել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «9 — Vach · карточка и состояния каталога»։ Ներքևի տեքստը մնում է։
+
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «9 — Vach · карточка товара». Папка `frontend/src/components/ProductCard/`. Импорт `api` именной. Карточка не знает витрину. Текст ниже не стирать.
 
 **Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “9 — Vach · product card”. Folder `frontend/src/components/ProductCard/`. Import `api` by name. The card does not know the shop. The text below stays.

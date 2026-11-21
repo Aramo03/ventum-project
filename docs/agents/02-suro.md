@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #2 Suro
 
-**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «2 — Suro · главная». Папка `frontend/src/pages/Gateway/`: герой и выбор магазина. Текст ниже не стирать.
+**Волна 5.** Середина `/`, кадры Gateway desktop `178-46` и Gateway mobile `6-12462`. Папка `frontend/src/pages/Gateway/`. Ветка `feat/suro-api`, после Mariam. Оба рассказа и обе ссылки. Header и Footer в страницу не копировать. Раздел «2 — Suro · главная» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
 
-**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “2 — Suro · home”. Folder `frontend/src/pages/Gateway/`: hero and store choice. The text below stays.
+**Wave 5.** The middle of `/`, Gateway desktop `178-46` and Gateway mobile `6-12462`. Folder `frontend/src/pages/Gateway/`. Branch `feat/suro-api`, after Mariam. Both stories and both links. Do not copy Header or Footer into the page. Section “2 — Suro · home” in [task-wave5.md](../../task-wave5.md). The text below stays.
 
-**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «2 — Suro · գլխավոր»։ Պանակ `frontend/src/pages/Gateway/`՝ վերնագիր և խանութի ընտրություն։ Ներքևի տեքստը մնում է։
+**Wave 5.** `/`-ի մեջտեղը, Gateway desktop `178-46` և Gateway mobile `6-12462`։ Պանակ `frontend/src/pages/Gateway/`։ Ճյուղ `feat/suro-api`, Mariam-ից հետո։ Երկու պատմություն և երկու հղում։ Header-ը և Footer-ը էջի մեջ չպատճենել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «2 — Suro · главная»։ Ներքևի տեքստը մնում է։
+
+**Волна 4.** Текущий PR — ветка `feat/suro-api`, base `dev`, после Lead и до Vach. Папка `frontend/src/pages/Gateway/`: герой и выбор магазина. Новые строки `gateway` сразу в `am.json`, `en.json` и `ru.json`. В этот PR не входят `App.jsx`, Textile, Baby, Header, Footer, `index.css`, `apps/cart`, `apps/orders`, `config/urls.py` и `settings.py`. Строка «Нельзя: React» ниже остаётся в контракте волны 3 и в этот PR не входит. Текст ниже не стирать. Экран — [task-wave4.md](../../task-wave4.md), раздел «2 — Suro · главная».
+
+**Wave 4.** Current pull request: branch `feat/suro-api`, base `dev`, after Lead and before Vach. Folder `frontend/src/pages/Gateway/`: hero and store choice. New `gateway` strings go into `am.json`, `en.json`, and `ru.json` at once. This pull request leaves out `App.jsx`, Textile, Baby, Header, Footer, `index.css`, `apps/cart`, `apps/orders`, `config/urls.py`, and `settings.py`. The “do not add React” line below stays in the Wave 3 contract and stays out of this pull request. The text below stays. Screen: [task-wave4.md](../../task-wave4.md), section “2 — Suro · home”.
+
+**Wave 4.** Ընթացիկ PR-ը՝ ճյուղ `feat/suro-api`, base `dev`, Lead-ից հետո և Vach-ից առաջ։ Պանակ `frontend/src/pages/Gateway/`՝ վերնագիր և խանութի ընտրություն։ `gateway` նոր տողերը միանգամից `am.json`, `en.json` և `ru.json`։ Այս PR-ում չեն մտնում `App.jsx`, Textile, Baby, Header, Footer, `index.css`, `apps/cart`, `apps/orders`, `config/urls.py` և `settings.py`։ Ներքևի «React չավելացնել» տողը մնում է Wave 3-ի պայմանագրում և այս PR-ում չի մտնում։ Ներքևի տեքստը մնում է։ Էկրանը՝ [task-wave4.md](../../task-wave4.md), «2 — Suro · գլխավոր»։
 
 Отдай этот файл агенту целиком. Номер ученика — **2**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «2 — Suro · api» в [task-wave3.md](../../task-wave3.md).
 

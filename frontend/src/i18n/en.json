@@ -10,15 +10,31 @@
     "baby": "Ventum Baby",
     "choose": "Choose a store"
   },
+  "header": {
+    "textileTagline": "Crafted for serene living",
+    "babyTagline": "A gentle world for little ones"
+  },
   "nav": {
+    "home": "Home",
+    "textile": "Textile",
+    "baby": "Baby",
+    "cart": "Cart",
     "bedLinen": "Bed linen",
+    "fabrics": "Fabrics",
     "curtains": "Curtains",
     "towels": "Towels",
     "hotel": "Hotel textiles",
     "tablecloths": "Tablecloths",
+    "sewingSupplies": "Sewing supplies",
     "blankets": "Blankets",
     "pillows": "Pillows",
-    "sheets": "Sheets"
+    "mattresses": "Mattresses",
+    "sheets": "Sheets",
+    "babyApparel": "Baby apparel",
+    "newbornSets": "Newborn sets",
+    "nurseryCribs": "Nursery cribs",
+    "strollers": "Strollers",
+    "highChairs": "High chairs"
   },
   "pageTitles": {
     "gateway": "Ventum",
@@ -35,18 +51,25 @@
     "textileLead": "The textile shop is still empty.",
     "babyLead": "Discover our Baby collection.",
     "notFound": "This page does not exist.",
+    "notFoundEyebrow": "Missing page",
     "goHome": "Back to home"
   },
   "checkout": {
+    "eyebrowSuccess": "Payment return",
+    "eyebrowFail": "Payment interrupted",
     "neutral": "Waiting for payment confirmation.",
     "failNeutral": "Payment was not completed.",
     "paid": "Paid",
     "notPaidYet": "Payment is not confirmed yet.",
     "lookupFailed": "Could not load this order.",
     "billLabel": "Order",
+    "amountLabel": "Amount",
+    "currency": "AMD",
     "backToCart": "Back to cart"
   },
   "gateway": {
+    "identitiesTitle": "Two identities.",
+    "identitiesLead": "One considered shopping experience.",
     "contentUnavailable": "Welcome content is temporarily unavailable.",
     "textileCaption": "Sanctuary for your home",
     "textileType": "textile",
@@ -62,6 +85,12 @@
     "babyCategories": "Apparel · Bedding Sets · Nursery · Essentials"
   },
   "footer": {
+    "description": "Textile and baby goods. One considered shopping experience.",
+    "navigation": "Navigation",
+    "newsletterHint": "Offers and news, occasionally.",
+    "wholesaleHint": "A short request for wholesale.",
+    "closeForm": "Close form",
+    "rights": "All rights reserved.",
     "note": "Questions about delivery and wholesale.",
     "newsletterTitle": "Newsletter",
     "newsletterEmail": "Email",
@@ -79,6 +108,14 @@
   },
   "common": {
     "loading": "Loading..."
+  },
+  "productCard": {
+    "addToCart": "Add to cart",
+    "adding": "Adding...",
+    "added": "Added to cart",
+    "signIn": "Sign in to add this item to your cart.",
+    "failed": "Could not add this item. Try again.",
+    "currency": "AMD"
   },
   "textile": {
     "title": "Ventum Textile",
@@ -114,6 +151,7 @@
     "favoritesTitle": "Little Favorites",
     "storyTitle": "Care woven into every single stitch",
     "storyText": "Cloth that stays gentle on the skin, from the first wrap to the next nap.",
+    "giftAction": "See the set",
     "giftTitle": "A gift as gentle as your baby's skin",
     "giftText": "A small set, chosen for softness and slow mornings.",
     "noteTitle": "A soft note for the bedside",
@@ -134,5 +172,28 @@
     "logout": "Sign out",
     "invalidCredentials": "The email or password is incorrect.",
     "loginError": "Could not sign in. Try again."
+  },
+  "accountLink": "My account",
+  "searchError": "Search failed. Please try again.",
+  "searchLoading": "Searching…",
+  "searchEmpty": "No products found.",
+  "cartPage": {
+    "signInTitle": "Please sign in",
+    "signInMessage": "You need to sign in to view your shopping cart.",
+    "loading": "Loading cart…",
+    "loadError": "Could not load your cart. Please try again.",
+    "updateError": "Could not update product quantity.",
+    "removeError": "Could not remove product from cart.",
+    "checkoutError": "Checkout failed. Please try again.",
+    "paymentReturn": "Payment return received. Payment has not been confirmed yet.",
+    "emptyTitle": "Your cart is empty",
+    "emptyMessage": "Add products to your cart to see them here.",
+    "noImage": "No image",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "remove": "Remove",
+    "total": "Total",
+    "processing": "Processing…",
+    "checkout": "Checkout"
   }
 }

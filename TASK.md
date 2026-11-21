@@ -1,3 +1,78 @@
+# Ventum — Wave 5
+
+**Подробно:** [task-wave5.md](task-wave5.md)  
+**Экран волны 4, закрыт:** [task-wave4.md](task-wave4.md)  
+**Покупка, контракт волны 3:** [task-wave3.md](task-wave3.md)  
+**Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
+**Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)
+
+Текущая работа — полный кадр Figma: главная, дизайн-система, Textile и Baby, desktop и mobile. Один кусок на ученика. Волна 4 закрыта. Волна 3 не закрыта: корзина, заказ, Idram и письмо остаются контрактом. Ветки прежние. В `main` не пушить.
+
+Макет: [страница Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1).
+
+| # | Имя | Ветка | Зона | Агент |
+|---|-----|--------|------|--------|
+| 1 | Lead | `feat/lead` | Доска волны 5. Экраны не рисует | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Середина `/`: два рассказа, desktop и mobile | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Подписи кадра в `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Блок опта на `/textile` и `/baby` | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Навигация всех кадров, desktop и mobile | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Подвал и шесть состояний рассылки | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` по полному кадру | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` по полному кадру, включая Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Карточка, Card/Cash и состояния каталога | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Токены и `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Очередь merge: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+## English
+
+**Detail:** [task-wave5.md](task-wave5.md). **Wave 4 screens, closed:** [task-wave4.md](task-wave4.md). **Wave 3 purchase contract:** [task-wave3.md](task-wave3.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md).
+
+The current work is the full Figma frame: home, the design system, Textile, and Baby, desktop and mobile. One piece per student. Wave 4 is closed. Wave 3 is not closed: the cart, the order, Idram, and the shop email stay the contract. Branches stay. Do not push `main`.
+
+Design: [Untitled page](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1).
+
+| # | Name | Branch | Zone | Agent |
+|---|------|--------|------|--------|
+| 1 | Lead | `feat/lead` | Wave 5 board. Does not draw screens | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Middle of `/`: both stories, desktop and mobile | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Frame copy in `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Wholesale block on `/textile` and `/baby` | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Navigation on every frame, desktop and mobile | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Footer and the six newsletter states | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` from the full frame | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` from the full frame, including Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Card, Card/Cash, and catalog states | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Tokens and `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Merge queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+## Հայերեն
+
+**Մանրամասն՝** [task-wave5.md](task-wave5.md)։ **Wave 4-ի էկրանները, փակ են՝** [task-wave4.md](task-wave4.md)։ **Wave 3-ի գնման պայմանագիր՝** [task-wave3.md](task-wave3.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Տախտակ՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։
+
+Ընթացիկ աշխատանքը Figma-ի լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Մեկ կտոր ամեն աշակերտի։ Wave 4-ը փակ է։ Wave 3-ը փակ չէ. զամբյուղը, պատվերը, Idram-ը և նամակը մնում են պայմանագիր։ Ճյուղերը նույնն են։ `main` չpush անել։
+
+Մակետ՝ [Untitled էջ](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1)։
+
+| # | Անուն | Ճյուղ | Գոտի | Գործակալ |
+|---|------|--------|------|-----------|
+| 1 | Lead | `feat/lead` | Wave 5-ի տախտակ։ Էկրաններ չի նկարում | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | `/`-ի մեջտեղը. երկու պատմություն, desktop և mobile | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Կադրի գրությունները `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Մեծածախի բլոկը `/textile`-ում և `/baby`-ում | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Նավիգացիա բոլոր կադրերում, desktop և mobile | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Ներքևը և բաժանորդագրության վեց վիճակը | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` լրիվ կադրից | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` լրիվ կադրից, այդ թվում Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Քարտ, Card/Cash և կատալոգի վիճակներ | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Token-ներ և `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Merge-ի հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+---
+
 # Ventum — Wave 4
 
 **Подробно:** [task-wave4.md](task-wave4.md)  
@@ -5,7 +80,7 @@
 **Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
 **Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)
 
-Текущая работа — большой экран по Figma, один кусок на ученика. Волна 3 не закрыта: корзина, заказ, Idram и письмо остаются контрактом. Ветки прежние. В `main` не пушить.
+Волна 4 закрыта. Это был один большой экран по Figma на ученика. Волна 3 не закрыта: корзина, заказ, Idram и письмо остаются контрактом. Ветки прежние. В `main` не пушить.
 
 Макеты: [кадр магазина](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [второй файл](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
 
@@ -28,7 +103,7 @@
 
 **Detail:** [task-wave4.md](task-wave4.md). **Wave 3 purchase contract:** [task-wave3.md](task-wave3.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md).
 
-The current work is one large Figma screen per student. Wave 3 is not closed: the cart, the order, Idram, and the shop email stay the contract. Branches stay. Do not push `main`.
+Wave 4 is closed. It was one large Figma screen per student. Wave 3 is not closed: the cart, the order, Idram, and the shop email stay the contract. Branches stay. Do not push `main`.
 
 Designs: [shop frame](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [second file](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
 
@@ -51,7 +126,7 @@ Merge queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk →
 
 **Մանրամասն՝** [task-wave4.md](task-wave4.md)։ **Wave 3-ի գնման պայմանագիր՝** [task-wave3.md](task-wave3.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Տախտակ՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։
 
-Ընթացիկ աշխատանքը մեկ մեծ Figma էկրան է ամեն աշակերտի համար։ Wave 3-ը փակ չէ. զամբյուղը, պատվերը, Idram-ը և նամակը մնում են պայմանագիր։ Ճյուղերը նույնն են։ `main` չենք push անում։
+Wave 4-ը փակ է։ Դա մեկ մեծ Figma էկրան էր ամեն աշակերտի համար։ Wave 3-ը փակ չէ. զամբյուղը, պատվերը, Idram-ը և նամակը մնում են պայմանագիր։ Ճյուղերը նույնն են։ `main` չենք push անում։
 
 Մակետներ՝ [խանութ](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=6-12495), [երկրորդ ֆայլ](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)։
 

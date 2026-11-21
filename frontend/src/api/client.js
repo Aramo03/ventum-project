@@ -40,10 +40,15 @@ api.interceptors.request.use((config) => {
   return config
 })
 
+export const AUTH_CHANGED_EVENT = 'ventum-auth'
+
 export function setAuthToken(token) {
   if (token) {
     localStorage.setItem(TOKEN_KEY, token)
   } else {
     localStorage.removeItem(TOKEN_KEY)
+  }
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(AUTH_CHANGED_EVENT))
   }
 }
