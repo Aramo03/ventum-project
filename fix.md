@@ -205,3 +205,19 @@ Wave 4-ը փակ է ընդհանուր Figma թերթի վրա։ Նոյեմբե�
 **Ախտանիշ:** `0001_initial.py`-ը ստեղծում է `updated_at`, իսկ `models.py`-ը դաշտը չէր հայտարարում։
 
 **Ինչ արվեց:** `Cart.updated_at`-ը `DateTimeField(auto_now=True)` է։ Նոր միգրացիա չի ստեղծվել։
+
+# Исправления — 21 ноября 2026
+
+Волна 5 открыта доской. Записи от 17 и 20 ноября выше остаются. Журналы `docs/zones/*/fix.md` не менялись. Экраны не рисовались.
+
+## Русский
+
+Доска волны 5 лежит в `docs/zones/lead/README.md`. Очередь: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. Строка Lead — «ждёт PR», номер PR не поставлен. Остальные девять строк — «не начато». Волна 4 не открывалась заново. Контракт волны 3 не закрывался. Postgres не поднимался. Чужие страницы, модели и оплата не правились.
+
+## English
+
+The Wave 5 board is in `docs/zones/lead/README.md`. Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. Lead’s row is “waiting for a PR”. No pull request number is written. The other nine rows stay “not started”. Wave 4 was not reopened. The Wave 3 contract was not closed. Postgres was not started. Other people’s pages, models, and payment code were not edited. No screens were drawn.
+
+## Հայերեն
+
+Wave 5-ի տախտակը `docs/zones/lead/README.md`-ում է։ Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։ Lead-ի տողը «սպասում է PR» է։ PR-ի համար չկա։ Մյուս ինը տողը մնում է «չսկսված»։ Wave 4-ը նորից չի բացվել։ Wave 3-ի պայմանագիրը չի փակվել։ Postgres չի բարձրացվել։ Ուրիշների էջերը, մոդելները և վճարումը չեն փոխվել։ Էկրաններ չեն նկարվել։

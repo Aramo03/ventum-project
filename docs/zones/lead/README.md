@@ -13,7 +13,7 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | не начато |
+| 1 | Lead | `feat/lead` | lead | — | — | ждёт PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | не начато |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | не начато |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | не начато |
@@ -117,7 +117,7 @@ Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | not started |
+| 1 | Lead | `feat/lead` | lead | — | — | waiting for a PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | not started |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | not started |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | not started |
@@ -219,7 +219,7 @@ Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | չսկսված |
+| 1 | Lead | `feat/lead` | lead | — | — | սպասում է PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | չսկսված |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | չսկսված |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | չսկսված |
