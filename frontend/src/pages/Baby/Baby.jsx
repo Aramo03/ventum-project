@@ -1,73 +1,15 @@
-
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { api, mediaUrl } from '../../api/client'
+import { mediaUrl } from '../../api/client'
+import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import { fetchBabyCatalog } from './baby'
 import './baby.css'
 
-
-function AddToCartButton({ sku }) {
-  const { t } = useTranslation()
-  const [status, setStatus] = useState('idle')
-
-  async function handleAddToCart() {
-    if (status === 'loading') return
-
-    setStatus('loading')
-
-    try {
-      await api.post('/api/cart/items/', {
-        sku,
-        qty: 1,
-      })
-
-      setStatus('success')
-    } catch (error) {
-      if (error.response?.status === 401) {
-        setStatus('unauthorized')
-      } else {
-        setStatus('error')
-      }
-    }
-  }
-
-  return (
-    <div className="baby-cart-actions">
-      <button
-        type="button"
-        className="baby-cart-button"
-        onClick={handleAddToCart}
-        disabled={status === 'loading'}
-      >
-        {status === 'loading'
-          ? t('baby.cartAdding')
-          : t('baby.addToCart')}
-      </button>
-
-      {status === 'success' && (
-        <p className="baby-cart-success" role="status">
-          {t('baby.cartSuccess')}
-        </p>
-      )}
-
-      {status === 'unauthorized' && (
-        <p className="baby-cart-error" role="alert">
-          {t('baby.cartSignIn')}
-        </p>
-      )}
-
-      {status === 'error' && (
-        <p className="baby-cart-error" role="alert">
-          {t('baby.cartError')}
-        </p>
-      )}
-    </div>
-  )
-}
 export default function Baby() {
   const { t, i18n } = useTranslation()
-
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -79,50 +21,17 @@ export default function Baby() {
       setError(false)
 
       try {
-        const [categoriesResponse, productsResponse] =
-          await Promise.all([
-            api.get('/api/catalog/categories/', {
-              params: { store: 'baby' },
-            }),
-            api.get('/api/catalog/products/', {
-              params: { store: 'baby' },
-            }),
-          ])
-
+        const data = await fetchBabyCatalog()
         if (!active) return
-
-        const categoryList = Array.isArray(categoriesResponse.data)
-          ? categoriesResponse.data
-          : categoriesResponse.data?.results ?? []
-
-        const productList = Array.isArray(productsResponse.data)
-          ? productsResponse.data
-          : productsResponse.data?.results ?? []
-
-        setCategories(
-          categoryList.filter(
-            (category) => category.store === 'baby'
-          )
-        )
-
-        setProducts(
-          productList.filter(
-            (product) =>
-              product.store === 'baby' &&
-              product.published !== false
-          )
-        )
-      } catch (err) {
+        setCategories(data.categories)
+        setProducts(data.products)
+      } catch {
         if (!active) return
-
-        console.error('Failed to load Baby data:', err)
         setCategories([])
         setProducts([])
         setError(true)
       } finally {
-        if (active) {
-          setLoading(false)
-        }
+        if (active) setLoading(false)
       }
     }
 
@@ -133,86 +42,99 @@ export default function Baby() {
     }
   }, [i18n.resolvedLanguage])
 
+  const visibleProducts = selectedCategory
+    ? products.filter((product) => product.category?.slug === selectedCategory)
+    : products
+
+  const heroImage = products.find((product) => product.image)?.image
+
   return (
-    <main className="page baby-page">
-      <section className="baby-header">
-        <h1>{t('stores.baby')}</h1>
-        <p>{t('pages.babyLead')}</p>
-      </section>
+    <main className="shop-page baby-page" data-shop="baby">
+      <header className="shop-hero">
+        <div className="vt-type">
+          <p className="vt-eyebrow">{t('stores.baby')}</p>
+          <h1>{t('baby.heroTitle')}</h1>
+          <p className="vt-lead">{t('baby.heroText')}</p>
+        </div>
+        <div className="shop-hero__media">
+          {heroImage ? (
+            <img src={mediaUrl(heroImage)} alt="" />
+          ) : (
+            <div className="shop-hero__placeholder" aria-hidden="true" />
+          )}
+        </div>
+      </header>
+
+      {categories.length > 0 && (
+        <div className="shop-chips" role="tablist">
+          <button
+            type="button"
+            className={`vt-chip ${selectedCategory === null ? 'is-active' : ''}`}
+            onClick={() => setSelectedCategory(null)}
+          >
+            {t('baby.allCategories')}
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category.slug}
+              type="button"
+              className={`vt-chip ${selectedCategory === category.slug ? 'is-active' : ''}`}
+              onClick={() => setSelectedCategory(category.slug)}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading && (
-        <p className="baby-message">
+        <p className="vt-status" data-testid="baby-loading" role="status">
           {t('baby.loading')}
         </p>
       )}
 
       {!loading && error && (
-        <p className="baby-message" role="alert">
+        <p className="vt-status vt-status--error" role="alert" data-testid="baby-error">
           {t('baby.error')}
         </p>
       )}
 
-      {!loading && !error && (
-        <>
-          <section className="baby-categories">
-            <h2>{t('baby.categories')}</h2>
-
-            {categories.length > 0 && (
-              <div className="baby-category-list">
-                {categories.map((category) => (
-                  <div
-                    className="baby-category"
-                    key={category.slug}
-                  >
-                    {category.name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section className="baby-products-section">
-            <h2>{t('baby.products')}</h2>
-
-            {products.length === 0 ? (
-              <p className="baby-message">
-                {t('baby.empty')}
-              </p>
-            ) : (
-              <div className="baby-products">
-                {products.map((product) => (
-                  <article
-                    className="baby-product-card"
-                    key={product.sku}
-                  >
-                    <div className="baby-product-image">
-                      {product.image ? (
-                        <img
-                          src={mediaUrl(product.image)}
-                          alt={product.name || ''}
-                          loading="lazy"
-                        />
-                      ) : null}
-                    </div>
-
-                    <div className="baby-product-info">
-                      <h3>{product.name}</h3>
-
-                      <p className="baby-product-price">
-                        {Number(product.price).toLocaleString(
-                          'hy-AM'
-                        )}{' '}
-                        AMD
-                      </p>
-                      <AddToCartButton sku={product.sku} />
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </section>
-        </>
+      {!loading && !error && visibleProducts.length === 0 && (
+        <p className="vt-status" data-testid="baby-empty">
+          {t('baby.empty')}
+        </p>
       )}
+
+      {!loading && !error && visibleProducts.length > 0 && (
+        <section className="shop-block" id="shop-grid" aria-labelledby="baby-favorites-title">
+          <h2 id="baby-favorites-title">{t('baby.favoritesTitle')}</h2>
+          <div className="shop-grid">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.sku} product={product} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <blockquote className="vt-status shop-block">
+        <p className="vt-eyebrow">{t('baby.storyTitle')}</p>
+        <p>{t('baby.storyText')}</p>
+      </blockquote>
+
+      <section className="shop-gift">
+        <div>
+          <h2>{t('baby.giftTitle')}</h2>
+          <p>{t('baby.giftText')}</p>
+        </div>
+        <a className="vt-button" href="#shop-grid">
+          {t('baby.giftAction')}
+        </a>
+      </section>
+
+      <aside className="vt-type shop-block">
+        <h2>{t('baby.noteTitle')}</h2>
+        <p className="vt-lead">{t('baby.noteText')}</p>
+      </aside>
     </main>
   )
 }

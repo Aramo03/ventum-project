@@ -12,6 +12,7 @@ class Cart(models.Model):
         related_name="cart",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Cart"

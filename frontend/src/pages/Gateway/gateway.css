@@ -1,104 +1,29 @@
 .gateway-page {
-  width: min(100% - 2rem, 76rem);
-  margin: 0 auto;
-  padding: clamp(2.5rem, 7vw, 6rem) 0;
-}
-
-.gateway-hero {
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: clamp(2rem, 7vw, 5.5rem) clamp(1.5rem, 6vw, 5rem);
-  border-radius: 2rem;
-  background: linear-gradient(135deg, #eef5e8 0%, #f7f6f2 58%, #e5efdc 100%);
-  text-align: center;
-}
-
-.gateway-eyebrow {
-  margin: 0 0 1rem;
-  color: #537c38;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.gateway-hero h1 {
-  margin: 0;
-  color: #1d2b25;
-  font-size: clamp(2rem, 5.5vw, 4.5rem);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
-}
-
-.gateway-copy {
-  max-width: 42rem;
-  margin: 1.25rem auto 0;
-  color: #4e5b52;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.65;
-  white-space: pre-line;
-}
-
-.gateway-status {
-  margin: 1.25rem 0 0;
-  color: #59645c;
-  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .gateway-stores {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  max-width: 56rem;
-  margin: 1.25rem auto 0;
 }
 
-.gateway-store {
-  display: flex;
-  min-height: 7.5rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.5rem 1.75rem;
-  border: 1px solid #e5e9e1;
-  border-radius: 1.5rem;
-  background: #fff;
-  color: #1d2b25;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  font-weight: 650;
-  text-decoration: none;
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+.gateway-welcome h2 {
+  margin: 0;
+  color: var(--vt-ink);
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
 }
 
-.gateway-store span {
-  color: #5a9633;
-  font-size: 1.5rem;
+.gateway-welcome p {
+  margin: 0.4rem 0 0;
+  color: var(--vt-muted);
 }
 
-.gateway-store:hover {
-  transform: translateY(-3px);
-  border-color: #b7d4a2;
-  box-shadow: 0 1rem 2.5rem rgb(29 43 37 / 9%);
-}
-
-.gateway-store:focus-visible {
-  outline: 3px solid #5a9633;
-  outline-offset: 4px;
-}
-
-@media (max-width: 36rem) {
+@media (max-width: 800px) {
   .gateway-stores {
     grid-template-columns: 1fr;
-  }
-
-  .gateway-store {
-    min-height: 6rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gateway-store {
-    transition: none;
   }
 }
