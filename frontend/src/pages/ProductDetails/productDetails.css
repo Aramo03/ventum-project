@@ -1,0 +1,156 @@
+
+.product-details {
+  width: min(1200px, calc(100% - 40px));
+  margin: 40px auto 80px;
+}
+
+.product-details__back {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.product-details__back:hover {
+  text-decoration: underline;
+}
+
+.product-details__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.product-details__gallery {
+  min-width: 0;
+}
+
+.product-details__main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f5f3ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-details__main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-details__placeholder {
+  color: #777;
+  font-size: 14px;
+}
+
+.product-details__thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.product-details__thumbnail {
+  width: 76px;
+  height: 76px;
+  padding: 3px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+
+.product-details__thumbnail.is-active {
+  border-color: #222;
+}
+
+.product-details__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-details__info {
+  padding-top: 12px;
+}
+
+.product-details__category {
+  margin: 0 0 12px;
+  color: #777;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.product-details__info h1 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+}
+
+.product-details__sku {
+  margin: 0 0 22px;
+  color: #777;
+  font-size: 13px;
+}
+
+.product-details__price {
+  margin: 0 0 28px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.product-details__description {
+  margin-bottom: 30px;
+  color: #555;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.product-details__cart-button {
+  min-width: 220px;
+  margin-bottom: 12px;
+}
+
+.product-details__store {
+  margin-top: 24px;
+  color: #777;
+  font-size: 14px;
+}
+
+.product-details__message {
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.product-details__message h1 {
+  margin-bottom: 12px;
+}
+
+.product-details__message p {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 760px) {
+  .product-details {
+    width: calc(100% - 28px);
+    margin-top: 24px;
+  }
+
+  .product-details__layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .product-details__info {
+    padding-top: 0;
+  }
+
+  .product-details__cart-button {
+    width: 100%;
+  }
+}
