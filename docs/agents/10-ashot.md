@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #10 Ashot
 
+**Волна 5.** Первым среди экранов. Токены и `/design`, папка `frontend/src/design/`, ветка `feat/ashot-ui`, кадр `6-12117`. Обе палитры и шесть состояний кнопки. Живую карточку и живую рассылку не собирать. В `App.jsx` — только маршрут `/design`. Раздел «10 — Ashot · дизайн-система» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5.** First among the screens. Tokens and `/design`, folder `frontend/src/design/`, branch `feat/ashot-ui`, frame `6-12117`. Both palettes and the six button states. Do not build the live card or the live newsletter. In `App.jsx`, only the `/design` route. Section “10 — Ashot · design system” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5.** Էկրաններից առաջինը։ Token-ներ և `/design`, պանակ `frontend/src/design/`, ճյուղ `feat/ashot-ui`, կադր `6-12117`։ Երկու պալիտրա և կոճակի վեց վիճակ։ Կենդանի քարտը և կենդանի բաժանորդագրությունը չհավաքել։ `App.jsx`-ում միայն `/design` երթուղին։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «10 — Ashot · дизайн-система»։ Ներքևի տեքստը մնում է։
+
 **Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «10 — Ashot · возврат и 404». `/checkout/success`, `/checkout/fail`, `/404` по кадру. Слово оплаты только при `status === 'paid'`. `index.css` не трогать. Текст ниже не стирать.
 
 **Wave 4.** Current screens: [task-wave4.md](../../task-wave4.md), section “10 — Ashot · return and 404”. `/checkout/success`, `/checkout/fail`, and `/404` from the frame. The paid word only when `status === 'paid'`. Do not touch `index.css`. The text below stays.

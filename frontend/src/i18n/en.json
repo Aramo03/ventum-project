@@ -10,19 +10,31 @@
     "baby": "Ventum Baby",
     "choose": "Choose a store"
   },
+  "header": {
+    "textileTagline": "Crafted for serene living",
+    "babyTagline": "A gentle world for little ones"
+  },
   "nav": {
     "home": "Home",
     "textile": "Textile",
     "baby": "Baby",
     "cart": "Cart",
     "bedLinen": "Bed linen",
+    "fabrics": "Fabrics",
     "curtains": "Curtains",
     "towels": "Towels",
     "hotel": "Hotel textiles",
     "tablecloths": "Tablecloths",
+    "sewingSupplies": "Sewing supplies",
     "blankets": "Blankets",
     "pillows": "Pillows",
-    "sheets": "Sheets"
+    "mattresses": "Mattresses",
+    "sheets": "Sheets",
+    "babyApparel": "Baby apparel",
+    "newbornSets": "Newborn sets",
+    "nurseryCribs": "Nursery cribs",
+    "strollers": "Strollers",
+    "highChairs": "High chairs"
   },
   "pageTitles": {
     "gateway": "Ventum",

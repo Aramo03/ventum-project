@@ -1,4 +1,3 @@
-
 export const LANGUAGES = [
   { code: 'am', label: 'ARM' },
   { code: 'en', label: 'ENG' },
@@ -18,13 +17,12 @@ export const NAV_ITEMS = [
   { key: 'nav.mattresses', label: 'Mattresses' },
 ]
 
-// Ventum Baby navigation 
 export const BABY_NAV_ITEMS = [
-  { key: 'baby-apparel', label: 'Baby Apparel' },
-  { key: 'newborn-sets', label: 'Newborn Sets' },
-  { key: 'nursery-cribs', label: 'Nursery Cribs' },
-  { key: 'strollers', label: 'Strollers' },
-  { key: 'high-chairs', label: 'High Chairs' },
+  { key: 'nav.babyApparel', label: 'Baby apparel' },
+  { key: 'nav.newbornSets', label: 'Newborn sets' },
+  { key: 'nav.nurseryCribs', label: 'Nursery cribs' },
+  { key: 'nav.strollers', label: 'Strollers' },
+  { key: 'nav.highChairs', label: 'High chairs' },
 ]
 
 export const PHONE = '+374 10 55 44 33'

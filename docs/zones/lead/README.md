@@ -2,10 +2,33 @@
 
 **Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave3.md](../../../task-wave3.md).  
 **Ветка:** `feat/lead`  
-**Задание:** экраны — [task-wave4.md](../../../task-wave4.md), раздел «1 — Lead». Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
+**Задание:** полный кадр — [task-wave5.md](../../../task-wave5.md), раздел «1 — Lead». Волна 4 закрыта: [task-wave4.md](../../../task-wave4.md). Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
 **Агент:** [docs/agents/01-lead.md](../../agents/01-lead.md). Отдай агенту файл целиком.
 
 Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писать. PR принимать только по очереди ниже. **Срок волны 3:** до конца января 2027. Postgres не поднимать.
+
+## Доска merge — Wave 5
+
+Волна 5 открыта. Полный кадр: главная, дизайн-система, Textile и Baby, desktop и mobile. Волна 4 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается.
+
+| # | Имя | Ветка | Зона | После кого | PR | Статус |
+|---|-----|--------|------|------------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | не начато |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | не начато |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | не начато |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | не начато |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | не начато |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | не начато |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | не начато |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | не начато |
+
+Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Текущие PR волны 5 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave5.md](../../../task-wave5.md).
+
+**Не закрывать волну 5, пока:** девять зон в `dev`, три JSON открываются, `/`, `/textile` и `/baby` показывают свои секции на 1440 и на ширине mobile-кадра, `/design` открывается, в diff нет Postgres и правок оплаты.
 
 ## Доска merge — Wave 4
 
@@ -88,6 +111,29 @@ Student **1**, branch `feat/lead`. The `#` column is the student number and matc
 
 Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wave 3 by the end of January 2027.** Do not start Postgres.
 
+### Wave 5 board
+
+Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby, desktop and mobile. Wave 4 stays closed. This table does not close Wave 3.
+
+| # | Name | Branch | Zone | After | PR | Status |
+|---|------|--------|------|-------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | not started |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | not started |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | not started |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | not started |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | not started |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | not started |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | not started |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | not started |
+
+Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Merge Wave 5 pull requests in this order. Base is `dev`. A gate is the “Lead does not merge until” line in [task-wave5.md](../../../task-wave5.md).
+
+**Do not close Wave 5 until:** the nine zones are in `dev`, the three JSON files parse, `/`, `/textile`, and `/baby` show their sections at 1440 and at the mobile frame width, `/design` opens, and the diff has no Postgres and no payment edits.
+
 ### Wave 4 board
 
 Wave 4 is closed in this tree: the ten screens are in `dev`, the three JSON files parse, and `/checkout/success` does not say paid without `status=paid`. This table does not close Wave 3.
@@ -166,6 +212,29 @@ Leave every box empty until student 10 is in `dev`. This commit does not close W
 Աշակերտ **1**, ճյուղը՝ `feat/lead`։ `#` սյունը աշակերտի համարն է և համընկնում է [TASK.md](../../../TASK.md)-ի ու [task-wave3.md](../../../task-wave3.md)-ի վերնագրերի հետ։ «Ումից հետո» նշանակում է՝ ով արդեն պետք է լինի `dev`-ում։ Գործակալին տուր ամբողջ [01-lead.md](../../agents/01-lead.md) ֆայլը։
 
 Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել։ **Wave 3-ն ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres չբարձրացնել։
+
+### Wave 5-ի տախտակ
+
+Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Wave 4-ը մնում է փակ։ Այս աղյուսակը Wave 3-ը չի փակում։
+
+| # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
+|---|------|--------|------|------------|----|------------|
+| 1 | Lead | `feat/lead` | lead | — | — | չսկսված |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | չսկսված |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | չսկսված |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | չսկսված |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | չսկսված |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չսկսված |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | չսկսված |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չսկսված |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | չսկսված |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | չսկսված |
+
+Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+Wave 5-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave5.md](../../../task-wave5.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
+
+**Wave 5-ը չփակել, քանի դեռ** ինը գոտին `dev`-ում է, երեք JSON-ը բացվում են, `/`, `/textile` և `/baby` իրենց սեկցիաները ցույց են տալիս 1440-ում և mobile լայնքում, `/design`-ը բացվում է, և diff-ում Postgres ու վճարման փոփոխություն չկա։
 
 ### Wave 4-ի տախտակ
 

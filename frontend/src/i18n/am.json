@@ -10,19 +10,31 @@
     "baby": "Ventum Baby",
     "choose": "Ընտրեք խանութը"
   },
+  "header": {
+    "textileTagline": "Ստեղծված հանգիստ կյանքի համար",
+    "babyTagline": "Նուրբ աշխարհ փոքրիկների համար"
+  },
   "nav": {
     "home": "Գլխավոր",
     "textile": "Տեքստիլ",
     "baby": "Մանկական",
     "cart": "Զամբյուղ",
     "bedLinen": "Անկողնային սպիտակեղեն",
+    "fabrics": "Գործվածքներ",
     "curtains": "Վարագույրներ",
     "towels": "Սրբիչներ",
     "hotel": "Հյուրանոցային տեքստիլ",
     "tablecloths": "Սփռոցներ",
+    "sewingSupplies": "Կարման պարագաներ",
     "blankets": "Վերմակներ",
     "pillows": "Բարձեր",
-    "sheets": "Սավաններ"
+    "mattresses": "Ներքնակներ",
+    "sheets": "Սավաններ",
+    "babyApparel": "Մանկական հագուստ",
+    "newbornSets": "Նորածնի հավաքածուներ",
+    "nurseryCribs": "Մանկական մահճակալներ",
+    "strollers": "Մանկասայլակներ",
+    "highChairs": "Կերակրման աթոռներ"
   },
   "pageTitles": {
     "gateway": "Ventum",

@@ -10,19 +10,31 @@
     "baby": "Ventum Baby",
     "choose": "Выберите магазин"
   },
+  "header": {
+    "textileTagline": "Сделано для спокойной жизни",
+    "babyTagline": "Нежный мир для малышей"
+  },
   "nav": {
     "home": "Главная",
     "textile": "Текстиль",
     "baby": "Малыши",
     "cart": "Корзина",
     "bedLinen": "Постельное бельё",
+    "fabrics": "Ткани",
     "curtains": "Шторы",
     "towels": "Полотенца",
     "hotel": "Текстиль для гостиниц",
     "tablecloths": "Скатерти",
+    "sewingSupplies": "Товары для шитья",
     "blankets": "Одеяла",
     "pillows": "Подушки",
-    "sheets": "Простыни"
+    "mattresses": "Матрасы",
+    "sheets": "Простыни",
+    "babyApparel": "Одежда для малышей",
+    "newbornSets": "Комплекты для новорождённых",
+    "nurseryCribs": "Кроватки",
+    "strollers": "Коляски",
+    "highChairs": "Стульчики для кормления"
   },
   "pageTitles": {
     "gateway": "Ventum",
