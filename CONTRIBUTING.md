@@ -4,9 +4,9 @@
 
 Ученики работают **только в своей ветке**. В `main` не пушат и не мержат. Максимум, куда можно влить работу — `dev`.
 
-Текущее задание — [task-wave4.md](task-wave4.md): каждый ученик верстает свой большой экран по Figma. Короткий список — в [TASK.md](TASK.md). Контракт покупки волны 3 — в [task-wave3.md](task-wave3.md), он не закрыт. Архив волны 2 — в [task-wave2.md](task-wave2.md). Архив волны 1 — в [task-advanced.md](task-advanced.md). Срок волны 3: до конца января 2027.
+Текущее задание — [task-wave5.md](task-wave5.md): полный кадр Figma, один кусок на ученика. Короткий список — в [TASK.md](TASK.md). Волна 4 закрыта: [task-wave4.md](task-wave4.md). Контракт покупки волны 3 — в [task-wave3.md](task-wave3.md), он не закрыт. Архив волны 2 — в [task-wave2.md](task-wave2.md). Архив волны 1 — в [task-advanced.md](task-advanced.md). Срок волны 3: до конца января 2027.
 
-Сейчас каждый пишет свою зону волны 4: Suro (2) — главная `/`, Vach (9) — общая карточка товара, Karen (7) — `/textile`, Svet (8) — `/baby`, Daniel (6) — подвал, Hayk (4) — `/account`, Mariam (5) — шапка и `/cart`, Artush (3) — подписи в трёх JSON, Ashot (10) — возврат оплаты и `/404`. Lead экраны не рисует. Номер ученика один и тот же в [TASK.md](TASK.md) и в заголовках [task-wave4.md](task-wave4.md). Ветки не переименовывать. API волны 3 не ломать.
+Очередь волны 5: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. Ashot (10) — токены и `/design`, Vach (9) — карточка и состояния каталога, Mariam (5) — навигация, Suro (2) — середина `/`, Karen (7) — `/textile`, Svet (8) — `/baby`, Daniel (6) — подвал и рассылка, Hayk (4) — опт, Artush (3) — три JSON. Lead экраны не рисует. Номер ученика один и тот же в [TASK.md](TASK.md) и в заголовках [task-wave5.md](task-wave5.md). Ветки не переименовывать. В `main` не пушить. API волны 3 не ломать.
 
 ## Ветки
 
@@ -53,7 +53,7 @@ git push -u origin HEAD
 
 Work only on your own branch. Do not push or merge into `main`. The only branch that receives pull requests is `dev`.
 
-The current task is [task-wave4.md](task-wave4.md): each student builds one large Figma screen. The short list is [TASK.md](TASK.md). The Wave 3 purchase contract is [task-wave3.md](task-wave3.md), and it is not closed. Wave 2 archive: [task-wave2.md](task-wave2.md). Wave 1 archive: [task-advanced.md](task-advanced.md). Finish the purchase contract by the end of January 2027. Student numbers match in both files. Branch names stay: Vach is 9 on `feat/vach-catalog`, Hayk is 4 on `feat/hayk-gateway`, Daniel is 6 on `feat/daniel-footer`. Hand your agent the matching file in `docs/agents/`. Do not break the Wave 3 API.
+The current task is [task-wave5.md](task-wave5.md): the full Figma frame, one piece per student. The short list is [TASK.md](TASK.md). Wave 4 is closed: [task-wave4.md](task-wave4.md). The Wave 3 purchase contract is [task-wave3.md](task-wave3.md), and it is not closed. Wave 2 archive: [task-wave2.md](task-wave2.md). Wave 1 archive: [task-advanced.md](task-advanced.md). Finish the purchase contract by the end of January 2027. Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. Lead does not draw screens. Student numbers match in both files. Branch names stay: Vach is 9 on `feat/vach-catalog`, Hayk is 4 on `feat/hayk-gateway`, Daniel is 6 on `feat/daniel-footer`. Hand your agent the matching file in `docs/agents/`. Do not push `main`. Do not break the Wave 3 API.
 
 ```bash
 git clone <repo-url>
@@ -71,7 +71,7 @@ Wave 3 zones: `lead`, `api`, `i18n`, `payments`, `cart-page`, `orders`, `textile
 
 Աշխատում ենք միայն մեր ճյուղում: `main` չենք push անում և չենք merge անում: PR-ը միայն `dev` է:
 
-Ընթացիկ առաջադրանքը՝ [task-wave4.md](task-wave4.md). ամեն աշակերտ հավաքում է մեկ մեծ Figma էկրան։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Wave 3-ի գնման պայմանագիրը՝ [task-wave3.md](task-wave3.md), այն փակ չէ։ Wave 2-ի արխիվը՝ [task-wave2.md](task-wave2.md)։ Wave 1-ի արխիվը՝ [task-advanced.md](task-advanced.md)։ Գնման պայմանագիրը ավարտել մինչև 2027-ի հունվարի վերջ։ Աշակերտի համարը երկու ֆայլում նույնն է։ Ճյուղերի անունները մնում են. Vach-ը 9-ն է՝ `feat/vach-catalog`, Hayk-ը 4-ն է՝ `feat/hayk-gateway`, Daniel-ը 6-ն է՝ `feat/daniel-footer`։ Գործակալին տուր `docs/agents/`-ի իր ֆայլը։ Wave 3-ի API-ն չկոտրել։
+Ընթացիկ առաջադրանքը՝ [task-wave5.md](task-wave5.md). Figma-ի լրիվ կադրը, մեկ կտոր ամեն աշակերտի։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Wave 4-ը փակ է՝ [task-wave4.md](task-wave4.md)։ Wave 3-ի գնման պայմանագիրը՝ [task-wave3.md](task-wave3.md), այն փակ չէ։ Wave 2-ի արխիվը՝ [task-wave2.md](task-wave2.md)։ Wave 1-ի արխիվը՝ [task-advanced.md](task-advanced.md)։ Գնման պայմանագիրը ավարտել մինչև 2027-ի հունվարի վերջ։ Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։ Lead-ը էկրաններ չի նկարում։ Աշակերտի համարը երկու ֆայլում նույնն է։ Ճյուղերի անունները մնում են. Vach-ը 9-ն է՝ `feat/vach-catalog`, Hayk-ը 4-ն է՝ `feat/hayk-gateway`, Daniel-ը 6-ն է՝ `feat/daniel-footer`։ Գործակալին տուր `docs/agents/`-ի իր ֆայլը։ `main` չpush անել։ Wave 3-ի API-ն չկոտրել։
 
 ```bash
 git clone <repo-url>
