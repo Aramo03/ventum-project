@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #3 Artush
 
+**Волна 5.** Последним. Только `frontend/src/i18n/`: три JSON, армянский кадра в `am.json`, перевод в `en` и `ru`. В очереди после Hayk. Раздел «3 — Artush · подписи» в [task-wave5.md](../../task-wave5.md). Чужие `jsx` и `css` не верстать. Текст ниже не стирать.
+
+**Wave 5.** Last. Only `frontend/src/i18n/`: three JSON files, the frame’s Armenian in `am.json`, translations in `en` and `ru`. You follow Hayk. Section “3 — Artush · copy” in [task-wave5.md](../../task-wave5.md). Do not build other people’s `jsx` or `css`. The text below stays.
+
+**Wave 5.** Վերջինը։ Միայն `frontend/src/i18n/`՝ երեք JSON, կադրի հայերենը `am.json`-ում, թարգմանությունը `en`-ում և `ru`-ում։ Հերթում Hayk-ից հետո։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «3 — Artush · подписи»։ Ուրիշի `jsx`-ը և `css`-ը չհավաքել։ Ներքևի տեքստը մնում է։
+
 **Волна 4.** Текущая зона — [task-wave4.md](../../task-wave4.md), раздел «3 — Artush · подписи». Только `frontend/src/i18n/`: три JSON по кадру, без вёрстки чужих страниц. В очереди ты после Mariam. Текст ниже не стирать.
 
 **Wave 4.** Current zone: [task-wave4.md](../../task-wave4.md), section “3 — Artush · copy”. Only `frontend/src/i18n/`: three JSON files from the frame, no other pages. You follow Mariam in the queue. The text below stays.

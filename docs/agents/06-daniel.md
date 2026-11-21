@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #6 Daniel
 
+**Волна 5.** Подвал и шесть состояний рассылки, папка `frontend/src/components/Footer/`, ветка `feat/daniel-footer`, после Svet. Контакт и copyright на главной. На витрине — сведения, делитель, legal и марки карт. Рассылка бьёт в старый `POST /api/leads/newsletter/`. Invalid не уходит. Модели заказа не трогать. Раздел «6 — Daniel · подвал и рассылка» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5.** Footer and the six newsletter states, folder `frontend/src/components/Footer/`, branch `feat/daniel-footer`, after Svet. Contact and copyright on the home page. On a shop: information, divider, legal line, and card marks. The newsletter still posts to `POST /api/leads/newsletter/`. Invalid does not send. Do not touch order models. Section “6 — Daniel · footer and newsletter” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5.** Ներքևը և բաժանորդագրության վեց վիճակը, պանակ `frontend/src/components/Footer/`, ճյուղ `feat/daniel-footer`, Svet-ից հետո։ Գլխավորում՝ կոնտակտ և copyright։ Խանութում՝ տեղեկություն, բաժանարար, legal և քարտերի նշաններ։ Բաժանորդագրությունը մնում է `POST /api/leads/newsletter/`։ Invalid-ը չի ուղարկում։ Պատվերի մոդելները չկպնել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «6 — Daniel · подвал и рассылка»։ Ներքևի տեքստը մնում է։
+
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «6 — Daniel · подвал». Только `frontend/src/components/Footer/` по кадру. Модели заказа не трогать. Текст ниже не стирать.
 
 **Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “6 — Daniel · footer”. Only `frontend/src/components/Footer/` from the frame. Do not touch order models. The text below stays.
