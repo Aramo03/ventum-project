@@ -111,7 +111,7 @@ export default function Footer() {
           <h2>{t('footer.wholesaleTitle')}</h2>
           <p>{t('footer.wholesaleHint')}</p>
           <button
-            className="vt-button vt-button--ghost"
+            className="vt-button"
             type="button"
             onClick={() => setWholesaleOpen((open) => !open)}
           >

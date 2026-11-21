@@ -49,12 +49,11 @@
 }
 
 .site-footer__form {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 1.75rem;
-  padding: 1.25rem;
-  border: 1px solid var(--vt-line);
-  border-radius: 16px;
-  background: var(--vt-canvas);
+  margin-top: 1.5rem;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--vt-line);
 }
 
 .site-footer__wide {

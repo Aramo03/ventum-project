@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { mediaUrl } from '../../api/client'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import Wholesale from '../../components/Wholesale/Wholesale.jsx'
 import { fetchBabyCatalog } from './baby'
 import './baby.css'
 
@@ -135,6 +136,8 @@ export default function Baby() {
         <h2>{t('baby.noteTitle')}</h2>
         <p className="vt-lead">{t('baby.noteText')}</p>
       </aside>
+
+      <Wholesale brand="baby" />
     </main>
   )
 }

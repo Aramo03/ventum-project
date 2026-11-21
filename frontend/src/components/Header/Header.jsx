@@ -20,7 +20,9 @@ export default function Header() {
   const { pathname } = useLocation()
 
   const isBaby = pathname.startsWith('/baby')
+  const isStorePage = pathname.startsWith('/textile') || isBaby
   const currentNavItems = isBaby ? BABY_NAV_ITEMS : NAV_ITEMS
+  const wholesaleTarget = isBaby ? '/baby#wholesale' : '/textile#wholesale'
 
   const [query, setQuery] = useState('')
   const [products, setProducts] = useState([])
@@ -308,9 +310,9 @@ export default function Header() {
             </span>
           ))}
 
-          {!isBaby && (
+          {isStorePage && (
             <Link
-              to="/wholesale"
+              to={wholesaleTarget}
               className="site-header__wholesale"
             >
               {t('wholesale')}
