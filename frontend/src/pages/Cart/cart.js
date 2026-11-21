@@ -1,10 +1,11 @@
-
 import { api } from '../../api/client'
 
 export const CART_UPDATED_EVENT = 'cart-updated'
 
 export function notifyCartUpdated() {
-  window.dispatchEvent(new Event(CART_UPDATED_EVENT))
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(CART_UPDATED_EVENT))
+  }
 }
 
 export async function getCart() {
