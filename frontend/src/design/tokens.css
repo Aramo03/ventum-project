@@ -1,0 +1,77 @@
+/*
+  Ventum design tokens. Screens set data-brand="textile" or data-brand="baby"
+  and read the semantic variables. Hex values match the shared sheet.
+*/
+
+:root {
+  --ds-textile-ink: #1a1a1a;
+  --ds-textile-muted: #4a4a4a;
+  --ds-textile-accent: #76b82a;
+  --ds-textile-canvas: #f9f9f9;
+  --ds-textile-text: #333333;
+
+  --ds-baby-ink: #5c6b4a;
+  --ds-baby-muted: #8a9a7b;
+  --ds-baby-accent: #a3b18a;
+  --ds-baby-canvas: #f8f8f5;
+  --ds-baby-text: #3e4a38;
+
+  --ds-ink: var(--ds-textile-ink);
+  --ds-muted: var(--ds-textile-muted);
+  --ds-accent: var(--ds-textile-accent);
+  --ds-brand-canvas: var(--ds-textile-canvas);
+  --ds-text: var(--ds-textile-text);
+
+  --ds-action: #76b82a;
+  --ds-action-hover: #69a626;
+  --ds-action-pressed: #5c9420;
+  --ds-on-action: #ffffff;
+  --ds-surface: #ffffff;
+  --ds-line: #e4e4e4;
+  --ds-canvas: #f7f6f2;
+  --ds-danger: #b42318;
+
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.5rem;
+  --ds-space-6: 2rem;
+  --ds-space-7: 3rem;
+  --ds-space-8: 4rem;
+
+  --ds-radius-control: 8px;
+  --ds-radius-card: 16px;
+  --ds-radius-pill: 999px;
+
+  --ds-elev-0: none;
+  --ds-elev-1: 0 1px 2px rgb(26 26 26 / 6%);
+  --ds-elev-2: 0 12px 32px rgb(26 26 26 / 8%);
+
+  --ds-media-ratio: 4 / 3;
+
+  --ds-font-body: "Noto Sans Armenian", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --ds-font-display: "Noto Serif Armenian", "Noto Serif", "Times New Roman", serif;
+  --ds-type-display: 4rem;
+  --ds-type-title: 2.5rem;
+  --ds-type-heading: 1.75rem;
+  --ds-type-body: 1rem;
+  --ds-type-small: 0.875rem;
+  --ds-type-caption: 0.75rem;
+}
+
+[data-brand="textile"] {
+  --ds-ink: var(--ds-textile-ink);
+  --ds-muted: var(--ds-textile-muted);
+  --ds-accent: var(--ds-textile-accent);
+  --ds-brand-canvas: var(--ds-textile-canvas);
+  --ds-text: var(--ds-textile-text);
+}
+
+[data-brand="baby"] {
+  --ds-ink: var(--ds-baby-ink);
+  --ds-muted: var(--ds-baby-muted);
+  --ds-accent: var(--ds-baby-accent);
+  --ds-brand-canvas: var(--ds-baby-canvas);
+  --ds-text: var(--ds-baby-text);
+}
