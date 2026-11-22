@@ -94,8 +94,10 @@
     "note": "Questions about delivery and wholesale.",
     "newsletterTitle": "Newsletter",
     "newsletterEmail": "Email",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterInvalid": "Enter a valid email address.",
     "newsletterSubmit": "Subscribe",
-    "newsletterSuccess": "You are subscribed.",
+    "newsletterSuccess": "Subscription complete",
     "wholesaleTitle": "Wholesale",
     "wholesaleName": "Name",
     "wholesalePhone": "Phone",
@@ -109,6 +111,11 @@
   "common": {
     "loading": "Loading..."
   },
+  "catalogState": {
+    "errorTitle": "Failed to load",
+    "errorText": "Check your internet connection and try again",
+    "errorAction": "Try again"
+  },
   "productCard": {
     "addToCart": "Add to cart",
     "adding": "Adding...",
@@ -121,7 +128,8 @@
     "title": "Ventum Textile",
     "allCategories": "All",
     "loading": "Loading...",
-    "empty": "No products found",
+    "empty": "No results found",
+    "emptyText": "Try changing your search term or category.",
     "error": "Network error. Failed to load data.",
     "currency": "AMD",
     "addToCart": "Add to cart",
@@ -137,7 +145,8 @@
   "baby": {
     "loading": "Loading Baby products...",
     "error": "Failed to load products. Please try again.",
-    "empty": "No Baby products available at the moment.",
+    "empty": "No products found",
+    "emptyText": "Try selecting a different category.",
     "categories": "Categories",
     "products": "Our Products",
     "addToCart": "Add to cart",
@@ -145,7 +154,7 @@
     "cartSuccess": "Product added to cart.",
     "cartSignIn": "Please sign in to add items to your cart.",
     "cartError": "Failed to add product to cart.",
-    "allCategories": "All",
+    "allCategories": "All categories",
     "heroTitle": "Big love for the littlest people",
     "heroText": "Soft cotton for quiet naps, first mornings, and small hands.",
     "favoritesTitle": "Little Favorites",
