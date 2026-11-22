@@ -1,250 +1,332 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { api } from "../../api/client";
+import { footerConfig, isValidEmail } from "./footer";
 import "./footer.css";
 
-export default function Footer() {
-  const { t } = useTranslation();
-  const [email, setEmail] = useState("");
-  const [newsletterStatus, setNewsletterStatus] = useState(null);
+const EMPTY_WHOLESALE = {
+  name: "",
+  phone: "",
+  email: "",
+  text: "",
+};
 
-  // Wholesale form state
+const NEWSLETTER_COPY = {
+  am: {
+    placeholder: "Ձեր էլ. փոստը",
+    invalid: "Մուտքագրեք վավեր էլ. հասցե։",
+    success: "Բաժանորդագրությունն ավարտված է",
+    loading: "Ուղարկվում է...",
+    submit: "Բաժանորդագրվել",
+  },
+  en: {
+    placeholder: "Your email address",
+    invalid: "Please enter a valid email address.",
+    success: "Subscription completed",
+    loading: "Sending...",
+    submit: "Subscribe",
+  },
+  ru: {
+    placeholder: "Ваш e-mail",
+    invalid: "Введите корректный e-mail.",
+    success: "Подписка оформлена",
+    loading: "Отправка...",
+    submit: "Подписаться",
+  },
+};
+
+export default function Footer({ newsletterDisabled = false }) {
+  const { t, i18n } = useTranslation();
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
+
+  const langKey = ["am", "en", "ru"].includes(i18n.language)
+    ? i18n.language
+    : "am";
+  const copy = NEWSLETTER_COPY[langKey];
+
+  const [email, setEmail] = useState("");
+  const [newsletterState, setNewsletterState] = useState("default"); // default | invalid | loading | success | disabled
+  const [newsletterMessage, setNewsletterMessage] = useState("");
+
   const [wholesaleOpen, setWholesaleOpen] = useState(false);
-  const [wholesaleData, setWholesaleData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
+  const [wholesaleData, setWholesaleData] = useState(EMPTY_WHOLESALE);
   const [wholesaleStatus, setWholesaleStatus] = useState(null);
 
-  const handleNewsletterSubmit = async (e) => {
-    e.preventDefault();
+  const effectiveState = newsletterDisabled ? "disabled" : newsletterState;
+
+  const handleEmailChange = (event) => {
+    const nextValue = event.target.value;
+    setEmail(nextValue);
+    if (
+      !newsletterDisabled &&
+      (newsletterState === "invalid" || newsletterState === "success")
+    ) {
+      setNewsletterState("default");
+      setNewsletterMessage("");
+    }
+  };
+
+  const handleNewsletterSubmit = async (event) => {
+    event.preventDefault();
+
+    if (
+      newsletterDisabled ||
+      effectiveState === "disabled" ||
+      newsletterState === "loading"
+    ) {
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setNewsletterState("invalid");
+      setNewsletterMessage(copy.invalid);
+      return;
+    }
+
+    setNewsletterState("loading");
+    setNewsletterMessage("");
+
     try {
-      await api.post("/api/leads/newsletter/", { email });
-      setNewsletterStatus({
-        success: true,
-        message: t("footer.newsletterSuccess", "Successfully subscribed!"),
-      });
+      await api.post("/api/leads/newsletter/", { email: email.trim() });
+      setNewsletterState("success");
+      setNewsletterMessage(copy.success);
       setEmail("");
-    } catch (err) {
-      setNewsletterStatus({
+    } catch {
+      setNewsletterState("invalid");
+      setNewsletterMessage(t("footer.submitError"));
+    }
+  };
+
+  const handleWholesaleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await api.post("/api/leads/wholesale/", {
+        name: wholesaleData.name,
+        phone: wholesaleData.phone,
+        email: wholesaleData.email,
+        text: wholesaleData.text,
+      });
+      setWholesaleStatus({
+        success: true,
+        message: t("footer.wholesaleSuccess"),
+      });
+      setWholesaleData(EMPTY_WHOLESALE);
+    } catch {
+      setWholesaleStatus({
         success: false,
-        message: t(
-          "footer.newsletterError",
-          "Subscription failed or email already exists.",
-        ),
+        message: t("footer.submitError"),
       });
     }
   };
 
-  const handleWholesaleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/api/leads/wholesale/", wholesaleData);
-      setWholesaleStatus({
-        success: true,
-        message: t("footer.wholesaleSuccess", "Inquiry sent successfully!"),
-      });
-      setWholesaleData({ name: "", phone: "", email: "", message: "" });
-    } catch (err) {
-      setWholesaleStatus({
-        success: false,
-        message: t("footer.wholesaleError", "Failed to send inquiry."),
-      });
-    }
+  const setField = (field) => (event) => {
+    setWholesaleData((current) => ({
+      ...current,
+      [field]: event.target.value,
+    }));
   };
+
+  const addressText =
+    langKey === "en"
+      ? footerConfig.contact.addressEn
+      : langKey === "ru"
+        ? footerConfig.contact.addressRu
+        : footerConfig.contact.addressAm;
+
+  const inputClassName = [
+    "site-footer__input",
+    effectiveState === "invalid" ? "site-footer__input--invalid" : "",
+    effectiveState === "success" ? "site-footer__input--success" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <footer className="footer-container bg-neutral-900 text-neutral-300 py-12 px-6 border-t border-neutral-800">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Col 1: Brand / Info */}
-        <div>
-          <h3 className="text-xl font-bold text-white mb-4">Ventum</h3>
-          <p className="text-sm text-neutral-400 mb-4">
-            {t(
-              "footer.description",
-              "Modern textile and baby shop built with quality and style.",
-            )}
-          </p>
-          <div className="text-xs text-neutral-500">
-            © {new Date().getFullYear()} Ventum. All rights reserved.
+    <footer
+      className="site-footer"
+      data-footer-variant={isHomePage ? "home" : "shop"}
+    >
+      {isHomePage ? (
+        <div className="site-footer__gateway-bar">
+          <div className="site-footer__contact-desktop">
+            <span>{footerConfig.contact.phone}</span>
+            <a href={`mailto:${footerConfig.contact.email}`}>
+              {footerConfig.contact.email}
+            </a>
+            <span>{addressText}</span>
+          </div>
+
+          <div className="site-footer__mobile-meta">
+            <p className="site-footer__copyright">
+              © {new Date().getFullYear()} Ventum. {t("footer.rights")}
+            </p>
+            <div className="site-footer__contact">
+              <span>{footerConfig.contact.phone}</span>
+              <a href={`mailto:${footerConfig.contact.email}`}>
+                {footerConfig.contact.email}
+              </a>
+              <span>{addressText}</span>
+            </div>
           </div>
         </div>
-
-        {/* Col 2: Navigation Links */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-            {t("footer.navigation", "Navigation")}
-          </h4>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <a href="/" className="hover:text-white transition-colors">
-                {t("nav.home", "Home")}
-              </a>
-            </li>
-            <li>
-              <a href="/textile" className="hover:text-white transition-colors">
-                {t("nav.textile", "Textile")}
-              </a>
-            </li>
-            <li>
-              <a href="/baby" className="hover:text-white transition-colors">
-                {t("nav.baby", "Baby")}
-              </a>
-            </li>
-            <li>
-              <a href="/cart" className="hover:text-white transition-colors">
-                {t("nav.cart", "Cart")}
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Col 3: Newsletter */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-            {t("footer.newsletterTitle", "Newsletter")}
-          </h4>
-          <p className="text-sm text-neutral-400 mb-3">
-            {t(
-              "footer.newsletterSubtitle",
-              "Subscribe to get special offers and updates.",
-            )}
-          </p>
-          <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={t("footer.emailPlaceholder", "Enter your email")}
-              required
-              className="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded text-sm text-white focus:outline-none focus:border-amber-500"
-            />
-            <button
-              type="submit"
-              className="w-full py-2 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded text-sm transition-colors"
-            >
-              {t("footer.subscribe", "Subscribe")}
-            </button>
-            {newsletterStatus && (
-              <p
-                className={`text-xs ${newsletterStatus.success ? "text-green-400" : "text-red-400"}`}
-              >
-                {newsletterStatus.message}
+      ) : (
+        <>
+          <div className="site-footer__grid">
+            <div>
+              <h2>{t("brand")}</h2>
+              <p>{t("footer.description")}</p>
+              <p>{t("footer.note")}</p>
+              <p className="site-footer__copyright">
+                © {new Date().getFullYear()} Ventum. {t("footer.rights")}
               </p>
-            )}
-          </form>
-        </div>
+            </div>
 
-        {/* Col 4: Wholesale Inquiry */}
-        <div>
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-            {t("footer.wholesaleTitle", "Wholesale")}
-          </h4>
-          <p className="text-sm text-neutral-400 mb-3">
-            {t(
-              "footer.wholesaleSubtitle",
-              "Partner with us for wholesale purchases.",
-            )}
-          </p>
-          <button
-            onClick={() => setWholesaleOpen(!wholesaleOpen)}
-            className="w-full py-2 bg-neutral-800 hover:bg-neutral-700 text-white font-medium rounded text-sm transition-colors border border-neutral-700"
-          >
-            {wholesaleOpen
-              ? t("footer.closeForm", "Close Form")
-              : t("footer.wholesaleButton", "Wholesale Inquiry")}
-          </button>
-        </div>
-      </div>
+            <nav aria-label={t("footer.navigation")}>
+              <h2>{t("footer.navigation")}</h2>
+              <Link to="/">{t("nav.home")}</Link>
+              <Link to="/textile">{t("nav.textile")}</Link>
+              <Link to="/baby">{t("nav.baby")}</Link>
+              <Link to="/cart">{t("nav.cart")}</Link>
+            </nav>
 
-      {/* Wholesale Modal / Expandable Form */}
-      {wholesaleOpen && (
-        <div className="max-w-3xl mx-auto mt-8 p-6 bg-neutral-800 rounded-lg border border-neutral-700">
-          <h4 className="text-lg font-bold text-white mb-4">
-            {t("footer.wholesaleFormTitle", "Wholesale Inquiry Form")}
-          </h4>
-          <form
-            onSubmit={handleWholesaleSubmit}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-          >
-            <div>
-              <label className="block text-xs text-neutral-400 mb-1">
-                {t("footer.name", "Name")}
+            <form
+              onSubmit={handleNewsletterSubmit}
+              noValidate
+              data-newsletter-state={effectiveState}
+            >
+              <h2>{t("footer.newsletterTitle")}</h2>
+              <p>{t("footer.newsletterHint")}</p>
+              <label className="vt-field">
+                <span>{t("footer.newsletterEmail")}</span>
+                <input
+                  type="email"
+                  className={inputClassName}
+                  value={email}
+                  placeholder={copy.placeholder}
+                  onChange={handleEmailChange}
+                  disabled={
+                    effectiveState === "disabled" ||
+                    effectiveState === "loading"
+                  }
+                  aria-invalid={effectiveState === "invalid"}
+                />
               </label>
-              <input
-                type="text"
-                value={wholesaleData.name}
-                onChange={(e) =>
-                  setWholesaleData({ ...wholesaleData, name: e.target.value })
-                }
-                required
-                className="w-full px-3 py-2 bg-neutral-900 border border-neutral-700 rounded text-sm text-white"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-neutral-400 mb-1">
-                {t("footer.phone", "Phone")}
-              </label>
-              <input
-                type="text"
-                value={wholesaleData.phone}
-                onChange={(e) =>
-                  setWholesaleData({ ...wholesaleData, phone: e.target.value })
-                }
-                required
-                className="w-full px-3 py-2 bg-neutral-900 border border-neutral-700 rounded text-sm text-white"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-xs text-neutral-400 mb-1">
-                {t("footer.email", "Email")}
-              </label>
-              <input
-                type="email"
-                value={wholesaleData.email}
-                onChange={(e) =>
-                  setWholesaleData({ ...wholesaleData, email: e.target.value })
-                }
-                required
-                className="w-full px-3 py-2 bg-neutral-900 border border-neutral-700 rounded text-sm text-white"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-xs text-neutral-400 mb-1">
-                {t("footer.message", "Message")}
-              </label>
-              <textarea
-                value={wholesaleData.message}
-                onChange={(e) =>
-                  setWholesaleData({
-                    ...wholesaleData,
-                    message: e.target.value,
-                  })
-                }
-                rows="3"
-                required
-                className="w-full px-3 py-2 bg-neutral-900 border border-neutral-700 rounded text-sm text-white"
-              ></textarea>
-            </div>
-            <div className="sm:col-span-2">
               <button
+                className="vt-button site-footer__submit"
                 type="submit"
-                className="w-full py-2 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded text-sm transition-colors"
+                disabled={
+                  effectiveState === "disabled" || effectiveState === "loading"
+                }
               >
-                {t("footer.sendInquiry", "Send Inquiry")}
+                {effectiveState === "loading"
+                  ? copy.loading
+                  : t("footer.newsletterSubmit") || copy.submit}
+              </button>
+              {newsletterMessage && (
+                <p
+                  className={
+                    effectiveState === "success"
+                      ? "site-footer__feedback--success vt-status vt-status--ok"
+                      : "site-footer__feedback--invalid vt-status vt-status--error"
+                  }
+                  role="status"
+                >
+                  {newsletterMessage}
+                </p>
+              )}
+            </form>
+
+            <div>
+              <h2>{t("footer.wholesaleTitle")}</h2>
+              <p>{t("footer.wholesaleHint")}</p>
+              <button
+                className="vt-button vt-button--ghost"
+                type="button"
+                onClick={() => setWholesaleOpen((open) => !open)}
+              >
+                {wholesaleOpen
+                  ? t("footer.closeForm")
+                  : t("footer.wholesaleTitle")}
               </button>
             </div>
-            {wholesaleStatus && (
-              <p
-                className={`sm:col-span-2 text-xs ${wholesaleStatus.success ? "text-green-400" : "text-red-400"}`}
-              >
-                {wholesaleStatus.message}
-              </p>
-            )}
-          </form>
-        </div>
+          </div>
+
+          {wholesaleOpen && (
+            <form
+              className="site-footer__form"
+              onSubmit={handleWholesaleSubmit}
+            >
+              <label className="vt-field">
+                <span>{t("footer.wholesaleName")}</span>
+                <input
+                  type="text"
+                  value={wholesaleData.name}
+                  onChange={setField("name")}
+                  required
+                />
+              </label>
+              <label className="vt-field">
+                <span>{t("footer.wholesalePhone")}</span>
+                <input
+                  type="text"
+                  value={wholesaleData.phone}
+                  onChange={setField("phone")}
+                  required
+                />
+              </label>
+              <label className="vt-field site-footer__wide">
+                <span>{t("footer.wholesaleEmail")}</span>
+                <input
+                  type="email"
+                  value={wholesaleData.email}
+                  onChange={setField("email")}
+                  required
+                />
+              </label>
+              <label className="vt-field site-footer__wide">
+                <span>{t("footer.wholesaleText")}</span>
+                <textarea
+                  value={wholesaleData.text}
+                  onChange={setField("text")}
+                  required
+                />
+              </label>
+              <div className="site-footer__wide">
+                <button className="vt-button" type="submit">
+                  {t("footer.wholesaleSubmit")}
+                </button>
+              </div>
+              {wholesaleStatus && (
+                <p
+                  className={`site-footer__wide ${wholesaleStatus.success ? "vt-status vt-status--ok" : "vt-status vt-status--error"}`}
+                  role="status"
+                >
+                  {wholesaleStatus.message}
+                </p>
+              )}
+            </form>
+          )}
+
+          <hr className="site-footer__divider" />
+
+          <div className="site-footer__legal">
+            <div className="site-footer__legal-links">
+              <span>{footerConfig.contact.email}</span>
+              <span>{addressText}</span>
+              <span>© {new Date().getFullYear()} Ventum</span>
+            </div>
+
+            <div className="site-footer__payments" aria-label="Payment cards">
+              {footerConfig.paymentMarks.map((mark) => (
+                <span key={mark} className="site-footer__card-mark">
+                  {mark}
+                </span>
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </footer>
   );
