@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import ProductCard from '../../components/ProductCard/ProductCard';
-import CatalogState from '../../components/CatalogState/CatalogState';
+import ProductCard from '../../components/ProductCard/ProductCard.jsx';
+import CatalogState from '../../components/CatalogState/CatalogState.jsx';
 import {
   ASSURANCE_KEYS,
   CARE_PILLAR_KEYS,

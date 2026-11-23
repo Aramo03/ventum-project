@@ -22,8 +22,8 @@ function extractList(data) {
 
 export async function fetchTextileCatalog() {
   const [categoriesRes, productsRes] = await Promise.all([
-    api.get('/catalog/categories/', { params: { store: STORE_KEY } }),
-    api.get('/catalog/products/', { params: { store: STORE_KEY } }),
+    api.get('/api/catalog/categories/', { params: { store: STORE_KEY } }),
+    api.get('/api/catalog/products/', { params: { store: STORE_KEY } }),
   ]);
 
   const categories = extractList(categoriesRes.data).filter(
