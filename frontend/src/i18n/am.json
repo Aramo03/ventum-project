@@ -115,7 +115,22 @@
     "added": "Ավելացված է զամբյուղ",
     "signIn": "Ապրանքը զամբյուղ ավելացնելու համար մուտք գործեք։",
     "failed": "Չհաջողվեց ավելացնել։ Փորձեք կրկին։",
-    "currency": "AMD"
+    "currency": "AMD",
+    "card": "Քարտ",
+    "cash": "Կանխիկ",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "sizes": "Չափս"
+  },
+  "catalogState": {
+    "textileEmptyTitle": "Ոչ մի արդյունք չի գտնվել",
+    "textileEmptyText": "Փորձեք փոխել որոնման բառը կամ բաժինը։",
+    "babyEmptyTitle": "Ոչ մի ապրանք չի գտնվել",
+    "babyEmptyText": "Փորձեք ընտրել մեկ այլ բաժին։",
+    "babyEmptyAction": "Բոլոր բաժինները",
+    "errorTitle": "Բեռնումը ձախողվել է",
+    "errorText": "Ստուգեք ձեր ինտերնետ կապը և փորձեք կրկին",
+    "retry": "Կրկին փորձել"
   },
   "textile": {
     "title": "Ventum Textile",

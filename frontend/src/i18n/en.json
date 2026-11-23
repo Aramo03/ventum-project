@@ -115,7 +115,22 @@
     "added": "Added to cart",
     "signIn": "Sign in to add this item to your cart.",
     "failed": "Could not add this item. Try again.",
-    "currency": "AMD"
+    "currency": "AMD",
+    "card": "Card",
+    "cash": "Cash",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "sizes": "Size"
+  },
+  "catalogState": {
+    "textileEmptyTitle": "No results found",
+    "textileEmptyText": "Try changing the search word or the section.",
+    "babyEmptyTitle": "No product found",
+    "babyEmptyText": "Try choosing another section.",
+    "babyEmptyAction": "All sections",
+    "errorTitle": "Loading failed",
+    "errorText": "Check your internet connection and try again",
+    "retry": "Try again"
   },
   "textile": {
     "title": "Ventum Textile",
