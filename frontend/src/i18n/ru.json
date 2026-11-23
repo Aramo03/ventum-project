@@ -115,7 +115,22 @@
     "added": "Товар добавлен в корзину",
     "signIn": "Войдите, чтобы добавить товар в корзину.",
     "failed": "Не удалось добавить товар. Попробуйте ещё раз.",
-    "currency": "AMD"
+    "currency": "AMD",
+    "card": "Карта",
+    "cash": "Наличные",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "sizes": "Размер"
+  },
+  "catalogState": {
+    "textileEmptyTitle": "Ничего не найдено",
+    "textileEmptyText": "Попробуйте изменить слово поиска или раздел.",
+    "babyEmptyTitle": "Товар не найден",
+    "babyEmptyText": "Попробуйте выбрать другой раздел.",
+    "babyEmptyAction": "Все разделы",
+    "errorTitle": "Загрузка не удалась",
+    "errorText": "Проверьте подключение к интернету и попробуйте снова",
+    "retry": "Попробовать снова"
   },
   "textile": {
     "title": "Ventum Textile",
