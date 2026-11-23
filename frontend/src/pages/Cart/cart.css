@@ -34,6 +34,10 @@
   font-size: 0.78rem;
 }
 
+.cart-item__info {
+  min-width: 0;
+}
+
 .cart-item h2 {
   margin: 0;
   color: var(--vt-ink);
@@ -70,6 +74,12 @@
 @media (max-width: 700px) {
   .cart-item {
     grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  .cart-item__image img,
+  .cart-item__placeholder {
+    width: 5rem;
+    height: 5rem;
   }
 
   .cart-item__actions,

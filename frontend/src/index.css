@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./design/tokens.css";
 
 :root {
   --tx-ink: #1a1a1a;

@@ -13,10 +13,14 @@ export const api = axios.create({
 
 export function mediaUrl(path) {
   if (typeof path !== 'string') return ''
+
   const raw = path.trim()
   if (!raw) return ''
+
   if (/^https?:\/\//i.test(raw)) return raw
+
   const suffix = raw.startsWith('/') ? raw : `/${raw}`
+
   return `${baseURL.replace(/\/$/, '')}${suffix}`
 }
 
@@ -27,16 +31,20 @@ function currentLanguage() {
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
   const method = (config.method || 'get').toLowerCase()
+
   if (method === 'get') {
     config.params = {
       ...config.params,
       language: config.params?.language ?? currentLanguage(),
     }
   }
+
   return config
 })
 
@@ -48,6 +56,7 @@ export function setAuthToken(token) {
   } else {
     localStorage.removeItem(TOKEN_KEY)
   }
+
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new Event(AUTH_CHANGED_EVENT))
   }

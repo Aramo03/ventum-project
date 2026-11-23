@@ -115,24 +115,62 @@
     "added": "Added to cart",
     "signIn": "Sign in to add this item to your cart.",
     "failed": "Could not add this item. Try again.",
-    "currency": "AMD"
+    "currency": "AMD",
+    "card": "Card",
+    "cash": "Cash",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "sizes": "Size"
+  },
+  "catalogState": {
+    "textileEmptyTitle": "No results found",
+    "textileEmptyText": "Try changing the search word or the section.",
+    "babyEmptyTitle": "No product found",
+    "babyEmptyText": "Try choosing another section.",
+    "babyEmptyAction": "All sections",
+    "errorTitle": "Loading failed",
+    "errorText": "Check your internet connection and try again",
+    "retry": "Try again"
   },
   "textile": {
-    "title": "Ventum Textile",
-    "allCategories": "All",
-    "loading": "Loading...",
-    "empty": "No products found",
-    "error": "Network error. Failed to load data.",
-    "currency": "AMD",
-    "addToCart": "Add to cart",
-    "cartSuccess": "Added to cart",
-    "cartSignIn": "Sign in required",
-    "heroTitle": "Woven for quiet, sunlit mornings",
-    "heroText": "Linen and cotton for a slower start to the day.",
-    "quote": "Quality you feel at the very first touch",
-    "collectionTitle": "The Gentle Collection",
-    "noteTitle": "A slower note on linen for your bedside",
-    "noteText": "Soft cloth, quiet colours, and mornings that take their time."
+   "editorial": {
+    "eyebrow": "Ventum Textile",
+    "title": "Natural textiles for everyday home comfort",
+    "description": "Curated cotton and linen collections crafted for lasting softness and calm living.",
+    "cta": "Explore collection",
+    "mediaAlt": "Ventum Textile seasonal editorial photography",
+    "caption": "Seasonal collection"
+  },
+  "assurances": {
+    "qualityTitle": "Natural fabrics",
+    "qualityText": "Breathable, skin-friendly materials built to last.",
+    "deliveryTitle": "Reliable delivery",
+    "deliveryText": "Prompt delivery across Yerevan and regions.",
+    "careTitle": "Easy care",
+    "careText": "Holds its shape and softness wash after wash."
+  },
+  "categories": {
+    "heading": "Shop by category",
+    "subheading": "Choose a category to filter the collection",
+    "all": "All categories"
+  },
+  "story": {
+    "eyebrow": "Brand story and care",
+    "title": "Calm textures and thoughtful details",
+    "philosophy": "Ventum Textile designs home essentials that pair tactile comfort with clean, timeless form.",
+    "pillar1": "Machine wash gentle at 30–40°C.",
+    "pillar2": "Avoid harsh bleaching agents.",
+    "pillar3": "Line dry naturally to preserve fiber softness."
+  },
+  "collection": {
+    "heading": "Product collection",
+    "count": "{{count}} items",
+    "categoryLabel": "Category",
+    "searchLabel": "Search",
+    "resetFilters": "Reset filters",
+    "showAll": "Show all products",
+    "backToTop": "Back to collection top"
+  }
   },
   "baby": {
     "loading": "Loading Baby products...",
