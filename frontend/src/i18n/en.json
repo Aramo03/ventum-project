@@ -176,7 +176,6 @@
     "loading": "Loading Baby products...",
     "error": "Failed to load products. Please try again.",
     "empty": "No Baby products available at the moment.",
-    "categories": "Categories",
     "products": "Our Products",
     "addToCart": "Add to cart",
     "cartAdding": "Adding...",
@@ -193,7 +192,53 @@
     "giftTitle": "A gift as gentle as your baby's skin",
     "giftText": "A small set, chosen for softness and slow mornings.",
     "noteTitle": "A soft note for the bedside",
-    "noteText": "Breathable cotton, calm colours, and room to grow."
+    "noteText": "Breathable cotton, calm colours, and room to grow.",
+    "editorial": {
+      "eyebrow": "Ventum Baby",
+      "title": "Big love for the littlest people",
+      "description": "Soft cotton for quiet naps, first mornings, and small hands.",
+      "cta": "See the set",
+      "mediaAlt": "Ventum Baby seasonal photograph",
+      "caption": "First morning"
+    },
+    "assurances": {
+      "cottonTitle": "Soft cotton",
+      "cottonText": "Gentle on skin from the first day.",
+      "deliveryTitle": "A calm delivery",
+      "deliveryText": "The little set arrives home without a rush.",
+      "washTitle": "Soft after washing",
+      "washText": "It keeps its softness for the next nap."
+    },
+    "categories": {
+      "heading": "Little sections",
+      "subheading": "Choose a section to filter the set",
+      "all": "The whole set"
+    },
+    "story": {
+      "eyebrow": "Brand story",
+      "title": "Care woven into every stitch",
+      "philosophy": "Cloth that stays gentle on the skin, from the first wrap to the next nap.",
+      "pillar1": "Cotton that breathes",
+      "pillar2": "Quiet colours for the nursery",
+      "pillar3": "Room to grow"
+    },
+    "care": {
+      "eyebrow": "Parent care guide",
+      "title": "How to care for the first set",
+      "intro": "Short steps for washing, drying, and the next nap.",
+      "step1": "Wash it alone the first time, in mild water.",
+      "step2": "Skip fabric softener.",
+      "step3": "Dry it in the shade and fold it without ironing."
+    },
+    "collection": {
+      "heading": "The little collection",
+      "count": "Items: {{count}}",
+      "categoryLabel": "Section",
+      "searchLabel": "Search",
+      "resetFilters": "Clear filters",
+      "showAll": "Show the whole set",
+      "backToTop": "Back to the collection"
+    }
   },
   "account": {
     "title": "My account",

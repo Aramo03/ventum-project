@@ -1,4 +1,228 @@
 .baby-page {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: clip;
+  background: var(--ds-brand-canvas, #f8f8f5);
+  color: var(--ds-text, #3e4a38);
+}
+
+.baby-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 64px;
+  box-sizing: border-box;
+}
+
+.baby-section {
+  padding: 64px 0;
+}
+
+.baby-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ds-muted, #8a9a7b);
+}
+
+.baby-section-title {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: var(--ds-ink, #5c6b4a);
+}
+
+.baby-section-subtitle {
+  margin: 0 0 24px;
+  color: var(--ds-muted, #8a9a7b);
+}
+
+.baby-editorial__grid,
+.baby-story__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.baby-editorial__title {
+  margin: 0 0 16px;
+  font-size: 3rem;
+  line-height: 1.1;
+  color: var(--ds-ink, #5c6b4a);
+}
+
+.baby-editorial__text {
+  max-width: 520px;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.baby-editorial__photo {
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eaf0e3, var(--ds-accent, #a3b18a));
+}
+
+.baby-assurances {
+  background: #fff;
+}
+
+.baby-assurances__grid,
+.baby-category-grid,
+.baby-product-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.baby-assurances__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.baby-assurance,
+.baby-story__pillars li,
+.baby-care__steps li {
+  margin: 0;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--ds-accent, #a3b18a) 45%, white);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.baby-assurance h2,
+.baby-care__steps {
+  margin: 0;
+}
+
+.baby-assurance p {
+  margin: 8px 0 0;
+  color: var(--ds-muted, #8a9a7b);
+}
+
+.baby-category-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.baby-category {
+  min-height: 72px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--ds-accent, #a3b18a) 50%, white);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--ds-ink, #5c6b4a);
+  cursor: pointer;
+}
+
+.baby-category.is-active {
+  background: var(--ds-accent, #a3b18a);
+  color: #24301d;
+}
+
+.baby-story__pillars,
+.baby-care__steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.baby-care {
+  background: color-mix(in srgb, var(--ds-accent, #a3b18a) 18%, white);
+}
+
+.baby-care__steps {
+  list-style: decimal;
+  padding-left: 0;
+}
+
+.baby-care__steps li {
+  list-style: decimal inside;
+}
+
+.baby-collection__header,
+.baby-filters,
+.baby-collection__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.baby-collection__header {
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.baby-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.baby-product-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.baby-collection__footer {
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.baby-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.baby-btn--primary {
+  background: var(--ds-ink, #5c6b4a);
+  color: #fff;
+}
+
+.baby-btn--secondary {
+  background: transparent;
+  border-color: var(--ds-accent, #a3b18a);
+  color: var(--ds-ink, #5c6b4a);
+}
+
+.baby-btn--ghost {
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--ds-ink, #5c6b4a);
+  text-decoration: underline;
+}
+
+@media (max-width: 800px) {
+  .baby-container {
+    padding: 0 16px;
+  }
+
+  .baby-section {
+    padding: 40px 0;
+  }
+
+  .baby-editorial__grid,
+  .baby-story__layout,
+  .baby-assurances__grid,
+  .baby-category-grid,
+  .baby-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .baby-editorial__title {
+    font-size: 2rem;
+  }
 }
