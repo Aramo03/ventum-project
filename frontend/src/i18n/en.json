@@ -244,6 +244,23 @@
       "backToTop": "Back to the collection"
     }
   },
+  "wholesaleBlock": {
+    "eyebrow": "Wholesale partnership",
+    "title": "Partner with Ventum",
+    "description": "Choose quality products for your shop or business. Leave your details and our team will get in touch.",
+    "action": "Become a partner",
+    "close": "Close request form",
+    "formTitle": "Send a wholesale inquiry",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Tell us about your business",
+    "submit": "Send inquiry",
+    "submitting": "Sending...",
+    "success": "Thank you. Our team will be in touch.",
+    "error": "Could not send your inquiry. Please try again.",
+    "required": "Please complete all fields."
+  },
   "account": {
     "title": "My account",
     "loading": "Checking your account...",

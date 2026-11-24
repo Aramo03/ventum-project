@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ProductCard from '../../components/ProductCard/ProductCard.jsx';
 import CatalogState from '../../components/CatalogState/CatalogState.jsx';
+import Wholesale from '../../components/Wholesale/Wholesale.jsx';
 import {
   ASSURANCE_KEYS,
   CARE_PILLAR_KEYS,
@@ -229,6 +230,7 @@ export default function Textile() {
           </div>
         </div>
       </section>
+      <Wholesale brand={STORE_KEY} />
     </main>
   );
 }
