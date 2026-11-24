@@ -1,3 +1,11 @@
+.shop-block.wholesale-block[data-brand] {
+  --shop-ink: var(--ds-ink);
+  --shop-muted: var(--ds-muted);
+  --shop-accent: var(--ds-accent);
+  --shop-canvas: var(--ds-brand-canvas);
+  --shop-text: var(--ds-text);
+}
+
 .shop-block.wholesale-block {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

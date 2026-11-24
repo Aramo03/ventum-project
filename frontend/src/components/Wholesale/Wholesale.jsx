@@ -98,6 +98,7 @@ export default function Wholesale({ brand = 'textile' }) {
         <form
           className="wholesale-block__form"
           id="wholesale-form"
+          noValidate
           onSubmit={handleSubmit}
         >
           <h3>{t('wholesaleBlock.formTitle')}</h3>

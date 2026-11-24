@@ -5,30 +5,87 @@ import { api } from '../../api/client.js'
 import { STORE_LINKS } from './gateway.js'
 import './gateway.css'
 
-const STORE_COPY = {
+import textileLogo from './textile-logo.jpg'
+import bedroomPhoto from './bedroom.jpg'
+import babyLogo from './baby-logo.jpg'
+import nurseryPhoto from './nursery.jpg'
+
+const STORY_DETAILS = {
   '/textile': {
     kind: 'textile',
+    logo: textileLogo,
+    photo: bedroomPhoto,
+    promise: 'header.textileTagline',
     caption: 'gateway.textileCaption',
+    designation: 'gateway.textileType',
     title: 'gateway.textileTitle',
     description: 'gateway.textileDescription',
     action: 'gateway.textileAction',
+    categories: 'gateway.textileCategories',
   },
   '/baby': {
     kind: 'baby',
+    logo: babyLogo,
+    photo: nurseryPhoto,
+    promise: 'header.babyTagline',
     caption: 'gateway.babyCaption',
+    designation: 'gateway.babyType',
     title: 'gateway.babyTitle',
     description: 'gateway.babyDescription',
     action: 'gateway.babyAction',
+    categories: 'gateway.babyCategories',
   },
 }
 
-function Swatches() {
+function HomeBlock({ hero }) {
+  if (!hero?.title && !hero?.text) return null
+
   return (
-    <span className="vt-swatches" aria-hidden="true">
-      <span className="vt-swatch vt-swatch--ink" />
-      <span className="vt-swatch vt-swatch--muted" />
-      <span className="vt-swatch vt-swatch--accent" />
-    </span>
+    <aside className="gateway-home-block" aria-live="polite">
+      {hero.title ? <strong>{hero.title}</strong> : null}
+      {hero.text ? <span>{hero.text}</span> : null}
+    </aside>
+  )
+}
+
+function StoryPanel({ store, t }) {
+  const story = STORY_DETAILS[store.to]
+  const categoryList = t(story.categories).split(' · ')
+
+  return (
+    <section
+      className={`gateway-panel gateway-panel--${story.kind}`}
+      data-brand={story.kind}
+      aria-labelledby={`gateway-${story.kind}-title`}
+    >
+      <div className="gateway-panel__tag">
+        <span>{t(story.caption)}</span>
+        <span>{t(story.promise)}</span>
+      </div>
+
+      <img className="gateway-panel__logo" src={story.logo} alt={t(store.key)} />
+
+      <span className="gateway-panel__designation">{t(story.designation)}</span>
+      <h2 id={`gateway-${story.kind}-title`}>{t(story.title)}</h2>
+      <p className="gateway-panel__description">{t(story.description)}</p>
+
+      <Link className="gateway-panel__action" to={store.to}>
+        {t(story.action)}
+      </Link>
+
+      <img
+        className="gateway-panel__photo"
+        src={story.photo}
+        alt=""
+        loading="lazy"
+      />
+
+      <ul className="gateway-panel__categories" aria-label={t(story.caption)}>
+        {categoryList.map((category) => (
+          <li key={category}>{category}</li>
+        ))}
+      </ul>
+    </section>
   )
 }
 
@@ -59,47 +116,16 @@ export default function Gateway() {
 
   return (
     <main className="gateway-page">
-      <header className="vt-type">
-        <p className="vt-eyebrow">{t('brand')}</p>
-        <h1>{t('gateway.identitiesTitle')}</h1>
-        <p className="vt-lead">{t('gateway.identitiesLead')}</p>
-      </header>
-
-      {hero?.title || hero?.text ? (
-        <section className="gateway-welcome" aria-labelledby="gateway-welcome-title">
-          <h2 id="gateway-welcome-title">{hero?.title || t('stores.choose')}</h2>
-          {hero?.text ? <p>{hero.text}</p> : null}
-        </section>
-      ) : null}
-
+      <HomeBlock hero={hero} />
       {requestFailed ? (
-        <p className="vt-status" role="status">
+        <p className="gateway-request-status" role="status">
           {t('gateway.contentUnavailable')}
         </p>
       ) : null}
 
-      <section className="gateway-stores" aria-label={t('stores.choose')}>
-        {STORE_LINKS.map((store) => {
-          const copy = STORE_COPY[store.to]
-          return (
-            <Link
-              className={`vt-identity vt-identity--${copy.kind}`}
-              key={store.to}
-              to={store.to}
-            >
-              <Swatches />
-              <span className="vt-identity__kicker">{t(copy.caption)}</span>
-              <h2>{t(store.key)}</h2>
-              <p>
-                <strong>{t(copy.title)}</strong>
-                {' '}
-                {t(copy.description)}
-              </p>
-              <span className="vt-button">{t(copy.action)}</span>
-            </Link>
-          )
-        })}
-      </section>
+      {STORE_LINKS.map((store) => (
+        <StoryPanel key={store.to} store={store} t={t} />
+      ))}
     </main>
   )
 }

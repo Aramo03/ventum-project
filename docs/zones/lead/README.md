@@ -13,18 +13,20 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | ждёт PR |
-| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | не начато |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | не начато |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | не начато |
-| 5 | Mariam | `feat/mariam-header` | header | Vach | — | не начато |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
-| 7 | Karen | `feat/karen-textile` | textile | Suro | — | не начато |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
-| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | не начато |
-| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | не начато |
+| 1 | Lead | `feat/lead` | lead | — | #64 | в dev |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | в dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | ждёт PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | ждёт PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | в dev |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | ждёт PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | в dev |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | в dev |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | в dev |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | в dev |
 
 Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Шапка и `/textile` в dev. `/baby` в dev: пять секций и отдельный Parent care guide. Следующая зона — Daniel. Волна 5 не закрыта.
 
 Текущие PR волны 5 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave5.md](../../../task-wave5.md).
 
@@ -117,18 +119,20 @@ Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | waiting for a PR |
-| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | not started |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | not started |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | not started |
-| 5 | Mariam | `feat/mariam-header` | header | Vach | — | not started |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
-| 7 | Karen | `feat/karen-textile` | textile | Suro | — | not started |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
-| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | not started |
-| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | not started |
+| 1 | Lead | `feat/lead` | lead | — | #64 | in dev |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | in dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | waiting for a PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | waiting for a PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | in dev |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | waiting for a PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | in dev |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | in dev |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | in dev |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | in dev |
 
 Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+The header and `/textile` are in dev. `/baby` is in dev with five sections and a separate Parent care guide. Daniel is next. Wave 5 stays open.
 
 Merge Wave 5 pull requests in this order. Base is `dev`. A gate is the “Lead does not merge until” line in [task-wave5.md](../../../task-wave5.md).
 
@@ -219,18 +223,20 @@ Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | սպասում է PR |
-| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | չսկսված |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | չսկսված |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | չսկսված |
-| 5 | Mariam | `feat/mariam-header` | header | Vach | — | չսկսված |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չսկսված |
-| 7 | Karen | `feat/karen-textile` | textile | Suro | — | չսկսված |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չսկսված |
-| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | — | չսկսված |
-| 10 | Ashot | `feat/ashot-ui` | design | Lead | — | չսկսված |
+| 1 | Lead | `feat/lead` | lead | — | #64 | dev-ում |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | dev-ում |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | սպասում է PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | սպասում է PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | dev-ում |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | սպասում է PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | dev-ում |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | dev-ում |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | dev-ում |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | dev-ում |
 
 Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+Վերնագիրն ու `/textile`-ը dev-ում են։ `/baby`-ն dev-ում է՝ հինգ սեկցիա և առանձին Parent care guide։ Հաջորդը Daniel-ն է։ Wave 5-ը բաց է։
 
 Wave 5-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave5.md](../../../task-wave5.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
 
