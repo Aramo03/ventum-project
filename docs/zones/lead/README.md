@@ -20,13 +20,13 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | в dev |
 | 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | ждёт PR |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | в dev |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | ждёт PR |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | в dev |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | в dev |
 | 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | в dev |
 
 Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
 
-Шапка пишет `?q=` и `?category=`, опт ведёт на `#wholesale`, язык и ряд видны на узкой ширине. `/textile` в dev: пять секций, карточка и состояния каталога. Следующая зона — Svet. Волна 5 не закрыта.
+Шапка и `/textile` в dev. `/baby` в dev: пять секций и отдельный Parent care guide. Следующая зона — Daniel. Волна 5 не закрыта.
 
 Текущие PR волны 5 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave5.md](../../../task-wave5.md).
 
@@ -126,13 +126,13 @@ Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | in dev |
 | 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | waiting for a PR |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | in dev |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | waiting for a PR |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | in dev |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | in dev |
 | 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | in dev |
 
 Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
 
-The header writes `?q=` and `?category=`, wholesale points at `#wholesale`, and language plus the category row stay visible on a narrow width. `/textile` is in dev with five sections, the product card, and catalog states. Svet is next. Wave 5 stays open.
+The header and `/textile` are in dev. `/baby` is in dev with five sections and a separate Parent care guide. Daniel is next. Wave 5 stays open.
 
 Merge Wave 5 pull requests in this order. Base is `dev`. A gate is the “Lead does not merge until” line in [task-wave5.md](../../../task-wave5.md).
 
@@ -230,13 +230,13 @@ Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | dev-ում |
 | 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | սպասում է PR |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | dev-ում |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | սպասում է PR |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | dev-ում |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | dev-ում |
 | 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | dev-ում |
 
 Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
 
-Վերնագիրը գրում է `?q=` և `?category=`, մեծածախը տանում է `#wholesale`, իսկ նեղ լայնքում լեզուն և բաժինների շարքը մնում են տեսանելի։ `/textile`-ը dev-ում է՝ հինգ սեկցիա, քարտ և կատալոգի վիճակներ։ Հաջորդը Svet-ն է։ Wave 5-ը բաց է։
+Վերնագիրն ու `/textile`-ը dev-ում են։ `/baby`-ն dev-ում է՝ հինգ սեկցիա և առանձին Parent care guide։ Հաջորդը Daniel-ն է։ Wave 5-ը բաց է։
 
 Wave 5-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave5.md](../../../task-wave5.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
 
