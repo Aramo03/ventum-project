@@ -9,16 +9,16 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 ## Доска merge — Wave 5
 
-Волна 5 открыта. Полный кадр: главная, дизайн-система, Textile и Baby, desktop и mobile. Волна 4 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается.
+Волна 5 закрыта. Полный кадр: главная, дизайн-система, Textile и Baby, desktop и mobile. Волна 4 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается.
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | #64 | в dev |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | в dev |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | ждёт PR |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | ждёт PR |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | #69, #77 | в dev |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | #78 | в dev |
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | в dev |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | ждёт PR |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | #77 | в dev |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | в dev |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | в dev |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | в dev |
@@ -26,7 +26,7 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
 
-Шапка и `/textile` в dev. `/baby` в dev: пять секций и отдельный Parent care guide. Следующая зона — Daniel. Волна 5 не закрыта.
+Все десять строк в dev. Три JSON открываются. `/`, `/textile`, `/baby` и `/design` проверены на 1440 и на узкой ширине. В diff волны нет Postgres и правок оплаты. Волна 3 остаётся открытой.
 
 Текущие PR волны 5 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave5.md](../../../task-wave5.md).
 
@@ -115,16 +115,16 @@ Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wa
 
 ### Wave 5 board
 
-Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby, desktop and mobile. Wave 4 stays closed. This table does not close Wave 3.
+Wave 5 is closed. It is the full frame: home, the design system, Textile, and Baby, desktop and mobile. Wave 4 stays closed. This table does not close Wave 3.
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
 | 1 | Lead | `feat/lead` | lead | — | #64 | in dev |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | in dev |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | waiting for a PR |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | waiting for a PR |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | #69, #77 | in dev |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | #78 | in dev |
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | in dev |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | waiting for a PR |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | #77 | in dev |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | in dev |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | in dev |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | in dev |
@@ -132,7 +132,7 @@ Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby
 
 Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
 
-The header and `/textile` are in dev. `/baby` is in dev with five sections and a separate Parent care guide. Daniel is next. Wave 5 stays open.
+All ten rows are in dev. The three JSON files parse. `/`, `/textile`, `/baby`, and `/design` were checked at 1440 and at a narrow width. The wave diff has no Postgres and no payment edits. Wave 3 stays open.
 
 Merge Wave 5 pull requests in this order. Base is `dev`. A gate is the “Lead does not merge until” line in [task-wave5.md](../../../task-wave5.md).
 
@@ -219,16 +219,16 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 
 ### Wave 5-ի տախտակ
 
-Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Wave 4-ը մնում է փակ։ Այս աղյուսակը Wave 3-ը չի փակում։
+Wave 5-ը փակ է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Wave 4-ը մնում է փակ։ Այս աղյուսակը Wave 3-ը չի փակում։
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
 | 1 | Lead | `feat/lead` | lead | — | #64 | dev-ում |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | dev-ում |
-| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | սպասում է PR |
-| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | սպասում է PR |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | #69, #77 | dev-ում |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | #78 | dev-ում |
 | 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | dev-ում |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | սպասում է PR |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | #77 | dev-ում |
 | 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | dev-ում |
 | 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | dev-ում |
 | 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | dev-ում |
@@ -236,7 +236,7 @@ Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն
 
 Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
 
-Վերնագիրն ու `/textile`-ը dev-ում են։ `/baby`-ն dev-ում է՝ հինգ սեկցիա և առանձին Parent care guide։ Հաջորդը Daniel-ն է։ Wave 5-ը բաց է։
+Բոլոր տասը տողերը dev-ում են։ Երեք JSON-ը բացվում են։ `/`, `/textile`, `/baby` և `/design` ստուգվել են 1440-ում և նեղ լայնքում։ Ալիքի diff-ում Postgres և վճարման փոփոխություն չկա։ Wave 3-ը բաց է մնում։
 
 Wave 5-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave5.md](../../../task-wave5.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
 
