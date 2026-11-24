@@ -104,6 +104,11 @@ export default function Header() {
   function selectLanguage(code) {
     const next = knownLanguage(code)
     if (!next) return
+    try {
+      localStorage.setItem('i18nextLng', next)
+    } catch {
+      /* the switcher still changes the current view */
+    }
     i18n.changeLanguage(next)
   }
 
