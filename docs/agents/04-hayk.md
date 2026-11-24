@@ -1,14 +1,24 @@
 # Agent brief — Wave 3 — #4 Hayk
 
-**Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «4 — Hayk · кабинет». Только `frontend/src/pages/Account/`: вход, загрузка, ошибка, сессия. Checkout не переписывать. Текст ниже не стирать.
+**Волна 5.** Блок опта, папка `frontend/src/components/Wholesale/`, ветка `feat/hayk-gateway`, после Daniel. Слои Supporting offer и Primary action. Вставка только между коллекцией и подвалом в `Textile.jsx` и `Baby.jsx`. Заявка — старый `POST /api/leads/wholesale/`. Checkout, callback и `/account` не переписывать. Раздел «4 — Hayk · опт» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
 
-**Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “4 — Hayk · account”. Only `frontend/src/pages/Account/`: sign-in, loading, error, session. Do not rewrite checkout. The text below stays.
+**Wave 5.** The wholesale block, folder `frontend/src/components/Wholesale/`, branch `feat/hayk-gateway`, after Daniel. Layers: Supporting offer and Primary action. Insert it only between the collection and the footer in `Textile.jsx` and `Baby.jsx`. The request stays `POST /api/leads/wholesale/`. Do not rewrite checkout, the callback, or `/account`. Section “4 — Hayk · wholesale” in [task-wave5.md](../../task-wave5.md). The text below stays.
 
-**Wave 4.** Ընթացիկ էկրանը՝ [task-wave4.md](../../task-wave4.md), «4 — Hayk · հաշիվ»։ Միայն `frontend/src/pages/Account/`՝ մուտք, բեռնում, սխալ, սեսիա։ Checkout-ը չվերաշարադրել։ Ներքևի տեքստը մնում է։
+**Wave 5.** Մեծածախի բլոկ, պանակ `frontend/src/components/Wholesale/`, ճյուղ `feat/hayk-gateway`, Daniel-ից հետո։ Շերտեր՝ Supporting offer և Primary action։ Ներդնել միայն հավաքածուի և ներքևի միջև `Textile.jsx`-ում և `Baby.jsx`-ում։ Հարցումը մնում է `POST /api/leads/wholesale/`։ Checkout-ը, callback-ը և `/account`-ը չվերագրել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «4 — Hayk · опт»։ Ներքևի տեքստը մնում է։
+
+**Волна 4.** Текущий PR — только `frontend/src/pages/Account/`, ветка `feat/hayk-gateway`, base `dev`, после Daniel: вход, загрузка, ошибка, сессия. `App.jsx` не править: маршрут `/account` уже есть. Checkout, `idram.py` и главная в этот PR не входят. Шаги оплаты ниже остаются контрактом волны 3. Текст ниже не стирать. Экран — [task-wave4.md](../../task-wave4.md), раздел «4 — Hayk · кабинет».
+
+**Wave 4.** Current pull request: only `frontend/src/pages/Account/`, branch `feat/hayk-gateway`, base `dev`, after Daniel: sign-in, loading, error, session. Do not edit `App.jsx`: the `/account` route is already there. Checkout, `idram.py`, and the home page stay out of this pull request. The payment steps below stay the Wave 3 contract. The text below stays. Screen: [task-wave4.md](../../task-wave4.md), section “4 — Hayk · account”.
+
+**Wave 4.** Ընթացիկ PR-ը միայն `frontend/src/pages/Account/` է, ճյուղը՝ `feat/hayk-gateway`, base `dev`, Daniel-ից հետո՝ մուտք, բեռնում, սխալ, սեսիա։ `App.jsx`-ը չուղղել. `/account` երթուղին արդեն կա։ Checkout-ը, `idram.py`-ը և գլխավոր էջն այս PR-ում չեն մտնում։ Ներքևի վճարման քայլերը մնում են Wave 3-ի պայմանագիր։ Ներքևի տեքստը մնում է։ Էկրանը՝ [task-wave4.md](../../task-wave4.md), «4 — Hayk · հաշիվ»։
 
 Отдай этот файл агенту целиком. Номер ученика — **4**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «4 — Hayk · payments» в [task-wave3.md](../../task-wave3.md).
 
-Ветка по-прежнему `feat/hayk-gateway`. Зона этой волны — `payments`, не главная. `HomeBlock` и страницу `/` не переписывать.
+Ветка по-прежнему `feat/hayk-gateway`. Текущий экран — только `frontend/src/pages/Account/`. Маршрут `/account` в `App.jsx` уже есть: `App.jsx` не править. Checkout, `idram.py` и главную в этот PR не класть. `HomeBlock` не переписывать. Шаги оплаты ниже — контракт волны 3.
+
+Branch stays `feat/hayk-gateway`. The current screen is only `frontend/src/pages/Account/`. The `/account` route is already in `App.jsx`: do not edit `App.jsx`. Leave checkout, `idram.py`, and the home page out of this pull request. Do not rewrite `HomeBlock`. The payment steps below are the Wave 3 contract.
+
+Ճյուղը մնում է `feat/hayk-gateway`։ Ընթացիկ էկրանը միայն `frontend/src/pages/Account/` է։ `/account` երթուղին արդեն `App.jsx`-ում է. `App.jsx`-ը չուղղել։ Checkout-ը, `idram.py`-ը և գլխավոր էջն այս PR-ում չդնել։ `HomeBlock`-ը չվերաշարադրել։ Ներքևի վճարման քայլերը Wave 3-ի պայմանագիրն են։
 
 ## Русский
 

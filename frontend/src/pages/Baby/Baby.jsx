@@ -1,218 +1,222 @@
-
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { api, mediaUrl } from '../../api/client'
+import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import CatalogState from '../../components/CatalogState/CatalogState.jsx'
+import {
+  ASSURANCE_KEYS,
+  CARE_STEP_KEYS,
+  STORE_KEY,
+  STORY_PILLAR_KEYS,
+  fetchBabyCatalog,
+  filterBabyProducts,
+} from './baby.js'
 import './baby.css'
 
-
-function AddToCartButton({ sku }) {
-  const { t } = useTranslation()
-  const [status, setStatus] = useState('idle')
-
-  async function handleAddToCart() {
-    if (status === 'loading') return
-
-    setStatus('loading')
-
-    try {
-      await api.post('/api/cart/items/', {
-        sku,
-        qty: 1,
-      })
-
-      setStatus('success')
-    } catch (error) {
-      if (error.response?.status === 401) {
-        setStatus('unauthorized')
-      } else {
-        setStatus('error')
-      }
-    }
-  }
-
-  return (
-    <div className="baby-cart-actions">
-      <button
-        type="button"
-        className="baby-cart-button"
-        onClick={handleAddToCart}
-        disabled={status === 'loading'}
-      >
-        {status === 'loading'
-          ? t('baby.cartAdding')
-          : t('baby.addToCart')}
-      </button>
-
-      {status === 'success' && (
-        <p className="baby-cart-success" role="status">
-          {t('baby.cartSuccess')}
-        </p>
-      )}
-
-      {status === 'unauthorized' && (
-        <p className="baby-cart-error" role="alert">
-          {t('baby.cartSignIn')}
-        </p>
-      )}
-
-      {status === 'error' && (
-        <p className="baby-cart-error" role="alert">
-          {t('baby.cartError')}
-        </p>
-      )}
-    </div>
-  )
-}
 export default function Baby() {
   const { t, i18n } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
+  const activeCategory = searchParams.get('category') || ''
+  const activeQuery = searchParams.get('q') || ''
+
+  const loadCatalog = useCallback(async () => {
+    setLoading(true)
+    setError(false)
+    try {
+      const data = await fetchBabyCatalog()
+      setCategories(data.categories)
+      setProducts(data.products)
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
-    let active = true
+    loadCatalog()
+  }, [loadCatalog, i18n.language])
 
-    async function loadBabyData() {
-      setLoading(true)
-      setError(false)
+  const filteredProducts = useMemo(
+    () =>
+      filterBabyProducts(products, {
+        category: activeCategory,
+        q: activeQuery,
+      }),
+    [products, activeCategory, activeQuery],
+  )
 
-      try {
-        const [categoriesResponse, productsResponse] =
-          await Promise.all([
-            api.get('/api/catalog/categories/', {
-              params: { store: 'baby' },
-            }),
-            api.get('/api/catalog/products/', {
-              params: { store: 'baby' },
-            }),
-          ])
+  function writeCategory(slug) {
+    const next = new URLSearchParams(searchParams)
+    if (!slug || slug === activeCategory) next.delete('category')
+    else next.set('category', slug)
+    setSearchParams(next)
+    document.getElementById('baby-collection')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
-        if (!active) return
+  function clearFilters() {
+    const next = new URLSearchParams(searchParams)
+    next.delete('category')
+    next.delete('q')
+    setSearchParams(next)
+  }
 
-        const categoryList = Array.isArray(categoriesResponse.data)
-          ? categoriesResponse.data
-          : categoriesResponse.data?.results ?? []
-
-        const productList = Array.isArray(productsResponse.data)
-          ? productsResponse.data
-          : productsResponse.data?.results ?? []
-
-        setCategories(
-          categoryList.filter(
-            (category) => category.store === 'baby'
-          )
-        )
-
-        setProducts(
-          productList.filter(
-            (product) =>
-              product.store === 'baby' &&
-              product.published !== false
-          )
-        )
-      } catch (err) {
-        if (!active) return
-
-        console.error('Failed to load Baby data:', err)
-        setCategories([])
-        setProducts([])
-        setError(true)
-      } finally {
-        if (active) {
-          setLoading(false)
-        }
-      }
-    }
-
-    loadBabyData()
-
-    return () => {
-      active = false
-    }
-  }, [i18n.resolvedLanguage])
+  function scrollToCollection() {
+    document.getElementById('baby-collection')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
-    <main className="page baby-page">
-      <section className="baby-header">
-        <h1>{t('stores.baby')}</h1>
-        <p>{t('pages.babyLead')}</p>
+    <main className="baby-page" data-brand={STORE_KEY}>
+      <section className="baby-section baby-editorial">
+        <div className="baby-container baby-editorial__grid">
+          <div>
+            <span className="baby-eyebrow">{t('baby.editorial.eyebrow')}</span>
+            <h1 className="baby-editorial__title">{t('baby.editorial.title')}</h1>
+            <p className="baby-editorial__text">{t('baby.editorial.description')}</p>
+            <button type="button" className="baby-btn baby-btn--primary" onClick={scrollToCollection}>
+              {t('baby.editorial.cta')}
+            </button>
+          </div>
+          <div className="baby-editorial__media" aria-label={t('baby.editorial.mediaAlt')}>
+            <div className="baby-editorial__photo">
+              <span>{t('baby.editorial.caption')}</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {loading && (
-        <p className="baby-message">
-          {t('baby.loading')}
-        </p>
-      )}
+      <section className="baby-section baby-assurances">
+        <div className="baby-container baby-assurances__grid">
+          {ASSURANCE_KEYS.map((item) => (
+            <article key={item.id} className="baby-assurance">
+              <h2>{t(item.titleKey)}</h2>
+              <p>{t(item.textKey)}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      {!loading && error && (
-        <p className="baby-message" role="alert">
-          {t('baby.error')}
-        </p>
-      )}
+      <section className="baby-section">
+        <div className="baby-container">
+          <h2 className="baby-section-title">{t('baby.categories.heading')}</h2>
+          <p className="baby-section-subtitle">{t('baby.categories.subheading')}</p>
+          <div className="baby-category-grid">
+            <button
+              type="button"
+              className={`baby-category ${!activeCategory ? 'is-active' : ''}`}
+              onClick={() => writeCategory('')}
+            >
+              {t('baby.categories.all')}
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category.slug}
+                type="button"
+                className={`baby-category ${activeCategory === category.slug ? 'is-active' : ''}`}
+                onClick={() => writeCategory(category.slug)}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {!loading && !error && (
-        <>
-          <section className="baby-categories">
-            <h2>{t('baby.categories')}</h2>
+      <section className="baby-section baby-story">
+        <div className="baby-container baby-story__layout">
+          <div>
+            <span className="baby-eyebrow">{t('baby.story.eyebrow')}</span>
+            <h2 className="baby-section-title">{t('baby.story.title')}</h2>
+            <p>{t('baby.story.philosophy')}</p>
+          </div>
+          <ul className="baby-story__pillars">
+            {STORY_PILLAR_KEYS.map((key) => (
+              <li key={key}>{t(key)}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-            {categories.length > 0 && (
-              <div className="baby-category-list">
-                {categories.map((category) => (
-                  <div
-                    className="baby-category"
-                    key={category.slug}
-                  >
-                    {category.name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
+      <section className="baby-section baby-care" aria-labelledby="baby-care-title">
+        <div className="baby-container">
+          <span className="baby-eyebrow">{t('baby.care.eyebrow')}</span>
+          <h2 id="baby-care-title" className="baby-section-title">{t('baby.care.title')}</h2>
+          <p className="baby-section-subtitle">{t('baby.care.intro')}</p>
+          <ol className="baby-care__steps">
+            {CARE_STEP_KEYS.map((key) => (
+              <li key={key}>{t(key)}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-          <section className="baby-products-section">
-            <h2>{t('baby.products')}</h2>
-
-            {products.length === 0 ? (
-              <p className="baby-message">
-                {t('baby.empty')}
+      <section id="baby-collection" className="baby-section baby-collection">
+        <div className="baby-container">
+          <div className="baby-collection__header">
+            <div>
+              <h2 className="baby-section-title">{t('baby.collection.heading')}</h2>
+              <p className="baby-section-subtitle">
+                {t('baby.collection.count', { count: filteredProducts.length })}
               </p>
-            ) : (
-              <div className="baby-products">
-                {products.map((product) => (
-                  <article
-                    className="baby-product-card"
-                    key={product.sku}
-                  >
-                    <div className="baby-product-image">
-                      {product.image ? (
-                        <img
-                          src={mediaUrl(product.image)}
-                          alt={product.name || ''}
-                          loading="lazy"
-                        />
-                      ) : null}
-                    </div>
-
-                    <div className="baby-product-info">
-                      <h3>{product.name}</h3>
-
-                      <p className="baby-product-price">
-                        {Number(product.price).toLocaleString(
-                          'hy-AM'
-                        )}{' '}
-                        AMD
-                      </p>
-                      <AddToCartButton sku={product.sku} />
-                    </div>
-                  </article>
-                ))}
+            </div>
+            {(activeCategory || activeQuery) && (
+              <div className="baby-filters">
+                {activeCategory && (
+                  <span className="baby-chip">
+                    {t('baby.collection.categoryLabel')}: {activeCategory}
+                  </span>
+                )}
+                {activeQuery && (
+                  <span className="baby-chip">
+                    {t('baby.collection.searchLabel')}: {activeQuery}
+                  </span>
+                )}
+                <button type="button" className="baby-btn baby-btn--ghost" onClick={clearFilters}>
+                  {t('baby.collection.resetFilters')}
+                </button>
               </div>
             )}
-          </section>
-        </>
-      )}
+          </div>
+
+          {loading ? (
+            <CatalogState state="loading" brand={STORE_KEY} />
+          ) : error ? (
+            <CatalogState state="error" brand={STORE_KEY} onRetry={loadCatalog} />
+          ) : filteredProducts.length === 0 ? (
+            <CatalogState state="empty" brand={STORE_KEY} onReset={clearFilters} />
+          ) : (
+            <div className="baby-product-grid">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.sku} product={product} brand={STORE_KEY} />
+              ))}
+            </div>
+          )}
+
+          <div className="baby-collection__footer">
+            <button
+              type="button"
+              className="baby-btn baby-btn--secondary"
+              onClick={activeCategory || activeQuery ? clearFilters : scrollToCollection}
+            >
+              {activeCategory || activeQuery
+                ? t('baby.collection.showAll')
+                : t('baby.collection.backToTop')}
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

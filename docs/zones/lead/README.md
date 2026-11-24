@@ -2,29 +2,56 @@
 
 **Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave3.md](../../../task-wave3.md).  
 **Ветка:** `feat/lead`  
-**Задание:** экраны — [task-wave4.md](../../../task-wave4.md), раздел «1 — Lead». Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
+**Задание:** полный кадр — [task-wave5.md](../../../task-wave5.md), раздел «1 — Lead». Волна 4 закрыта: [task-wave4.md](../../../task-wave4.md). Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
 **Агент:** [docs/agents/01-lead.md](../../agents/01-lead.md). Отдай агенту файл целиком.
 
 Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писать. PR принимать только по очереди ниже. **Срок волны 3:** до конца января 2027. Postgres не поднимать.
 
-## Доска merge — Wave 4
+## Доска merge — Wave 5
 
-Текущая работа — один большой экран по Figma. Статус каждой строки: `не начато`. Эта таблица волну 3 не закрывает.
+Волна 5 открыта. Полный кадр: главная, дизайн-система, Textile и Baby, desktop и mobile. Волна 4 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается.
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | не начато |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | не начато |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | не начато |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | не начато |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | не начато |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | не начато |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | не начато |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | не начато |
+| 1 | Lead | `feat/lead` | lead | — | #64 | в dev |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | в dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | ждёт PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | ждёт PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | в dev |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | ждёт PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | в dev |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | в dev |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | в dev |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | в dev |
+
+Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Шапка и `/textile` в dev. `/baby` в dev: пять секций и отдельный Parent care guide. Следующая зона — Daniel. Волна 5 не закрыта.
+
+Текущие PR волны 5 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave5.md](../../../task-wave5.md).
+
+**Не закрывать волну 5, пока:** девять зон в `dev`, три JSON открываются, `/`, `/textile` и `/baby` показывают свои секции на 1440 и на ширине mobile-кадра, `/design` открывается, в diff нет Postgres и правок оплаты.
+
+## Доска merge — Wave 4
+
+Волна 4 закрыта в этом дереве: десять экранов лежат в `dev`, три JSON открываются, `/checkout/success` без `status=paid` не пишет «оплачено». Эта таблица волну 3 не закрывает.
+
+| # | Имя | Ветка | Зона | После кого | PR | Статус |
+|---|-----|--------|------|------------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | закрыта |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | закрыта |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | закрыта |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | закрыта |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | закрыта |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | закрыта |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | закрыта |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | закрыта |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | закрыта |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | закрыта |
 
 Очередь именами: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
+
+Текущие PR экранов мержить по этой очереди. Base — `dev`.
 
 ## Доска merge — Wave 3
 
@@ -52,7 +79,7 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 - `в ревью` — PR открыт, ворота ниже не пройдены
 - `в dev` — смержено, и имя из «После кого» уже было в `dev`
 
-Мержить только по этой очереди. Если «После кого» ещё не `в dev`, PR не принимать. Конфликт чинить вместе с владельцем файла. Чужую зону не переписывать. Номер PR не ставить, пока merge не случился.
+Контракт покупки мержить по очереди волны 3. Экран волны 4 она не задерживает. Если «После кого» ещё не `в dev`, PR контракта не принимать. Конфликт чинить вместе с владельцем файла. Чужую зону не переписывать. Номер PR не ставить, пока merge не случился.
 
 ## Ворота merge
 
@@ -86,24 +113,51 @@ Student **1**, branch `feat/lead`. The `#` column is the student number and matc
 
 Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wave 3 by the end of January 2027.** Do not start Postgres.
 
-### Wave 4 board
+### Wave 5 board
 
-The current work is one large Figma screen. Every row is `not started`. This table does not close Wave 3.
+Wave 5 is open. It is the full frame: home, the design system, Textile, and Baby, desktop and mobile. Wave 4 stays closed. This table does not close Wave 3.
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | not started |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | not started |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | not started |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | not started |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | not started |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | not started |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | not started |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | not started |
+| 1 | Lead | `feat/lead` | lead | — | #64 | in dev |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | in dev |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | waiting for a PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | waiting for a PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | in dev |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | waiting for a PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | in dev |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | in dev |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | in dev |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | in dev |
+
+Queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+The header and `/textile` are in dev. `/baby` is in dev with five sections and a separate Parent care guide. Daniel is next. Wave 5 stays open.
+
+Merge Wave 5 pull requests in this order. Base is `dev`. A gate is the “Lead does not merge until” line in [task-wave5.md](../../../task-wave5.md).
+
+**Do not close Wave 5 until:** the nine zones are in `dev`, the three JSON files parse, `/`, `/textile`, and `/baby` show their sections at 1440 and at the mobile frame width, `/design` opens, and the diff has no Postgres and no payment edits.
+
+### Wave 4 board
+
+Wave 4 is closed in this tree: the ten screens are in `dev`, the three JSON files parse, and `/checkout/success` does not say paid without `status=paid`. This table does not close Wave 3.
+
+| # | Name | Branch | Zone | After | PR | Status |
+|---|------|--------|------|-------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | closed |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | closed |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | closed |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | closed |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | closed |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | closed |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | closed |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | closed |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | closed |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | closed |
 
 Queue: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**.
+
+Merge current screen pull requests in this order. Base is `dev`.
 
 ### Wave 3 board
 
@@ -129,7 +183,7 @@ Status column:
 - `in review` — a pull request is open, and the gates below are not passed
 - `in dev` — it is merged, and the name in “After” was already in `dev`
 
-Merge only in this order. If “After” is not yet `in dev`, do not merge. Do not write a PR number before the merge.
+Merge the purchase contract in the Wave 3 order. That order does not hold a Wave 4 screen. If “After” is not yet `in dev`, do not merge that contract pull request. Do not write a PR number before the merge.
 
 ### Merge gates
 
@@ -163,24 +217,51 @@ Leave every box empty until student 10 is in `dev`. This commit does not close W
 
 Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել։ **Wave 3-ն ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres չբարձրացնել։
 
-### Wave 4-ի տախտակ
+### Wave 5-ի տախտակ
 
-Ընթացիկ աշխատանքը մեկ մեծ Figma էկրան է։ Ամեն տողը `չի սկսվել` է։ Այս աղյուսակը Wave 3-ը չի փակում։
+Wave 5-ը բաց է։ Դա լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Wave 4-ը մնում է փակ։ Այս աղյուսակը Wave 3-ը չի փակում։
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | չի սկսվել |
-| 2 | Suro | `feat/suro-api` | gateway | Lead | — | չի սկսվել |
-| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | չի սկսվել |
-| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | չի սկսվել |
-| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | չի սկսվել |
-| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չի սկսվել |
-| 7 | Karen | `feat/karen-textile` | textile | Vach | — | չի սկսվել |
-| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չի սկսվել |
-| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | չի սկսվել |
-| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | չի սկսվել |
+| 1 | Lead | `feat/lead` | lead | — | #64 | dev-ում |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | #68 | dev-ում |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | սպասում է PR |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale | Daniel | — | սպասում է PR |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | #73 | dev-ում |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | սպասում է PR |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | #70 | dev-ում |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | #75 | dev-ում |
+| 9 | Vach | `feat/vach-catalog` | product-card | Ashot | #69 | dev-ում |
+| 10 | Ashot | `feat/ashot-ui` | design | Lead | #66 | dev-ում |
+
+Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+Վերնագիրն ու `/textile`-ը dev-ում են։ `/baby`-ն dev-ում է՝ հինգ սեկցիա և առանձին Parent care guide։ Հաջորդը Daniel-ն է։ Wave 5-ը բաց է։
+
+Wave 5-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave5.md](../../../task-wave5.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
+
+**Wave 5-ը չփակել, քանի դեռ** ինը գոտին `dev`-ում է, երեք JSON-ը բացվում են, `/`, `/textile` և `/baby` իրենց սեկցիաները ցույց են տալիս 1440-ում և mobile լայնքում, `/design`-ը բացվում է, և diff-ում Postgres ու վճարման փոփոխություն չկա։
+
+### Wave 4-ի տախտակ
+
+Wave 4-ը այս ծառում փակ է. տասը էկրանը `dev`-ում են, երեք JSON-ը բացվում են, և `/checkout/success`-ը առանց `status=paid` «վճարված» չի գրում։ Այս աղյուսակը Wave 3-ը չի փակում։
+
+| # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
+|---|------|--------|------|------------|----|------------|
+| 1 | Lead | `feat/lead` | lead | — | — | փակված |
+| 2 | Suro | `feat/suro-api` | gateway | Lead | — | փակված |
+| 3 | Artush | `feat/artush-i18n` | i18n | Mariam | — | փակված |
+| 4 | Hayk | `feat/hayk-gateway` | account | Daniel | — | փակված |
+| 5 | Mariam | `feat/mariam-header` | header-cart | Hayk | — | փակված |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | փակված |
+| 7 | Karen | `feat/karen-textile` | textile | Vach | — | փակված |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | փակված |
+| 9 | Vach | `feat/vach-catalog` | product-card | Suro | — | փակված |
+| 10 | Ashot | `feat/ashot-ui` | checkout-ui | Artush | — | փակված |
 
 Հերթը՝ **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**։
+
+Ընթացիկ էկրանների PR-ները միավորել այս հերթով։ Base-ը `dev` է։
 
 ### Wave 3-ի տախտակ
 
@@ -206,7 +287,7 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 - `գրախոսության մեջ` — PR-ը բաց է, ներքևի դռները անցած չեն
 - `dev-ում` — միավորված է, և «Ումից հետո» սյան անունն արդեն `dev`-ում էր
 
-Merge արա միայն այս հերթով։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
+Գնման պայմանագիրը միավորել Wave 3-ի հերթով։ Այդ հերթը Wave 4-ի էկրանը չի պահում։ Եթե «Ումից հետո» դեռ `dev-ում` չէ, պայմանագրի PR-ը չընդունել։ PR-ի համարը մի գրի, քանի դեռ merge չի եղել։
 
 ### Merge-ի դռներ
 

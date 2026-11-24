@@ -1,0 +1,363 @@
+/*
+  Public classes for other zones:
+  .ds-btn .ds-btn--card .ds-btn--cash
+  .is-hover .is-pressed .is-focus .is-disabled .is-loading
+  .ds-badge .ds-badge--discount .ds-badge--stock
+  .ds-size .is-selected
+  .ds-field .is-focus .is-invalid .is-success .is-disabled .is-loading
+  .ds-pay .ds-pay--visa .ds-pay--mastercard
+  Parent or control sets data-brand="textile" | "baby".
+*/
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--ds-action);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-action);
+  color: var(--ds-on-action);
+  font: inherit;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--ds-elev-0);
+}
+
+.ds-btn--card {
+  background: var(--ds-action);
+  border-color: var(--ds-action);
+  color: var(--ds-on-action);
+}
+
+.ds-btn--cash {
+  background: transparent;
+  border-color: var(--ds-ink);
+  color: var(--ds-ink);
+}
+
+.ds-btn:hover,
+.ds-btn.is-hover {
+  background: var(--ds-action-hover);
+  border-color: var(--ds-action-hover);
+}
+
+.ds-btn--cash:hover,
+.ds-btn--cash.is-hover {
+  background: color-mix(in srgb, var(--ds-ink) 6%, transparent);
+  border-color: var(--ds-ink);
+  color: var(--ds-ink);
+}
+
+.ds-btn:active,
+.ds-btn.is-pressed {
+  background: var(--ds-action-pressed);
+  border-color: var(--ds-action-pressed);
+  transform: translateY(1px);
+}
+
+.ds-btn--cash:active,
+.ds-btn--cash.is-pressed {
+  background: color-mix(in srgb, var(--ds-ink) 12%, transparent);
+  border-color: var(--ds-ink);
+  color: var(--ds-ink);
+}
+
+.ds-btn:focus-visible,
+.ds-btn.is-focus {
+  outline: 3px solid color-mix(in srgb, var(--ds-action) 55%, white);
+  outline-offset: 3px;
+}
+
+.ds-btn:disabled,
+.ds-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  background: var(--ds-action);
+  border-color: var(--ds-action);
+  color: var(--ds-on-action);
+}
+
+.ds-btn--cash:disabled,
+.ds-btn--cash.is-disabled,
+.ds-btn--cash:disabled:hover,
+.ds-btn--cash.is-disabled:hover {
+  background: transparent;
+  border-color: var(--ds-ink);
+  color: var(--ds-ink);
+}
+
+.ds-btn:disabled:hover,
+.ds-btn.is-disabled:hover {
+  background: var(--ds-action);
+  border-color: var(--ds-action);
+  color: var(--ds-on-action);
+  transform: none;
+}
+
+.ds-btn.is-loading {
+  cursor: progress;
+  pointer-events: none;
+}
+
+.ds-btn__spinner {
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ds-spin 0.7s linear infinite;
+}
+
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.5rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--ds-radius-pill);
+  border: 1px solid transparent;
+  font-size: var(--ds-type-caption);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.ds-badge--discount {
+  background: var(--ds-action);
+  color: var(--ds-on-action);
+}
+
+.ds-badge--stock {
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  border-color: var(--ds-line);
+}
+
+.ds-badge--stock::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--ds-action);
+}
+
+.ds-size {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.55rem;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  font: inherit;
+  font-size: var(--ds-type-small);
+  cursor: pointer;
+}
+
+.ds-size.is-selected,
+.ds-size[aria-pressed="true"] {
+  background: var(--ds-ink);
+  border-color: var(--ds-ink);
+  color: var(--ds-brand-canvas);
+}
+
+.ds-size:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ds-action) 55%, white);
+  outline-offset: 2px;
+}
+
+.ds-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--ds-text);
+  font-size: 0.92rem;
+}
+
+.ds-field__label {
+  color: var(--ds-muted);
+  font-size: var(--ds-type-caption);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ds-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ds-field input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-control);
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  font: inherit;
+}
+
+.ds-field input:focus-visible,
+.ds-field.is-focus input {
+  outline: 3px solid color-mix(in srgb, var(--ds-action) 55%, white);
+  outline-offset: 2px;
+  border-color: var(--ds-action);
+}
+
+.ds-field.is-invalid input {
+  border-color: var(--ds-danger);
+  outline: 3px solid color-mix(in srgb, var(--ds-danger) 35%, white);
+  outline-offset: 2px;
+}
+
+.ds-field.is-success input {
+  border-color: var(--ds-action);
+}
+
+.ds-field.is-disabled input,
+.ds-field input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--ds-brand-canvas);
+}
+
+.ds-field.is-loading input {
+  padding-right: 2.4rem;
+}
+
+.ds-field__spinner {
+  position: absolute;
+  right: 0.75rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid var(--ds-ink);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ds-spin 0.7s linear infinite;
+}
+
+.ds-field__hint {
+  margin: 0;
+  color: var(--ds-muted);
+  font-size: var(--ds-type-small);
+}
+
+.ds-field.is-invalid .ds-field__hint {
+  color: var(--ds-danger);
+}
+
+.ds-field.is-success .ds-field__hint {
+  color: var(--ds-ink);
+}
+
+.ds-pay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-width: 3.4rem;
+  height: 1.55rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--ds-line);
+  border-radius: 4px;
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.ds-pay--visa {
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+
+.ds-pay__circles {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ds-pay__circles span {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+}
+
+.ds-pay__circles span:first-child {
+  background: #eb001b;
+}
+
+.ds-pay__circles span:last-child {
+  margin-left: -0.28rem;
+  background: #f79e1b;
+}
+
+.ds-switch {
+  display: inline-flex;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-surface);
+}
+
+.ds-switch__option {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  border: 0;
+  border-radius: var(--ds-radius-pill);
+  background: transparent;
+  color: var(--ds-ink);
+  font: inherit;
+  font-size: var(--ds-type-small);
+  cursor: pointer;
+}
+
+.ds-switch__option[aria-pressed="true"] {
+  background: var(--ds-ink);
+  color: var(--ds-brand-canvas);
+}
+
+.ds-switch__option:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ds-action) 55%, white);
+  outline-offset: 2px;
+}
+
+.ds-category {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  font: inherit;
+  font-size: var(--ds-type-small);
+  cursor: pointer;
+}
+
+.ds-category[aria-pressed="true"] {
+  background: var(--ds-ink);
+  border-color: var(--ds-ink);
+  color: var(--ds-brand-canvas);
+}
+
+.ds-category:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ds-action) 55%, white);
+  outline-offset: 2px;
+}

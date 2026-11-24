@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #1 Lead
 
-**Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «1 — Lead». Доска и ворота. Экраны не рисовать. Текст ниже не стирать: волна 3 остаётся контрактом покупки.
+**Волна 5.** Полные кадры мержить по очереди [task-wave5.md](../../task-wave5.md): **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. Ворота — строка «Lead не мержит, пока» в том же файле, раздел «1 — Lead». Доска и ворота. Экраны не рисовать. Волна 4 закрыта. Очередь ниже — контракт покупки волны 3. Текст ниже не стирать.
 
-**Wave 4.** Current screens: [task-wave4.md](../../task-wave4.md), section “1 — Lead”. Board and gates. Do not draw screens. The text below stays: Wave 3 is the purchase contract.
+**Wave 5.** Merge the full frames in the [task-wave5.md](../../task-wave5.md) order: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**. A gate is the “Lead does not merge until” line in section “1 — Lead”. Board and gates. Do not draw screens. Wave 4 is closed. The queue below is the Wave 3 purchase contract. The text below stays.
 
-**Wave 4.** Ընթացիկ էկրանները՝ [task-wave4.md](../../task-wave4.md), «1 — Lead»։ Տախտակ և դռներ։ Էկրաններ չնկարել։ Ներքևի տեքստը մնում է. Wave 3-ը գնման պայմանագիրն է։
+**Wave 5.** Լրիվ կադրերը միավորել [task-wave5.md](../../task-wave5.md)-ի հերթով՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։ Դուռը այդ ֆայլի «1 — Lead» բաժնի «Lead-ը չի merge անում, քանի դեռ» տողն է։ Տախտակ և դռներ։ Էկրաններ չնկարել։ Wave 4-ը փակ է։ Ներքևի հերթը Wave 3-ի գնման պայմանագիրն է։ Ներքևի տեքստը մնում է։
+
+**Волна 4.** Экраны мержить по очереди [task-wave4.md](../../task-wave4.md): **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**. Ворота экрана — строка «Lead не мержит, пока» в том же файле. Доска и ворота. Экраны не рисовать. Очередь в разделе «Очередь» ниже — контракт покупки волны 3: экран ею не задерживать. Текст ниже не стирать.
+
+**Wave 4.** Merge screens in the [task-wave4.md](../../task-wave4.md) order: **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**. A screen gate is the “Lead does not merge until” line in that file. Board and gates. Do not draw screens. The name queue in the section below is the Wave 3 purchase contract. Do not hold a screen for it. The text below stays.
+
+**Wave 4.** Էկրանները միավորել [task-wave4.md](../../task-wave4.md)-ի հերթով՝ **Lead → Suro → Vach → Karen → Svet → Daniel → Hayk → Mariam → Artush → Ashot**։ Էկրանի դուռը այդ ֆայլի «Lead-ը չի merge անում, քանի դեռ» տողն է։ Տախտակ և դռներ։ Էկրաններ չնկարել։ Ներքևի հերթը Wave 3-ի գնման պայմանագիրն է. էկրանը դրանով չպահել։ Ներքևի տեքստը մնում է։
 
 Отдай этот файл агенту целиком. Номер ученика — **1**. Он совпадает с [TASK.md](../../TASK.md) и с заголовком «1 — Lead» в [task-wave3.md](../../task-wave3.md).
 

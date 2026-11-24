@@ -1,5 +1,11 @@
 # Agent brief — Wave 3 — #7 Karen
 
+**Волна 5.** Полный `/textile`, кадры `6-12494` и `6-12776`. Папка `frontend/src/pages/Textile/`, ветка `feat/karen-textile`, после Suro. Seasonal editorial, Shopping assurances, Shop by category, Brand story and care, Shoppable product collection. Карточка Vach, состояния каталога Vach, без товара Baby. Опт и подвал не собирать. Раздел «7 — Karen · textile» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5.** The full `/textile`, frames `6-12494` and `6-12776`. Folder `frontend/src/pages/Textile/`, branch `feat/karen-textile`, after Suro. Seasonal editorial, Shopping assurances, Shop by category, Brand story and care, Shoppable product collection. Vach’s card and catalog states. No Baby product. Do not build wholesale or the footer. Section “7 — Karen · textile” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5.** Լրիվ `/textile`, կադրեր `6-12494` և `6-12776`։ Պանակ `frontend/src/pages/Textile/`, ճյուղ `feat/karen-textile`, Suro-ից հետո։ Seasonal editorial, Shopping assurances, Shop by category, Brand story and care, Shoppable product collection։ Vach-ի քարտ և կատալոգի վիճակներ, առանց Baby ապրանքի։ Մեծածախը և ներքևը չհավաքել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «7 — Karen · textile»։ Ներքևի տեքստը մնում է։
+
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «7 — Karen · textile». Только `frontend/src/pages/Textile/` по кадру, карточка Vach, без товара Baby. Текст ниже не стирать.
 
 **Wave 4.** Current screen: [task-wave4.md](../../task-wave4.md), section “7 — Karen · textile”. Only `frontend/src/pages/Textile/` from the frame, Vach’s card, no Baby product. The text below stays.
