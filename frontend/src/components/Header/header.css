@@ -384,12 +384,14 @@
   font-size: 11px;
   font-weight: 400;
   text-align: center;
+  text-decoration: none;
   white-space: nowrap;
 
   transition: color 0.2s ease;
 }
 
-.site-header__nav-item:hover {
+.site-header__nav-item:hover,
+.site-header__nav-item.is-active {
   color: var(--header-accent);
 }
 
@@ -455,14 +457,22 @@
 ========================= */
 
 @media (max-width: 600px) {
+  .site-header {
+    overflow-x: clip;
+  }
+
   .site-header__top-inner {
     min-height: 34px;
     padding: 5px 14px;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .site-header__tagline {
-    display: none;
+    display: block;
+    flex: 1 1 140px;
+    min-width: 0;
+    white-space: normal;
   }
 
   .site-header__switch-item {
@@ -478,6 +488,7 @@
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "brand actions"
+      "languages languages"
       "search search";
 
     gap: 14px 10px;
@@ -507,7 +518,9 @@
   }
 
   .site-header__languages {
-    display: none;
+    grid-area: languages;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .site-header__actions {
@@ -517,7 +530,23 @@
   }
 
   .site-header__nav {
-    display: none;
+    display: block;
+    overflow-x: clip;
+  }
+
+  .site-header__nav-inner {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow-x: clip;
+  }
+
+  .site-header__nav-item {
+    white-space: normal;
+  }
+
+  .site-header__wholesale {
+    min-width: 0;
+    margin-left: 0;
   }
 }
 

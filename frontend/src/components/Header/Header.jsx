@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import {
   LANGUAGES,
   NAV_ITEMS,
   BABY_NAV_ITEMS,
+  knownLanguage,
+  activeLanguageCode,
+  shopPathname,
 } from './header.js'
 
 import { api, AUTH_CHANGED_EVENT } from '../../api/client'
@@ -18,20 +21,24 @@ const TOKEN_KEY = 'ventum_access_token'
 export default function Header() {
   const { t, i18n } = useTranslation()
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const isBaby = pathname.startsWith('/baby')
   const currentNavItems = isBaby ? BABY_NAV_ITEMS : NAV_ITEMS
+  const shopPath = shopPathname(pathname)
+  const urlQuery = searchParams.get('q') || ''
+  const activeCategory = searchParams.get('category') || ''
 
-  const [query, setQuery] = useState('')
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [query, setQuery] = useState(urlQuery)
   const [cartCount, setCartCount] = useState(null)
 
-  const activeLanguage =
-    i18n.resolvedLanguage || i18n.language || 'en'
+  const activeLanguage = activeLanguageCode(i18n.resolvedLanguage || i18n.language)
 
-  // Load cart count
+  useEffect(() => {
+    setQuery(urlQuery)
+  }, [urlQuery])
+
   useEffect(() => {
     let cancelled = false
 
@@ -66,56 +73,38 @@ export default function Header() {
     }
   }, [pathname])
 
-  // Wave 2 product search
-  useEffect(() => {
-    const search = query.trim()
+  function writeShopQuery(value) {
+    const next = new URLSearchParams(searchParams)
+    const trimmed = value.trim()
+    if (trimmed) next.set('q', trimmed)
+    else next.delete('q')
 
-    if (!search) {
-      setProducts([])
-      setLoading(false)
-      setError('')
-      return undefined
+    if (pathname === shopPath) {
+      setSearchParams(next, { replace: true })
+      return
     }
 
-    let cancelled = false
-
-    const timer = setTimeout(async () => {
-      try {
-        setLoading(true)
-        setError('')
-
-        const response = await api.get('/api/catalog/products/', {
-          params: { q: search },
-        })
-
-        if (cancelled) return
-
-        const data = response.data
-
-        setProducts(
-          Array.isArray(data) ? data : data.results || []
-        )
-      } catch {
-        if (!cancelled) {
-          setProducts([])
-          setError(t('searchError'))
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false)
-        }
-      }
-    }, 300)
-
-    return () => {
-      cancelled = true
-      clearTimeout(timer)
-    }
-  }, [query, t])
+    navigate(
+      { pathname: shopPath, search: next.toString() },
+      { replace: true },
+    )
+  }
 
   function navLabel(item) {
     const translated = t(item.key)
     return translated === item.key ? item.label : translated
+  }
+
+  function categoryTo(slug) {
+    const next = new URLSearchParams(searchParams)
+    next.set('category', slug)
+    return { pathname: shopPath, search: next.toString() }
+  }
+
+  function selectLanguage(code) {
+    const next = knownLanguage(code)
+    if (!next) return
+    i18n.changeLanguage(next)
   }
 
   return (
@@ -124,12 +113,11 @@ export default function Header() {
         isBaby ? 'site-header--baby' : 'site-header--textile'
       }`}
     >
-      {/* TOP BAR */}
       <div className="site-header__top">
         <div className="site-header__top-inner">
           <div className="site-header__switch">
             <Link
-              to="/"
+              to="/textile"
               className={`site-header__switch-item ${
                 !isBaby ? 'is-active' : ''
               }`}
@@ -150,27 +138,29 @@ export default function Header() {
           </div>
 
           <p className="site-header__tagline">
-            {isBaby
-              ? 'Purest organic touch · Crafted with love for little ones'
-              : 'Crafted for serene living · Direct from our atelier'}
+            {isBaby ? t('header.babyTagline') : t('header.textileTagline')}
           </p>
         </div>
       </div>
 
-      {/* MAIN HEADER */}
       <div className="site-header__main">
         <div className="site-header__main-inner">
-          {/* LOGO */}
           <Link
-            to={isBaby ? '/baby' : '/'}
+            to={isBaby ? '/baby' : '/textile'}
             className="site-header__brand"
           >
             <strong>VENTUM</strong>
             <span>{isBaby ? 'BABY' : 'textile'}</span>
           </Link>
 
-          {/* SEARCH */}
-          <div className="site-header__search">
+          <form
+            className="site-header__search"
+            role="search"
+            onSubmit={(event) => {
+              event.preventDefault()
+              writeShopQuery(query)
+            }}
+          >
             <span className="site-header__search-icon">
               <svg
                 viewBox="0 0 24 24"
@@ -189,66 +179,30 @@ export default function Header() {
             <input
               type="search"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value
+                setQuery(value)
+                writeShopQuery(value)
+              }}
               placeholder={t('searchPlaceholder')}
               aria-label={t('searchPlaceholder')}
             />
+          </form>
 
-            {query.trim() !== '' && (
-              <div className="site-header__search-results">
-                {loading && (
-                  <p>{t('searchLoading')}</p>
-                )}
-
-                {!loading && error && (
-                  <p>{error}</p>
-                )}
-
-                {!loading && !error && products.length === 0 && (
-                  <p>{t('searchEmpty')}</p>
-                )}
-
-                {!loading && !error && products.map((product) => (
-                  <Link
-                    to={`/product/${encodeURIComponent(product.sku)}`}
-                    className="site-header__search-product"
-                    key={product.sku}
-                    onClick={() => {
-                      setQuery('')
-                      setProducts([])
-                    }}
-                  >
-                    <strong>{product.name}</strong>
-                    <span>SKU: {product.sku}</span>
-                    <span>{product.price} AMD</span>
-                    <span>
-                      {product.store?.name ||
-                        product.store_name ||
-                        product.store ||
-                        ''}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* LANGUAGES */}
           <div className="site-header__languages">
             {LANGUAGES.map((language) => (
               <button
                 key={language.code}
                 type="button"
                 className="site-header__lang"
-                aria-pressed={activeLanguage.startsWith(language.code)}
-                onClick={() => i18n.changeLanguage(language.code)}
+                aria-pressed={activeLanguage === language.code}
+                onClick={() => selectLanguage(language.code)}
               >
                 {language.label}
               </button>
             ))}
           </div>
 
-          {/* ACCOUNT AND CART */}
           <div className="site-header__actions">
             <Link
               to="/account"
@@ -293,29 +247,29 @@ export default function Header() {
         </div>
       </div>
 
-      {/* NAVIGATION */}
       <nav
         className="site-header__nav"
         aria-label="Main navigation"
       >
         <div className="site-header__nav-inner">
           {currentNavItems.map((item) => (
-            <span
+            <Link
               key={item.key}
-              className="site-header__nav-item"
+              to={categoryTo(item.slug)}
+              className={`site-header__nav-item${
+                activeCategory === item.slug ? ' is-active' : ''
+              }`}
             >
               {navLabel(item)}
-            </span>
+            </Link>
           ))}
 
-          {!isBaby && (
-            <Link
-              to="/wholesale"
-              className="site-header__wholesale"
-            >
-              {t('wholesale')}
-            </Link>
-          )}
+          <Link
+            to={`${shopPath}#wholesale`}
+            className="site-header__wholesale"
+          >
+            {t('wholesale')}
+          </Link>
         </div>
       </nav>
     </header>
