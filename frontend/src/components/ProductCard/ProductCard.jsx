@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   addProductToCart,
@@ -51,6 +52,9 @@ export default function ProductCard({ product, brand }) {
   const salePrice = formatProductPrice(product?.price)
   const shop = brand === 'baby' || brand === 'textile' ? brand : undefined
   const locked = !product?.sku
+  const detailsPath = product?.sku
+    ? `/product/${encodeURIComponent(product.sku)}`
+    : ''
 
   async function purchase(kind) {
     if (pendingRef.current || locked) return
@@ -75,7 +79,19 @@ export default function ProductCard({ product, brand }) {
   return (
     <article className="product-card" data-brand={shop}>
       <div className="product-card__media">
-        {imageSrc ? (
+        {detailsPath ? (
+          <Link className="product-card__media-link" to={detailsPath}>
+            {imageSrc ? (
+              <img
+                src={imageSrc}
+                alt={product?.name || ''}
+                className="product-card__image"
+              />
+            ) : (
+              <div className="product-card__placeholder" aria-hidden="true" />
+            )}
+          </Link>
+        ) : imageSrc ? (
           <img
             src={imageSrc}
             alt={product?.name || ''}
@@ -97,7 +113,15 @@ export default function ProductCard({ product, brand }) {
       </div>
 
       <div className="product-card__body">
-        <h2 className="product-card__name">{product?.name}</h2>
+        <h2 className="product-card__name">
+          {detailsPath ? (
+            <Link className="product-card__name-link" to={detailsPath}>
+              {product?.name}
+            </Link>
+          ) : (
+            product?.name
+          )}
+        </h2>
         {extras.spec ? <p className="product-card__spec">{extras.spec}</p> : null}
 
         {extras.sizes.length > 0 ? (

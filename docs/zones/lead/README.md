@@ -2,10 +2,35 @@
 
 **Номер ученика:** 1. Тот же номер в [TASK.md](../../../TASK.md) и в разделе «1 — Lead» файла [task-wave3.md](../../../task-wave3.md).  
 **Ветка:** `feat/lead`  
-**Задание:** полный кадр — [task-wave5.md](../../../task-wave5.md), раздел «1 — Lead». Волна 4 закрыта: [task-wave4.md](../../../task-wave4.md). Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
+**Задание:** волна 6 — [task-wave6.md](../../../task-wave6.md), раздел «1 — Lead». Волна 5 закрыта: [task-wave5.md](../../../task-wave5.md). Волна 4 закрыта: [task-wave4.md](../../../task-wave4.md). Контракт покупки — [task-wave3.md](../../../task-wave3.md).  
 **Агент:** [docs/agents/01-lead.md](../../agents/01-lead.md). Отдай агенту файл целиком.
 
 Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писать. PR принимать только по очереди ниже. **Срок волны 3:** до конца января 2027. Postgres не поднимать.
+
+## Доска merge — Wave 6
+
+Текущая доска. Оба файла Figma, CSS-движение, оболочка с `main` по контенту. Волна 5 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается. Регистрацию и Google снова не поручать.
+
+| # | Имя | Ветка | Зона | После кого | PR | Статус |
+|---|-----|--------|------|------------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | не начато |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | не начато |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | не начато |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | не начато |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | не начато |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | не начато |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | не начато |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | не начато |
+| 9 | Vach | `feat/vach-catalog` | product | Ashot | — | не начато |
+| 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | не начато |
+
+Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Текущие PR волны 6 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave6.md](../../../task-wave6.md).
+
+**Не открывать волну 6, пока:** PR регистрации и экранов покупки лежит в `dev`.
+
+**Не закрывать волну 6, пока:** девять зон в `dev`, три JSON открываются, `/`, `/textile`, `/baby`, `/product/:sku`, `/cart` и `/account` открываются, `main` короткой страницы доходит до низа окна, `main` длинной страницы не обрезан, `python manage.py test` зелёный, в diff нет Postgres и нового способа оплаты.
 
 ## Доска merge — Wave 5
 
@@ -109,7 +134,32 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 ## English
 
-Student **1**, branch `feat/lead`. The `#` column is the student number and matches [TASK.md](../../../TASK.md) and the headings in [task-wave3.md](../../../task-wave3.md). “After” is the person who must already be in `dev`. Give your agent [01-lead.md](../../agents/01-lead.md) in full.
+Student **1**, branch `feat/lead`. The `#` column is the student number and matches [TASK.md](../../../TASK.md) and the headings in [task-wave3.md](../../../task-wave3.md). “After” is the person who must already be in `dev`. Current task: [task-wave6.md](../../../task-wave6.md), section “1 — Lead”. Wave 5 is closed: [task-wave5.md](../../../task-wave5.md). Give your agent [01-lead.md](../../agents/01-lead.md) in full.
+
+### Wave 6 board
+
+Current board. Both Figma files, CSS motion, shell with `main` by content. Wave 5 is closed and is not reopened by this table. Wave 3 is not closed by this table. Do not reassign registration or Google.
+
+| # | Name | Branch | Zone | After | PR | Status |
+|---|------|--------|------|-------|----|--------|
+| 1 | Lead | `feat/lead` | lead | — | — | not started |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | not started |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | not started |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | not started |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | not started |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | not started |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | not started |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | not started |
+| 9 | Vach | `feat/vach-catalog` | product | Ashot | — | not started |
+| 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | not started |
+
+Name queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Merge Wave 6 PRs in this order. Base — `dev`. Gates — the “Lead does not merge until” line in [task-wave6.md](../../../task-wave6.md).
+
+**Do not open Wave 6 until:** the registration and purchase-screen pull request is in `dev`.
+
+**Do not close Wave 6 until:** nine zones are in `dev`, three JSON files parse, `/`, `/textile`, `/baby`, `/product/:sku`, `/cart`, and `/account` open, a short page’s `main` reaches the bottom of the window, a long page’s `main` is not clipped, `python manage.py test` is green, and the diff has no Postgres and no new payment method.
 
 Wave 1 and Wave 2 are closed. Do not write Wave 3 features yourself. **Finish Wave 3 by the end of January 2027.** Do not start Postgres.
 
@@ -213,9 +263,34 @@ Leave every box empty until student 10 is in `dev`. This commit does not close W
 
 ## Հայերեն
 
-Աշակերտ **1**, ճյուղը՝ `feat/lead`։ `#` սյունը աշակերտի համարն է և համընկնում է [TASK.md](../../../TASK.md)-ի ու [task-wave3.md](../../../task-wave3.md)-ի վերնագրերի հետ։ «Ումից հետո» նշանակում է՝ ով արդեն պետք է լինի `dev`-ում։ Գործակալին տուր ամբողջ [01-lead.md](../../agents/01-lead.md) ֆայլը։
+Աշակերտ **1**, ճյուղը՝ `feat/lead`։ `#` սյունը աշակերտի համարն է և համընկնում է [TASK.md](../../../TASK.md)-ի ու [task-wave3.md](../../../task-wave3.md)-ի վերնագրերի հետ։ «Ումից հետո» նշանակում է՝ ով արդեն պետք է լինի `dev`-ում։ Ընթացիկ առաջադրանք՝ [task-wave6.md](../../../task-wave6.md), բաժին «1 — Lead»։ Wave 5-ը փակ է՝ [task-wave5.md](../../../task-wave5.md)։ Գործակալին տուր ամբողջ [01-lead.md](../../agents/01-lead.md) ֆայլը։
 
 Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել։ **Wave 3-ն ավարտել մինչև 2027-ի հունվարի վերջ։** Postgres չբարձրացնել։
+
+### Wave 6-ի տախտակ
+
+Ընթացիկ տախտակ։ Երկու Figma ֆայլ, CSS շարժում, պատյան՝ `main`-ով ըստ բովանդակության։ Wave 5-ը փակ է և այս աղյուսակով չի բացվում։ Wave 3-ը այս աղյուսակով չի փակվում։ Գրանցումը և Google-ը նորից մի հանձնարարիր։
+
+| # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
+|---|------|--------|------|------------|----|------------|
+| 1 | Lead | `feat/lead` | lead | — | — | չսկսված |
+| 2 | Suro | `feat/suro-api` | gateway | Mariam | — | չսկսված |
+| 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | չսկսված |
+| 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | չսկսված |
+| 5 | Mariam | `feat/mariam-header` | header | Vach | — | չսկսված |
+| 6 | Daniel | `feat/daniel-footer` | footer | Svet | — | չսկսված |
+| 7 | Karen | `feat/karen-textile` | textile | Suro | — | չսկսված |
+| 8 | Svet | `feat/svet-baby` | baby | Karen | — | չսկսված |
+| 9 | Vach | `feat/vach-catalog` | product | Ashot | — | չսկսված |
+| 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | չսկսված |
+
+Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+Wave 6-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave6.md](../../../task-wave6.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
+
+**Wave 6-ը մի բացիր, քանի դեռ.** գրանցման և գնման էկրանների PR-ը `dev`-ում է։
+
+**Wave 6-ը մի փակիր, քանի դեռ.** ինը գոտիները `dev`-ում են, երեք JSON-ը վավեր են, `/`, `/textile`, `/baby`, `/product/:sku`, `/cart` և `/account` բացվում են, կարճ էջի `main`-ը հասնում է պատուհանի ներքևը, երկար էջի `main`-ը չի կտրվում, `python manage.py test`-ը կանաչ է, diff-ում Postgres և նոր վճարման եղանակ չկա։
 
 ### Wave 5-ի տախտակ
 

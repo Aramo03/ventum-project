@@ -3,13 +3,16 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { mediaUrl } from '../../api/client.js'
 import {
   checkout as startCheckout,
   deleteCartItem,
+  fetchCartItemImage,
   getCart,
   submitPaymentForm,
   updateCartItem,
 } from './cart.js'
+import '../../design/controls.css'
 
 import './cart.css'
 
@@ -30,6 +33,7 @@ export default function Cart() {
   const [error, setError] = useState('')
   const [updatingSku, setUpdatingSku] = useState(null)
   const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [images, setImages] = useState({})
 
   const isAuthenticated = Boolean(
     localStorage.getItem(TOKEN_KEY)
@@ -66,6 +70,29 @@ export default function Cart() {
   useEffect(() => {
     loadCart()
   }, [loadCart])
+
+  useEffect(() => {
+    let active = true
+    const skus = cart.items.map((item) => item.sku).filter(Boolean)
+
+    skus.forEach((sku) => {
+      fetchCartItemImage(sku)
+        .then((image) => {
+          if (active) {
+            setImages((current) => ({ ...current, [sku]: image || '' }))
+          }
+        })
+        .catch(() => {
+          if (active) {
+            setImages((current) => ({ ...current, [sku]: '' }))
+          }
+        })
+    })
+
+    return () => {
+      active = false
+    }
+  }, [cart.items])
 
   const updateQuantity = async (sku, qty) => {
     if (!Number.isInteger(qty) || qty < 0) return
@@ -148,7 +175,7 @@ export default function Cart() {
 
           <p>{t('cartPage.signInMessage')}</p>
 
-          <Link className="vt-button" to="/account">
+          <Link className="vt-button" to="/account" state={{ from: '/cart' }}>
             {t('accountLink')}
           </Link>
         </section>
@@ -178,7 +205,23 @@ export default function Cart() {
       {isAuthenticated &&
         !loading &&
         cart.items.length > 0 && (
-          <>
+          <div className="cart-layout">
+            <div className="cart-preview">
+              {cart.items.map((item) => {
+                const image = images[item.sku]
+                const storeName = item.store || t('cartPage.noImage')
+                return (
+                  <article className="cart-preview__item" key={`preview-${item.sku}`}>
+                    {image ? (
+                      <img src={mediaUrl(image)} alt={item.name || item.sku} />
+                    ) : (
+                      <span className="cart-item__placeholder">{storeName}</span>
+                    )}
+                  </article>
+                )
+              })}
+            </div>
+
             <div className="cart-items">
               {cart.items.map((item) => {
                 const sku = item.sku
@@ -188,37 +231,19 @@ export default function Cart() {
                 const lineTotal = item.line_total
 
                 return (
-                  <article
-                    className="cart-item"
-                    key={sku}
-                  >
-                    <div className="cart-item__image">
-                      <span className="cart-item__placeholder">
-                        {item.store || t('cartPage.noImage')}
-                      </span>
-                    </div>
-
+                  <article className="cart-item" key={sku}>
                     <div className="cart-item__info">
                       <h2>{name}</h2>
-
-                      <p>{sku}</p>
-
-                      {item.store && (
-                        <p>{item.store}</p>
-                      )}
-
+                      <p>{t('cartPage.sku')}: {sku}</p>
+                      {item.store ? <p>{item.store}</p> : null}
                       {price !== undefined && (
                         <p>
-                          {t('cartPage.price')}: {price}{' '}
-                          {t('checkout.currency')}
+                          {t('cartPage.price')}: {price} {t('checkout.currency')}
                         </p>
                       )}
-
                       {lineTotal !== undefined && (
                         <p>
-                          {t('cartPage.subtotal')}:{' '}
-                          {lineTotal}{' '}
-                          {t('checkout.currency')}
+                          {t('cartPage.subtotal')}: {lineTotal} {t('checkout.currency')}
                         </p>
                       )}
                     </div>
@@ -227,42 +252,22 @@ export default function Cart() {
                       <div className="vt-qty">
                         <button
                           type="button"
-                          aria-label={t(
-                            'cartPage.decreaseQuantity'
-                          )}
-                          disabled={
-                            updatingSku === sku ||
-                            quantity <= 1
-                          }
-                          onClick={() =>
-                            updateQuantity(
-                              sku,
-                              quantity - 1
-                            )
-                          }
+                          aria-label={t('cartPage.decreaseQuantity')}
+                          disabled={updatingSku === sku || quantity <= 1}
+                          onClick={() => updateQuantity(sku, quantity - 1)}
                         >
                           −
                         </button>
-
                         <span>{quantity}</span>
-
                         <button
                           type="button"
-                          aria-label={t(
-                            'cartPage.increaseQuantity'
-                          )}
+                          aria-label={t('cartPage.increaseQuantity')}
                           disabled={updatingSku === sku}
-                          onClick={() =>
-                            updateQuantity(
-                              sku,
-                              quantity + 1
-                            )
-                          }
+                          onClick={() => updateQuantity(sku, quantity + 1)}
                         >
                           +
                         </button>
                       </div>
-
                       <button
                         type="button"
                         className="vt-button vt-button--ghost"
@@ -277,30 +282,31 @@ export default function Cart() {
               })}
             </div>
 
-            <div className="cart-summary">
+            <aside className="cart-summary">
+              <h2>{t('cartPage.summary')}</h2>
               <div>
                 <span>{t('cartPage.total')}</span>{' '}
                 <strong>
-                  {cart.total}{' '}
-                  {t('checkout.currency')}
+                  {cart.total} {t('checkout.currency')}
                 </strong>
               </div>
-
+              <div
+                className="cart-summary__marks"
+                aria-label={`${t('productCard.visa')} ${t('productCard.mastercard')}`}
+              >
+                <span className="ds-pay ds-pay--visa">{t('productCard.visa')}</span>
+                <span className="ds-pay ds-pay--mastercard">{t('productCard.mastercard')}</span>
+              </div>
               <button
                 type="button"
                 className="vt-button"
-                disabled={
-                  checkoutLoading ||
-                  cart.items.length === 0
-                }
+                disabled={checkoutLoading || cart.items.length === 0}
                 onClick={handleCheckout}
               >
-                {checkoutLoading
-                  ? t('cartPage.processing')
-                  : t('cartPage.checkout')}
+                {checkoutLoading ? t('cartPage.processing') : t('cartPage.checkout')}
               </button>
-            </div>
-          </>
+            </aside>
+          </div>
         )}
     </main>
   )

@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #9 Vach
 
-**Волна 5.** Карточка и состояния каталога. Папки `frontend/src/components/ProductCard/` и `frontend/src/components/CatalogState/`. Ветка `feat/vach-catalog`, после Ashot. Анатомия, Card и Cash, шесть состояний, пусто, скелет, ошибка с повтором. Карточка не знает витрину. `Textile.jsx` и `Baby.jsx` не править. Раздел «9 — Vach · карточка и состояния каталога» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** Карточка, CatalogState и `/product/:sku`, папки `frontend/src/components/ProductCard/`, `CatalogState/`, `pages/ProductDetails/`, ветка `feat/vach-catalog`, после Ashot. Product content `8-528`. Без цвета, wishlist, share и доставки 3000. Раздел «9 — Vach · карточка, каталог и `/product/:sku`» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** The card and the catalog states. Folders `frontend/src/components/ProductCard/` and `frontend/src/components/CatalogState/`. Branch `feat/vach-catalog`, after Ashot. Anatomy, Card and Cash, six states, empty, skeleton, and error with retry. The card does not know the shop. Do not edit `Textile.jsx` or `Baby.jsx`. Section “9 — Vach · card and catalog states” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** Card, CatalogState, and `/product/:sku`, folders `frontend/src/components/ProductCard/`, `CatalogState/`, `pages/ProductDetails/`, branch `feat/vach-catalog`, after Ashot. Product content `8-528`. No color, wishlist, share, or delivery 3000. Section “9 — Vach · card, catalog, and `/product/:sku`” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** Քարտը և կատալոգի վիճակները։ Պանակներ `frontend/src/components/ProductCard/` և `frontend/src/components/CatalogState/`։ Ճյուղ `feat/vach-catalog`, Ashot-ից հետո։ Անատոմիա, Card և Cash, վեց վիճակ, դատարկ, սկելետոն, սխալ՝ կրկնելով։ Քարտը խանութը չգիտի։ `Textile.jsx`-ը և `Baby.jsx`-ը չփոխել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «9 — Vach · карточка и состояния каталога»։ Ներքևի տեքստը մնում է։
+**Wave 6.** Քարտ, CatalogState և `/product/:sku`, պանակներ `frontend/src/components/ProductCard/`, `CatalogState/`, `pages/ProductDetails/`, ճյուղ `feat/vach-catalog`, Ashot-ից հետո։ Product content `8-528`։ Առանց գույնի, wishlist-ի, share-ի և առաքում 3000-ի։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «9 — Vach · карточка, каталог и `/product/:sku`»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Карточка и состояния каталога. Папки `frontend/src/components/ProductCard/` и `frontend/src/components/CatalogState/`. Ветка `feat/vach-catalog`, после Ashot. Анатомия, Card и Cash, шесть состояний, пусто, скелет, ошибка с повтором. Карточка не знает витрину. `Textile.jsx` и `Baby.jsx` не править. Раздел «9 — Vach · карточка и состояния каталога» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** The card and the catalog states. Folders `frontend/src/components/ProductCard/` and `frontend/src/components/CatalogState/`. Branch `feat/vach-catalog`, after Ashot. Anatomy, Card and Cash, six states, empty, skeleton, and error with retry. The card does not know the shop. Do not edit `Textile.jsx` or `Baby.jsx`. Section “9 — Vach · card and catalog states” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** Քարտը և կատալոգի վիճակները։ Պանակներ `frontend/src/components/ProductCard/` և `frontend/src/components/CatalogState/`։ Ճյուղ `feat/vach-catalog`, Ashot-ից հետո։ Անատոմիա, Card և Cash, վեց վիճակ, դատարկ, սկելետոն, սխալ՝ կրկնելով։ Քարտը խանութը չգիտի։ `Textile.jsx`-ը և `Baby.jsx`-ը չփոխել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «9 — Vach · карточка и состояния каталога»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «9 — Vach · карточка товара». Папка `frontend/src/components/ProductCard/`. Импорт `api` именной. Карточка не знает витрину. Текст ниже не стирать.
 

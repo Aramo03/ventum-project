@@ -28,6 +28,7 @@ function pageTitleKey(pathname) {
   if (pathname === '/baby') return 'pageTitles.baby'
   if (pathname === '/account') return 'pageTitles.account'
   if (pathname === '/cart') return 'pageTitles.cart'
+  if (pathname.startsWith('/product/')) return 'pageTitles.product'
   if (pathname === '/checkout/success') {
     return 'pageTitles.checkoutSuccess'
   }

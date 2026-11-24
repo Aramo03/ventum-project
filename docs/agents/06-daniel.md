@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #6 Daniel
 
-**Волна 5.** Подвал и шесть состояний рассылки, папка `frontend/src/components/Footer/`, ветка `feat/daniel-footer`, после Svet. Контакт и copyright на главной. На витрине — сведения, делитель, legal и марки карт. Рассылка бьёт в старый `POST /api/leads/newsletter/`. Invalid не уходит. Модели заказа не трогать. Раздел «6 — Daniel · подвал и рассылка» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** Подвал и рассылка, папка `frontend/src/components/Footer/`, ветка `feat/daniel-footer`, после Svet. Store footer, компактный `8-653` / `3-1393`, шесть состояний `65-1209` на токенах. Раздел «6 — Daniel · подвал и рассылка» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** Footer and the six newsletter states, folder `frontend/src/components/Footer/`, branch `feat/daniel-footer`, after Svet. Contact and copyright on the home page. On a shop: information, divider, legal line, and card marks. The newsletter still posts to `POST /api/leads/newsletter/`. Invalid does not send. Do not touch order models. Section “6 — Daniel · footer and newsletter” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** Footer and newsletter, folder `frontend/src/components/Footer/`, branch `feat/daniel-footer`, after Svet. Store footer, compact `8-653` / `3-1393`, six states `65-1209` on tokens. Section “6 — Daniel · footer and newsletter” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** Ներքևը և բաժանորդագրության վեց վիճակը, պանակ `frontend/src/components/Footer/`, ճյուղ `feat/daniel-footer`, Svet-ից հետո։ Գլխավորում՝ կոնտակտ և copyright։ Խանութում՝ տեղեկություն, բաժանարար, legal և քարտերի նշաններ։ Բաժանորդագրությունը մնում է `POST /api/leads/newsletter/`։ Invalid-ը չի ուղարկում։ Պատվերի մոդելները չկպնել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «6 — Daniel · подвал и рассылка»։ Ներքևի տեքստը մնում է։
+**Wave 6.** Ստորոտ և բաժանորդագրություն, պանակ `frontend/src/components/Footer/`, ճյուղ `feat/daniel-footer`, Svet-ից հետո։ Store footer, կոմպակտ `8-653` / `3-1393`, վեց վիճակ `65-1209`՝ token-ներով։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «6 — Daniel · подвал и рассылка»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Подвал и шесть состояний рассылки, папка `frontend/src/components/Footer/`, ветка `feat/daniel-footer`, после Svet. Контакт и copyright на главной. На витрине — сведения, делитель, legal и марки карт. Рассылка бьёт в старый `POST /api/leads/newsletter/`. Invalid не уходит. Модели заказа не трогать. Раздел «6 — Daniel · подвал и рассылка» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** Footer and the six newsletter states, folder `frontend/src/components/Footer/`, branch `feat/daniel-footer`, after Svet. Contact and copyright on the home page. On a shop: information, divider, legal line, and card marks. The newsletter still posts to `POST /api/leads/newsletter/`. Invalid does not send. Do not touch order models. Section “6 — Daniel · footer and newsletter” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** Ներքևը և բաժանորդագրության վեց վիճակը, պանակ `frontend/src/components/Footer/`, ճյուղ `feat/daniel-footer`, Svet-ից հետո։ Գլխավորում՝ կոնտակտ և copyright։ Խանութում՝ տեղեկություն, բաժանարար, legal և քարտերի նշաններ։ Բաժանորդագրությունը մնում է `POST /api/leads/newsletter/`։ Invalid-ը չի ուղարկում։ Պատվերի մոդելները չկպնել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «6 — Daniel · подвал и рассылка»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «6 — Daniel · подвал». Только `frontend/src/components/Footer/` по кадру. Модели заказа не трогать. Текст ниже не стирать.
 

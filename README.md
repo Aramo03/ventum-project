@@ -1,15 +1,15 @@
 # Ventum — учебный каркас
 
-Магазин [Ventum](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1): вход с выбором магазина, витрина Textile и витрина Baby. Ученики собирают проект в команде. Волна 1 закрыта: модели и админка. Волна 2 закрыта: публичное API, витрины и формы подвала. Текущее задание — волна 5, полный кадр: [task-wave5.md](task-wave5.md). Волна 3 остаётся контрактом корзины, заказа, Idram и письма.
+Магазин [Ventum](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1): вход с выбором магазина, витрина Textile и витрина Baby. Ученики собирают проект в команде. Волна 1 закрыта: модели и админка. Волна 2 закрыта: публичное API, витрины и формы подвала. Волна 5 закрыта: полный кадр. Текущее задание — волна 6, оба файла Figma, движение и оболочка: [task-wave6.md](task-wave6.md). Волна 3 остаётся контрактом корзины, заказа, Idram и письма.
 
 **RU / EN / HY** — читай гайды на том языке, который удобен. Код и имена API — на английском.
 
 ## С чего начать
 
 1. [CONTRIBUTING.md](CONTRIBUTING.md) — git: `main` не трогать, работа в своей ветке, PR только в `dev`. День задания, следующий день — merge
-2. [task-wave5.md](task-wave5.md) — текущее задание, Wave 5: полный кадр. Контракт покупки — [task-wave3.md](task-wave3.md), срок до конца января 2027. Номер ученика совпадает с [TASK.md](TASK.md). Файл для агента — в `docs/agents/`
-3. [TASK.md](TASK.md) — короткий список зон волны 5. Архив волны 4 — [task-wave4.md](task-wave4.md). Архив волны 2 — [task-wave2.md](task-wave2.md). Архив волны 1 — [task-advanced.md](task-advanced.md)
-4. Макет: [Figma Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1)
+2. [task-wave6.md](task-wave6.md) — текущее задание, Wave 6: оба файла Figma, движение и оболочка. Контракт покупки — [task-wave3.md](task-wave3.md), срок до конца января 2027. Номер ученика совпадает с [TASK.md](TASK.md). Файл для агента — в `docs/agents/`
+3. [TASK.md](TASK.md) — короткий список зон волны 6. Архив волны 5 — [task-wave5.md](task-wave5.md). Архив волны 4 — [task-wave4.md](task-wave4.md). Архив волны 2 — [task-wave2.md](task-wave2.md). Архив волны 1 — [task-advanced.md](task-advanced.md)
+4. Макеты: [файл 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [файл 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)
 
 ## Стек
 
@@ -61,8 +61,8 @@ Health: `http://127.0.0.1:8000/api/health/`
 
 ## English
 
-Ventum shop. **SQLite** by default. Wave 1 and Wave 2 are closed. Current work is Wave 5: [task-wave5.md](task-wave5.md), the full frame, [Figma](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1). Wave 3 stays the purchase contract: [task-wave3.md](task-wave3.md). Short list: [TASK.md](TASK.md). Agent briefs: `docs/agents/`. Finish the purchase contract by the end of January 2027. PRs into `dev` only. Product text languages: `am` / `en` / `ru`.
+Ventum shop. **SQLite** by default. Wave 1, Wave 2, and Wave 5 are closed. Current work is Wave 6: [task-wave6.md](task-wave6.md), both Figma files, motion, and the shell — [file 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [file 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1). Wave 3 stays the purchase contract: [task-wave3.md](task-wave3.md). Short list: [TASK.md](TASK.md). Agent briefs: `docs/agents/`. Finish the purchase contract by the end of January 2027. PRs into `dev` only. Product text languages: `am` / `en` / `ru`.
 
 ## Հայերեն
 
-Խանութ՝ **SQLite**-ով։ Wave 1-ը և Wave 2-ը փակ են։ Ընթացիկ աշխատանքը Wave 5-ն է՝ [task-wave5.md](task-wave5.md), լրիվ կադրը, [Figma](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1)։ Wave 3-ը մնում է գնման պայմանագիր՝ [task-wave3.md](task-wave3.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Գործակալի ֆայլերը՝ `docs/agents/`։ Գնման պայմանագիրը ավարտել մինչև 2027-ի հունվարի վերջ։ PR-ը միայն `dev`։ Ապրանքի լեզուները՝ `am` / `en` / `ru`։
+Խանութ՝ **SQLite**-ով։ Wave 1-ը, Wave 2-ը և Wave 5-ը փակ են։ Ընթացիկ աշխատանքը Wave 6-ն է՝ [task-wave6.md](task-wave6.md), երկու Figma ֆայլ, շարժում և պատյան — [ֆայլ 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [ֆայլ 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)։ Wave 3-ը մնում է գնման պայմանագիր՝ [task-wave3.md](task-wave3.md)։ Կարճ ցանկը՝ [TASK.md](TASK.md)։ Գործակալի ֆայլերը՝ `docs/agents/`։ Գնման պայմանագիրը ավարտել մինչև 2027-ի հունվարի վերջ։ PR-ը միայն `dev`։ Ապրանքի լեզուները՝ `am` / `en` / `ru`։

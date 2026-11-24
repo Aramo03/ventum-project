@@ -1,4 +1,80 @@
-# Ventum — Wave 5
+# Ventum — Wave 6
+
+**Подробно:** [task-wave6.md](task-wave6.md)  
+**Экран волны 5, закрыт:** [task-wave5.md](task-wave5.md)  
+**Экран волны 4, закрыт:** [task-wave4.md](task-wave4.md)  
+**Покупка, контракт волны 3:** [task-wave3.md](task-wave3.md)  
+**Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
+**Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)
+
+Текущая работа — оба файла Figma, CSS-движение и оболочка, в которой `main` растёт по контенту. Один кусок на ученика. Волна 5 закрыта. Волна 3 не закрыта: корзина, заказ, Idram и письмо остаются контрактом. Регистрацию и Google снова не поручать. Ветки прежние. В `main` не пушить.
+
+Макеты: [файл 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [файл 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
+
+| # | Имя | Ветка | Зона | Агент |
+|---|-----|--------|------|--------|
+| 1 | Lead | `feat/lead` | Доска волны 6. Экраны не рисует | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Середина `/`: два рассказа, движение | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Подписи волны в `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Опт и `/cart` по checkout-кадру | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Навигация всех кадров, включая product и cart | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Подвал, рассылка и компактный подвал product/cart | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` с движением | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` с движением, включая Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Карточка, каталог и `/product/:sku` | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Оболочка, токены движения, `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Очередь merge: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+## English
+
+**Detail:** [task-wave6.md](task-wave6.md). **Wave 5 screens, closed:** [task-wave5.md](task-wave5.md). **Wave 4 screens, closed:** [task-wave4.md](task-wave4.md). **Wave 3 purchase contract:** [task-wave3.md](task-wave3.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md).
+
+The current work is both Figma files, CSS motion, and a shell whose `main` grows with content. One piece per student. Wave 5 is closed. Wave 3 is not closed: the cart, the order, Idram, and the shop email stay the contract. Do not reassign registration or Google. Branches stay. Do not push `main`.
+
+Design: [file 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [file 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1).
+
+| # | Name | Branch | Zone | Agent |
+|---|------|--------|------|--------|
+| 1 | Lead | `feat/lead` | Wave 6 board. Does not draw screens | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | Middle of `/`: both stories, motion | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Wave copy in `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Wholesale and `/cart` from the checkout frame | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Navigation on every frame, including product and cart | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Footer, newsletter, and compact product/cart footer | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` with motion | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` with motion, including Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Card, catalog, and `/product/:sku` | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Shell, motion tokens, `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Merge queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+## Հայերեն
+
+**Մանրամասն՝** [task-wave6.md](task-wave6.md)։ **Wave 5-ի էկրանները, փակ են՝** [task-wave5.md](task-wave5.md)։ **Wave 4-ի էկրանները, փակ են՝** [task-wave4.md](task-wave4.md)։ **Wave 3-ի գնման պայմանագիր՝** [task-wave3.md](task-wave3.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Տախտակ՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։
+
+Ընթացիկ աշխատանքը երկու Figma ֆայլերն են, CSS շարժումը և պատյանը, որտեղ `main`-ը աճում է ըստ բովանդակության։ Մեկ կտոր ամեն աշակերտի։ Wave 5-ը փակ է։ Wave 3-ը փակ չէ. զամբյուղը, պատվերը, Idram-ը և նամակը մնում են պայմանագիր։ Գրանցումը և Google-ը նորից մի հանձնարարիր։ Ճյուղերը նույնն են։ `main` չpush անել։
+
+Մակետներ՝ [ֆայլ 1](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1), [ֆայլ 2](https://www.figma.com/design/qHZfcqQumXuEPF8t3y62dF/Untitled?node-id=0-1)։
+
+| # | Անուն | Ճյուղ | Գոտի | Գործակալ |
+|---|------|--------|------|-----------|
+| 1 | Lead | `feat/lead` | Wave 6-ի տախտակ։ Էկրաններ չի նկարում | [01-lead.md](docs/agents/01-lead.md) |
+| 2 | Suro | `feat/suro-api` | `/`-ի մեջտեղը. երկու պատմություն, շարժում | [02-suro.md](docs/agents/02-suro.md) |
+| 3 | Artush | `feat/artush-i18n` | Ալիքի գրությունները `am.json`, `en.json`, `ru.json` | [03-artush.md](docs/agents/03-artush.md) |
+| 4 | Hayk | `feat/hayk-gateway` | Մեծածախ և `/cart` checkout կադրից | [04-hayk.md](docs/agents/04-hayk.md) |
+| 5 | Mariam | `feat/mariam-header` | Նավիգացիա բոլոր կադրերում, այդ թվում product և cart | [05-mariam.md](docs/agents/05-mariam.md) |
+| 6 | Daniel | `feat/daniel-footer` | Ստորոտ, բաժանորդագրություն և product/cart կոմպակտ ստորոտ | [06-daniel.md](docs/agents/06-daniel.md) |
+| 7 | Karen | `feat/karen-textile` | `/textile` շարժումով | [07-karen.md](docs/agents/07-karen.md) |
+| 8 | Svet | `feat/svet-baby` | `/baby` շարժումով, այդ թվում Parent care guide | [08-svet.md](docs/agents/08-svet.md) |
+| 9 | Vach | `feat/vach-catalog` | Քարտ, կատալոգ և `/product/:sku` | [09-vach.md](docs/agents/09-vach.md) |
+| 10 | Ashot | `feat/ashot-ui` | Պատյան, շարժման token-ներ, `/design` | [10-ashot.md](docs/agents/10-ashot.md) |
+
+Merge-ի հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+---
+
+# Архив — Wave 5 (закрыта)
 
 **Подробно:** [task-wave5.md](task-wave5.md)  
 **Экран волны 4, закрыт:** [task-wave4.md](task-wave4.md)  
@@ -6,7 +82,7 @@
 **Git:** [CONTRIBUTING.md](CONTRIBUTING.md)  
 **Доска Lead:** [docs/zones/lead/README.md](docs/zones/lead/README.md)
 
-Текущая работа — полный кадр Figma: главная, дизайн-система, Textile и Baby, desktop и mobile. Один кусок на ученика. Волна 4 закрыта. Волна 3 не закрыта: корзина, заказ, Idram и письмо остаются контрактом. Ветки прежние. В `main` не пушить.
+Волна 5 закрыта: полный кадр Figma — главная, дизайн-система, Textile и Baby, desktop и mobile. Один кусок на ученика. Волна 4 закрыта. Волна 3 не закрыта этой волной. Ветки прежние. В `main` не пушить.
 
 Макет: [страница Untitled](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1).
 
@@ -29,7 +105,7 @@
 
 **Detail:** [task-wave5.md](task-wave5.md). **Wave 4 screens, closed:** [task-wave4.md](task-wave4.md). **Wave 3 purchase contract:** [task-wave3.md](task-wave3.md). **Git:** [CONTRIBUTING.md](CONTRIBUTING.md). **Lead board:** [docs/zones/lead/README.md](docs/zones/lead/README.md).
 
-The current work is the full Figma frame: home, the design system, Textile, and Baby, desktop and mobile. One piece per student. Wave 4 is closed. Wave 3 is not closed: the cart, the order, Idram, and the shop email stay the contract. Branches stay. Do not push `main`.
+Wave 5 is closed: the full Figma frame — home, the design system, Textile, and Baby, desktop and mobile. One piece per student. Wave 4 is closed. Wave 3 is not closed by this wave. Branches stay. Do not push `main`.
 
 Design: [Untitled page](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1).
 
@@ -52,7 +128,7 @@ Merge queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet �
 
 **Մանրամասն՝** [task-wave5.md](task-wave5.md)։ **Wave 4-ի էկրանները, փակ են՝** [task-wave4.md](task-wave4.md)։ **Wave 3-ի գնման պայմանագիր՝** [task-wave3.md](task-wave3.md)։ **Git՝** [CONTRIBUTING.md](CONTRIBUTING.md)։ **Տախտակ՝** [docs/zones/lead/README.md](docs/zones/lead/README.md)։
 
-Ընթացիկ աշխատանքը Figma-ի լրիվ կադրն է՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Մեկ կտոր ամեն աշակերտի։ Wave 4-ը փակ է։ Wave 3-ը փակ չէ. զամբյուղը, պատվերը, Idram-ը և նամակը մնում են պայմանագիր։ Ճյուղերը նույնն են։ `main` չpush անել։
+Wave 5-ը փակ է. Figma-ի լրիվ կադրը՝ գլխավոր, դիզայն-համակարգ, Textile և Baby, desktop և mobile։ Մեկ կտոր ամեն աշակերտի։ Wave 4-ը փակ է։ Wave 3-ը այս ալիքով չի փակվում։ Ճյուղերը նույնն են։ `main` չpush անել։
 
 Մակետ՝ [Untitled էջ](https://www.figma.com/design/0eqS5GfJPjqqiUD2uLVCPK/Untitled?node-id=0-1)։
 

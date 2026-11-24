@@ -34,6 +34,15 @@ export async function deleteCartItem(sku) {
   return response.data
 }
 
+export async function fetchCartItemImage(sku) {
+  const response = await api.get(`/api/catalog/products/${encodeURIComponent(sku)}/`)
+  const data = response.data || {}
+  const images = Array.isArray(data.images) ? [...data.images] : []
+  images.sort((left, right) => (left?.order ?? 0) - (right?.order ?? 0))
+  const first = images.find((image) => image?.url)?.url
+  return first || data.image || ''
+}
+
 export async function checkout() {
   const response = await api.post('/api/checkout/')
   return response.data

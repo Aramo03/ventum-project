@@ -16,12 +16,27 @@
   background: var(--ds-brand-canvas);
 }
 
+.product-card__media-link,
 .product-card__image,
 .product-card__placeholder {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.product-card__media-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-card__name-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-card__name-link:hover {
+  text-decoration: underline;
 }
 
 .product-card__discount,
