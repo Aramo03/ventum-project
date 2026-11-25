@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #5 Mariam
 
-**Волна 5.** Навигация всех кадров, папка `frontend/src/components/Header/`, ветка `feat/mariam-header`, после Vach. Имя платформы, обещание, язык, переключатель магазинов, поиск `?q=`, ряд категорий `?category=`, на mobile — компактная шапка и мачта главной. `?success=1` не писать как оплату. Раздел «5 — Mariam · навигация» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** Навигация, папка `frontend/src/components/Header/`, ветка `feat/mariam-header`, после Vach. Gateway, Store navigation включая `6-12495`, Product `8-512`, Checkout `3-1158`. Магазин из `useShop()`. Раздел «5 — Mariam · навигация» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** Navigation for every frame, folder `frontend/src/components/Header/`, branch `feat/mariam-header`, after Vach. Platform name, promise, language, store switch, search as `?q=`, category row as `?category=`, and on mobile the compact header plus the home masthead. Do not call `?success=1` paid. Section “5 — Mariam · navigation” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** Navigation, folder `frontend/src/components/Header/`, branch `feat/mariam-header`, after Vach. Gateway, Store navigation including `6-12495`, Product `8-512`, Checkout `3-1158`. Shop from `useShop()`. Section “5 — Mariam · navigation” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** Նավիգացիա բոլոր կադրերի համար, պանակ `frontend/src/components/Header/`, ճյուղ `feat/mariam-header`, Vach-ից հետո։ Հարթակի անուն, խոստում, լեզու, խանութի փոխարկիչ, որոնում `?q=`, բաժիններ `?category=`, mobile-ում՝ կոմպակտ վերնագիր և գլխավորի կայմ։ `?success=1`-ը վճարված չգրել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «5 — Mariam · навигация»։ Ներքևի տեքստը մնում է։
+**Wave 6.** Նավիգացիա, պանակ `frontend/src/components/Header/`, ճյուղ `feat/mariam-header`, Vach-ից հետո։ Gateway, Store navigation՝ ներառյալ `6-12495`, Product `8-512`, Checkout `3-1158`։ Խանութը՝ `useShop()`-ից։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «5 — Mariam · навигация»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Навигация всех кадров, папка `frontend/src/components/Header/`, ветка `feat/mariam-header`, после Vach. Имя платформы, обещание, язык, переключатель магазинов, поиск `?q=`, ряд категорий `?category=`, на mobile — компактная шапка и мачта главной. `?success=1` не писать как оплату. Раздел «5 — Mariam · навигация» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** Navigation for every frame, folder `frontend/src/components/Header/`, branch `feat/mariam-header`, after Vach. Platform name, promise, language, store switch, search as `?q=`, category row as `?category=`, and on mobile the compact header plus the home masthead. Do not call `?success=1` paid. Section “5 — Mariam · navigation” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** Նավիգացիա բոլոր կադրերի համար, պանակ `frontend/src/components/Header/`, ճյուղ `feat/mariam-header`, Vach-ից հետո։ Հարթակի անուն, խոստում, լեզու, խանութի փոխարկիչ, որոնում `?q=`, բաժիններ `?category=`, mobile-ում՝ կոմպակտ վերնագիր և գլխավորի կայմ։ `?success=1`-ը վճարված չգրել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «5 — Mariam · навигация»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «5 — Mariam · шапка и корзина». Шапка и `frontend/src/pages/Cart/` по кадру. `t('account')` заменить на строковый ключ. `?success=1` не писать как оплату. Текст ниже не стирать.
 

@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import Header from './components/Header/Header.jsx'
+import { activeLanguageCode } from './components/Header/header.js'
 import Footer from './components/Footer/Footer.jsx'
 import Gateway from './pages/Gateway/Gateway.jsx'
 
@@ -27,6 +28,7 @@ function pageTitleKey(pathname) {
   if (pathname === '/baby') return 'pageTitles.baby'
   if (pathname === '/account') return 'pageTitles.account'
   if (pathname === '/cart') return 'pageTitles.cart'
+  if (pathname.startsWith('/product/')) return 'pageTitles.product'
   if (pathname === '/checkout/success') {
     return 'pageTitles.checkoutSuccess'
   }
@@ -52,10 +54,14 @@ export default function App() {
   }, [pathname, t, i18n.language])
 
   useEffect(() => {
-    const code = (i18n.resolvedLanguage || i18n.language || 'en')
-      .split('-')[0]
-
-    document.documentElement.lang = code
+    const chosen = activeLanguageCode(i18n.resolvedLanguage || i18n.language)
+    let stored = ''
+    try {
+      stored = localStorage.getItem('i18nextLng') || ''
+    } catch {
+      stored = ''
+    }
+    document.documentElement.lang = chosen || stored.split('-')[0] || 'en'
   }, [i18n.language, i18n.resolvedLanguage])
 
   return (

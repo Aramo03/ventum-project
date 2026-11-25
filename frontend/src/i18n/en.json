@@ -42,6 +42,7 @@
     "baby": "Ventum Baby",
     "account": "My account",
     "cart": "Cart",
+    "product": "Product",
     "checkoutSuccess": "Payment return",
     "checkoutFail": "Payment not completed",
     "notFound": "Not found"
@@ -93,6 +94,8 @@
     "rights": "All rights reserved.",
     "note": "Questions about delivery and wholesale.",
     "newsletterTitle": "Newsletter",
+    "contactTitle": "Contact",
+    "payments": "Payment marks",
     "newsletterEmail": "Email",
     "newsletterPlaceholder": "Your email address",
     "newsletterInvalid": "Enter a valid email address.",
@@ -122,7 +125,22 @@
     "added": "Added to cart",
     "signIn": "Sign in to add this item to your cart.",
     "failed": "Could not add this item. Try again.",
-    "currency": "AMD"
+    "currency": "AMD",
+    "card": "Card",
+    "cash": "Cash",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "sizes": "Size"
+  },
+  "catalogState": {
+    "textileEmptyTitle": "No results found",
+    "textileEmptyText": "Try changing the search word or the section.",
+    "babyEmptyTitle": "No product found",
+    "babyEmptyText": "Try choosing another section.",
+    "babyEmptyAction": "All sections",
+    "errorTitle": "Loading failed",
+    "errorText": "Check your internet connection and try again",
+    "retry": "Try again"
   },
   "textile": {
     "title": "Ventum Textile",
@@ -164,7 +182,70 @@
     "giftTitle": "A gift as gentle as your baby's skin",
     "giftText": "A small set, chosen for softness and slow mornings.",
     "noteTitle": "A soft note for the bedside",
-    "noteText": "Breathable cotton, calm colours, and room to grow."
+    "noteText": "Breathable cotton, calm colours, and room to grow.",
+    "editorial": {
+      "eyebrow": "Ventum Baby",
+      "title": "Big love for the littlest people",
+      "description": "Soft cotton for quiet naps, first mornings, and small hands.",
+      "cta": "See the set",
+      "mediaAlt": "Ventum Baby seasonal photograph",
+      "caption": "First morning"
+    },
+    "assurances": {
+      "cottonTitle": "Soft cotton",
+      "cottonText": "Gentle on skin from the first day.",
+      "deliveryTitle": "A calm delivery",
+      "deliveryText": "The little set arrives home without a rush.",
+      "washTitle": "Soft after washing",
+      "washText": "It keeps its softness for the next nap."
+    },
+    "categories": {
+      "heading": "Little sections",
+      "subheading": "Choose a section to filter the set",
+      "all": "The whole set"
+    },
+    "story": {
+      "eyebrow": "Brand story",
+      "title": "Care woven into every stitch",
+      "philosophy": "Cloth that stays gentle on the skin, from the first wrap to the next nap.",
+      "pillar1": "Cotton that breathes",
+      "pillar2": "Quiet colours for the nursery",
+      "pillar3": "Room to grow"
+    },
+    "care": {
+      "eyebrow": "Parent care guide",
+      "title": "How to care for the first set",
+      "intro": "Short steps for washing, drying, and the next nap.",
+      "step1": "Wash it alone the first time, in mild water.",
+      "step2": "Skip fabric softener.",
+      "step3": "Dry it in the shade and fold it without ironing."
+    },
+    "collection": {
+      "heading": "The little collection",
+      "count": "Items: {{count}}",
+      "categoryLabel": "Section",
+      "searchLabel": "Search",
+      "resetFilters": "Clear filters",
+      "showAll": "Show the whole set",
+      "backToTop": "Back to the collection"
+    }
+  },
+  "wholesaleBlock": {
+    "eyebrow": "Wholesale partnership",
+    "title": "Partner with Ventum",
+    "description": "Choose quality products for your shop or business. Leave your details and our team will get in touch.",
+    "action": "Become a partner",
+    "close": "Close request form",
+    "formTitle": "Send a wholesale inquiry",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Tell us about your business",
+    "submit": "Send inquiry",
+    "submitting": "Sending...",
+    "success": "Thank you. Our team will be in touch.",
+    "error": "Could not send your inquiry. Please try again.",
+    "required": "Please complete all fields."
   },
   "account": {
     "title": "My account",
@@ -180,7 +261,40 @@
     "signingIn": "Signing in...",
     "logout": "Sign out",
     "invalidCredentials": "The email or password is incorrect.",
-    "loginError": "Could not sign in. Try again."
+    "loginError": "Could not sign in. Try again.",
+    "createAccount": "Create account",
+    "creatingAccount": "Creating account...",
+    "registerPrompt": "Create an account with your email and password.",
+    "passwordConfirm": "Confirm password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "googleSignIn": "Sign in to your account",
+    "or": "or",
+    "emailTaken": "An account with this email already exists.",
+    "passwordMismatch": "The passwords do not match.",
+    "invalidPassword": "This password does not meet the requirements.",
+    "registerError": "Could not create the account. Try again.",
+    "googleUnavailable": "Google sign-in is unavailable.",
+    "googleInvalid": "Could not verify the Google account.",
+    "googleEmailUnverified": "The Google email address is not verified."
+  },
+  "productDetails": {
+    "loading": "Loading product...",
+    "notFound": "Product not found",
+    "notFoundText": "This product is not available.",
+    "loadErrorTitle": "Could not load the product",
+    "loadError": "Check your connection and try again.",
+    "retry": "Try again",
+    "home": "Home",
+    "backTextile": "Back to Textile",
+    "backBaby": "Back to Baby",
+    "storeTextile": "Textile",
+    "storeBaby": "Baby",
+    "breadcrumbs": "Breadcrumbs",
+    "gallery": "Product images",
+    "showImage": "Show image {{index}}",
+    "sku": "Article",
+    "about": "About the product"
   },
   "accountLink": "My account",
   "searchError": "Search failed. Please try again.",
@@ -198,6 +312,10 @@
     "emptyTitle": "Your cart is empty",
     "emptyMessage": "Add products to your cart to see them here.",
     "noImage": "No image",
+    "sku": "Article",
+    "summary": "Order summary",
+    "price": "Price",
+    "subtotal": "Line total",
     "decreaseQuantity": "Decrease quantity",
     "increaseQuantity": "Increase quantity",
     "remove": "Remove",

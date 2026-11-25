@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #8 Svet
 
-**Волна 5.** Полный `/baby`, кадры `6-13059` и `6-13319`. Папка `frontend/src/pages/Baby/`, ветка `feat/svet-baby`, после Karen. Те же секции витрины плюс отдельный Parent care guide. Карточка Vach, без товара Textile. Diff Textile пустой. Опт не собирать. Раздел «8 — Svet · baby» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** `/baby`, папка `frontend/src/pages/Baby/`, ветка `feat/svet-baby`, после Karen. Секции включая Parent care guide `6-13287` / `6-13550`, `id="brand-story"`, движение на токенах. Diff Textile пустой. Раздел «8 — Svet · baby» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** The full `/baby`, frames `6-13059` and `6-13319`. Folder `frontend/src/pages/Baby/`, branch `feat/svet-baby`, after Karen. The same shop sections plus a separate Parent care guide. Vach’s card. No Textile product. The Textile diff stays empty. Do not build wholesale. Section “8 — Svet · baby” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** `/baby`, folder `frontend/src/pages/Baby/`, branch `feat/svet-baby`, after Karen. Sections including Parent care guide `6-13287` / `6-13550`, `id="brand-story"`, motion on tokens. Empty Textile diff. Section “8 — Svet · baby” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** Լրիվ `/baby`, կադրեր `6-13059` և `6-13319`։ Պանակ `frontend/src/pages/Baby/`, ճյուղ `feat/svet-baby`, Karen-ից հետո։ Խանութի նույն սեկցիաները, գումարած առանձին Parent care guide։ Vach-ի քարտ, առանց Textile ապրանքի։ Textile-ի diff-ը դատարկ է։ Մեծածախը չհավաքել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «8 — Svet · baby»։ Ներքևի տեքստը մնում է։
+**Wave 6.** `/baby`, պանակ `frontend/src/pages/Baby/`, ճյուղ `feat/svet-baby`, Karen-ից հետո։ Սեկցիաներ՝ ներառյալ Parent care guide `6-13287` / `6-13550`, `id="brand-story"`, շարժում՝ token-ներով։ Textile diff-ը դատարկ է։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «8 — Svet · baby»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Полный `/baby`, кадры `6-13059` и `6-13319`. Папка `frontend/src/pages/Baby/`, ветка `feat/svet-baby`, после Karen. Те же секции витрины плюс отдельный Parent care guide. Карточка Vach, без товара Textile. Diff Textile пустой. Опт не собирать. Раздел «8 — Svet · baby» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** The full `/baby`, frames `6-13059` and `6-13319`. Folder `frontend/src/pages/Baby/`, branch `feat/svet-baby`, after Karen. The same shop sections plus a separate Parent care guide. Vach’s card. No Textile product. The Textile diff stays empty. Do not build wholesale. Section “8 — Svet · baby” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** Լրիվ `/baby`, կադրեր `6-13059` և `6-13319`։ Պանակ `frontend/src/pages/Baby/`, ճյուղ `feat/svet-baby`, Karen-ից հետո։ Խանութի նույն սեկցիաները, գումարած առանձին Parent care guide։ Vach-ի քարտ, առանց Textile ապրանքի։ Textile-ի diff-ը դատարկ է։ Մեծածախը չհավաքել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «8 — Svet · baby»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущий экран — [task-wave4.md](../../task-wave4.md), раздел «8 — Svet · baby». Только `frontend/src/pages/Baby/` по кадру, та же карточка Vach, без товара Textile. Текст ниже не стирать.
 

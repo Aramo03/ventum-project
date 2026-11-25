@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #2 Suro
 
-**Волна 5.** Середина `/`, кадры Gateway desktop `178-46` и Gateway mobile `6-12462`. Папка `frontend/src/pages/Gateway/`. Ветка `feat/suro-api`, после Mariam. Оба рассказа и обе ссылки. Header и Footer в страницу не копировать. Раздел «2 — Suro · главная» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** Середина `/`, папка `frontend/src/pages/Gateway/`, ветка `feat/suro-api`, после Mariam. Слои Brand gateway `178-48` и Stacked brand gateway `181-89`. Токены движения Ashot, `ds-reveal`, без фиксированной высоты на `main`. Раздел «2 — Suro · главная» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** The middle of `/`, Gateway desktop `178-46` and Gateway mobile `6-12462`. Folder `frontend/src/pages/Gateway/`. Branch `feat/suro-api`, after Mariam. Both stories and both links. Do not copy Header or Footer into the page. Section “2 — Suro · home” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** Middle of `/`, folder `frontend/src/pages/Gateway/`, branch `feat/suro-api`, after Mariam. Layers Brand gateway `178-48` and Stacked brand gateway `181-89`. Ashot’s motion tokens, `ds-reveal`, no fixed height on `main`. Section “2 — Suro · home” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** `/`-ի մեջտեղը, Gateway desktop `178-46` և Gateway mobile `6-12462`։ Պանակ `frontend/src/pages/Gateway/`։ Ճյուղ `feat/suro-api`, Mariam-ից հետո։ Երկու պատմություն և երկու հղում։ Header-ը և Footer-ը էջի մեջ չպատճենել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «2 — Suro · главная»։ Ներքևի տեքստը մնում է։
+**Wave 6.** `/`-ի մեջտեղը, պանակ `frontend/src/pages/Gateway/`, ճյուղ `feat/suro-api`, Mariam-ից հետո։ Շերտեր Brand gateway `178-48` և Stacked brand gateway `181-89`։ Ashot-ի շարժման token-ներ, `ds-reveal`, ֆիքսված բարձրություն չկա `main`-ի վրա։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «2 — Suro · главная»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Середина `/`, кадры Gateway desktop `178-46` и Gateway mobile `6-12462`. Папка `frontend/src/pages/Gateway/`. Ветка `feat/suro-api`, после Mariam. Оба рассказа и обе ссылки. Header и Footer в страницу не копировать. Раздел «2 — Suro · главная» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** The middle of `/`, Gateway desktop `178-46` and Gateway mobile `6-12462`. Folder `frontend/src/pages/Gateway/`. Branch `feat/suro-api`, after Mariam. Both stories and both links. Do not copy Header or Footer into the page. Section “2 — Suro · home” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** `/`-ի մեջտեղը, Gateway desktop `178-46` և Gateway mobile `6-12462`։ Պանակ `frontend/src/pages/Gateway/`։ Ճյուղ `feat/suro-api`, Mariam-ից հետո։ Երկու պատմություն և երկու հղում։ Header-ը և Footer-ը էջի մեջ չպատճենել։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «2 — Suro · главная»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущий PR — ветка `feat/suro-api`, base `dev`, после Lead и до Vach. Папка `frontend/src/pages/Gateway/`: герой и выбор магазина. Новые строки `gateway` сразу в `am.json`, `en.json` и `ru.json`. В этот PR не входят `App.jsx`, Textile, Baby, Header, Footer, `index.css`, `apps/cart`, `apps/orders`, `config/urls.py` и `settings.py`. Строка «Нельзя: React» ниже остаётся в контракте волны 3 и в этот PR не входит. Текст ниже не стирать. Экран — [task-wave4.md](../../task-wave4.md), раздел «2 — Suro · главная».
 

@@ -1,10 +1,16 @@
 # Agent brief — Wave 3 — #10 Ashot
 
-**Волна 5.** Первым среди экранов. Токены и `/design`, папка `frontend/src/design/`, ветка `feat/ashot-ui`, кадр `6-12117`. Обе палитры и шесть состояний кнопки. Живую карточку и живую рассылку не собирать. В `App.jsx` — только маршрут `/design`. Раздел «10 — Ashot · дизайн-система» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+**Волна 6.** Первым среди экранов. Оболочка `shell.css`, токены движения, `motion.css`, `useShop()`, `/design` по `6-12117`, ветка `feat/ashot-ui`. `main` с `min-height: min-content`. Живую карточку, рассылку и корзину не собирать. Раздел «10 — Ashot · оболочка, движение и дизайн-система» в [task-wave6.md](../../task-wave6.md). Текст ниже не стирать.
 
-**Wave 5.** First among the screens. Tokens and `/design`, folder `frontend/src/design/`, branch `feat/ashot-ui`, frame `6-12117`. Both palettes and the six button states. Do not build the live card or the live newsletter. In `App.jsx`, only the `/design` route. Section “10 — Ashot · design system” in [task-wave5.md](../../task-wave5.md). The text below stays.
+**Wave 6.** First among the screens. Shell `shell.css`, motion tokens, `motion.css`, `useShop()`, `/design` from `6-12117`, branch `feat/ashot-ui`. `main` with `min-height: min-content`. Do not build the live card, newsletter, or cart. Section “10 — Ashot · shell, motion, and design system” in [task-wave6.md](../../task-wave6.md). The text below stays.
 
-**Wave 5.** Էկրաններից առաջինը։ Token-ներ և `/design`, պանակ `frontend/src/design/`, ճյուղ `feat/ashot-ui`, կադր `6-12117`։ Երկու պալիտրա և կոճակի վեց վիճակ։ Կենդանի քարտը և կենդանի բաժանորդագրությունը չհավաքել։ `App.jsx`-ում միայն `/design` երթուղին։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «10 — Ashot · дизайн-система»։ Ներքևի տեքստը մնում է։
+**Wave 6.** Էկրաններից առաջինը։ Պատյան `shell.css`, շարժման token-ներ, `motion.css`, `useShop()`, `/design`՝ `6-12117`-ից, ճյուղ `feat/ashot-ui`։ `main`՝ `min-height: min-content`։ Կենդանի քարտը, բաժանորդագրությունը և զամբյուղը մի հավաքիր։ Բաժինը՝ [task-wave6.md](../../task-wave6.md), «10 — Ashot · оболочка, движение и дизайн-система»։ Ներքևի տեքստը մնում է։
+
+**Волна 5 (закрыта).** Первым среди экранов. Токены и `/design`, папка `frontend/src/design/`, ветка `feat/ashot-ui`, кадр `6-12117`. Обе палитры и шесть состояний кнопки. Живую карточку и живую рассылку не собирать. В `App.jsx` — только маршрут `/design`. Раздел «10 — Ashot · дизайн-система» в [task-wave5.md](../../task-wave5.md). Текст ниже не стирать.
+
+**Wave 5 (closed).** First among the screens. Tokens and `/design`, folder `frontend/src/design/`, branch `feat/ashot-ui`, frame `6-12117`. Both palettes and the six button states. Do not build the live card or the live newsletter. In `App.jsx`, only the `/design` route. Section “10 — Ashot · design system” in [task-wave5.md](../../task-wave5.md). The text below stays.
+
+**Wave 5 (փակ).** Էկրաններից առաջինը։ Token-ներ և `/design`, պանակ `frontend/src/design/`, ճյուղ `feat/ashot-ui`, կադր `6-12117`։ Երկու պալիտրա և կոճակի վեց վիճակ։ Կենդանի քարտը և կենդանի բաժանորդագրությունը չհավաքել։ `App.jsx`-ում միայն `/design` երթուղին։ Բաժինը՝ [task-wave5.md](../../task-wave5.md), «10 — Ashot · дизайн-система»։ Ներքևի տեքստը մնում է։
 
 **Волна 4.** Текущие экраны — [task-wave4.md](../../task-wave4.md), раздел «10 — Ashot · возврат и 404». `/checkout/success`, `/checkout/fail`, `/404` по кадру. Слово оплаты только при `status === 'paid'`. `index.css` не трогать. Текст ниже не стирать.
 
