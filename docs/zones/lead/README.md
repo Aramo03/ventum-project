@@ -9,11 +9,11 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 
 ## Доска merge — Wave 6
 
-Текущая доска. Оба файла Figma, CSS-движение, оболочка с `main` по контенту. Волна 5 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается. Регистрацию и Google снова не поручать.
+Волна 6 открыта. Оба файла Figma, CSS-движение, оболочка с `main` по контенту. Волна 5 закрыта и этой таблицей не открывается. Волна 3 этой таблицей не закрывается. Регистрацию и Google снова не поручать.
 
 | # | Имя | Ветка | Зона | После кого | PR | Статус |
 |---|-----|--------|------|------------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | не начато |
+| 1 | Lead | `feat/lead` | lead | — | — | ждёт PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | не начато |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | не начато |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | не начато |
@@ -25,6 +25,8 @@ Wave 1 и Wave 2 закрыты. Чужие фичи волны 3 не писа�
 | 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | не начато |
 
 Очередь именами: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Регистрация и экраны покупки уже в `dev`. Следующая зона — Ashot. Волна 6 не закрыта.
 
 Текущие PR волны 6 мержить по этой очереди. Base — `dev`. Ворота — строка «Lead не мержит, пока» в [task-wave6.md](../../../task-wave6.md).
 
@@ -138,11 +140,11 @@ Student **1**, branch `feat/lead`. The `#` column is the student number and matc
 
 ### Wave 6 board
 
-Current board. Both Figma files, CSS motion, shell with `main` by content. Wave 5 is closed and is not reopened by this table. Wave 3 is not closed by this table. Do not reassign registration or Google.
+Wave 6 is open. Both Figma files, CSS motion, shell with `main` by content. Wave 5 is closed and is not reopened by this table. Wave 3 is not closed by this table. Do not reassign registration or Google.
 
 | # | Name | Branch | Zone | After | PR | Status |
 |---|------|--------|------|-------|----|--------|
-| 1 | Lead | `feat/lead` | lead | — | — | not started |
+| 1 | Lead | `feat/lead` | lead | — | — | waiting for a PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | not started |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | not started |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | not started |
@@ -154,6 +156,8 @@ Current board. Both Figma files, CSS motion, shell with `main` by content. Wave 
 | 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | not started |
 
 Name queue: **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**.
+
+Registration and the purchase screens are already in `dev`. Next zone is Ashot. Wave 6 stays open.
 
 Merge Wave 6 PRs in this order. Base — `dev`. Gates — the “Lead does not merge until” line in [task-wave6.md](../../../task-wave6.md).
 
@@ -269,11 +273,11 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 
 ### Wave 6-ի տախտակ
 
-Ընթացիկ տախտակ։ Երկու Figma ֆայլ, CSS շարժում, պատյան՝ `main`-ով ըստ բովանդակության։ Wave 5-ը փակ է և այս աղյուսակով չի բացվում։ Wave 3-ը այս աղյուսակով չի փակվում։ Գրանցումը և Google-ը նորից մի հանձնարարիր։
+Wave 6-ը բաց է։ Երկու Figma ֆայլ, CSS շարժում, պատյան՝ `main`-ով ըստ բովանդակության։ Wave 5-ը փակ է և այս աղյուսակով չի բացվում։ Wave 3-ը այս աղյուսակով չի փակվում։ Գրանցումը և Google-ը նորից մի հանձնարարիր։
 
 | # | Անուն | Ճյուղ | Գոտի | Ումից հետո | PR | Կարգավիճակ |
 |---|------|--------|------|------------|----|------------|
-| 1 | Lead | `feat/lead` | lead | — | — | չսկսված |
+| 1 | Lead | `feat/lead` | lead | — | — | սպասում է PR |
 | 2 | Suro | `feat/suro-api` | gateway | Mariam | — | չսկսված |
 | 3 | Artush | `feat/artush-i18n` | i18n | Hayk | — | չսկսված |
 | 4 | Hayk | `feat/hayk-gateway` | wholesale-cart | Daniel | — | չսկսված |
@@ -285,6 +289,8 @@ Wave 1-ը և Wave 2-ը փակ են։ Wave 3-ի ֆիչերն ինքդ չգրել�
 | 10 | Ashot | `feat/ashot-ui` | design-shell | Lead | — | չսկսված |
 
 Հերթը՝ **Lead → Ashot → Vach → Mariam → Suro → Karen → Svet → Daniel → Hayk → Artush**։
+
+Գրանցումը և գնման էկրաններն արդեն `dev`-ում են։ Հաջորդ գոտին Ashot-ն է։ Wave 6-ը փակված չէ։
 
 Wave 6-ի PR-ները միավորել այս հերթով։ Base-ը `dev` է։ Դուռը [task-wave6.md](../../../task-wave6.md)-ի «Lead-ը չի merge անում, քանի դեռ» տողն է։
 
