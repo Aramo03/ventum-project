@@ -322,5 +322,19 @@
     "total": "Итого",
     "processing": "Обработка…",
     "checkout": "Перейти к оплате"
-  }
+  },
+  
+  "smallComforts": "Маленькие уютные радости. Сделано с любовью.",
+  "allProducts": "Все товары",
+  "ourStory": "Наша история",
+  "continueShopping": "Продолжить покупки",
+  "careInEveryThread": "Забота в каждой нити.",
+  "yourOrder": "Ваш заказ",
+  "addToCart": "Добавить в корзину",
+  "productDescription": "Описание товара",
+  "productCount_one": "{{count}} товар",
+  "productCount_few": "{{count}} товара",
+  "productCount_many": "{{count}} товаров",
+  "productCount_other": "{{count}} товара"
+
 }

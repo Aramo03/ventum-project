@@ -322,6 +322,21 @@
     "total": "Ընդամենը",
     "processing": "Մշակվում է…",
     "checkout": "Անցնել վճարման"
-  }
+  },
+
   
+  "smallComforts": "Փոքր հարմարավետություններ։ Պատրաստված սիրով։",
+  "allProducts": "Բոլոր ապրանքները",
+  "ourStory": "Մեր պատմությունը",
+  "continueShopping": "Շարունակել գնումները",
+  "careInEveryThread": "Հոգածություն ամեն թելում։",
+  "yourOrder": "Ձեր պատվերը",
+  "addToCart": "Ավելացնել զամբյուղ",
+  "productDescription": "Ապրանքի նկարագրություն",
+  "productCount_one": "{{count}} ապրանք",
+  "productCount_few": "{{count}} ապրանք",
+  "productCount_many": "{{count}} ապրանք",
+  "productCount_other": "{{count}} ապրանք"
+
+
 }

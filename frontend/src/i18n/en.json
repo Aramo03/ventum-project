@@ -322,5 +322,19 @@
     "total": "Total",
     "processing": "Processing…",
     "checkout": "Checkout"
-  }
+  },
+  
+  "smallComforts": "Little comforts. Made with love.",
+  "allProducts": "All products",
+  "ourStory": "Our story",
+  "continueShopping": "Continue shopping",
+  "careInEveryThread": "Care in every thread.",
+  "yourOrder": "Your order",
+  "addToCart": "Add to cart",
+  "productDescription": "Product description",
+  "productCount_one": "{{count}} product",
+  "productCount_few": "{{count}} products",
+  "productCount_many": "{{count}} products",
+  "productCount_other": "{{count}} products"
+
 }

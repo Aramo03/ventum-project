@@ -56,6 +56,17 @@ body {
   background: var(--vt-canvas);
 }
 
+html.is-language-transitioning #root *:not(.site-header__languages):not(.site-header__languages *):not(input):not(textarea):not(select):not([contenteditable='true']) {
+  -webkit-text-fill-color: transparent;
+  transition: -webkit-text-fill-color 150ms ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-language-transitioning #root * {
+    transition-duration: 0.01ms;
+  }
+}
+
 #root {
   min-height: 100vh;
   display: flex;

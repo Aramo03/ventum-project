@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -7,7 +7,6 @@ import {
   NAV_ITEMS,
   BABY_NAV_ITEMS,
   knownLanguage,
-  activeLanguageCode,
   shopPathname,
 } from './header.js'
 
@@ -17,6 +16,7 @@ import { CART_UPDATED_EVENT } from '../../pages/Cart/cart.js'
 import './header.css'
 
 const TOKEN_KEY = 'ventum_access_token'
+const LANGUAGE_FADE_MS = 150
 
 export default function Header() {
   const { t, i18n } = useTranslation()
@@ -32,8 +32,14 @@ export default function Header() {
 
   const [query, setQuery] = useState(urlQuery)
   const [cartCount, setCartCount] = useState(null)
+  const languageTransitionInProgress = useRef(false)
+  const pendingLanguage = useRef('')
 
-  const activeLanguage = activeLanguageCode(i18n.resolvedLanguage || i18n.language)
+  const activeLanguage = knownLanguage(i18n.resolvedLanguage || i18n.language)
+  const activeLanguageIndex = Math.max(
+    0,
+    LANGUAGES.findIndex((language) => language.code === activeLanguage),
+  )
 
   useEffect(() => {
     setQuery(urlQuery)
@@ -101,15 +107,53 @@ export default function Header() {
     return { pathname: shopPath, search: next.toString() }
   }
 
-  function selectLanguage(code) {
+  async function selectLanguage(code) {
     const next = knownLanguage(code)
     if (!next) return
+
+    const current = knownLanguage(i18n.resolvedLanguage || i18n.language)
+    if (!languageTransitionInProgress.current && next === current) return
+
+    pendingLanguage.current = next
+    if (languageTransitionInProgress.current) return
+
+    languageTransitionInProgress.current = true
+    const root = document.documentElement
+    const reducedMotion = window.matchMedia
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+
     try {
-      localStorage.setItem('i18nextLng', next)
-    } catch {
-      /* the switcher still changes the current view */
+      if (!reducedMotion) {
+        root.classList.add('is-language-transitioning')
+        await new Promise((resolve) =>
+          window.setTimeout(resolve, LANGUAGE_FADE_MS),
+        )
+      }
+
+      while (pendingLanguage.current) {
+        const target = pendingLanguage.current
+        pendingLanguage.current = ''
+
+        try {
+          localStorage.setItem('i18nextLng', target)
+        } catch {
+          /* the switcher still changes the current view */
+        }
+
+        const active = knownLanguage(i18n.resolvedLanguage || i18n.language)
+        if (target !== active) {
+          try {
+            await i18n.changeLanguage(target)
+          } catch {
+            /* keep the current language visible if a change cannot complete */
+          }
+        }
+      }
+    } finally {
+      root.classList.remove('is-language-transitioning')
+      languageTransitionInProgress.current = false
     }
-    i18n.changeLanguage(next)
   }
 
   return (
@@ -194,13 +238,20 @@ export default function Header() {
             />
           </form>
 
-          <div className="site-header__languages">
+          <div
+            className="site-header__languages"
+            role="group"
+            aria-label="Language"
+            style={{ '--language-index': activeLanguageIndex }}
+          >
+            <span className="site-header__language-indicator" aria-hidden="true" />
             {LANGUAGES.map((language) => (
               <button
                 key={language.code}
                 type="button"
                 className="site-header__lang"
                 aria-pressed={activeLanguage === language.code}
+                aria-label={`Switch language to ${language.label}`}
                 onClick={() => selectLanguage(language.code)}
               >
                 {language.label}
