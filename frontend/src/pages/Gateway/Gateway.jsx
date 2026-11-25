@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../api/client.js'
 import { STORE_LINKS } from './gateway.js'
+import '../../design/controls.css'
 import './gateway.css'
 
 import textileLogo from './textile-logo.jpg'
@@ -69,7 +70,7 @@ function StoryPanel({ store, t }) {
       <h2 id={`gateway-${story.kind}-title`}>{t(story.title)}</h2>
       <p className="gateway-panel__description">{t(story.description)}</p>
 
-      <Link className="gateway-panel__action" to={store.to}>
+      <Link className="gateway-panel__action ds-btn ds-btn--card" to={store.to}>
         {t(story.action)}
       </Link>
 
