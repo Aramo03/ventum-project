@@ -1,9 +1,8 @@
-
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { mediaUrl } from '../../api/client.js'
+import { AUTH_CHANGED_EVENT, mediaUrl } from '../../api/client.js'
 import {
   checkout as startCheckout,
   deleteCartItem,
@@ -24,6 +23,12 @@ const EMPTY_CART = {
   total: '0.00',
 }
 
+function storeLabel(store, t) {
+  if (store === 'textile') return t('stores.textile')
+  if (store === 'baby') return t('stores.baby')
+  return store || ''
+}
+
 export default function Cart() {
   const { t } = useTranslation()
   const location = useLocation()
@@ -35,8 +40,8 @@ export default function Cart() {
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [images, setImages] = useState({})
 
-  const isAuthenticated = Boolean(
-    localStorage.getItem(TOKEN_KEY)
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    Boolean(localStorage.getItem(TOKEN_KEY)),
   )
 
   // Returning from Idram does not prove that payment succeeded.
@@ -46,6 +51,7 @@ export default function Cart() {
   const loadCart = useCallback(async () => {
     if (!localStorage.getItem(TOKEN_KEY)) {
       setCart(EMPTY_CART)
+      setError('')
       setLoading(false)
       return
     }
@@ -69,6 +75,21 @@ export default function Cart() {
 
   useEffect(() => {
     loadCart()
+  }, [loadCart])
+
+  useEffect(() => {
+    const syncAuthentication = () => {
+      setIsAuthenticated(Boolean(localStorage.getItem(TOKEN_KEY)))
+      setLoading(true)
+      loadCart()
+    }
+
+    window.addEventListener(AUTH_CHANGED_EVENT, syncAuthentication)
+    window.addEventListener('storage', syncAuthentication)
+    return () => {
+      window.removeEventListener(AUTH_CHANGED_EVENT, syncAuthentication)
+      window.removeEventListener('storage', syncAuthentication)
+    }
   }, [loadCart])
 
   useEffect(() => {
@@ -158,10 +179,25 @@ export default function Cart() {
 
   return (
     <main className="cart-page">
-      <header className="vt-type">
-        <p className="vt-eyebrow">{t('brand')}</p>
+      <nav
+        className="cart-breadcrumbs"
+        aria-label={t('productDetails.breadcrumbs')}
+      >
+        <Link to="/">{t('nav.home')}</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{t('nav.cart')}</span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="step">{t('cartPage.checkoutStep')}</span>
+      </nav>
+
+      <header className="cart-heading">
         <h1>{t('pageTitles.cart')}</h1>
       </header>
+
+      <ol className="cart-progress" aria-label={t('pageTitles.cart')}>
+        <li>{t('nav.cart')}</li>
+        <li aria-current="step">{t('cartPage.checkoutStep')}</li>
+      </ol>
 
       {paymentReturn && (
         <p className="vt-status" role="status">
@@ -182,9 +218,23 @@ export default function Cart() {
       )}
 
       {isAuthenticated && loading && (
-        <p className="vt-status" role="status">
-          {t('cartPage.loading')}
-        </p>
+        <section
+          className="cart-loading"
+          role="status"
+          aria-label={t('cartPage.loading')}
+          aria-busy="true"
+        >
+          <span className="sr-only">{t('cartPage.loading')}</span>
+          <div className="cart-loading__preview">
+            <span className="cart-loading__image ds-skeleton" />
+            <span className="cart-loading__line ds-skeleton" />
+          </div>
+          <div className="cart-loading__rows" aria-hidden="true">
+            <span className="cart-loading__row ds-skeleton" />
+            <span className="cart-loading__row ds-skeleton" />
+          </div>
+          <div className="cart-loading__summary ds-skeleton" aria-hidden="true" />
+        </section>
       )}
 
       {error && (
@@ -195,6 +245,7 @@ export default function Cart() {
 
       {isAuthenticated &&
         !loading &&
+        !error &&
         cart.items.length === 0 && (
           <section className="vt-status">
             <h2>{t('cartPage.emptyTitle')}</h2>
@@ -209,14 +260,23 @@ export default function Cart() {
             <div className="cart-preview">
               {cart.items.map((item) => {
                 const image = images[item.sku]
-                const storeName = item.store || t('cartPage.noImage')
+                const storeName =
+                  storeLabel(item.store, t) || t('cartPage.noImage')
                 return (
-                  <article className="cart-preview__item" key={`preview-${item.sku}`}>
+                  <article
+                    className="cart-preview__item"
+                    key={`preview-${item.sku}`}
+                  >
                     {image ? (
                       <img src={mediaUrl(image)} alt={item.name || item.sku} />
                     ) : (
-                      <span className="cart-item__placeholder">{storeName}</span>
+                      <span
+                        className="cart-item__placeholder"
+                        role="img"
+                        aria-label={t('cartPage.noImage')}
+                      />
                     )}
+                    <span>{storeName}</span>
                   </article>
                 )
               })}
@@ -235,7 +295,7 @@ export default function Cart() {
                     <div className="cart-item__info">
                       <h2>{name}</h2>
                       <p>{t('cartPage.sku')}: {sku}</p>
-                      {item.store ? <p>{item.store}</p> : null}
+                      {item.store ? <p>{storeLabel(item.store, t)}</p> : null}
                       {price !== undefined && (
                         <p>
                           {t('cartPage.price')}: {price} {t('checkout.currency')}
@@ -284,8 +344,17 @@ export default function Cart() {
 
             <aside className="cart-summary">
               <h2>{t('cartPage.summary')}</h2>
-              <div>
-                <span>{t('cartPage.total')}</span>{' '}
+              <div className="cart-summary__count">
+                <span>{t('cartPage.items', { count: cart.count })}</span>
+              </div>
+              <div className="cart-summary__amount">
+                <span>{t('cartPage.subtotal')}</span>
+                <strong>
+                  {cart.total} {t('checkout.currency')}
+                </strong>
+              </div>
+              <div className="cart-summary__amount cart-summary__amount--grand">
+                <span>{t('cartPage.total')}</span>
                 <strong>
                   {cart.total} {t('checkout.currency')}
                 </strong>

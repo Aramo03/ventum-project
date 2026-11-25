@@ -23,8 +23,9 @@ export default function Wholesale({ brand = 'textile' }) {
     if (hash !== '#wholesale') return
 
     requestAnimationFrame(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       document.getElementById('wholesale')?.scrollIntoView({
-        behavior: 'smooth',
+        behavior: reduceMotion ? 'auto' : 'smooth',
         block: 'start',
       })
     })
