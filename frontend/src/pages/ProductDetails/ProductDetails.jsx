@@ -59,6 +59,7 @@ export default function ProductDetails() {
   const [pending, setPending] = useState(null)
   const [cartStatus, setCartStatus] = useState('idle')
   const [selectedSize, setSelectedSize] = useState('')
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -96,7 +97,7 @@ export default function ProductDetails() {
     return () => {
       cancelled = true
     }
-  }, [sku])
+  }, [sku, attempt])
 
   const extras = productExtras(product)
   const sizeKey = extras.sizes.map((item) => item.id).join('|')
@@ -131,8 +132,22 @@ export default function ProductDetails() {
 
   if (loading) {
     return (
-      <main className="product-details page">
-        <p className="vt-status" role="status">{t('productDetails.loading')}</p>
+      <main className="product-details page" aria-busy="true">
+        <p className="product-details__sr" role="status">{t('productDetails.loading')}</p>
+        <div className="product-details__layout">
+          <div className="ds-skeleton product-details__skeleton" aria-hidden="true">
+            <i className="ds-skeleton__photo" />
+          </div>
+          <div className="ds-skeleton product-details__skeleton" aria-hidden="true">
+            <i className="ds-skeleton__spec" />
+            <i className="ds-skeleton__name" />
+            <i className="ds-skeleton__price" />
+            <span className="ds-skeleton__buttons">
+              <i />
+              <i />
+            </span>
+          </div>
+        </div>
       </main>
     )
   }
@@ -156,9 +171,9 @@ export default function ProductDetails() {
           <h1>{t('productDetails.loadErrorTitle')}</h1>
           <p>{t('productDetails.loadError')}</p>
           <button
-            className="vt-button"
+            className="ds-btn ds-btn--card"
             type="button"
-            onClick={() => window.location.reload()}
+            onClick={() => setAttempt((value) => value + 1)}
           >
             {t('productDetails.retry')}
           </button>
@@ -169,6 +184,7 @@ export default function ProductDetails() {
 
   const images = galleryImages(product)
   const active = images.find((image) => image.url === selectedImage) || images[0]
+  const activeIndex = Math.max(0, images.findIndex((image) => image.url === active?.url))
   const salePrice = formatProductPrice(product.price)
   const storeName = product.store === 'baby'
     ? t('productDetails.storeBaby')
@@ -200,10 +216,19 @@ export default function ProductDetails() {
         <section className="product-details__gallery" aria-label={t('productDetails.gallery')}>
           <div className="product-details__main-image">
             {active?.url ? (
-              <img src={mediaUrl(active.url)} alt={active.alt || product.name || ''} />
+              <img
+                key={active.url}
+                src={mediaUrl(active.url)}
+                alt={active.alt || product.name || ''}
+              />
             ) : (
               <div className="product-details__placeholder">{storeName}</div>
             )}
+            {images.length > 1 ? (
+              <p className="product-details__count">
+                {activeIndex + 1} / {images.length}
+              </p>
+            ) : null}
           </div>
 
           {images.length > 1 && (
@@ -291,17 +316,21 @@ export default function ProductDetails() {
             />
           </div>
 
+          {product.store === 'baby' ? (
+            <p className="product-details__reassurance">{t('productDetails.reassurance')}</p>
+          ) : null}
+
           {cartStatus === 'added' && (
-            <p className="vt-status vt-status--ok" role="status">{t('productCard.added')}</p>
+            <p className="vt-status vt-status--ok product-details__note" role="status">{t('productCard.added')}</p>
           )}
           {cartStatus === 'signIn' && (
-            <p className="vt-status vt-status--error" role="alert">
+            <p className="vt-status vt-status--error product-details__note" role="alert">
               {t('productCard.signIn')}{' '}
               <Link to="/account" state={{ from: returnPath }}>{t('accountLink')}</Link>
             </p>
           )}
           {cartStatus === 'failed' && (
-            <p className="vt-status vt-status--error" role="alert">{t('productCard.failed')}</p>
+            <p className="vt-status vt-status--error product-details__note" role="alert">{t('productCard.failed')}</p>
           )}
         </section>
       </div>
@@ -312,6 +341,16 @@ export default function ProductDetails() {
           <div className="product-details__description">{product.description}</div>
         </section>
       ) : null}
+
+      <section className="product-details__about" aria-labelledby="product-philosophy-title">
+        <h2 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h2>
+        <p className="product-details__description">{t('productDetails.philosophy')}</p>
+      </section>
+
+      <section className="product-details__about" aria-labelledby="product-maker-title">
+        <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
+        <p className="product-details__description">{t('productDetails.maker')}</p>
+      </section>
     </main>
   )
 }

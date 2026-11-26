@@ -309,7 +309,12 @@
     "gallery": "Product images",
     "showImage": "Show image {{index}}",
     "sku": "Article",
-    "about": "About the product"
+    "about": "Product description",
+    "philosophyTitle": "Product philosophy",
+    "philosophy": "For a calm home, in a simple form and quiet colors.",
+    "makerTitle": "Textile maker",
+    "maker": "Each piece is sewn in a small workshop, with a careful stitch.",
+    "reassurance": "Your purchase stays with your account, from payment through the order."
   },
   "accountLink": "My account",
   "searchError": "Search failed. Please try again.",
