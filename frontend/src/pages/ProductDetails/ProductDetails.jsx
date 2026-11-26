@@ -69,6 +69,7 @@ export default function ProductDetails() {
   const [wished, setWished] = useState(false)
   const [skuCopied, setSkuCopied] = useState(false)
   const [linkCopied, setLinkCopied] = useState(false)
+  const [marked, setMarked] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -84,6 +85,7 @@ export default function ProductDetails() {
       setGuideOpen(false)
       setWished(false)
       setSkuCopied(false)
+      setMarked(false)
 
       try {
         const response = await api.get(
@@ -165,6 +167,12 @@ export default function ProductDetails() {
     } catch {
       /* Sharing is unavailable in this browser. */
     }
+  }
+
+  function addFromCorner() {
+    if (marked || pendingRef.current) return
+    setMarked(true)
+    purchase('card')
   }
 
   async function purchase(kind) {
@@ -548,7 +556,7 @@ export default function ProductDetails() {
             </button>
           </div>
         </div>
-        {cartStatus === 'added' ? (
+        {marked ? (
           <div className="product-details__added is-added" role="status">
             <span className="product-details__check" aria-hidden="true" />
             <span className="product-details__added-copy">
@@ -561,8 +569,7 @@ export default function ProductDetails() {
           <button
             type="button"
             className="product-details__added"
-            onClick={() => purchase('card')}
-            disabled={pending !== null}
+            onClick={addFromCorner}
           >
             <span className="product-details__added-copy">
               <strong>{t('productDetails.addToCart')}</strong>
