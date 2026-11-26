@@ -40,15 +40,13 @@ export default function Header() {
   const [query, setQuery] = useState(urlQuery)
   const [cartCount, setCartCount] = useState(null)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   const activeLanguage = activeLanguageCode(
     i18n.resolvedLanguage || i18n.language,
   )
 
-  /* =========================
-     SCROLL EFFECT
-  ========================= */
-
+  // SCROLL EFFECT
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.scrollY > 20)
@@ -65,26 +63,18 @@ export default function Header() {
     }
   }, [])
 
-  /* =========================
-     SEARCH QUERY SYNC
-  ========================= */
-
+  // SEARCH QUERY SYNC
   useEffect(() => {
     setQuery(urlQuery)
   }, [urlQuery])
 
-  /* =========================
-     CART COUNT
-  ========================= */
-
+  // CART COUNT
   useEffect(() => {
     let cancelled = false
 
     async function loadCartCount() {
       if (!localStorage.getItem(TOKEN_KEY)) {
-        if (!cancelled) {
-          setCartCount(null)
-        }
+        if (!cancelled) setCartCount(null)
         return
       }
 
@@ -95,9 +85,7 @@ export default function Header() {
           setCartCount(response.data?.count ?? 0)
         }
       } catch {
-        if (!cancelled) {
-          setCartCount(null)
-        }
+        if (!cancelled) setCartCount(null)
       }
     }
 
@@ -108,16 +96,12 @@ export default function Header() {
 
     return () => {
       cancelled = true
-
       window.removeEventListener(CART_UPDATED_EVENT, loadCartCount)
       window.removeEventListener(AUTH_CHANGED_EVENT, loadCartCount)
     }
   }, [pathname])
 
-  /* =========================
-     SEARCH
-  ========================= */
-
+  // SEARCH
   function writeShopQuery(value) {
     const next = new URLSearchParams(searchParams)
     const trimmed = value.trim()
@@ -142,10 +126,7 @@ export default function Header() {
     )
   }
 
-  /* =========================
-     NAVIGATION LABELS
-  ========================= */
-
+  // NAVIGATION LABELS
   function navLabel(item) {
     const translated = t(item.key)
 
@@ -156,7 +137,6 @@ export default function Header() {
 
   function categoryTo(slug) {
     const next = new URLSearchParams(searchParams)
-
     next.set('category', slug)
 
     return {
@@ -165,10 +145,7 @@ export default function Header() {
     }
   }
 
-  /* =========================
-     LANGUAGE SELECT
-  ========================= */
-
+  // LANGUAGE SELECT
   function selectLanguage(code) {
     const next = knownLanguage(code)
 
@@ -177,15 +154,11 @@ export default function Header() {
     try {
       localStorage.setItem('i18nextLng', next)
     } catch {
-      /* the switcher still changes the current view */
+      // Language switching works without localStorage
     }
 
     i18n.changeLanguage(next)
   }
-
-  /* =========================
-     RENDER
-  ========================= */
 
   return (
     <header
@@ -196,10 +169,8 @@ export default function Header() {
       } ${isScrolled ? 'is-scrolled' : ''}`}
     >
       {/* TOP BAR */}
-
       <div className="site-header__top">
         <div className="site-header__top-inner">
-
           <div className="site-header__switch">
             <Link
               to="/textile"
@@ -208,7 +179,6 @@ export default function Header() {
               }`}
             >
               Ventum Textile
-
               <span className="site-header__switch-dot" />
             </Link>
 
@@ -219,7 +189,6 @@ export default function Header() {
               }`}
             >
               Ventum Baby
-
               <span className="site-header__switch-dot" />
             </Link>
           </div>
@@ -229,30 +198,23 @@ export default function Header() {
               ? t('header.babyTagline')
               : t('header.textileTagline')}
           </p>
-
         </div>
       </div>
 
       {/* MAIN HEADER */}
-
       <div className="site-header__main">
         <div className="site-header__main-inner">
 
           {/* BRAND */}
-
           <Link
             to={isBaby ? '/baby' : '/textile'}
             className="site-header__brand"
           >
             <strong>VENTUM</strong>
-
-            <span>
-              {isBaby ? 'BABY' : 'textile'}
-            </span>
+            <span>{isBaby ? 'BABY' : 'textile'}</span>
           </Link>
 
           {/* SEARCH */}
-
           <form
             className="site-header__search"
             role="search"
@@ -264,8 +226,8 @@ export default function Header() {
             <span className="site-header__search-icon">
               <svg
                 viewBox="0 0 24 24"
-                width="17"
-                height="17"
+                width="18"
+                height="18"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.7"
@@ -281,7 +243,6 @@ export default function Header() {
               value={query}
               onChange={(event) => {
                 const value = event.target.value
-
                 setQuery(value)
                 writeShopQuery(value)
               }}
@@ -290,106 +251,150 @@ export default function Header() {
             />
           </form>
 
-          {/* LANGUAGES */}
+          {/* MOBILE / DESKTOP TOOLS */}
+          <div className="site-header__tools">
 
-          <div className="site-header__languages">
-            {LANGUAGES.map((language) => (
-              <button
-                key={language.code}
-                type="button"
-                className="site-header__lang"
-                aria-pressed={
-                  activeLanguage === language.code
-                }
-                onClick={() => selectLanguage(language.code)}
+            {/* LANGUAGES */}
+            <div className="site-header__languages">
+              {LANGUAGES.map((language) => (
+                <button
+                  key={language.code}
+                  type="button"
+                  className="site-header__lang"
+                  aria-pressed={
+                    activeLanguage === language.code
+                  }
+                  onClick={() => selectLanguage(language.code)}
+                >
+                  {language.label}
+                </button>
+              ))}
+            </div>
+
+            {/* ACCOUNT & CART */}
+            <div className="site-header__actions">
+              <Link
+                to="/account"
+                className="site-header__account"
+                aria-label={t('accountLink')}
+                title={t('accountLink')}
               >
-                {language.label}
-              </button>
-            ))}
-          </div>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="8" r="3.5" />
+                  <path d="M5 21c0-4 2.8-6.5 7-6.5s7 2.5 7 6.5" />
+                </svg>
+              </Link>
 
-          {/* ACCOUNT & CART */}
-
-          <div className="site-header__actions">
-
-            <Link
-              to="/account"
-              className="site-header__account"
-              aria-label={t('accountLink')}
-              title={t('accountLink')}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+              <Link
+                to="/cart"
+                className="site-header__cart"
+                aria-label={`${t('cart')} ${cartCount ?? ''}`}
+                title={t('cart')}
               >
-                <circle cx="12" cy="8" r="3.5" />
+                <svg
+                  viewBox="0 0 24 24"
+                  width="21"
+                  height="21"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5.5 8h13l1 12h-15l1-12Z" />
+                  <path d="M9 9V6a3 3 0 0 1 6 0v3" />
+                </svg>
 
-                <path d="M5 21c0-4 2.8-6.5 7-6.5s7 2.5 7 6.5" />
-              </svg>
-            </Link>
-
-            <Link
-              to="/cart"
-              className="site-header__cart"
-              aria-label={`${t('cart')} ${cartCount ?? ''}`}
-              title={t('cart')}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="21"
-                height="21"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5.5 8h13l1 12h-15l1-12Z" />
-
-                <path d="M9 9V6a3 3 0 0 1 6 0v3" />
-              </svg>
-
-              {cartCount !== null && (
-                <span className="site-header__cart-count">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-
+                {cartCount !== null && (
+                  <span className="site-header__cart-count">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
       {/* CATEGORY NAVIGATION */}
-
       <nav
         className="site-header__nav"
         aria-label="Main navigation"
       >
         <div className="site-header__nav-inner">
 
-          {currentNavItems.map((item) => (
-            <Link
-              key={item.key}
-              to={categoryTo(item.slug)}
-              className={`site-header__nav-item${
-                activeCategory === item.slug
-                  ? ' is-active'
-                  : ''
-              }`}
-            >
-              {navLabel(item)}
-            </Link>
-          ))}
-
-          <Link
-            to={`${shopPath}#wholesale`}
-            className="site-header__wholesale"
+          {/* MOBILE TOGGLE */}
+          <button
+            type="button"
+            className="site-header__mobile-toggle"
+            aria-expanded={isMobileNavOpen}
+            onClick={() =>
+              setIsMobileNavOpen((previous) => !previous)
+            }
           >
-            {t('wholesale')}
-          </Link>
+            <span className="site-header__mobile-toggle-label">
+              <svg
+                viewBox="0 0 24 24"
+                width="17"
+                height="17"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
 
+              {t('allCategories', 'All categories')}
+            </span>
+
+            <svg
+              className={`site-header__mobile-chevron ${
+                isMobileNavOpen ? 'is-open' : ''
+              }`}
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          {/* CATEGORY LINKS */}
+          <div
+            className={`site-header__category-list ${
+              isMobileNavOpen ? 'is-open' : ''
+            }`}
+          >
+            {currentNavItems.map((item) => (
+              <Link
+                key={item.key}
+                to={categoryTo(item.slug)}
+                className={`site-header__nav-item${
+                  activeCategory === item.slug
+                    ? ' is-active'
+                    : ''
+                }`}
+              >
+                {navLabel(item)}
+              </Link>
+            ))}
+
+            <Link
+              to={`${shopPath}#wholesale`}
+              className="site-header__wholesale"
+            >
+              {t('wholesale')}
+            </Link>
+          </div>
         </div>
       </nav>
     </header>
