@@ -563,7 +563,7 @@ export default function ProductDetails() {
               <strong>{t('productDetails.addedTitle')}</strong>
               <span>{detailLine}</span>
             </span>
-            <Link to="/cart">{t('productDetails.openCart')}</Link>
+            <Link className="product-details__open" to="/cart">{t('productDetails.openCart')}</Link>
           </div>
         ) : (
           <button
@@ -571,10 +571,12 @@ export default function ProductDetails() {
             className="product-details__added"
             onClick={addFromCorner}
           >
+            <span className="product-details__check is-reserved" aria-hidden="true" />
             <span className="product-details__added-copy">
               <strong>{t('productDetails.addToCart')}</strong>
               <span>{detailLine}</span>
             </span>
+            <span className="product-details__open is-reserved">{t('productDetails.openCart')}</span>
           </button>
         )}
       </div>
