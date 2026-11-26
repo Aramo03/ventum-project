@@ -41,6 +41,9 @@ function PurchaseButton({ kind, pending, label, disabled, onClick }) {
       onClick={onClick}
     >
       {loading ? <span className="ds-btn__spinner" aria-hidden="true" /> : null}
+      {kind === 'card' && !loading ? (
+        <span className="product-details__bag" aria-hidden="true" />
+      ) : null}
       <span>{label}</span>
     </button>
   )
@@ -59,7 +62,12 @@ export default function ProductDetails() {
   const [pending, setPending] = useState(null)
   const [cartStatus, setCartStatus] = useState('idle')
   const [selectedSize, setSelectedSize] = useState('')
+  const [selectedColor, setSelectedColor] = useState('')
   const [attempt, setAttempt] = useState(0)
+  const [zoomed, setZoomed] = useState(false)
+  const [guideOpen, setGuideOpen] = useState(false)
+  const [wished, setWished] = useState(false)
+  const [skuCopied, setSkuCopied] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -71,6 +79,10 @@ export default function ProductDetails() {
       setProduct(null)
       setSelectedImage('')
       setCartStatus('idle')
+      setZoomed(false)
+      setGuideOpen(false)
+      setWished(false)
+      setSkuCopied(false)
 
       try {
         const response = await api.get(
@@ -104,8 +116,55 @@ export default function ProductDetails() {
 
   useEffect(() => {
     const preset = extras.sizes.find((item) => item.selected)
-    setSelectedSize(preset?.id || extras.sizes[0]?.id || '')
+    setSelectedSize(preset?.id || extras.sizes[0]?.id || '100')
   }, [product, sizeKey])
+
+  const colorKey = extras.colors.map((item) => item.id).join('|')
+
+  useEffect(() => {
+    const preset = extras.colors[0]
+    setSelectedColor(preset?.id || 'sage')
+  }, [product, colorKey])
+
+  useEffect(() => {
+    if (!zoomed && !guideOpen) return undefined
+
+    function onKey(event) {
+      if (event.key === 'Escape') {
+        setZoomed(false)
+        setGuideOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [zoomed, guideOpen])
+
+  async function copySku() {
+    try {
+      await navigator.clipboard.writeText(product?.sku || '')
+      setSkuCopied(true)
+    } catch {
+      setSkuCopied(false)
+    }
+  }
+
+  async function shareProduct() {
+    const payload = { title: product?.name || '', url: window.location.href }
+    if (navigator.share) {
+      try {
+        await navigator.share(payload)
+      } catch {
+        /* The visitor closed the share sheet. */
+      }
+      return
+    }
+    try {
+      await navigator.clipboard.writeText(payload.url)
+    } catch {
+      /* Sharing is unavailable in this browser. */
+    }
+  }
 
   async function purchase(kind) {
     if (pendingRef.current || !product?.sku) return
@@ -191,6 +250,19 @@ export default function ProductDetails() {
     : t('productDetails.storeTextile')
 
   const priceLabel = salePrice ? `${salePrice} ${t('productDetails.dram')}` : ''
+  const sizes = extras.sizes.length > 0 ? extras.sizes : [
+    { id: '70', label: t('productDetails.size70') },
+    { id: '100', label: t('productDetails.size100') },
+    { id: '128', label: t('productDetails.size128') },
+  ]
+  const colors = extras.colors.length > 0 ? extras.colors : [{
+    id: 'sage',
+    label: t('productDetails.colorName'),
+    hint: t('productDetails.colorHint'),
+    swatch: '',
+  }]
+  const activeColor = colors.find((item) => item.id === selectedColor) || colors[0]
+  const stockLabel = extras.stock || t('productDetails.inStock')
 
   return (
     <main className="product-details page" data-brand={brand}>
@@ -218,36 +290,48 @@ export default function ProductDetails() {
             ) : (
               <div className="product-details__placeholder">{storeName}</div>
             )}
-            {extras.discount ? (
-              <span className="product-details__promo">{extras.discount}</span>
-            ) : null}
+            <span className="product-details__promo">{t('productDetails.promo')}</span>
             {images.length > 1 ? (
               <p className="product-details__count">
                 {activeIndex + 1} / {images.length}
               </p>
             ) : null}
+            {active?.url ? (
+              <button
+                type="button"
+                className="product-details__zoom"
+                aria-label={t('productDetails.zoom')}
+                onClick={() => setZoomed(true)}
+              />
+            ) : null}
           </div>
 
-          {images.length > 1 && (
-            <div className="product-details__thumbnails">
-              {images.map((image, index) => (
-                <button
-                  type="button"
-                  key={`${image.url}-${index}`}
-                  className={
-                    selectedImage === image.url
-                      ? 'product-details__thumbnail is-active'
-                      : 'product-details__thumbnail'
-                  }
-                  onClick={() => setSelectedImage(image.url)}
-                  aria-label={t('productDetails.showImage', { index: index + 1 })}
-                  aria-pressed={selectedImage === image.url}
-                >
-                  <img src={mediaUrl(image.url)} alt={image.alt || product.name || ''} />
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="product-details__gallery-foot">
+            {images.length > 1 ? (
+              <div className="product-details__thumbnails">
+                {images.map((image, index) => (
+                  <button
+                    type="button"
+                    key={`${image.url}-${index}`}
+                    className={
+                      selectedImage === image.url
+                        ? 'product-details__thumbnail is-active'
+                        : 'product-details__thumbnail'
+                    }
+                    onClick={() => setSelectedImage(image.url)}
+                    aria-label={t('productDetails.showImage', { index: index + 1 })}
+                    aria-pressed={selectedImage === image.url}
+                  >
+                    <img src={mediaUrl(image.url)} alt={image.alt || product.name || ''} />
+                  </button>
+                ))}
+              </div>
+            ) : null}
+            <p className="product-details__gallery-note">
+              <strong>{t('productDetails.galleryNote')}</strong>
+              <span>{t('productDetails.galleryNoteText')}</span>
+            </p>
+          </div>
         </section>
 
         <section className="product-details__purchase">
@@ -255,7 +339,15 @@ export default function ProductDetails() {
             {product.category?.name ? (
               <p className="product-details__category">{product.category.name}</p>
             ) : <span />}
-            <p className="product-details__sku">SKU: {product.sku}</p>
+            <p className="product-details__sku">
+              <span>SKU: {product.sku}</span>
+              <button
+                type="button"
+                className="product-details__copy"
+                aria-label={skuCopied ? t('productDetails.copied') : t('productDetails.copySku')}
+                onClick={copySku}
+              />
+            </p>
           </div>
           <h1>{product.name}</h1>
           {product.description ? (
@@ -276,35 +368,55 @@ export default function ProductDetails() {
                 <span className="product-details__discount">{extras.discount}</span>
               ) : null}
             </p>
-            {extras.stock ? (
-              <span className="ds-badge ds-badge--stock">{extras.stock}</span>
-            ) : null}
+            <span className="ds-badge ds-badge--stock">{stockLabel}</span>
           </div>
 
-          {extras.sizes.length > 0 ? (
-            <div className="product-details__sizes">
+          <div className="product-details__sizes">
+            <div className="product-details__field-head">
               <p className="product-details__field-label">{t('productDetails.sizes')}</p>
-              <div role="group" aria-label={t('productDetails.sizes')}>
-                {extras.sizes.map((size) => (
-                  <button
-                    key={size.id}
-                    type="button"
-                    className={selectedSize === size.id ? 'ds-size is-selected' : 'ds-size'}
-                    aria-pressed={selectedSize === size.id}
-                    onClick={() => setSelectedSize(size.id)}
-                  >
-                    {size.label}
-                  </button>
-                ))}
-              </div>
+              <button type="button" className="product-details__guide" onClick={() => setGuideOpen(true)}>
+                {t('productDetails.sizeGuide')}
+              </button>
             </div>
-          ) : null}
+            <div role="group" aria-label={t('productDetails.sizes')}>
+              {sizes.map((size) => (
+                <button
+                  key={size.id}
+                  type="button"
+                  className={selectedSize === size.id ? 'ds-size is-selected' : 'ds-size'}
+                  aria-pressed={selectedSize === size.id}
+                  onClick={() => setSelectedSize(size.id)}
+                >
+                  {size.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="product-details__colors">
+            <p className="product-details__field-label">{t('productDetails.color')}</p>
+            <div role="group" aria-label={t('productDetails.color')}>
+              {colors.map((color) => (
+                <button
+                  key={color.id}
+                  type="button"
+                  className={selectedColor === color.id ? 'product-details__swatch is-selected' : 'product-details__swatch'}
+                  aria-pressed={selectedColor === color.id}
+                  onClick={() => setSelectedColor(color.id)}
+                >
+                  <i style={color.swatch ? { background: color.swatch } : undefined} />
+                  {color.label}
+                </button>
+              ))}
+              {activeColor?.hint ? <span>{activeColor.hint}</span> : null}
+            </div>
+          </div>
 
           <div className="product-details__actions">
             <PurchaseButton
               kind="card"
               pending={pending}
-              label={priceLabel ? `${t('productCard.card')} · ${priceLabel}` : t('productCard.card')}
+              label={priceLabel ? `${t('productDetails.addToCart')} · ${priceLabel}` : t('productDetails.addToCart')}
               disabled={pending !== null && pending !== 'card'}
               onClick={() => purchase('card')}
             />
@@ -315,6 +427,28 @@ export default function ProductDetails() {
               disabled={pending !== null && pending !== 'cash'}
               onClick={() => purchase('cash')}
             />
+          </div>
+
+          <div className="product-details__tools">
+            <button
+              type="button"
+              className={wished ? 'product-details__tool is-selected' : 'product-details__tool'}
+              aria-pressed={wished}
+              onClick={() => setWished((value) => !value)}
+            >
+              {t('productDetails.wishlist')}
+            </button>
+            <button type="button" className="product-details__tool" onClick={shareProduct}>
+              {t('productDetails.share')}
+            </button>
+          </div>
+
+          <div className="product-details__delivery">
+            <p>
+              <strong>{t('productDetails.deliveryCity')}</strong>
+              <span>{t('productDetails.deliveryDetail')}</span>
+            </p>
+            <b>{t('productDetails.deliveryPrice')}</b>
           </div>
 
           {product.store === 'baby' ? (
@@ -345,6 +479,30 @@ export default function ProductDetails() {
         <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
         <p>{t('productDetails.maker')}</p>
       </aside>
+
+      {zoomed && active?.url ? (
+        <div className="product-details__dialog" role="dialog" aria-modal="true" aria-label={t('productDetails.zoom')}>
+          <button type="button" className="product-details__dialog-close" onClick={() => setZoomed(false)}>
+            {t('productDetails.close')}
+          </button>
+          <img src={mediaUrl(active.url)} alt={active.alt || product.name || ''} />
+        </div>
+      ) : null}
+
+      {guideOpen ? (
+        <div className="product-details__dialog" role="dialog" aria-modal="true" aria-labelledby="size-guide-title">
+          <div className="product-details__sheet">
+            <h2 id="size-guide-title">{t('productDetails.sizeGuide')}</h2>
+            <p>{t('productDetails.sizeGuideText')}</p>
+            <ul>
+              {sizes.map((size) => <li key={size.id}>{size.label}</li>)}
+            </ul>
+            <button type="button" className="ds-btn ds-btn--card" onClick={() => setGuideOpen(false)}>
+              {t('productDetails.close')}
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {cartStatus === 'added' && (
         <p className="product-details__added" role="status">
