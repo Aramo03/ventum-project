@@ -171,7 +171,6 @@ export default function ProductDetails() {
     if (pendingRef.current || !product?.sku) return
     pendingRef.current = kind
     setPending(kind)
-    setCartStatus('idle')
 
     try {
       await addProductToCart(product.sku)
@@ -549,13 +548,33 @@ export default function ProductDetails() {
             </button>
           </div>
         </div>
-        <p className="product-details__added" role="status">
-          <span>
-            <strong>{t('productDetails.addedTitle')}</strong>
-            {detailLine}
-          </span>
-          <Link to="/cart">{t('productDetails.openCart')}</Link>
-        </p>
+        <div
+          className={cartStatus === 'added' ? 'product-details__added is-added' : 'product-details__added'}
+          role={cartStatus === 'added' ? 'status' : undefined}
+        >
+          {cartStatus === 'added' ? (
+            <span className="product-details__check" aria-hidden="true" />
+          ) : null}
+          {cartStatus === 'added' ? (
+            <span>
+              <strong>{t('productDetails.addedTitle')}</strong>
+              {detailLine}
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="product-details__add-hit"
+              onClick={() => purchase('card')}
+              disabled={pending !== null}
+            >
+              <strong>{t('productDetails.addToCart')}</strong>
+              {detailLine}
+            </button>
+          )}
+          {cartStatus === 'added' ? (
+            <Link to="/cart">{t('productDetails.openCart')}</Link>
+          ) : null}
+        </div>
       </div>
 
       {zoomed && active?.url ? (
