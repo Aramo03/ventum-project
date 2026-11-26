@@ -199,20 +199,54 @@ export default function Design() {
     <main className="ds-page">
       <header className="ds-cover">
         <div className="ds-masthead">
-          <p className="ds-system-brand">Ventum</p>
-          <p className="ds-release">Wave 6</p>
+          <p className="ds-system-brand">Ventum / Design system</p>
+          <p className="ds-release">Commerce foundations — 2026</p>
         </div>
-        <h1 className="ds-system-title">Design system</h1>
+        <h1 className="ds-system-title">
+          Two identities. One considered shopping experience.
+        </h1>
         <p className="ds-system-description">
-          Tokens for Ventum Textile and Ventum Baby. Buttons, badges, sizes, fields, and
-          motion read these variables. The card, the header, and the newsletter on this
-          route are specimens. They do not add to the cart and they do not subscribe.
+          From home comforts to a world for little ones.
         </p>
       </header>
 
+      <section className="ds-section ds-reveal" id="palettes" aria-labelledby="palettes-title">
+        <div className="ds-section__head">
+          <p className="ds-kicker">01 / Brand</p>
+          <div>
+            <h2 id="palettes-title">Paired palettes &amp; authentic identities</h2>
+          </div>
+        </div>
+        <div className="ds-pair">
+          {PALETTES.map((palette) => (
+            <article className="ds-identity" data-brand={palette.id} key={palette.id}>
+              <p className="ds-wordmark">
+                {palette.wordmark}
+                <span>{palette.mark}</span>
+              </p>
+              <div className="ds-identity__meta">
+                <h3>{palette.identity}</h3>
+                <p>{palette.tagline}</p>
+              </div>
+              <ul className="ds-swatches ds-swatches--frame">
+                {palette.colors.map((color) => (
+                  <li className="ds-swatch ds-swatch--block" key={color.token}>
+                    <i style={{ background: color.value }} />
+                    <span>
+                      <b>{color.role}</b>
+                      <small>{color.value}</small>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="ds-section ds-reveal" id="library" aria-labelledby="library-title">
         <div className="ds-section__head">
-          <p className="ds-kicker">01</p>
+          <p className="ds-kicker">02</p>
           <div>
             <h2 id="library-title">Component library</h2>
             <p className="ds-section__lead">
@@ -230,47 +264,6 @@ export default function Design() {
             </li>
           ))}
         </ul>
-      </section>
-
-      <section className="ds-section ds-reveal" id="palettes" aria-labelledby="palettes-title">
-        <div className="ds-section__head">
-          <p className="ds-kicker">02</p>
-          <div>
-            <h2 id="palettes-title">Paired palettes and authentic identities</h2>
-            <p className="ds-section__lead">
-              Each store keeps its own ink, wordmark, and principles. A colour shows a
-              sample, a role, and a value.
-            </p>
-          </div>
-        </div>
-        <div className="ds-pair">
-          {PALETTES.map((palette) => (
-            <article className="ds-identity" data-brand={palette.id} key={palette.id}>
-              <p className="ds-kicker">{palette.identity}</p>
-              <p className="ds-wordmark">
-                {palette.wordmark}
-                <span>{palette.mark}</span>
-              </p>
-              <ul className="ds-principles">
-                {palette.principles.map((principle) => (
-                  <li key={principle}>{principle}</li>
-                ))}
-              </ul>
-              <ul className="ds-swatches">
-                {palette.colors.map((color) => (
-                  <li className="ds-swatch" key={color.token}>
-                    <i style={{ background: `var(${color.token})` }} />
-                    <span>
-                      <b>{color.role}</b>
-                      <small className="ds-token">{color.token}</small>
-                    </span>
-                    <small>{color.value}</small>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
       </section>
 
       <section className="ds-section ds-reveal" id="type" aria-labelledby="type-title">
@@ -355,9 +348,9 @@ export default function Design() {
           {PALETTES.map((palette) => (
             <div className="ds-surface" data-brand={palette.id} key={palette.id}>
               <div className="ds-surface__card">
-                <strong>{palette.mark} surface</strong>
+                <strong>{palette.identity} surface</strong>
                 <p>
-                  Canvas {palette.id === 'textile' ? '#F9F9F9' : '#F8F8F5'}, white card,
+                  Canvas {palette.id === 'textile' ? '#FFFFFF' : '#FAF7F0'}, white card,
                   line #E4E4E4, elevation --ds-elev-2.
                 </p>
               </div>
@@ -561,7 +554,7 @@ export default function Design() {
         </p>
         <p>
           <span className="ds-kicker">System edition</span>
-          Wave 6 · Edition 01
+          Commerce foundations · 2026
         </p>
       </footer>
     </main>
