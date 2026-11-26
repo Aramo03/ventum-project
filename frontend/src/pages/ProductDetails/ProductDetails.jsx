@@ -548,33 +548,28 @@ export default function ProductDetails() {
             </button>
           </div>
         </div>
-        <div
-          className={cartStatus === 'added' ? 'product-details__added is-added' : 'product-details__added'}
-          role={cartStatus === 'added' ? 'status' : undefined}
-        >
-          {cartStatus === 'added' ? (
+        {cartStatus === 'added' ? (
+          <div className="product-details__added is-added" role="status">
             <span className="product-details__check" aria-hidden="true" />
-          ) : null}
-          {cartStatus === 'added' ? (
-            <span>
+            <span className="product-details__added-copy">
               <strong>{t('productDetails.addedTitle')}</strong>
-              {detailLine}
+              <span>{detailLine}</span>
             </span>
-          ) : (
-            <button
-              type="button"
-              className="product-details__add-hit"
-              onClick={() => purchase('card')}
-              disabled={pending !== null}
-            >
-              <strong>{t('productDetails.addToCart')}</strong>
-              {detailLine}
-            </button>
-          )}
-          {cartStatus === 'added' ? (
             <Link to="/cart">{t('productDetails.openCart')}</Link>
-          ) : null}
-        </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="product-details__added"
+            onClick={() => purchase('card')}
+            disabled={pending !== null}
+          >
+            <span className="product-details__added-copy">
+              <strong>{t('productDetails.addToCart')}</strong>
+              <span>{detailLine}</span>
+            </span>
+          </button>
+        )}
       </div>
 
       {zoomed && active?.url ? (
