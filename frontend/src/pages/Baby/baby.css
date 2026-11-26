@@ -1,4 +1,7 @@
 .baby-page {
+  --baby-duration: var(--ds-motion-duration, 200ms);
+  --baby-ease: var(--ds-motion-ease, ease-out);
+
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -16,6 +19,11 @@
 
 .baby-section {
   padding: 64px 0;
+}
+
+#brand-story,
+#baby-collection {
+  scroll-margin-top: 24px;
 }
 
 .baby-eyebrow {
@@ -69,6 +77,11 @@
   padding: 24px;
   border-radius: 16px;
   background: linear-gradient(135deg, #eaf0e3, var(--ds-accent, #a3b18a));
+  transition: transform var(--baby-duration) var(--baby-ease);
+}
+
+.baby-editorial__photo:hover {
+  transform: scale(1.01);
 }
 
 .baby-assurances {
@@ -118,6 +131,17 @@
   background: #fff;
   color: var(--ds-ink, #5c6b4a);
   cursor: pointer;
+  transition:
+    background-color var(--baby-duration) var(--baby-ease),
+    transform var(--baby-duration) var(--baby-ease);
+}
+
+.baby-category:hover {
+  transform: translateY(-2px);
+}
+
+.baby-category:active {
+  transform: scale(0.98);
 }
 
 .baby-category.is-active {
@@ -185,6 +209,13 @@
   border-radius: 8px;
   font: inherit;
   cursor: pointer;
+  transition:
+    background-color var(--baby-duration) var(--baby-ease),
+    transform var(--baby-duration) var(--baby-ease);
+}
+
+.baby-btn:active {
+  transform: scale(0.98);
 }
 
 .baby-btn--primary {
@@ -203,6 +234,12 @@
   background: transparent;
   color: var(--ds-ink, #5c6b4a);
   text-decoration: underline;
+}
+
+.baby-btn:focus-visible,
+.baby-category:focus-visible {
+  outline: 2px solid var(--ds-ink, #5c6b4a);
+  outline-offset: 2px;
 }
 
 @media (max-width: 800px) {
@@ -224,5 +261,20 @@
 
   .baby-editorial__title {
     font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baby-editorial__photo,
+  .baby-category,
+  .baby-btn {
+    transition: none;
+  }
+
+  .baby-editorial__photo:hover,
+  .baby-category:hover,
+  .baby-category:active,
+  .baby-btn:active {
+    transform: none;
   }
 }

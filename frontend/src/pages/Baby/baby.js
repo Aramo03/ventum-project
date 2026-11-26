@@ -28,16 +28,27 @@ function extractList(data) {
   return []
 }
 
+async function fetchAllPages(url, params) {
+  const items = []
+  for (let page = 1; page <= 20; page += 1) {
+    const { data } = await api.get(url, { params: { ...params, page } })
+    if (Array.isArray(data)) return data
+    items.push(...extractList(data))
+    if (!data?.next) break
+  }
+  return items
+}
+
 export async function fetchBabyCatalog() {
-  const [categoriesResponse, productsResponse] = await Promise.all([
-    api.get('/api/catalog/categories/', { params: { store: STORE_KEY } }),
-    api.get('/api/catalog/products/', { params: { store: STORE_KEY } }),
+  const [categoryList, productList] = await Promise.all([
+    fetchAllPages('/api/catalog/categories/', { store: STORE_KEY }),
+    fetchAllPages('/api/catalog/products/', { store: STORE_KEY }),
   ])
 
-  const categories = extractList(categoriesResponse.data).filter(
+  const categories = categoryList.filter(
     (category) => !category.store || category.store === STORE_KEY,
   )
-  const products = extractList(productsResponse.data).filter(
+  const products = productList.filter(
     (product) => product.store === STORE_KEY && product.published !== false,
   )
 
