@@ -190,16 +190,10 @@ export default function ProductDetails() {
     ? t('productDetails.storeBaby')
     : t('productDetails.storeTextile')
 
+  const priceLabel = salePrice ? `${salePrice} ${t('productDetails.dram')}` : ''
+
   return (
     <main className="product-details page" data-brand={brand}>
-      <p className="product-details__back">
-        <Link to={backTo}>
-          {product.store === 'baby'
-            ? t('productDetails.backBaby')
-            : t('productDetails.backTextile')}
-        </Link>
-      </p>
-
       <nav className="product-details__crumbs" aria-label={t('productDetails.breadcrumbs')}>
         <Link to={backTo}>{t('productDetails.home')}</Link>
         {product.category?.name ? (
@@ -209,7 +203,7 @@ export default function ProductDetails() {
           </>
         ) : null}
         <span aria-hidden="true">/</span>
-        <span>{product.name}</span>
+        <span className="product-details__crumb-current">{product.name}</span>
       </nav>
 
       <div className="product-details__layout">
@@ -224,6 +218,9 @@ export default function ProductDetails() {
             ) : (
               <div className="product-details__placeholder">{storeName}</div>
             )}
+            {extras.discount ? (
+              <span className="product-details__promo">{extras.discount}</span>
+            ) : null}
             {images.length > 1 ? (
               <p className="product-details__count">
                 {activeIndex + 1} / {images.length}
@@ -254,48 +251,52 @@ export default function ProductDetails() {
         </section>
 
         <section className="product-details__purchase">
-          {product.category?.name ? (
-            <p className="product-details__category">{product.category.name}</p>
-          ) : null}
+          <div className="product-details__intro">
+            {product.category?.name ? (
+              <p className="product-details__category">{product.category.name}</p>
+            ) : <span />}
+            <p className="product-details__sku">SKU: {product.sku}</p>
+          </div>
           <h1>{product.name}</h1>
-          <p className="product-details__sku">
-            {t('productDetails.sku')}: {product.sku}
-          </p>
           {product.description ? (
             <p className="product-details__summary">{product.description}</p>
           ) : null}
 
-          <p className="product-details__prices">
-            {extras.oldPrice ? (
-              <span className="product-details__old">{extras.oldPrice}</span>
+          <div className="product-details__price-row">
+            <p className="product-details__prices">
+              {salePrice ? (
+                <span className="product-details__price">{priceLabel}</span>
+              ) : null}
+              {extras.oldPrice ? (
+                <span className="product-details__old">
+                  {extras.oldPrice} {t('productDetails.dram')}
+                </span>
+              ) : null}
+              {extras.discount ? (
+                <span className="product-details__discount">{extras.discount}</span>
+              ) : null}
+            </p>
+            {extras.stock ? (
+              <span className="ds-badge ds-badge--stock">{extras.stock}</span>
             ) : null}
-            {salePrice ? (
-              <span className="product-details__price">
-                {salePrice} {t('productCard.currency')}
-              </span>
-            ) : null}
-          </p>
-
-          {extras.discount ? (
-            <span className="ds-badge ds-badge--discount">{extras.discount}</span>
-          ) : null}
-          {extras.stock ? (
-            <span className="ds-badge ds-badge--stock">{extras.stock}</span>
-          ) : null}
+          </div>
 
           {extras.sizes.length > 0 ? (
-            <div className="product-details__sizes" role="group" aria-label={t('productCard.sizes')}>
-              {extras.sizes.map((size) => (
-                <button
-                  key={size.id}
-                  type="button"
-                  className={selectedSize === size.id ? 'ds-size is-selected' : 'ds-size'}
-                  aria-pressed={selectedSize === size.id}
-                  onClick={() => setSelectedSize(size.id)}
-                >
-                  {size.label}
-                </button>
-              ))}
+            <div className="product-details__sizes">
+              <p className="product-details__field-label">{t('productDetails.sizes')}</p>
+              <div role="group" aria-label={t('productDetails.sizes')}>
+                {extras.sizes.map((size) => (
+                  <button
+                    key={size.id}
+                    type="button"
+                    className={selectedSize === size.id ? 'ds-size is-selected' : 'ds-size'}
+                    aria-pressed={selectedSize === size.id}
+                    onClick={() => setSelectedSize(size.id)}
+                  >
+                    {size.label}
+                  </button>
+                ))}
+              </div>
             </div>
           ) : null}
 
@@ -303,7 +304,7 @@ export default function ProductDetails() {
             <PurchaseButton
               kind="card"
               pending={pending}
-              label={t('productCard.card')}
+              label={priceLabel ? `${t('productCard.card')} · ${priceLabel}` : t('productCard.card')}
               disabled={pending !== null && pending !== 'card'}
               onClick={() => purchase('card')}
             />
@@ -320,9 +321,6 @@ export default function ProductDetails() {
             <p className="product-details__reassurance">{t('productDetails.reassurance')}</p>
           ) : null}
 
-          {cartStatus === 'added' && (
-            <p className="vt-status vt-status--ok product-details__note" role="status">{t('productCard.added')}</p>
-          )}
           {cartStatus === 'signIn' && (
             <p className="vt-status vt-status--error product-details__note" role="alert">
               {t('productCard.signIn')}{' '}
@@ -335,22 +333,28 @@ export default function ProductDetails() {
         </section>
       </div>
 
-      {product.description ? (
-        <section className="product-details__about" aria-labelledby="product-about-title">
-          <h2 id="product-about-title">{t('productDetails.about')}</h2>
+      <section className="product-details__about" aria-labelledby="product-about-title">
+        <h2 id="product-about-title">{t('productDetails.about')}</h2>
+        <h3 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h3>
+        {product.description ? (
           <div className="product-details__description">{product.description}</div>
-        </section>
-      ) : null}
-
-      <section className="product-details__about" aria-labelledby="product-philosophy-title">
-        <h2 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h2>
-        <p className="product-details__description">{t('productDetails.philosophy')}</p>
+        ) : null}
       </section>
 
-      <section className="product-details__about" aria-labelledby="product-maker-title">
+      <aside className="product-details__maker" aria-labelledby="product-maker-title">
         <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
-        <p className="product-details__description">{t('productDetails.maker')}</p>
-      </section>
+        <p>{t('productDetails.maker')}</p>
+      </aside>
+
+      {cartStatus === 'added' && (
+        <p className="product-details__added" role="status">
+          <span>
+            <strong>{t('productDetails.addedTitle')}</strong>
+            {product.name}
+          </span>
+          <Link to="/cart">{t('productDetails.openCart')}</Link>
+        </p>
+      )}
     </main>
   )
 }
