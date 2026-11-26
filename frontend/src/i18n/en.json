@@ -133,13 +133,41 @@
     "retry": "Try again"
   },
   "textile": {
-   "editorial": {
-    "eyebrow": "Ventum Textile",
-    "title": "Natural textiles for everyday home comfort",
-    "description": "Curated cotton and linen collections crafted for lasting softness and calm living.",
-    "cta": "Explore collection",
-    "mediaAlt": "Ventum Textile seasonal editorial photography",
-    "caption": "Seasonal collection"
+  "heroEyebrow": "VENTUM TEXTILE · NATURAL HOME SANCTUARY",
+    "heroTitle": "Woven for quiet, sunlit mornings.",
+    "heroSubtitle": "Experience breathable organic cottons, artisanal weaves, and timeless textures crafted to bring effortless serenity to every corner of your home.",
+    "exploreCollection": "Explore the Collection",
+    "heroNote": "100% Natural Fibers · Tailored Perfection",
+    "assuranceDelivery": "Free Delivery across Yerevan & Regions",
+    "assuranceQuality": "100% Certified Natural Fabrics",
+    "assurancePayment": "Flexible Cash & Card Payment",
+    "categoriesTitle": "Curated by Category",
+    "categoriesCaption": "Thoughtfully organized for every room in your home",
+    "storyEyebrow": "THE VENTUM TEXTILE STANDARD",
+    "storyTitle": "Quality you feel at the very first touch.",
+    "storyText": "At Ventum Textile, we select only breathable fibers and enduring weaves that grow softer with every wash—bringing quiet luxury, warmth, and comfort to your daily rituals.",
+    "discoverCraft": "Discover our craft ->",
+    "collectionTitle": "The Comfort Collection",
+    "collectionSubtitle": "Our most-loved bedding sets and textile essentials, tailored for deep and restorative rest.",
+    "allProducts": "All Pieces",
+    "inStock": "In Stock",
+    "inStockBadge": "In Stock",
+    "outOfStock": "Out of Stock",
+    "sortLabel": "Sort products",
+    "sortFeatured": "Sort by: Featured",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "addToCart": "Add to Cart",
+    "addingToCart": "Adding...",
+    "addedToCart": "Added to cart",
+    "signInRequired": "Sign in required to add items to cart.",
+    "addError": "Could not add item to cart.",
+    "loading": "Loading products...",
+    "empty": "No textile products found.",
+    "errorLoad": "Could not load Textile catalog. Please try again.",
+    "noImage": "No image",
+    "viewAll": "View All Products",
+    "showLess": "Show Less"
   },
   "assurances": {
     "qualityTitle": "Natural fabrics",
@@ -170,8 +198,8 @@
     "resetFilters": "Reset filters",
     "showAll": "Show all products",
     "backToTop": "Back to collection top"
-  }
   },
+  
   "baby": {
     "loading": "Loading Baby products...",
     "error": "Failed to load products. Please try again.",
