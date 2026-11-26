@@ -68,6 +68,7 @@ export default function ProductDetails() {
   const [guideOpen, setGuideOpen] = useState(false)
   const [wished, setWished] = useState(false)
   const [skuCopied, setSkuCopied] = useState(false)
+  const [linkCopied, setLinkCopied] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -262,6 +263,8 @@ export default function ProductDetails() {
     swatch: '',
   }]
   const activeColor = colors.find((item) => item.id === selectedColor) || colors[0]
+  const chosenSize = sizes.find((item) => item.id === selectedSize) || sizes[0]
+  const detailLine = [product.name, activeColor?.label, chosenSize?.label].filter(Boolean).join(' · ')
   const stockLabel = extras.stock || t('productDetails.inStock')
 
   return (
@@ -468,17 +471,92 @@ export default function ProductDetails() {
       </div>
 
       <section className="product-details__about" aria-labelledby="product-about-title">
-        <h2 id="product-about-title">{t('productDetails.about')}</h2>
-        <h3 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h3>
-        {product.description ? (
-          <div className="product-details__description">{product.description}</div>
-        ) : null}
+        <div className="product-details__about-head">
+          <h2 id="product-about-title">{t('productDetails.about')}</h2>
+          <p>{t('productDetails.kicker')}</p>
+        </div>
+        <div className="product-details__story">
+          <div>
+            <h3 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h3>
+            {product.description ? (
+              <div className="product-details__description">{product.description}</div>
+            ) : null}
+            <p>{t('productDetails.story')}</p>
+            <p>{t('productDetails.storyMore')}</p>
+          </div>
+          <div className="product-details__facts">
+            <article>
+              <h3>{t('productDetails.materialTitle')}</h3>
+              <ul>
+                <li>{t('productDetails.material1')}</li>
+                <li>{t('productDetails.material2')}</li>
+                <li>{t('productDetails.material3')}</li>
+                <li>{t('productDetails.material4')}</li>
+              </ul>
+            </article>
+            <article>
+              <h3>{t('productDetails.careTitle')}</h3>
+              <p>{t('productDetails.careLead')}</p>
+              <ul>
+                <li>{t('productDetails.care1')}</li>
+                <li>{t('productDetails.care2')}</li>
+                <li>{t('productDetails.care3')}</li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </section>
 
-      <aside className="product-details__maker" aria-labelledby="product-maker-title">
-        <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
-        <p>{t('productDetails.maker')}</p>
-      </aside>
+      <div className="product-details__care-row">
+        <aside className="product-details__maker" aria-labelledby="product-maker-title">
+          <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
+          <p>{t('productDetails.maker')}</p>
+        </aside>
+        <aside className="product-details__support">
+          <h2>{t('productDetails.supportTitle')}</h2>
+          <a href={`mailto:${t('productDetails.supportEmail')}`}>{t('productDetails.supportEmail')}</a>
+        </aside>
+      </div>
+
+      <div className="product-details__dock">
+        <div className="product-details__dock-side">
+          {wished ? <p className="product-details__saved">{t('productDetails.saved')}</p> : null}
+          <button
+            type="button"
+            className={wished ? 'product-details__saved-btn is-selected' : 'product-details__saved-btn'}
+            aria-pressed={wished}
+            onClick={() => setWished((value) => !value)}
+          >
+            {wished ? t('productDetails.savedShort') : t('productDetails.wishlist')}
+          </button>
+          <div className="product-details__sharebox" aria-label={t('productDetails.share')}>
+            <a href={`mailto:?subject=${encodeURIComponent(product.name)}&body=${encodeURIComponent(window.location.href)}`}>
+              {t('productDetails.shareEmail')}
+            </a>
+            <button type="button" onClick={shareProduct}>{t('productDetails.shareMessage')}</button>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(window.location.href)
+                  setLinkCopied(true)
+                } catch {
+                  setLinkCopied(false)
+                }
+              }}
+            >
+              {linkCopied ? t('productDetails.copied') : t('productDetails.shareLink')}
+            </button>
+          </div>
+        </div>
+        <p className="product-details__added" role="status">
+          <span>
+            <strong>{t('productDetails.addedTitle')}</strong>
+            {detailLine}
+          </span>
+          <Link to="/cart">{t('productDetails.openCart')}</Link>
+        </p>
+      </div>
 
       {zoomed && active?.url ? (
         <div className="product-details__dialog" role="dialog" aria-modal="true" aria-label={t('productDetails.zoom')}>
@@ -504,15 +582,6 @@ export default function ProductDetails() {
         </div>
       ) : null}
 
-      {cartStatus === 'added' && (
-        <p className="product-details__added" role="status">
-          <span>
-            <strong>{t('productDetails.addedTitle')}</strong>
-            {product.name}
-          </span>
-          <Link to="/cart">{t('productDetails.openCart')}</Link>
-        </p>
-      )}
     </main>
   )
 }
