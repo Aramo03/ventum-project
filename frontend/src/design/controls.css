@@ -26,6 +26,12 @@
   text-decoration: none;
   cursor: pointer;
   box-shadow: var(--ds-elev-0);
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard),
+    opacity var(--ds-duration-fast) var(--ds-ease-standard);
 }
 
 .ds-btn--card {
@@ -57,7 +63,7 @@
 .ds-btn.is-pressed {
   background: var(--ds-action-pressed);
   border-color: var(--ds-action-pressed);
-  transform: translateY(1px);
+  transform: translateY(1px) scale(var(--ds-motion-scale));
 }
 
 .ds-btn--cash:active,
@@ -111,13 +117,6 @@
   border: 2px solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
-  animation: ds-spin 0.7s linear infinite;
-}
-
-@keyframes ds-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .ds-badge {
@@ -168,9 +167,9 @@
 
 .ds-size.is-selected,
 .ds-size[aria-pressed="true"] {
-  background: var(--ds-ink);
-  border-color: var(--ds-ink);
-  color: var(--ds-brand-canvas);
+  background: var(--ds-selected);
+  border-color: var(--ds-selected);
+  color: var(--ds-selected-fg);
 }
 
 .ds-size:focus-visible {
@@ -248,7 +247,6 @@
   border: 2px solid var(--ds-ink);
   border-right-color: transparent;
   border-radius: 50%;
-  animation: ds-spin 0.7s linear infinite;
 }
 
 .ds-field__hint {
@@ -274,7 +272,7 @@
   height: 1.55rem;
   padding: 0 0.4rem;
   border: 1px solid var(--ds-line);
-  border-radius: 4px;
+  border-radius: var(--ds-radius-control);
   background: var(--ds-surface);
   color: var(--ds-ink);
   font-size: 0.68rem;
@@ -330,8 +328,8 @@
 }
 
 .ds-switch__option[aria-pressed="true"] {
-  background: var(--ds-ink);
-  color: var(--ds-brand-canvas);
+  background: var(--ds-action);
+  color: var(--ds-on-action);
 }
 
 .ds-switch__option:focus-visible {
@@ -352,9 +350,21 @@
 }
 
 .ds-category[aria-pressed="true"] {
-  background: var(--ds-ink);
-  border-color: var(--ds-ink);
-  color: var(--ds-brand-canvas);
+  background: var(--ds-action);
+  border-color: var(--ds-action);
+  color: var(--ds-on-action);
+}
+
+[data-brand="baby"] .ds-category[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--ds-action) 18%, white);
+  border-color: color-mix(in srgb, var(--ds-action) 28%, white);
+  color: var(--ds-ink);
+}
+
+[data-brand="baby"] .ds-btn--cash {
+  background: var(--ds-brand-canvas);
+  border-color: color-mix(in srgb, var(--ds-ink) 22%, white);
+  color: var(--ds-ink);
 }
 
 .ds-category:focus-visible {

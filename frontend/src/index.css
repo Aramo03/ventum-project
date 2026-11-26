@@ -56,16 +56,6 @@ body {
   background: var(--vt-canvas);
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#root > main {
-  flex: 1;
-}
-
 .page {
   max-width: 72rem;
   margin: 0 auto;
@@ -112,10 +102,19 @@ body {
   font-weight: 650;
   text-decoration: none;
   cursor: pointer;
+  transition:
+    filter var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard),
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard);
 }
 
 .vt-button:hover {
   filter: brightness(0.96);
+}
+
+.vt-button:active:not(:disabled) {
+  transform: scale(var(--ds-motion-scale));
 }
 
 .vt-button:disabled {
