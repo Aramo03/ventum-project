@@ -11,11 +11,26 @@ export const LIBRARY = [
   { href: '#palettes', name: 'Palette', note: 'Textile and Baby. Sample, role, value.' },
   { href: '#type', name: 'Type', note: 'Armenian display and body. Scale for am, en, ru.' },
   { href: '#rhythm', name: 'Space and surface', note: 'Measure, value, elevation, 4:3 media.' },
+  { href: '#motion', name: 'Motion', note: 'Durations, easing, shift, and scale tokens.' },
   { href: '#controls', name: 'Store controls', note: 'Switch, search, category, primary action.' },
   { href: '#purchase', name: 'Button, size, badge', note: 'Six states. Card and Cash. Visa and Mastercard.' },
   { href: '#card', name: 'Product card', note: 'Anatomy and interaction states. Specimen only.' },
   { href: '#form', name: '08 / Form', note: 'Newsletter field states. No live request.' },
   { href: '#feedback', name: '09 / Feedback', note: 'Empty, skeleton, and error. No live request.' },
+]
+
+export const MOTION_TOKENS = [
+  { token: '--ds-duration-fast', value: '120ms', role: 'Hover and press' },
+  { token: '--ds-duration-base', value: '200ms', role: 'State change' },
+  { token: '--ds-duration-enter', value: '280ms', role: 'Section enter' },
+  { token: '--ds-duration-slow', value: '400ms', role: 'Photo change' },
+  { token: '--ds-duration-spin', value: '700ms', role: 'Loading spin' },
+  { token: '--ds-duration-skeleton', value: '1.2s', role: 'Skeleton pulse' },
+  { token: '--ds-ease-standard', value: 'cubic-bezier(0.4, 0, 0.2, 1)', role: 'Standard curve' },
+  { token: '--ds-ease-enter', value: 'cubic-bezier(0.2, 0.8, 0.2, 1)', role: 'Enter curve' },
+  { token: '--ds-ease-exit', value: 'cubic-bezier(0.4, 0, 1, 1)', role: 'Exit curve' },
+  { token: '--ds-motion-shift', value: '0.75rem → 0', role: 'Reveal shift' },
+  { token: '--ds-motion-scale', value: '0.98 → 1', role: 'Press scale' },
 ]
 
 export const PALETTES = [

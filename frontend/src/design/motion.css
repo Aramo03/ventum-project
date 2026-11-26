@@ -1,0 +1,57 @@
+/*
+  Shared motion classes. Durations and easing come from tokens.css.
+*/
+
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ds-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-motion-shift));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ds-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.ds-reveal {
+  animation: ds-reveal var(--ds-duration-enter) var(--ds-ease-enter) both;
+}
+
+.ds-skeleton {
+  animation: ds-skeleton-pulse var(--ds-duration-skeleton) var(--ds-ease-standard) infinite;
+}
+
+.ds-btn__spinner,
+.ds-field__spinner {
+  animation: ds-spin var(--ds-duration-spin) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ds-skeleton {
+    animation: none;
+  }
+}

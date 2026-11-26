@@ -58,6 +58,27 @@
   --ds-type-body: 1rem;
   --ds-type-small: 0.875rem;
   --ds-type-caption: 0.75rem;
+
+  --ds-duration-fast: 120ms;
+  --ds-duration-base: 200ms;
+  --ds-duration-enter: 280ms;
+  --ds-duration-slow: 400ms;
+  --ds-duration-spin: 700ms;
+  --ds-duration-skeleton: 1.2s;
+
+  --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ds-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --ds-motion-shift: 0.75rem;
+  --ds-motion-scale: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ds-motion-shift: 0;
+    --ds-motion-scale: 1;
+  }
 }
 
 [data-brand="textile"] {

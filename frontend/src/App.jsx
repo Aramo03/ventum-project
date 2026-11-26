@@ -6,19 +6,21 @@ import Header from './components/Header/Header.jsx'
 import { activeLanguageCode } from './components/Header/header.js'
 import Footer from './components/Footer/Footer.jsx'
 import Gateway from './pages/Gateway/Gateway.jsx'
-
+import { useShop } from './design/useShop.js'
+import './design/shell.css'
+import './design/motion.css'
 
 const Textile = lazy(() => import('./pages/Textile/Textile.jsx'))
 const Baby = lazy(() => import('./pages/Baby/Baby.jsx'))
 const Cart = lazy(() => import('./pages/Cart/Cart.jsx'))
-const ProductDetails = lazy(() =>import('./pages/ProductDetails/ProductDetails.jsx'))
+const ProductDetails = lazy(() =>
+  import('./pages/ProductDetails/ProductDetails.jsx'),
+)
 const Account = lazy(() => import('./pages/Account/Account.jsx'))
 const CheckoutSuccess = lazy(() =>
-  import('./pages/Checkout/CheckoutSuccess.jsx')
+  import('./pages/Checkout/CheckoutSuccess.jsx'),
 )
-const CheckoutFail = lazy(() =>
-  import('./pages/Checkout/CheckoutFail.jsx')
-)
+const CheckoutFail = lazy(() => import('./pages/Checkout/CheckoutFail.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
 const Design = lazy(() => import('./design/Design.jsx'))
 
@@ -43,6 +45,7 @@ function pageTitleKey(pathname) {
 export default function App() {
   const { t, i18n } = useTranslation()
   const { pathname } = useLocation()
+  const shop = useShop()
 
   useEffect(() => {
     if (pathname === '/design') {
@@ -65,14 +68,14 @@ export default function App() {
   }, [i18n.language, i18n.resolvedLanguage])
 
   return (
-    <>
+    <div className="ds-shell" {...(shop ? { 'data-shop': shop } : {})}>
       <Header />
 
       <Suspense
         fallback={
-          <p className="page" role="status">
+          <main className="page" role="status">
             {t('common.loading')}
-          </p>
+          </main>
         }
       >
         <Routes>
@@ -94,6 +97,6 @@ export default function App() {
       </Suspense>
 
       <Footer />
-    </>
+    </div>
   )
 }

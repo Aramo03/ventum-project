@@ -5,6 +5,7 @@ import {
   FEEDBACK,
   FORM_STATES,
   LIBRARY,
+  MOTION_TOKENS,
   PALETTES,
   SIZES,
   SPACING,
@@ -199,17 +200,17 @@ export default function Design() {
       <header className="ds-cover">
         <div className="ds-masthead">
           <p className="ds-system-brand">Ventum</p>
-          <p className="ds-release">Wave 5</p>
+          <p className="ds-release">Wave 6</p>
         </div>
         <h1 className="ds-system-title">Design system</h1>
         <p className="ds-system-description">
-          Tokens for Ventum Textile and Ventum Baby. Buttons, badges, sizes, and fields
-          read these variables. The card, the header, and the newsletter on this route
-          are specimens. They do not add to the cart and they do not subscribe.
+          Tokens for Ventum Textile and Ventum Baby. Buttons, badges, sizes, fields, and
+          motion read these variables. The card, the header, and the newsletter on this
+          route are specimens. They do not add to the cart and they do not subscribe.
         </p>
       </header>
 
-      <section className="ds-section" id="library" aria-labelledby="library-title">
+      <section className="ds-section ds-reveal" id="library" aria-labelledby="library-title">
         <div className="ds-section__head">
           <p className="ds-kicker">01</p>
           <div>
@@ -231,7 +232,7 @@ export default function Design() {
         </ul>
       </section>
 
-      <section className="ds-section" id="palettes" aria-labelledby="palettes-title">
+      <section className="ds-section ds-reveal" id="palettes" aria-labelledby="palettes-title">
         <div className="ds-section__head">
           <p className="ds-kicker">02</p>
           <div>
@@ -272,7 +273,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="type" aria-labelledby="type-title">
+      <section className="ds-section ds-reveal" id="type" aria-labelledby="type-title">
         <div className="ds-section__head">
           <p className="ds-kicker">03</p>
           <div>
@@ -325,7 +326,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="rhythm" aria-labelledby="rhythm-title">
+      <section className="ds-section ds-reveal" id="rhythm" aria-labelledby="rhythm-title">
         <div className="ds-section__head">
           <p className="ds-kicker">04</p>
           <div>
@@ -372,7 +373,45 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="controls" aria-labelledby="controls-title">
+      <section className="ds-section ds-reveal" id="motion" aria-labelledby="motion-title">
+        <div className="ds-section__head">
+          <p className="ds-kicker">04b</p>
+          <div>
+            <h2 id="motion-title">Motion tokens</h2>
+            <p className="ds-section__lead">
+              Durations, curves, shift, and scale live in the token table. Classes
+              ds-reveal and ds-skeleton read them. Under prefers-reduced-motion: reduce,
+              shift is 0 and scale is 1.
+            </p>
+          </div>
+        </div>
+        <div className="ds-scale-wrap">
+          <table className="ds-scale">
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Role</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MOTION_TOKENS.map((row) => (
+                <tr key={row.token}>
+                  <td className="ds-token">{row.token}</td>
+                  <td>{row.role}</td>
+                  <td>{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="ds-kind">Reveal sample</p>
+        <p className="ds-note ds-reveal">
+          This line uses ds-reveal once. Other screens import the same class after merge.
+        </p>
+      </section>
+
+      <section className="ds-section ds-reveal" id="controls" aria-labelledby="controls-title">
         <div className="ds-section__head">
           <p className="ds-kicker">05</p>
           <div>
@@ -390,7 +429,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="purchase" aria-labelledby="purchase-title">
+      <section className="ds-section ds-reveal" id="purchase" aria-labelledby="purchase-title">
         <div className="ds-section__head">
           <p className="ds-kicker">06</p>
           <div>
@@ -421,7 +460,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="card" aria-labelledby="card-title">
+      <section className="ds-section ds-reveal" id="card" aria-labelledby="card-title">
         <div className="ds-section__head">
           <p className="ds-kicker">07</p>
           <div>
@@ -445,7 +484,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="form" aria-labelledby="form-title">
+      <section className="ds-section ds-reveal" id="form" aria-labelledby="form-title">
         <div className="ds-section__head">
           <p className="ds-kicker">08 / Form</p>
           <div>
@@ -470,7 +509,7 @@ export default function Design() {
         </div>
       </section>
 
-      <section className="ds-section" id="feedback" aria-labelledby="feedback-title">
+      <section className="ds-section ds-reveal" id="feedback" aria-labelledby="feedback-title">
         <div className="ds-section__head">
           <p className="ds-kicker">09 / Feedback</p>
           <div>
@@ -522,7 +561,7 @@ export default function Design() {
         </p>
         <p>
           <span className="ds-kicker">System edition</span>
-          Wave 5 · Edition 01
+          Wave 6 · Edition 01
         </p>
       </footer>
     </main>

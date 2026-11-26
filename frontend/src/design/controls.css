@@ -26,6 +26,12 @@
   text-decoration: none;
   cursor: pointer;
   box-shadow: var(--ds-elev-0);
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard),
+    opacity var(--ds-duration-fast) var(--ds-ease-standard);
 }
 
 .ds-btn--card {
@@ -57,7 +63,7 @@
 .ds-btn.is-pressed {
   background: var(--ds-action-pressed);
   border-color: var(--ds-action-pressed);
-  transform: translateY(1px);
+  transform: translateY(1px) scale(var(--ds-motion-scale));
 }
 
 .ds-btn--cash:active,
@@ -111,13 +117,6 @@
   border: 2px solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
-  animation: ds-spin 0.7s linear infinite;
-}
-
-@keyframes ds-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .ds-badge {
@@ -248,7 +247,6 @@
   border: 2px solid var(--ds-ink);
   border-right-color: transparent;
   border-radius: 50%;
-  animation: ds-spin 0.7s linear infinite;
 }
 
 .ds-field__hint {
