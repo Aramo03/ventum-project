@@ -5,71 +5,59 @@ import { useTranslation } from 'react-i18next'
 import { api, mediaUrl } from '../../api/client'
 import {
   addProductToCart,
-  formatProductPrice,
   productExtras,
 } from '../../components/ProductCard/productCard'
-import '../../design/controls.css'
+import zoomIcon from '../../assets/zoom.svg'
+import copyIcon from '../../assets/copy.svg'
+import rulerIcon from '../../assets/ruler.svg'
+import checkIcon from '../../assets/check.svg'
+import bagIcon from '../../assets/bag.svg'
+import heartIcon from '../../assets/heart.svg'
+import shareIcon from '../../assets/share.svg'
+import pinIcon from '../../assets/pin.svg'
+import truckIcon from '../../assets/truck.svg'
+import packageIcon from '../../assets/package.svg'
+import leafIcon from '../../assets/leaf.svg'
+import washIcon from '../../assets/wash.svg'
+import messageIcon from '../../assets/message.svg'
+import makerLogo from '../../assets/maker-logo.png'
+import {
+  FALLBACK_SIZES,
+  discountLabel,
+  galleryImages,
+  moneyLabel,
+  storePath,
+  STUDIO,
+} from './productDetails'
 
 import './productDetails.css'
 
-function storePath(store) {
-  return store === 'baby' ? '/baby' : '/textile'
-}
-
-function galleryImages(product) {
-  const rows = Array.isArray(product?.images) ? [...product.images] : []
-  rows.sort((left, right) => (left?.order ?? 0) - (right?.order ?? 0))
-  const withUrl = rows.filter((image) => image?.url)
-  if (withUrl.length) return withUrl
-  if (product?.image) return [{ url: product.image, alt: product.name || '', order: 0 }]
-  return []
-}
-
-function PurchaseButton({ kind, pending, label, disabled, onClick }) {
-  const loading = pending === kind
-
-  return (
-    <button
-      type="button"
-      className={[
-        'ds-btn',
-        kind === 'cash' ? 'ds-btn--cash' : 'ds-btn--card',
-        loading ? 'is-loading' : '',
-      ].filter(Boolean).join(' ')}
-      disabled={disabled || undefined}
-      aria-busy={loading || undefined}
-      onClick={onClick}
-    >
-      {loading ? <span className="ds-btn__spinner" aria-hidden="true" /> : null}
-      {kind === 'card' && !loading ? (
-        <span className="product-details__bag" aria-hidden="true" />
-      ) : null}
-      <span>{label}</span>
-    </button>
-  )
+function Icon({ src, width, height }) {
+  return <img className="product-details__icon" src={src} width={width} height={height} alt="" />
 }
 
 export default function ProductDetails() {
   const { sku } = useParams()
   const { t } = useTranslation()
-  const pendingRef = useRef(null)
+  const pendingRef = useRef(false)
+  const zoomRef = useRef(null)
+  const guideRef = useRef(null)
 
   const [product, setProduct] = useState(null)
-  const [selectedImage, setSelectedImage] = useState('')
+  const [imageIndex, setImageIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [missing, setMissing] = useState(false)
   const [loadFailed, setLoadFailed] = useState(false)
-  const [pending, setPending] = useState(null)
+  const [pending, setPending] = useState(false)
   const [cartStatus, setCartStatus] = useState('idle')
-  const [selectedSize, setSelectedSize] = useState('')
-  const [selectedColor, setSelectedColor] = useState('')
-  const [attempt, setAttempt] = useState(0)
+  const [selectedSize, setSelectedSize] = useState('100')
+  const [wished, setWished] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [shared, setShared] = useState(false)
+  const [city, setCity] = useState('yerevan')
   const [zoomed, setZoomed] = useState(false)
   const [guideOpen, setGuideOpen] = useState(false)
-  const [wished, setWished] = useState(false)
-  const [skuCopied, setSkuCopied] = useState(false)
-  const [linkCopied, setLinkCopied] = useState(false)
-  const [marked, setMarked] = useState(false)
+  const [useStudio, setUseStudio] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -79,25 +67,19 @@ export default function ProductDetails() {
       setMissing(false)
       setLoadFailed(false)
       setProduct(null)
-      setSelectedImage('')
+      setImageIndex(0)
       setCartStatus('idle')
-      setZoomed(false)
-      setGuideOpen(false)
       setWished(false)
-      setSkuCopied(false)
-      setMarked(false)
+      setCopied(false)
+      setShared(false)
+      setUseStudio(false)
 
       try {
         const response = await api.get(
           `/api/catalog/products/${encodeURIComponent(sku)}/`,
         )
-
         if (cancelled) return
-
-        const data = response.data
-        setProduct(data)
-        const images = galleryImages(data)
-        setSelectedImage(images[0]?.url || '')
+        setProduct(response.data)
       } catch (error) {
         if (cancelled) return
         if (error.response?.status === 404) setMissing(true)
@@ -108,86 +90,80 @@ export default function ProductDetails() {
     }
 
     if (sku) loadProduct()
-
     return () => {
       cancelled = true
     }
-  }, [sku, attempt])
+  }, [sku])
 
   const extras = productExtras(product)
   const sizeKey = extras.sizes.map((item) => item.id).join('|')
 
   useEffect(() => {
-    const preset = extras.sizes.find((item) => item.selected)
-    setSelectedSize(preset?.id || extras.sizes[0]?.id || '100')
-  }, [product, sizeKey])
-
-  const colorKey = extras.colors.map((item) => item.id).join('|')
-
-  useEffect(() => {
-    const preset = extras.colors[0]
-    setSelectedColor(preset?.id || 'sage')
-  }, [product, colorKey])
-
-  useEffect(() => {
-    if (!zoomed && !guideOpen) return undefined
-
-    function onKey(event) {
-      if (event.key === 'Escape') {
-        setZoomed(false)
-        setGuideOpen(false)
-      }
-    }
-
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [zoomed, guideOpen])
-
-  async function copySku() {
-    try {
-      await navigator.clipboard.writeText(product?.sku || '')
-      setSkuCopied(true)
-    } catch {
-      setSkuCopied(false)
-    }
-  }
-
-  async function shareProduct() {
-    const payload = { title: product?.name || '', url: window.location.href }
-    if (navigator.share) {
-      try {
-        await navigator.share(payload)
-      } catch {
-        /* The visitor closed the share sheet. */
-      }
+    if (!extras.sizes.length) {
+      setSelectedSize('100')
       return
     }
-    try {
-      await navigator.clipboard.writeText(payload.url)
-    } catch {
-      /* Sharing is unavailable in this browser. */
-    }
-  }
+    const preset = extras.sizes.find((item) => item.selected)
+    setSelectedSize(preset?.id || extras.sizes[0]?.id || '')
+  }, [product, sizeKey])
 
-  function addFromCorner() {
-    if (marked || pendingRef.current) return
-    setMarked(true)
-    purchase('card')
-  }
+  useEffect(() => {
+    const node = zoomRef.current
+    if (!node) return
+    if (zoomed && !node.open) node.showModal()
+    if (!zoomed && node.open) node.close()
+  }, [zoomed])
 
-  async function purchase(kind) {
+  useEffect(() => {
+    const node = guideRef.current
+    if (!node) return
+    if (guideOpen && !node.open) node.showModal()
+    if (!guideOpen && node.open) node.close()
+  }, [guideOpen])
+
+  async function purchase() {
     if (pendingRef.current || !product?.sku) return
-    pendingRef.current = kind
-    setPending(kind)
-
+    pendingRef.current = true
+    setPending(true)
+    setCartStatus('idle')
     try {
       await addProductToCart(product.sku)
       setCartStatus('added')
     } catch (error) {
       setCartStatus(error.response?.status === 401 ? 'signIn' : 'failed')
     } finally {
-      pendingRef.current = null
-      setPending(null)
+      pendingRef.current = false
+      setPending(false)
+    }
+  }
+
+  async function copySku() {
+    try {
+      await navigator.clipboard.writeText(product?.sku || '')
+      setCopied(true)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  async function shareProduct() {
+    const url = window.location.href
+    const payload = { title: product?.name || '', url }
+    try {
+      if (navigator.share) {
+        await navigator.share(payload)
+        return
+      }
+      await navigator.clipboard.writeText(url)
+      setShared(true)
+    } catch (error) {
+      if (error?.name === 'AbortError') return
+      try {
+        await navigator.clipboard.writeText(url)
+        setShared(true)
+      } catch {
+        setShared(false)
+      }
     }
   }
 
@@ -200,20 +176,9 @@ export default function ProductDetails() {
   if (loading) {
     return (
       <main className="product-details page" aria-busy="true">
-        <p className="product-details__sr" role="status">{t('productDetails.loading')}</p>
-        <div className="product-details__layout">
-          <div className="ds-skeleton product-details__skeleton" aria-hidden="true">
-            <i className="ds-skeleton__photo" />
-          </div>
-          <div className="ds-skeleton product-details__skeleton" aria-hidden="true">
-            <i className="ds-skeleton__spec" />
-            <i className="ds-skeleton__name" />
-            <i className="ds-skeleton__price" />
-            <span className="ds-skeleton__buttons">
-              <i />
-              <i />
-            </span>
-          </div>
+        <div className="product-details__inner">
+          <p className="product-details__loading" role="status">{t('productDetails.loading')}</p>
+          <div className="product-details__skeleton" aria-hidden="true" />
         </div>
       </main>
     )
@@ -237,11 +202,7 @@ export default function ProductDetails() {
         <div className="product-details__message">
           <h1>{t('productDetails.loadErrorTitle')}</h1>
           <p>{t('productDetails.loadError')}</p>
-          <button
-            className="ds-btn ds-btn--card"
-            type="button"
-            onClick={() => setAttempt((value) => value + 1)}
-          >
+          <button className="vt-button" type="button" onClick={() => window.location.reload()}>
             {t('productDetails.retry')}
           </button>
         </div>
@@ -249,362 +210,356 @@ export default function ProductDetails() {
     )
   }
 
-  const images = galleryImages(product)
-  const active = images.find((image) => image.url === selectedImage) || images[0]
-  const activeIndex = Math.max(0, images.findIndex((image) => image.url === active?.url))
-  const salePrice = formatProductPrice(product.price)
+  const catalogImages = galleryImages(product)
+  const images = useStudio ? STUDIO : catalogImages
+  const activeIndex = Math.min(imageIndex, Math.max(images.length - 1, 0))
+  const active = images[activeIndex]
+  const photoSrc = active?.url ? mediaUrl(active.url) : ''
+  const many = images.length > 1
+  const price = moneyLabel(product.price)
+  const previous = moneyLabel(product.old_price ?? product.compare_at_price)
+  const discount = discountLabel(product, extras)
+  const stock = extras.stock || t('productDetails.inStock')
+  const sizes = extras.sizes.length
+    ? extras.sizes
+    : FALLBACK_SIZES.map((item) => ({ ...item, label: t(item.labelKey) }))
+  const selected = sizes.find((item) => item.id === selectedSize) || sizes[0]
+  const summary = product.description || t('productDetails.summaryFallback')
+  const storyTitle = product.store === 'baby'
+    ? t('productDetails.storyTitle')
+    : t('productDetails.storyTitleTextile')
   const storeName = product.store === 'baby'
     ? t('productDetails.storeBaby')
     : t('productDetails.storeTextile')
-
-  const priceLabel = salePrice ? `${salePrice} ${t('productDetails.dram')}` : ''
-  const sizes = extras.sizes.length > 0 ? extras.sizes : [
-    { id: '70', label: t('productDetails.size70') },
-    { id: '100', label: t('productDetails.size100') },
-    { id: '128', label: t('productDetails.size128') },
-  ]
-  const colors = extras.colors.length > 0 ? extras.colors : [{
-    id: 'sage',
-    label: t('productDetails.colorName'),
-    hint: t('productDetails.colorHint'),
-    swatch: '',
-  }]
-  const activeColor = colors.find((item) => item.id === selectedColor) || colors[0]
-  const chosenSize = sizes.find((item) => item.id === selectedSize) || sizes[0]
-  const detailLine = [product.name, activeColor?.label, chosenSize?.label].filter(Boolean).join(' · ')
-  const stockLabel = extras.stock || t('productDetails.inStock')
+  const categoryHref = product.category?.slug
+    ? `${backTo}?category=${encodeURIComponent(product.category.slug)}`
+    : backTo
 
   return (
     <main className="product-details page" data-brand={brand}>
-      <nav className="product-details__crumbs" aria-label={t('productDetails.breadcrumbs')}>
-        <Link to={backTo}>{t('productDetails.home')}</Link>
-        {product.category?.name ? (
-          <>
-            <span aria-hidden="true">/</span>
-            <Link to={backTo}>{product.category.name}</Link>
-          </>
-        ) : null}
-        <span aria-hidden="true">/</span>
-        <span className="product-details__crumb-current">{product.name}</span>
-      </nav>
+      <div className="product-details__inner">
+        <nav className="product-details__crumbs" aria-label={t('productDetails.breadcrumbs')}>
+          <Link to={backTo}>{t('productDetails.home')}</Link>
+          {product.category?.name ? (
+            <>
+              <span aria-hidden="true">/</span>
+              <Link to={categoryHref}>{product.category.name}</Link>
+            </>
+          ) : null}
+          <span aria-hidden="true">/</span>
+          <span>{product.name}</span>
+        </nav>
 
-      <div className="product-details__layout">
-        <section className="product-details__gallery" aria-label={t('productDetails.gallery')}>
-          <div className="product-details__main-image">
-            {active?.url ? (
-              <img
-                key={active.url}
-                src={mediaUrl(active.url)}
-                alt={active.alt || product.name || ''}
-              />
-            ) : (
-              <div className="product-details__placeholder">{storeName}</div>
-            )}
-            <span className="product-details__promo">{t('productDetails.promo')}</span>
-            {images.length > 1 ? (
-              <p className="product-details__count">
-                {activeIndex + 1} / {images.length}
-              </p>
-            ) : null}
-            {active?.url ? (
-              <button
-                type="button"
-                className="product-details__zoom"
-                aria-label={t('productDetails.zoom')}
-                onClick={() => setZoomed(true)}
-              />
-            ) : null}
-          </div>
+        <div className="product-details__overview">
+          <section className="product-details__gallery" aria-label={t('productDetails.gallery')}>
+            <div className="product-details__stage">
+              {photoSrc ? (
+                <img
+                  key={photoSrc}
+                  className="product-details__photo"
+                  src={photoSrc}
+                  alt={active?.alt || product.name || ''}
+                  onLoad={(event) => {
+                    const photo = event.currentTarget
+                    if (!useStudio && catalogImages.length < 2 && photo.naturalWidth < 240) {
+                      setImageIndex(0)
+                      setUseStudio(true)
+                    }
+                  }}
+                />
+              ) : (
+                <div className="product-details__placeholder">{storeName}</div>
+              )}
+              <span className="product-details__collection">{t('productDetails.collection')}</span>
+              {many ? (
+                <span className="product-details__count">
+                  {t('productDetails.imageCount', {
+                    current: activeIndex + 1,
+                    total: images.length,
+                  })}
+                </span>
+              ) : null}
+              {photoSrc ? (
+                <button
+                  type="button"
+                  className="product-details__zoom"
+                  aria-label={t('productDetails.zoom')}
+                  onClick={() => setZoomed(true)}
+                >
+                  <Icon src={zoomIcon} width={20} height={20} />
+                </button>
+              ) : null}
+            </div>
 
-          <div className="product-details__gallery-foot">
-            {images.length > 1 ? (
-              <div className="product-details__thumbnails">
+            {many ? (
+              <div className="product-details__thumbs">
                 {images.map((image, index) => (
                   <button
                     type="button"
-                    key={`${image.url}-${index}`}
+                    key={`${image.thumb}-${index}`}
                     className={
-                      selectedImage === image.url
-                        ? 'product-details__thumbnail is-active'
-                        : 'product-details__thumbnail'
+                      index === activeIndex
+                        ? 'product-details__thumb is-active'
+                        : 'product-details__thumb'
                     }
-                    onClick={() => setSelectedImage(image.url)}
+                    onClick={() => setImageIndex(index)}
                     aria-label={t('productDetails.showImage', { index: index + 1 })}
-                    aria-pressed={selectedImage === image.url}
+                    aria-pressed={index === activeIndex}
                   >
-                    <img src={mediaUrl(image.url)} alt={image.alt || product.name || ''} />
+                    <img src={mediaUrl(image.thumb)} alt="" />
                   </button>
                 ))}
+                <p className="product-details__note">
+                  <span>{t('productDetails.galleryNote')}</span>
+                  <small>{t('productDetails.galleryCaption')}</small>
+                </p>
               </div>
             ) : null}
-            <p className="product-details__gallery-note">
-              <strong>{t('productDetails.galleryNote')}</strong>
-              <span>{t('productDetails.galleryNoteText')}</span>
-            </p>
-          </div>
-        </section>
+          </section>
 
-        <section className="product-details__purchase">
-          <div className="product-details__intro">
-            {product.category?.name ? (
-              <p className="product-details__category">{product.category.name}</p>
-            ) : <span />}
-            <p className="product-details__sku">
-              <span>SKU: {product.sku}</span>
+          <section className="product-details__purchase">
+            <div className="product-details__intro">
+              <div className="product-details__meta">
+                <p className="product-details__eyebrow">{t('productDetails.collection')}</p>
+                <button type="button" className="product-details__sku" onClick={copySku}>
+                  <span>
+                    {t('productDetails.sku')}: {product.sku}
+                  </span>
+                  <Icon src={copyIcon} width={14} height={14} />
+                  <span className="product-details__sr">
+                    {copied ? t('productDetails.copied') : t('productDetails.copySku')}
+                  </span>
+                </button>
+              </div>
+              <h1>{product.name}</h1>
+              <p className="product-details__summary">{summary}</p>
+            </div>
+
+            <div className="product-details__price-row">
+              <p className="product-details__prices">
+                {price ? (
+                  <span className="product-details__price">
+                    {price} {t('productDetails.dram')}
+                  </span>
+                ) : null}
+                {previous ? (
+                  <span className="product-details__old">
+                    {previous} {t('productDetails.dram')}
+                  </span>
+                ) : null}
+                {discount ? <span className="product-details__discount">{discount}</span> : null}
+              </p>
+              {stock ? <span className="product-details__stock">{stock}</span> : null}
+            </div>
+
+            <hr className="product-details__rule" />
+
+            <div className="product-details__options">
+              <div>
+                <div className="product-details__option-head">
+                  <h2>{t('productDetails.size')}</h2>
+                  <button type="button" className="product-details__guide" onClick={() => setGuideOpen(true)}>
+                    <Icon src={rulerIcon} width={14} height={14} />
+                    {t('productDetails.sizeGuide')}
+                  </button>
+                </div>
+                <div className="product-details__sizes" role="group" aria-label={t('productDetails.size')}>
+                  {sizes.map((size) => (
+                    <button
+                      key={size.id}
+                      type="button"
+                      className={selectedSize === size.id ? 'is-selected' : undefined}
+                      aria-pressed={selectedSize === size.id}
+                      onClick={() => setSelectedSize(size.id)}
+                    >
+                      {size.label}
+                      {selectedSize === size.id ? <Icon src={checkIcon} width={14} height={14} /> : null}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="product-details__color">
+                <h2>{t('productDetails.color')}</h2>
+                <button type="button" className="product-details__swatch" aria-pressed="true">
+                  <span className="product-details__dot" aria-hidden="true" />
+                  {t('productDetails.colorName')}
+                  <Icon src={checkIcon} width={14} height={14} />
+                </button>
+                <p>{t('productDetails.colorNote')}</p>
+              </div>
+            </div>
+
+            <div className="product-details__buy">
               <button
                 type="button"
-                className="product-details__copy"
-                aria-label={skuCopied ? t('productDetails.copied') : t('productDetails.copySku')}
-                onClick={copySku}
-              />
-            </p>
-          </div>
-          <h1>{product.name}</h1>
-          {product.description ? (
-            <p className="product-details__summary">{product.description}</p>
-          ) : null}
-
-          <div className="product-details__price-row">
-            <p className="product-details__prices">
-              {salePrice ? (
-                <span className="product-details__price">{priceLabel}</span>
-              ) : null}
-              {extras.oldPrice ? (
-                <span className="product-details__old">
-                  {extras.oldPrice} {t('productDetails.dram')}
-                </span>
-              ) : null}
-              {extras.discount ? (
-                <span className="product-details__discount">{extras.discount}</span>
-              ) : null}
-            </p>
-            <span className="ds-badge ds-badge--stock">{stockLabel}</span>
-          </div>
-
-          <div className="product-details__sizes">
-            <div className="product-details__field-head">
-              <p className="product-details__field-label">{t('productDetails.sizes')}</p>
-              <button type="button" className="product-details__guide" onClick={() => setGuideOpen(true)}>
-                {t('productDetails.sizeGuide')}
+                className={pending ? 'product-details__cart is-loading' : 'product-details__cart'}
+                onClick={purchase}
+                disabled={pending}
+                aria-busy={pending || undefined}
+              >
+                <Icon src={bagIcon} width={18} height={18} />
+                <span>{pending ? t('productDetails.adding') : t('productDetails.addToCart')}</span>
+                {price ? (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>
+                      {price} {t('productDetails.dram')}
+                    </span>
+                  </>
+                ) : null}
               </button>
-            </div>
-            <div role="group" aria-label={t('productDetails.sizes')}>
-              {sizes.map((size) => (
+              <div className="product-details__secondary">
                 <button
-                  key={size.id}
                   type="button"
-                  className={selectedSize === size.id ? 'ds-size is-selected' : 'ds-size'}
-                  aria-pressed={selectedSize === size.id}
-                  onClick={() => setSelectedSize(size.id)}
+                  className={wished ? 'is-on' : undefined}
+                  aria-pressed={wished}
+                  onClick={() => setWished((value) => !value)}
                 >
-                  {size.label}
+                  <Icon src={heartIcon} width={16} height={16} />
+                  {wished ? t('productDetails.wishlisted') : t('productDetails.wishlist')}
                 </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="product-details__colors">
-            <p className="product-details__field-label">{t('productDetails.color')}</p>
-            <div role="group" aria-label={t('productDetails.color')}>
-              {colors.map((color) => (
-                <button
-                  key={color.id}
-                  type="button"
-                  className={selectedColor === color.id ? 'product-details__swatch is-selected' : 'product-details__swatch'}
-                  aria-pressed={selectedColor === color.id}
-                  onClick={() => setSelectedColor(color.id)}
-                >
-                  <i style={color.swatch ? { background: color.swatch } : undefined} />
-                  {color.label}
+                <button type="button" onClick={shareProduct}>
+                  <Icon src={shareIcon} width={16} height={16} />
+                  {shared ? t('productDetails.shared') : t('productDetails.share')}
                 </button>
-              ))}
-              {activeColor?.hint ? <span>{activeColor.hint}</span> : null}
+              </div>
             </div>
+
+            <div className="product-details__delivery">
+              <div>
+                <Icon src={pinIcon} width={16} height={16} />
+                <p>
+                  {city === 'yerevan'
+                    ? t('productDetails.deliveryCity')
+                    : t('productDetails.deliveryRegions')}
+                </p>
+                <button type="button" onClick={() => setCity((value) => (value === 'yerevan' ? 'regions' : 'yerevan'))}>
+                  {t('productDetails.changeCity')}
+                </button>
+              </div>
+              <div>
+                <Icon src={truckIcon} width={16} height={16} />
+                <p>{t('productDetails.deliveryTime')}</p>
+                <strong>{t('productDetails.deliveryFee')}</strong>
+              </div>
+            </div>
+
+            {product.store === 'baby' ? (
+              <p className="product-details__reassure">
+                <Icon src={packageIcon} width={14} height={14} />
+                <span>{t('productDetails.reassurance')}</span>
+              </p>
+            ) : null}
+
+            {cartStatus === 'added' && (
+              <p className="product-details__status product-details__status--ok" role="status">
+                {t('productCard.added')}
+              </p>
+            )}
+            {cartStatus === 'signIn' && (
+              <p className="product-details__status product-details__status--error" role="alert">
+                {t('productCard.signIn')}{' '}
+                <Link to="/account" state={{ from: returnPath }}>{t('accountLink')}</Link>
+              </p>
+            )}
+            {cartStatus === 'failed' && (
+              <p className="product-details__status product-details__status--error" role="alert">
+                {t('productCard.failed')}
+              </p>
+            )}
+            {copied ? <p className="product-details__sr" role="status">{t('productDetails.copied')}</p> : null}
+          </section>
+        </div>
+
+        <section className="product-details__about" aria-labelledby="product-about-title">
+          <div className="product-details__about-head">
+            <h2 id="product-about-title">{t('productDetails.about')}</h2>
+            <p>{t('productDetails.philosophy')}</p>
           </div>
-
-          <div className="product-details__actions">
-            <PurchaseButton
-              kind="card"
-              pending={pending}
-              label={priceLabel ? `${t('productDetails.addToCart')} · ${priceLabel}` : t('productDetails.addToCart')}
-              disabled={pending !== null && pending !== 'card'}
-              onClick={() => purchase('card')}
-            />
-            <PurchaseButton
-              kind="cash"
-              pending={pending}
-              label={t('productCard.cash')}
-              disabled={pending !== null && pending !== 'cash'}
-              onClick={() => purchase('cash')}
-            />
+          <div className="product-details__about-grid">
+            <div className="product-details__story">
+              <h3>{storyTitle}</h3>
+              {product.description && product.description.length > 180 ? (
+                <p>{product.description}</p>
+              ) : (
+                <>
+                  {product.description ? <p>{product.description}</p> : null}
+                  <p>{t('productDetails.storyA')}</p>
+                  <p>{t('productDetails.storyB')}</p>
+                </>
+              )}
+            </div>
+            <article className="product-details__detail">
+              <h3>
+                <Icon src={leafIcon} width={21} height={21} />
+                {t('productDetails.materialsTitle')}
+              </h3>
+              <p className="product-details__highlight">{t('productDetails.materialsHighlight')}</p>
+              <p>{t('productDetails.materialsBody')}</p>
+              <p>
+                {t('productDetails.materialsMeta', {
+                  color: t('productDetails.colorName'),
+                  size: selected?.label || '',
+                })}
+              </p>
+              <p>{t('productDetails.materialsEveryday')}</p>
+            </article>
+            <article className="product-details__detail">
+              <h3>
+                <Icon src={washIcon} width={21} height={21} />
+                {t('productDetails.careTitle')}
+              </h3>
+              <p className="product-details__highlight">{t('productDetails.careHighlight')}</p>
+              <p>{t('productDetails.care1')}</p>
+              <p>{t('productDetails.care2')}</p>
+              <p>{t('productDetails.care3')}</p>
+              <p>{t('productDetails.care4')}</p>
+            </article>
           </div>
-
-          <div className="product-details__tools">
-            <button
-              type="button"
-              className={wished ? 'product-details__tool is-selected' : 'product-details__tool'}
-              aria-pressed={wished}
-              onClick={() => setWished((value) => !value)}
-            >
-              {t('productDetails.wishlist')}
-            </button>
-            <button type="button" className="product-details__tool" onClick={shareProduct}>
-              {t('productDetails.share')}
-            </button>
+          <div className="product-details__maker">
+            <div>
+              <img src={makerLogo} width={68} height={51} alt="" />
+              <div>
+                <strong>{t('productDetails.makerTitle')}</strong>
+                <p>{t('productDetails.makerText')}</p>
+              </div>
+            </div>
+            <a href={`mailto:${t('productDetails.helpEmail')}`}>
+              <Icon src={messageIcon} width={20} height={20} />
+              <span>
+                <strong>{t('productDetails.helpTitle')}</strong>
+                <small>{t('productDetails.helpEmail')}</small>
+              </span>
+            </a>
           </div>
-
-          <div className="product-details__delivery">
-            <p>
-              <strong>{t('productDetails.deliveryCity')}</strong>
-              <span>{t('productDetails.deliveryDetail')}</span>
-            </p>
-            <b>{t('productDetails.deliveryPrice')}</b>
-          </div>
-
-          {product.store === 'baby' ? (
-            <p className="product-details__reassurance">{t('productDetails.reassurance')}</p>
-          ) : null}
-
-          {cartStatus === 'signIn' && (
-            <p className="vt-status vt-status--error product-details__note" role="alert">
-              {t('productCard.signIn')}{' '}
-              <Link to="/account" state={{ from: returnPath }}>{t('accountLink')}</Link>
-            </p>
-          )}
-          {cartStatus === 'failed' && (
-            <p className="vt-status vt-status--error product-details__note" role="alert">{t('productCard.failed')}</p>
-          )}
         </section>
       </div>
 
-      <section className="product-details__about" aria-labelledby="product-about-title">
-        <div className="product-details__about-head">
-          <h2 id="product-about-title">{t('productDetails.about')}</h2>
-          <p>{t('productDetails.kicker')}</p>
-        </div>
-        <div className="product-details__story">
-          <div>
-            <h3 id="product-philosophy-title">{t('productDetails.philosophyTitle')}</h3>
-            {product.description ? (
-              <div className="product-details__description">{product.description}</div>
-            ) : null}
-            <p>{t('productDetails.story')}</p>
-            <p>{t('productDetails.storyMore')}</p>
-          </div>
-          <div className="product-details__facts">
-            <article>
-              <h3>{t('productDetails.materialTitle')}</h3>
-              <ul>
-                <li>{t('productDetails.material1')}</li>
-                <li>{t('productDetails.material2')}</li>
-                <li>{t('productDetails.material3')}</li>
-                <li>{t('productDetails.material4')}</li>
-              </ul>
-            </article>
-            <article>
-              <h3>{t('productDetails.careTitle')}</h3>
-              <p>{t('productDetails.careLead')}</p>
-              <ul>
-                <li>{t('productDetails.care1')}</li>
-                <li>{t('productDetails.care2')}</li>
-                <li>{t('productDetails.care3')}</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
+      <dialog
+        ref={zoomRef}
+        className="product-details__dialog"
+        onClose={() => setZoomed(false)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) setZoomed(false)
+        }}
+      >
+        <button type="button" onClick={() => setZoomed(false)}>{t('productDetails.close')}</button>
+        {photoSrc ? <img src={photoSrc} alt={active?.alt || product.name || ''} /> : null}
+      </dialog>
 
-      <div className="product-details__care-row">
-        <aside className="product-details__maker" aria-labelledby="product-maker-title">
-          <h2 id="product-maker-title">{t('productDetails.makerTitle')}</h2>
-          <p>{t('productDetails.maker')}</p>
-        </aside>
-        <aside className="product-details__support">
-          <h2>{t('productDetails.supportTitle')}</h2>
-          <a href={`mailto:${t('productDetails.supportEmail')}`}>{t('productDetails.supportEmail')}</a>
-        </aside>
-      </div>
-
-      <div className="product-details__dock">
-        <div className="product-details__dock-side">
-          {wished ? <p className="product-details__saved">{t('productDetails.saved')}</p> : null}
-          <button
-            type="button"
-            className={wished ? 'product-details__saved-btn is-selected' : 'product-details__saved-btn'}
-            aria-pressed={wished}
-            onClick={() => setWished((value) => !value)}
-          >
-            {wished ? t('productDetails.savedShort') : t('productDetails.wishlist')}
-          </button>
-          <div className="product-details__sharebox" aria-label={t('productDetails.share')}>
-            <a href={`mailto:?subject=${encodeURIComponent(product.name)}&body=${encodeURIComponent(window.location.href)}`}>
-              {t('productDetails.shareEmail')}
-            </a>
-            <button type="button" onClick={shareProduct}>{t('productDetails.shareMessage')}</button>
-            <button
-              type="button"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(window.location.href)
-                  setLinkCopied(true)
-                } catch {
-                  setLinkCopied(false)
-                }
-              }}
-            >
-              {linkCopied ? t('productDetails.copied') : t('productDetails.shareLink')}
-            </button>
-          </div>
-        </div>
-        {marked ? (
-          <div className="product-details__added is-added" role="status">
-            <span className="product-details__check" aria-hidden="true" />
-            <span className="product-details__added-copy">
-              <strong>{t('productDetails.addedTitle')}</strong>
-              <span>{detailLine}</span>
-            </span>
-            <Link className="product-details__open" to="/cart">{t('productDetails.openCart')}</Link>
-          </div>
-        ) : (
-          <button
-            type="button"
-            className="product-details__added"
-            onClick={addFromCorner}
-          >
-            <span className="product-details__check is-reserved" aria-hidden="true" />
-            <span className="product-details__added-copy">
-              <strong>{t('productDetails.addToCart')}</strong>
-              <span>{detailLine}</span>
-            </span>
-            <span className="product-details__open is-reserved">{t('productDetails.openCart')}</span>
-          </button>
-        )}
-      </div>
-
-      {zoomed && active?.url ? (
-        <div className="product-details__dialog" role="dialog" aria-modal="true" aria-label={t('productDetails.zoom')}>
-          <button type="button" className="product-details__dialog-close" onClick={() => setZoomed(false)}>
-            {t('productDetails.close')}
-          </button>
-          <img src={mediaUrl(active.url)} alt={active.alt || product.name || ''} />
-        </div>
-      ) : null}
-
-      {guideOpen ? (
-        <div className="product-details__dialog" role="dialog" aria-modal="true" aria-labelledby="size-guide-title">
-          <div className="product-details__sheet">
-            <h2 id="size-guide-title">{t('productDetails.sizeGuide')}</h2>
-            <p>{t('productDetails.sizeGuideText')}</p>
-            <ul>
-              {sizes.map((size) => <li key={size.id}>{size.label}</li>)}
-            </ul>
-            <button type="button" className="ds-btn ds-btn--card" onClick={() => setGuideOpen(false)}>
-              {t('productDetails.close')}
-            </button>
-          </div>
-        </div>
-      ) : null}
-
+      <dialog
+        ref={guideRef}
+        className="product-details__dialog product-details__dialog--text"
+        onClose={() => setGuideOpen(false)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) setGuideOpen(false)
+        }}
+      >
+        <h2>{t('productDetails.sizeGuideTitle')}</h2>
+        <p>{t('productDetails.sizeGuideText')}</p>
+        <button type="button" onClick={() => setGuideOpen(false)}>{t('productDetails.close')}</button>
+      </dialog>
     </main>
   )
 }
