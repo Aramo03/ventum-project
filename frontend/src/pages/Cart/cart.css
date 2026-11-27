@@ -90,7 +90,7 @@
 .checkout-steps__item--active > span {
   color: #fff;
   border-color: var(--checkout-green);
-  background: var(--checkout-green);
+  background: #65c51a;
 }
 
 .checkout-steps__line {
@@ -734,4 +734,28 @@
   .cart-page__header h1 {
     font-size: 25px;
   }
+}
+
+/* TEXTILE — Baby-ի գույները */
+
+.cart-page--textile {
+  --checkout-green: #647d51;
+  --checkout-green-dark: #506741;
+  --checkout-green-light: #eaf0e3;
+  --checkout-text: #343b31;
+  --checkout-muted: #858b80;
+  --checkout-border: #e8e9e1;
+  --checkout-background: #faf8f1;
+}
+
+/* BABY — Textile-ի գույները */
+
+.cart-page--baby {
+  --checkout-green: #65c51a;
+  --checkout-green-dark: #4f9d13;
+  --checkout-green-light: #eff8e8;
+  --checkout-text: #343b31;
+  --checkout-muted: #858b80;
+  --checkout-border: #e8e9e1;
+  --checkout-background: #f7f7f4;
 }
