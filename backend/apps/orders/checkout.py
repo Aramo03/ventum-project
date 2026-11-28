@@ -32,6 +32,15 @@ class CheckoutView(APIView):
         except ValueError:
             return Response({"detail": "Unsupported language."}, status=400)
 
+        payment = str(request.data.get("payment") or "card").strip().lower()
+        fulfillment = str(request.data.get("fulfillment") or "").strip().lower()
+        if payment not in {"card", "cash"}:
+            return Response({"detail": "Unsupported payment."}, status=400)
+        if fulfillment not in {"", "yerevan", "pickup"}:
+            return Response({"detail": "Unsupported fulfillment."}, status=400)
+        if fulfillment == "pickup":
+            payment = "cash"
+
         with transaction.atomic():
             cart = (
                 Cart.objects.select_for_update()
@@ -55,6 +64,9 @@ class CheckoutView(APIView):
                 line_total = (price * qty).quantize(Decimal("0.01"))
                 amount += line_total
                 order_lines.append((product, qty, price, line_total))
+
+            if fulfillment == "yerevan":
+                amount += Decimal("3000.00")
 
             order = Order.objects.create(
                 user=request.user,
@@ -82,6 +94,12 @@ class CheckoutView(APIView):
                 )
 
             cart.items.all().delete()
+
+        if payment == "cash":
+            return Response(
+                {"bill_no": order.bill_no, "payment": "cash"},
+                status=201,
+            )
 
         payment_url = getattr(
             settings,

@@ -43,8 +43,8 @@ export async function fetchCartItemImage(sku) {
   return first || data.image || ''
 }
 
-export async function checkout() {
-  const response = await api.post('/api/checkout/')
+export async function checkout(payload = {}) {
+  const response = await api.post('/api/checkout/', payload)
   return response.data
 }
 

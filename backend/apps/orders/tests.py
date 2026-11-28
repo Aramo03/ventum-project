@@ -96,3 +96,59 @@ class CheckoutViewTests(TestCase):
         self.assertEqual(order.status, "pending")
         self.assertEqual(order.bill_no, "VNT-41")
         cart_items.all.return_value.delete.assert_called_once_with()
+
+    def test_cash_checkout_does_not_open_card_payment(self):
+        user = SimpleNamespace(
+            is_authenticated=True,
+            email="buyer@example.test",
+            first_name="Ani",
+            last_name="Example",
+        )
+        translation = SimpleNamespace(language="ru", name="Товар")
+        product = SimpleNamespace(
+            sku="SKU-1",
+            price=Decimal("1250.00"),
+            translations=SimpleNamespace(all=lambda: [translation]),
+        )
+        cart_item = SimpleNamespace(product=product, qty=1)
+        cart_items = MagicMock()
+        cart_items.select_related.return_value.all.return_value = [cart_item]
+        cart = SimpleNamespace(items=cart_items)
+        cart_manager = MagicMock()
+        (
+            cart_manager.objects.select_for_update.return_value.filter.return_value.first
+            .return_value
+        ) = cart
+        Cart = type("Cart", (), {"objects": cart_manager.objects})
+        order = SimpleNamespace(
+            pk=7,
+            bill_no="",
+            status="pending",
+            amount=Decimal("1250.00"),
+            email=user.email,
+            save=MagicMock(),
+        )
+        order_manager = MagicMock()
+        order_manager.objects.create.return_value = order
+        Order = type("Order", (), {"objects": order_manager.objects})
+        OrderLine = type("OrderLine", (), {"objects": SimpleNamespace(create=MagicMock())})
+        cart_models = ModuleType("apps.cart.models")
+        cart_models.Cart = Cart
+        order_models = ModuleType("apps.orders.models")
+        order_models.Order = Order
+        order_models.OrderLine = OrderLine
+        request = APIRequestFactory().post(
+            "/api/checkout/?language=am",
+            {"payment": "card", "fulfillment": "pickup"},
+            format="json",
+        )
+        force_authenticate(request, user=user)
+        with patch.dict(
+            "sys.modules",
+            {"apps.cart.models": cart_models, "apps.orders.models": order_models},
+        ):
+            response = CheckoutView.as_view()(request)
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data["payment"], "cash")
+        self.assertNotIn("payment_url", response.data)

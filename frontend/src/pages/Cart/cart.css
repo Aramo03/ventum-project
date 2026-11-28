@@ -406,6 +406,8 @@
 
 .checkout-option input {
   flex: 0 0 auto;
+  order: 2;
+  margin-left: auto;
   accent-color: var(--checkout-green);
 }
 
@@ -440,6 +442,40 @@
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  margin-top: 16px;
+}
+
+.checkout-callout,
+.checkout-store {
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  border-radius: 9px;
+  background: var(--checkout-green-light);
+  color: var(--checkout-green-dark);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.checkout-store strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--checkout-text);
+  font-size: 13px;
+}
+
+.checkout-store p {
+  margin: 0;
+}
+
+.checkout-store a {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--checkout-green-dark);
+  font-weight: 600;
+}
+
+.checkout-card {
+  margin-top: 4px;
 }
 
 /* SUMMARY */

@@ -29,14 +29,110 @@ const INITIAL_FORM = {
   lastName: '',
   phone: '',
   email: '',
-  city: '',
+  city: 'Երևան',
   address: '',
-  apartment: '',
+  apartmentPhone: '',
   postalCode: '',
 }
 
+const INITIAL_CARD = {
+  number: '',
+  expiry: '',
+  cvc: '',
+  name: '',
+}
+
+const STORE = {
+  name: 'Ventum',
+  address: 'Աբովյան, Երևան',
+  ready: 'Պատրաստ է 24 ժամում',
+  phone: '+374 10 55 44 33',
+  phoneHref: 'tel:+37410554433',
+}
+
+const DELIVERY_FEE = 3000
+
+function TruckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M3 7h11v8H3V7zm12 2h2.4L20 12.2V15h-5V9zM6.5 19a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zm9.2 0a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z"
+      />
+    </svg>
+  )
+}
+
+function StoreIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M4 9.5 5.2 5h13.6L20 9.5c0 1.4-1.1 2.5-2.5 2.5-.6 0-1.2-.2-1.6-.6-.4.4-1 .6-1.6.6s-1.2-.2-1.6-.6c-.4.4-1 .6-1.6.6s-1.2-.2-1.6-.6c-.4.4-1 .6-1.6.6A2.5 2.5 0 0 1 4 9.5zM6 13h12v6H6v-6zm2 2v2h3v-2H8z"
+      />
+    </svg>
+  )
+}
+
+function CashIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M3 7h18v10H3V7zm2 2v6h14V9H5zm7 4.2A2.2 2.2 0 1 1 12 8.8a2.2 2.2 0 0 1 0 4.4z"
+      />
+    </svg>
+  )
+}
+
+function CardIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M3 6h18v12H3V6zm2 3v2h14V9H5zm0 4v3h6v-3H5z"
+      />
+    </svg>
+  )
+}
+
+function cardProblem(card) {
+  const number = card.number.replace(/\s/g, '')
+  if (!/^\d{16}$/.test(number)) {
+    return 'Մուտքագրեք քարտի 16 նիշանոց համարը։'
+  }
+
+  const match = /^(\d{2})\/(\d{2})$/.exec(card.expiry)
+  if (!match) {
+    return 'Մուտքագրեք վավերականության ժամկետը՝ ԱԱ/ՏՏ։'
+  }
+
+  const month = Number(match[1])
+  const year = 2000 + Number(match[2])
+  const now = new Date()
+  const expired =
+    month < 1 ||
+    month > 12 ||
+    year < now.getFullYear() ||
+    (year === now.getFullYear() && month < now.getMonth() + 1)
+
+  if (expired) {
+    return 'Քարտի ժամկետն անցել է։'
+  }
+
+  if (!/^\d{3}$/.test(card.cvc)) {
+    return 'Մուտքագրեք CVV կոդի 3 նիշը։'
+  }
+
+  if (card.name.trim().length < 2) {
+    return 'Մուտքագրեք քարտապանի անունը։'
+  }
+
+  return ''
+}
+
 export default function Cart() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const location = useLocation()
 
   const [cart, setCart] = useState(EMPTY_CART)
@@ -47,9 +143,11 @@ export default function Cart() {
   const [images, setImages] = useState({})
 
   const [form, setForm] = useState(INITIAL_FORM)
-  const [delivery, setDelivery] = useState('standard')
-  const [payment, setPayment] = useState('online')
+  const [card, setCard] = useState(INITIAL_CARD)
+  const [delivery, setDelivery] = useState('yerevan')
+  const [payment, setPayment] = useState('cash')
   const [acceptedTerms, setAcceptedTerms] = useState(false)
+  const [orderNotice, setOrderNotice] = useState('')
 
   const isAuthenticated = Boolean(
     localStorage.getItem(TOKEN_KEY)
@@ -157,16 +255,72 @@ export default function Cart() {
     }
   }
 
+  const handleCardChange = (event) => {
+    const { name, value } = event.target
+
+    if (name === 'number') {
+      const digits = value.replace(/\D/g, '').slice(0, 16)
+      const grouped = digits.replace(/(\d{4})(?=\d)/g, '$1 ').trim()
+      setCard((current) => ({ ...current, number: grouped }))
+      return
+    }
+
+    if (name === 'expiry') {
+      const digits = value.replace(/\D/g, '').slice(0, 4)
+      const expiry =
+        digits.length > 2
+          ? `${digits.slice(0, 2)}/${digits.slice(2)}`
+          : digits
+      setCard((current) => ({ ...current, expiry }))
+      return
+    }
+
+    if (name === 'cvc') {
+      setCard((current) => ({
+        ...current,
+        cvc: value.replace(/\D/g, '').slice(0, 3),
+      }))
+      return
+    }
+
+    setCard((current) => ({ ...current, name: value }))
+  }
+
   const handleCheckout = async (event) => {
     event.preventDefault()
 
     if (!acceptedTerms) return
 
+    const payByCard = delivery === 'yerevan' && payment === 'card'
+
+    if (payByCard) {
+      const problem = cardProblem(card)
+      if (problem) {
+        setError(problem)
+        return
+      }
+    }
+
     try {
       setCheckoutLoading(true)
       setError('')
 
-      const data = await startCheckout()
+      const code = (i18n.language || 'am').split('-')[0]
+      const language = code === 'hy' ? 'am' : code
+      const data = await startCheckout({
+        payment: payByCard ? 'card' : 'cash',
+        fulfillment: delivery === 'pickup' ? 'pickup' : 'yerevan',
+        ...(language === 'am' || language === 'en' || language === 'ru'
+          ? { language }
+          : {}),
+      })
+
+      if (!payByCard) {
+        setOrderNotice(form.phone.trim())
+        setCart(EMPTY_CART)
+        setCheckoutLoading(false)
+        return
+      }
 
       const paymentUrl = data?.payment_url
       const fields = data?.fields
@@ -192,6 +346,14 @@ export default function Cart() {
       setCheckoutLoading(false)
     }
   }
+
+  const goodsTotal = Number(cart.total)
+  const deliveryFee = delivery === 'yerevan' ? DELIVERY_FEE : 0
+  const payable = (
+    (Number.isFinite(goodsTotal) ? goodsTotal : 0) + deliveryFee
+  ).toFixed(2)
+  const payByCard = delivery === 'yerevan' && payment === 'card'
+  const confirmationPhone = form.phone.trim()
 
   const firstItem = cart.items[0]
   const firstImage = firstItem
@@ -273,9 +435,20 @@ export default function Cart() {
         </p>
       )}
 
+      {orderNotice && (
+        <section className="vt-status" role="status">
+          <h2>Պատվերը հաստատված է</h2>
+          <p>
+            Կզանգահարենք {orderNotice || STORE.phone} համարին՝
+            պատվերը հաստատելու համար։
+          </p>
+        </section>
+      )}
+
       {isAuthenticated &&
         !loading &&
-        cart.items.length === 0 && (
+        cart.items.length === 0 &&
+        !orderNotice && (
           <section className="vt-status cart-empty">
             <h2>{t('cartPage.emptyTitle')}</h2>
             <p>{t('cartPage.emptyMessage')}</p>
@@ -482,9 +655,9 @@ export default function Cart() {
                   </span>
 
                   <div>
-                    <h2>Առաքման հասցե</h2>
+                    <h2>Ինչպես ստանալ պատվերը</h2>
                     <p>
-                      Ընտրեք առաքման եղանակը և լրացրեք հասցեն։
+                      Ընտրեք պատվերը ստանալու հարմար տարբերակը։
                     </p>
                   </div>
                 </div>
@@ -492,7 +665,7 @@ export default function Cart() {
                 <div className="checkout-options">
                   <label
                     className={`checkout-option ${
-                      delivery === 'standard'
+                      delivery === 'yerevan'
                         ? 'checkout-option--active'
                         : ''
                     }`}
@@ -500,28 +673,26 @@ export default function Cart() {
                     <input
                       type="radio"
                       name="delivery"
-                      value="standard"
-                      checked={delivery === 'standard'}
-                      onChange={(event) =>
-                        setDelivery(event.target.value)
-                      }
+                      value="yerevan"
+                      checked={delivery === 'yerevan'}
+                      onChange={() => setDelivery('yerevan')}
                     />
 
                     <span className="checkout-option__icon">
-                      ♧
+                      <TruckIcon />
                     </span>
 
                     <span>
-                      <strong>Ստանդարտ առաքում</strong>
+                      <strong>Առաքում Երևանում</strong>
                       <small>
-                        3–5 աշխատանքային օր
+                        3,000 ֏ · 2-3 աշխատանքային օր
                       </small>
                     </span>
                   </label>
 
                   <label
                     className={`checkout-option ${
-                      delivery === 'express'
+                      delivery === 'pickup'
                         ? 'checkout-option--active'
                         : ''
                     }`}
@@ -529,72 +700,86 @@ export default function Cart() {
                     <input
                       type="radio"
                       name="delivery"
-                      value="express"
-                      checked={delivery === 'express'}
-                      onChange={(event) =>
-                        setDelivery(event.target.value)
-                      }
+                      value="pickup"
+                      checked={delivery === 'pickup'}
+                      onChange={() => setDelivery('pickup')}
                     />
 
                     <span className="checkout-option__icon">
-                      ♧
+                      <StoreIcon />
                     </span>
 
                     <span>
-                      <strong>Արագ առաքում</strong>
+                      <strong>Վերցնել խանութից</strong>
                       <small>
-                        Առաքում՝ 24 ժամում
+                        Աբովյան · Պատրաստ է 24 ժամում
                       </small>
                     </span>
                   </label>
                 </div>
 
-                <div className="checkout-fields">
-                  <label className="checkout-fields__full">
-                    Փողոց, շենք, բնակարան
-                    <input
-                      name="address"
-                      value={form.address}
-                      onChange={handleChange}
-                      placeholder="Փողոցի անուն, շենք և այլն"
-                      required
-                    />
-                  </label>
+                {delivery === 'yerevan' ? (
+                  <>
+                    <div className="checkout-fields">
+                      <label className="checkout-fields__full">
+                        Փողոց, շենք, բնակարան
+                        <input
+                          name="address"
+                          value={form.address}
+                          onChange={handleChange}
+                          placeholder="Աբովյան փողոց, շենք 24"
+                          required
+                        />
+                      </label>
 
-                  <label>
-                    Քաղաք
-                    <input
-                      name="city"
-                      value={form.city}
-                      onChange={handleChange}
-                      placeholder="Երևան"
-                      required
-                    />
-                  </label>
+                      <label className="checkout-fields__full">
+                        Բնակարանի հեռախոս
+                        <input
+                          name="apartmentPhone"
+                          type="tel"
+                          value={form.apartmentPhone}
+                          onChange={handleChange}
+                          placeholder="Բնակարանի համար (եթե ցանկանում եք)"
+                        />
+                      </label>
 
-                  <label>
-                    Փոստային ինդեքս
-                    <input
-                      name="postalCode"
-                      value={form.postalCode}
-                      onChange={handleChange}
-                      placeholder="0001"
-                    />
-                  </label>
+                      <label>
+                        Քաղաք
+                        <input
+                          name="city"
+                          value={form.city}
+                          onChange={handleChange}
+                          placeholder="Երևան"
+                          required
+                        />
+                      </label>
 
-                  <label className="checkout-fields__full">
-                    Բնակարանի լրացուցիչ տվյալներ
-                    <input
-                      name="apartment"
-                      value={form.apartment}
-                      onChange={handleChange}
-                      placeholder="Մուտք, հարկ, բնակարան"
-                    />
-                  </label>
-                </div>
+                      <label>
+                        Փոստային ինդեքս
+                        <input
+                          name="postalCode"
+                          value={form.postalCode}
+                          onChange={handleChange}
+                          placeholder="0001"
+                        />
+                      </label>
+                    </div>
+
+                    <p className="checkout-callout">
+                      Առաքման արժեքը՝ 3,000 ֏ · 2-3 աշխատանքային օր
+                    </p>
+                  </>
+                ) : (
+                  <div className="checkout-store">
+                    <strong>{STORE.name}</strong>
+                    <p>{STORE.address}</p>
+                    <p>{STORE.ready}</p>
+                    <a href={STORE.phoneHref}>{STORE.phone}</a>
+                  </div>
+                )}
               </div>
 
-              {/* Payment */}
+              {delivery === 'yerevan' && (
               <div className="checkout-section">
                 <div className="checkout-section__heading">
                   <span className="checkout-section__number">
@@ -604,7 +789,7 @@ export default function Cart() {
                   <div>
                     <h2>Վճարման եղանակ</h2>
                     <p>
-                      Ընտրեք ձեզ հարմար վճարման տարբերակը։
+                      Ընտրեք ձեզ հարմար վճարման եղանակը։
                     </p>
                   </div>
                 </div>
@@ -612,7 +797,7 @@ export default function Cart() {
                 <div className="checkout-options">
                   <label
                     className={`checkout-option ${
-                      payment === 'online'
+                      payment === 'cash'
                         ? 'checkout-option--active'
                         : ''
                     }`}
@@ -620,21 +805,19 @@ export default function Cart() {
                     <input
                       type="radio"
                       name="payment"
-                      value="online"
-                      checked={payment === 'online'}
-                      onChange={(event) =>
-                        setPayment(event.target.value)
-                      }
+                      value="cash"
+                      checked={payment === 'cash'}
+                      onChange={() => setPayment('cash')}
                     />
 
                     <span className="checkout-option__icon">
-                      ▣
+                      <CashIcon />
                     </span>
 
                     <span>
-                      <strong>Առցանց վճարում</strong>
+                      <strong>Կանխիկ առաքման ժամանակ</strong>
                       <small>
-                        Վճարում քարտով
+                        Վճարեք առաքիչին կանխիկով
                       </small>
                     </span>
                   </label>
@@ -651,13 +834,11 @@ export default function Cart() {
                       name="payment"
                       value="card"
                       checked={payment === 'card'}
-                      onChange={(event) =>
-                        setPayment(event.target.value)
-                      }
+                      onChange={() => setPayment('card')}
                     />
 
                     <span className="checkout-option__icon">
-                      ▣
+                      <CardIcon />
                     </span>
 
                     <span>
@@ -669,6 +850,67 @@ export default function Cart() {
                   </label>
                 </div>
 
+                {payment === 'cash' ? (
+                  <p className="checkout-callout">
+                    {`Պատվերը հաստատվում է զանգով այս համարին՝ ${
+                      confirmationPhone || STORE.phone
+                    }։`}
+                  </p>
+                ) : (
+                  <div className="checkout-fields checkout-card">
+                    <label className="checkout-fields__full">
+                      Քարտի համար
+                      <input
+                        name="number"
+                        inputMode="numeric"
+                        autoComplete="cc-number"
+                        value={card.number}
+                        onChange={handleCardChange}
+                        placeholder="0000 0000 0000 0000"
+                        required
+                      />
+                    </label>
+
+                    <label>
+                      Վավերական է մինչև
+                      <input
+                        name="expiry"
+                        inputMode="numeric"
+                        autoComplete="cc-exp"
+                        value={card.expiry}
+                        onChange={handleCardChange}
+                        placeholder="ԱԱ/ՏՏ"
+                        required
+                      />
+                    </label>
+
+                    <label>
+                      CVV
+                      <input
+                        name="cvc"
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                        value={card.cvc}
+                        onChange={handleCardChange}
+                        placeholder="000"
+                        required
+                      />
+                    </label>
+
+                    <label className="checkout-fields__full">
+                      Քարտապանի անուն
+                      <input
+                        name="name"
+                        autoComplete="cc-name"
+                        value={card.name}
+                        onChange={handleCardChange}
+                        placeholder="ANUN AZGANUN"
+                        required
+                      />
+                    </label>
+                  </div>
+                )}
+
                 <div className="checkout-payment-logos">
                   <span className="ds-pay ds-pay--visa">
                     VISA
@@ -679,6 +921,7 @@ export default function Cart() {
                   </span>
                 </div>
               </div>
+              )}
             </section>
 
             {/* RIGHT: SUMMARY */}
@@ -733,16 +976,16 @@ export default function Cart() {
               <div className="checkout-summary__line">
                 <span>Առաքում</span>
                 <strong>
-                  {delivery === 'standard'
-                    ? 'Անվճար'
-                    : 'Հաշվարկվում է'}
+                  {delivery === 'yerevan'
+                    ? `3000.00 ${t('checkout.currency')}`
+                    : 'Անվճար'}
                 </strong>
               </div>
 
               <div className="checkout-summary__total">
                 <span>Ընդհանուր</span>
                 <strong>
-                  {cart.total} {t('checkout.currency')}
+                  {payable} {t('checkout.currency')}
                 </strong>
               </div>
 
@@ -772,7 +1015,9 @@ export default function Cart() {
               >
                 {checkoutLoading
                   ? t('cartPage.processing')
-                  : 'Հաստատել պատվերը'}
+                  : payByCard
+                    ? 'Անցնել վճարման'
+                    : 'Հաստատել պատվերը'}
 
                 <span>→</span>
               </button>
