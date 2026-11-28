@@ -83,6 +83,43 @@ export function productSizes(product) {
   }]
 }
 
+export function productColors(product) {
+  const raw = product?.colors ?? product?.color
+  if (Array.isArray(raw)) {
+    return raw.flatMap((item) => {
+      if (typeof item === 'string' && item.trim()) {
+        return [{ id: item.trim(), label: item.trim(), hint: '', swatch: '' }]
+      }
+      if (item && typeof item === 'object') {
+        const label = textField(item.label || item.name)
+        if (!label) return []
+        return [{
+          id: String(item.id || label).trim(),
+          label,
+          hint: textField(item.hint),
+          swatch: textField(item.swatch || item.hex),
+        }]
+      }
+      return []
+    })
+  }
+
+  if (raw && typeof raw === 'object') {
+    const label = textField(raw.label || raw.name)
+    if (!label) return []
+    return [{
+      id: String(raw.id || label).trim(),
+      label,
+      hint: textField(raw.hint),
+      swatch: textField(raw.swatch || raw.hex),
+    }]
+  }
+
+  const single = textField(raw)
+  if (!single) return []
+  return [{ id: single, label: single, hint: '', swatch: '' }]
+}
+
 export function productExtras(product) {
   const source =
     product && typeof product === 'object'
@@ -107,5 +144,6 @@ export function productExtras(product) {
     ),
 
     sizes: productSizes(source),
+    colors: productColors(source),
   }
 }
