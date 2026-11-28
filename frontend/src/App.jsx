@@ -1,3 +1,5 @@
+import { lazy, Suspense, useEffect, useLayoutEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -58,6 +60,11 @@ function pageTitleKey(pathname) {
 
 export default function App() {
   const { t, i18n } = useTranslation()
+  const { pathname, hash } = useLocation()
+
+  useLayoutEffect(() => {
+    if (!hash) window.scrollTo(0, 0)
+  }, [pathname, hash])
   const { pathname } = useLocation()
   const shop = useShop()
   const gluedPath = repairedPath(pathname)

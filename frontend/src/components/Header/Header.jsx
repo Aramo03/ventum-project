@@ -30,6 +30,7 @@ export default function Header() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const isGateway = pathname === '/'
   const isBaby = pathname.startsWith('/baby')
   const currentNavItems = isBaby ? BABY_NAV_ITEMS : NAV_ITEMS
   const shopPath = shopPathname(pathname)
@@ -207,11 +208,11 @@ export default function Header() {
 
           {/* BRAND */}
           <Link
-            to={isBaby ? '/baby' : '/textile'}
+            to={isGateway ? '/' : isBaby ? '/baby' : '/textile'}
             className="site-header__brand"
           >
             <strong>VENTUM</strong>
-            <span>{isBaby ? 'BABY' : 'textile'}</span>
+            {!isGateway && <span>{isBaby ? 'BABY' : 'textile'}</span>}
           </Link>
 
           {/* SEARCH */}
