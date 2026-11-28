@@ -38,8 +38,8 @@ def cart_representation(cart, language):
 
 class AddCartItemSerializer(serializers.Serializer):
     sku = serializers.CharField(max_length=64)
-    qty = serializers.IntegerField(min_value=1)
+    qty = serializers.IntegerField(min_value=1, max_value=1)
 
 
 class UpdateCartItemSerializer(serializers.Serializer):
-    qty = serializers.IntegerField(min_value=0)
+    qty = serializers.IntegerField(min_value=0, max_value=1)

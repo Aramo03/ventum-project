@@ -262,7 +262,7 @@ export default function Cart() {
                         <button
                           type="button"
                           aria-label={t('cartPage.increaseQuantity')}
-                          disabled={updatingSku === sku}
+                          disabled={updatingSku === sku || quantity >= 1}
                           onClick={() => updateQuantity(sku, quantity + 1)}
                         >
                           +
