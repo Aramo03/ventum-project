@@ -1,489 +1,360 @@
 .textile-page {
+  --textile-bg: var(--ventum-textile-bg, #f7f5f0);
+  --textile-surface: var(--ventum-textile-surface, #ffffff);
+  --textile-ink: var(--ventum-textile-ink, #1d241e);
+  --textile-muted: var(--ventum-textile-muted, #5c665d);
+  --textile-accent: var(--ventum-textile-accent, #5c8d1b);
+  --textile-border: var(--ventum-textile-border, #e2ded5);
+
   width: 100%;
-  background: var(--vt-bg, #ffffff);
-  color: var(--vt-text, #1a1a1a);
-}
-
-.textile-container {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 24px;
+  background-color: var(--textile-bg);
+  color: var(--textile-ink);
+  overflow-x: clip;
 }
 
-/* 1. Seasonal Hero */
-.textile-hero {
-  background: #f5f5f2;
-  border-bottom: 1px solid #e6e6e2;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.textile-hero__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  align-items: center;
-  gap: 40px;
-  padding: 48px 24px;
-}
-
-.textile-hero__eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #666666;
-  margin-bottom: 14px;
-}
-
-.textile-hero__title {
-  font-size: 42px;
-  line-height: 1.12;
+.textile-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
   font-weight: 600;
-  color: #1a1a1a;
-  margin: 0 0 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--textile-muted);
 }
 
-.textile-hero__subtitle {
+.textile-section-title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--textile-ink);
+}
+
+.textile-section-lead,
+.textile-section-note {
+  margin: 8px 0 0;
   font-size: 15px;
-  line-height: 1.6;
-  color: #4a4a4a;
-  margin: 0 0 24px;
-  max-width: 460px;
+  line-height: 1.5;
+  color: var(--textile-muted);
 }
 
-.textile-hero__cta {
+.textile-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #76b82a;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
   padding: 12px 22px;
-  font-size: 13px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
   text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.textile-hero__cta:hover {
-  background: #66a322;
+.textile-btn--primary {
+  background-color: var(--textile-accent);
+  color: #ffffff;
 }
 
-.textile-hero__note {
-  margin-top: 12px;
-  font-size: 12px;
-  color: #6b6b6b;
+.textile-btn--secondary {
+  background-color: transparent;
+  color: var(--textile-ink);
+  border-color: var(--textile-border);
 }
 
-.textile-hero__media {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  background: #eae8e1;
-  overflow: hidden;
-  border-radius: 4px;
+/* 1. Seasonal editorial */
+.textile-editorial {
+  padding: 40px 64px;
 }
 
-.textile-hero__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.textile-media-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 180px;
-  background: #f1f1ee;
-  color: #777777;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  text-align: center;
-  padding: 12px;
-}
-
-/* 2. Shopping Assurances */
-.textile-assurances {
-  background: #ffffff;
-  border-bottom: 1px solid #ececec;
-}
-
-.textile-assurances__grid {
+.textile-editorial__inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 18px 24px;
-  font-size: 12px;
-  color: #333333;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 40px;
+  align-items: center;
 }
 
-.textile-assurances__item {
+.textile-editorial__title {
+  margin: 0 0 16px;
+  font-size: 44px;
+  line-height: 1.12;
+  font-weight: 600;
+}
+
+.textile-editorial__lead {
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--textile-muted);
+}
+
+.textile-editorial__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.textile-editorial__caption {
+  margin: 0;
+  font-size: 13px;
+  color: var(--textile-muted);
+}
+
+.textile-editorial__photo-placeholder {
+  width: 100%;
+  min-height: 420px;
+  border-radius: 12px;
+  background-color: var(--textile-surface);
+  border: 1px solid var(--textile-border);
+}
+
+/* 2. Shopping assurances */
+.textile-assurances {
+  border-top: 1px solid var(--textile-border);
+  border-bottom: 1px solid var(--textile-border);
+  background-color: var(--textile-surface);
+  padding: 18px 64px;
+}
+
+.textile-assurances__inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.textile-assurance-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-/* 3. Curated by Category */
+/* 3. Shop by category */
 .textile-categories {
-  padding: 56px 0;
-  background: #ffffff;
+  padding: 56px 64px;
 }
 
 .textile-section-head {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 28px;
 }
 
-.textile-section-title {
-  font-size: 28px;
-  line-height: 1.25;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-.textile-section-caption {
-  font-size: 12px;
-  color: #666666;
-}
-
-.textile-categories__grid {
+.textile-category-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.textile-category-card {
-  border: 1px solid transparent;
-  background: transparent;
-  padding: 0;
+.textile-category-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
+  padding: 0;
+  border: 1px solid var(--textile-border);
+  border-radius: 10px;
+  background-color: var(--textile-surface);
   cursor: pointer;
-}
-
-.textile-category-card__thumb {
-  aspect-ratio: 4 / 3;
-  background: #f4f4f1;
-  border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 10px;
 }
 
-.textile-category-card__thumb img {
+.textile-category-tile.is-active {
+  border-color: var(--textile-accent);
+  box-shadow: 0 0 0 1px var(--textile-accent);
+}
+
+.textile-category-tile__media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: #efece4;
+  overflow: hidden;
+}
+
+.textile-category-tile__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.textile-category-card__title {
-  font-size: 13px;
-  font-weight: 500;
-  color: #222222;
+.textile-media-blank {
+  width: 100%;
+  height: 100%;
 }
 
-.textile-category-card--active .textile-category-card__title {
-  color: #76b82a;
+.textile-category-tile__label {
+  padding: 12px 14px;
+  font-size: 14px;
   font-weight: 600;
+  color: var(--textile-ink);
 }
 
-/* 4. Brand Story & Care */
+/* 4. Brand story and care */
 .textile-story {
-  background: #f5f5f2;
-  padding: 56px 0;
-  border-top: 1px solid #ecece8;
-  border-bottom: 1px solid #ecece8;
+  padding: 56px 64px;
+  background-color: var(--textile-surface);
+  border-top: 1px solid var(--textile-border);
+  border-bottom: 1px solid var(--textile-border);
 }
 
-.textile-story__grid {
+.textile-story__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 44px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
   align-items: center;
 }
 
-.textile-story__media {
-  aspect-ratio: 4 / 3;
-  background: #eae8e1;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.textile-story__media img {
+.textile-story__photo-placeholder {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  min-height: 360px;
+  border-radius: 12px;
+  background-color: var(--textile-bg);
+  border: 1px solid var(--textile-border);
 }
 
 .textile-story__title {
+  margin: 0 0 16px;
   font-size: 32px;
   line-height: 1.2;
-  font-weight: 600;
-  color: #1a1a1a;
+}
+
+.textile-story__text,
+.textile-story__care {
   margin: 0 0 14px;
-}
-
-.textile-story__text {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
-  color: #4a4a4a;
-  margin: 0 0 18px;
+  color: var(--textile-muted);
 }
 
-.textile-story__link {
-  font-size: 13px;
-  font-weight: 600;
-  color: #1a1a1a;
-  text-decoration: none;
-}
-
-/* 5. Shoppable Collection */
+/* 5. Shoppable product collection */
 .textile-collection {
-  padding: 56px 0 72px;
-  background: #ffffff;
+  padding: 56px 64px 72px;
 }
 
-.textile-collection__sub {
-  font-size: 14px;
-  color: #555555;
-  margin: 6px 0 20px;
-}
-
-.textile-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
+.textile-collection__top {
   margin-bottom: 24px;
 }
 
-.textile-filters {
+.textile-controls {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.textile-filter-pills {
+  display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.textile-filter-btn {
-  border: 1px solid #dcdcdc;
-  background: #ffffff;
-  color: #333333;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 12px;
+.textile-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--textile-border);
+  background-color: var(--textile-surface);
+  color: var(--textile-ink);
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
 }
 
-.textile-filter-btn--active {
-  background: #eef6e6;
-  border-color: #76b82a;
-  color: #2f5209;
-  font-weight: 600;
+.textile-pill.is-active {
+  background-color: var(--textile-accent);
+  border-color: var(--textile-accent);
+  color: #ffffff;
 }
 
-.textile-sort-select {
-  border: 1px solid #d4d4d4;
-  border-radius: 4px;
-  padding: 6px 10px;
-  font-size: 12px;
-  background: #ffffff;
-  color: #222222;
+.textile-search-input {
+  min-width: 240px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--textile-border);
+  background-color: var(--textile-surface);
+  color: var(--textile-ink);
+  font-size: 14px;
 }
 
 .textile-products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
 }
 
-.textile-card {
-  border: 1px solid #e4e4e4;
-  border-radius: 6px;
-  padding: 12px;
-  background: #ffffff;
+.textile-collection__footer {
+  margin-top: 36px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.textile-card__media {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  background: #f5f5f2;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.textile-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.textile-card__badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: #1a1a1a;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 3px 7px;
-  border-radius: 3px;
-}
-
-.textile-card__stock {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #ffffff;
-  color: #222222;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 3px 7px;
-  border-radius: 3px;
-  border: 1px solid #e2e2e2;
-}
-
-.textile-card__title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-.textile-card__meta {
-  font-size: 11px;
-  color: #666666;
-}
-
-.textile-card__price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.textile-card__price {
-  font-size: 15px;
-  font-weight: 700;
-  color: #1a1a1a;
-}
-
-.textile-card__old-price {
-  font-size: 12px;
-  color: #888888;
-  text-decoration: line-through;
-}
-
-.textile-card__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.textile-card__cart-btn {
-  width: 100%;
-  background: #76b82a;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 9px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.textile-card__cart-btn:hover:not(:disabled) {
-  background: #66a322;
-}
-
-.textile-card__cart-btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-.textile-card__status {
-  font-size: 12px;
-  line-height: 1.4;
-  border-radius: 4px;
-  padding: 6px 8px;
-}
-
-.textile-card__status--success {
-  background: #eef8e4;
-  color: #265308;
-  border: 1px solid #b9e08b;
-}
-
-.textile-card__status--auth {
-  background: #fff4e5;
-  color: #7a3e00;
-  border: 1px solid #f2c078;
-}
-
-.textile-card__status--error {
-  background: #fdecec;
-  color: #8f1d1d;
-  border: 1px solid #f3b5b5;
-}
-
-.textile-state-box {
-  padding: 32px;
-  text-align: center;
-  border: 1px solid #e4e4e4;
-  border-radius: 6px;
-  background: #fafafa;
-  font-size: 14px;
-  color: #444444;
-}
-
-.textile-view-all-wrap {
-  margin-top: 28px;
-}
-
-.textile-view-all-btn {
-  border: 1px solid #1a1a1a;
-  background: #ffffff;
-  color: #1a1a1a;
-  padding: 9px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 4px;
-  cursor: pointer;
+  justify-content: center;
 }
 
 @media (max-width: 1024px) {
-  .textile-hero__grid,
-  .textile-story__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .textile-categories__grid {
-    grid-template-columns: repeat(3, 1fr);
+  .textile-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .textile-products-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 640px) {
-  .textile-assurances__grid,
-  .textile-categories__grid,
-  .textile-products-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .textile-editorial,
+  .textile-assurances,
+  .textile-categories,
+  .textile-story,
+  .textile-collection {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
-  .textile-hero__title {
+  .textile-editorial__inner,
+  .textile-story__inner,
+  .textile-assurances__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .textile-editorial__title {
     font-size: 32px;
+  }
+
+  .textile-section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .textile-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .textile-products-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .textile-search-wrap,
+  .textile-search-input {
+    width: 100%;
   }
 }

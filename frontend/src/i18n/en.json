@@ -167,7 +167,49 @@
     "errorLoad": "Could not load Textile catalog. Please try again.",
     "noImage": "No image",
     "viewAll": "View All Products",
-    "showLess": "Show Less"
+    "showLess": "Show Less",
+    "currencyAmd": "AMD",
+    "editorial": {
+      "eyebrow": "Ventum Textile",
+      "title": "Woven for quiet, sunlit mornings.",
+      "description": "Experience breathable organic cottons, artisanal weaves, and timeless textures crafted to bring effortless serenity to every corner of your home.",
+      "cta": "Explore the Collection",
+      "caption": "100% Natural Fibers · Tailored Perfection"
+    },
+    "assurances": {
+      "label": "Shopping assurances",
+      "assurance1": "Free Delivery across Yerevan & Regions",
+      "assurance2": "100% Certified Natural Fabrics",
+      "assurance3": "Flexible Cash & Card Payment"
+    },
+    "categoryNames": {
+      "bed-linen": "Bed Linen",
+      "natural-fabrics": "Natural Fabrics",
+      "bath-towels": "Bath Towels",
+      "duvet-covers": "Duvet Covers",
+      "drapery-curtains": "Drapery & Curtains",
+      "table-linen": "Table Linen",
+      "fabrics-craft": "Fabrics & Craft",
+      "home-blankets": "Home Blankets",
+      "sleep-pillows": "Sleep Pillows",
+      "mattress-protectors": "Mattress Protectors"
+    },
+    "story": {
+      "eyebrow": "THE VENTUM TEXTILE STANDARD",
+      "title": "Quality you feel at the very first touch.",
+      "body": "At Ventum Textile, we select breathable fibers and enduring weaves that grow softer with every wash.",
+      "care": "Machine wash gentle at 30–40°C and line dry naturally to preserve fiber softness."
+    },
+    "collection": {
+      "eyebrow": "Collection",
+      "heading": "The Comfort Collection",
+      "description": "Our most-loved bedding sets and textile essentials, tailored for everyday rest.",
+      "secondaryAction": "Reset Filters"
+    },
+    "filters": {
+      "all": "All",
+      "searchPlaceholder": "Search by name or SKU..."
+    }
   },
   "assurances": {
     "qualityTitle": "Natural fabrics",

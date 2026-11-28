@@ -1,519 +1,285 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import CatalogState from '../../components/CatalogState/CatalogState';
 import {
-  addTextileItemToCart,
-  fetchTextileCatalog,
-  formatAmdPrice,
-  resolveMediaUrl,
+  TEXTILE_HIGHLIGHTS,
+  TEXTILE_VISUAL_CATEGORIES,
+  fetchTextileCategories,
+  fetchTextileProducts,
+  filterTextileProducts,
 } from './textile';
 import './textile.css';
 
 export default function Textile() {
   const { t, i18n } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [status, setStatus] = useState('loading'); // 'loading' | 'ready' | 'error'
 
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [inStockOnly, setInStockOnly] = useState(false);
-  const [sortBy, setSortBy] = useState('featured');
-  const [showAll, setShowAll] = useState(false);
+  const currentQuery = searchParams.get('q') || '';
+  const currentCategory = searchParams.get('category') || '';
 
-  const [addingSku, setAddingSku] = useState('');
-  const [cardFeedback, setCardFeedback] = useState({});
-
-  const activeLanguage = (i18n.language || 'en').split('-')[0];
+  const loadStorefront = useCallback(async () => {
+    setStatus('loading');
+    try {
+      const [catList, prodList] = await Promise.all([
+        fetchTextileCategories(),
+        fetchTextileProducts(),
+      ]);
+      setCategories(catList.filter((cat) => !cat.store || cat.store === 'textile'));
+      setProducts(prodList);
+      setStatus('ready');
+    } catch {
+      setStatus('error');
+    }
+  }, []);
 
   useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError('');
+    loadStorefront();
+  }, [loadStorefront, i18n.language]);
 
-    fetchTextileCatalog(activeLanguage)
-      .then(({ categories: loadedCategories, products: loadedProducts }) => {
-        if (!active) return;
-        setCategories(loadedCategories);
-        setProducts(loadedProducts);
-      })
-      .catch(() => {
-        if (!active) return;
-        setError(
-          t('textile.errorLoad', {
-            defaultValue: 'Could not load Textile catalog. Please try again.',
-          })
-        );
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [activeLanguage, t]);
-
-  const filteredProducts = useMemo(() => {
-    let list = [...products];
-
-    if (selectedCategory !== 'all') {
-      list = list.filter((item) => {
-        const catSlug =
-          typeof item.category === 'string'
-            ? item.category
-            : item.category?.slug || item.category_slug || '';
-        return catSlug === selectedCategory;
-      });
+  const handleSelectCategory = (slug) => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (!slug || nextParams.get('category') === slug) {
+      nextParams.delete('category');
+    } else {
+      nextParams.set('category', slug);
     }
-
-    if (inStockOnly) {
-      list = list.filter((item) => item.in_stock !== false);
-    }
-
-    if (sortBy === 'priceAsc') {
-      list.sort((a, b) => Number(a.price) - Number(b.price));
-    } else if (sortBy === 'priceDesc') {
-      list.sort((a, b) => Number(b.price) - Number(a.price));
-    }
-
-    return list;
-  }, [products, selectedCategory, inStockOnly, sortBy]);
-
-  const visibleProducts = showAll
-    ? filteredProducts
-    : filteredProducts.slice(0, 8);
-
-  const handleAddToCart = async (product) => {
-    const sku = product.sku;
-    if (!sku) return;
-
-    setAddingSku(sku);
-    setCardFeedback((prev) => ({
-      ...prev,
-      [sku]: null,
-    }));
-
-    try {
-      await addTextileItemToCart(sku, 1);
-      setCardFeedback((prev) => ({
-        ...prev,
-        [sku]: {
-          type: 'success',
-          message: t('textile.addedToCart', {
-            defaultValue: 'Added to cart',
-          }),
-        },
-      }));
-    } catch (err) {
-      const status = err?.response?.status;
-      if (status === 401) {
-        setCardFeedback((prev) => ({
-          ...prev,
-          [sku]: {
-            type: 'auth',
-            message: t('textile.signInRequired', {
-              defaultValue: 'Sign in required to add items to cart.',
-            }),
-          },
-        }));
-      } else {
-        setCardFeedback((prev) => ({
-          ...prev,
-          [sku]: {
-            type: 'error',
-            message: t('textile.addError', {
-              defaultValue: 'Could not add item to cart.',
-            }),
-          },
-        }));
-      }
-    } finally {
-      setAddingSku('');
-    }
+    setSearchParams(nextParams);
   };
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    const nextParams = new URLSearchParams(searchParams);
+    if (value.trim()) {
+      nextParams.set('q', value);
+    } else {
+      nextParams.delete('q');
+    }
+    setSearchParams(nextParams);
+  };
+
+  const handleResetFilters = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete('q');
+    nextParams.delete('category');
+    setSearchParams(nextParams);
+  };
+
+  const filteredProducts = useMemo(
+    () =>
+      filterTextileProducts(products, {
+        q: currentQuery,
+        category: currentCategory,
+      }),
+    [products, currentQuery, currentCategory]
+  );
+
+  const categoryCards = useMemo(() => {
+    if (categories.length > 0) {
+      return categories.map((cat) => ({
+        slug: cat.slug || String(cat.id),
+        name: cat.name || cat.slug,
+        image: cat.image || null,
+      }));
+    }
+    return TEXTILE_VISUAL_CATEGORIES.map((item) => ({
+      slug: item.slug,
+      name: t(`textile.categories.${item.slug}`, { defaultValue: item.fallbackName }),
+      image: null,
+    }));
+  }, [categories, t]);
+
   return (
-    <main className="textile-page">
-      {/* Seasonal Editorial Hero */}
-      <section className="textile-hero">
-        <div className="textile-container textile-hero__grid">
-          <div>
-            <div className="textile-hero__eyebrow">
-              {t('textile.heroEyebrow', {
-                defaultValue: 'VENTUM TEXTILE · NATURAL HOME SANCTUARY',
-              })}
-            </div>
-            <h1 className="textile-hero__title">
-              {t('textile.heroTitle', {
-                defaultValue: 'Woven for quiet, sunlit mornings.',
-              })}
+    <main className="textile-page" data-store="textile">
+      {/* 1. Seasonal editorial */}
+      <section className="textile-editorial" aria-labelledby="textile-hero-title">
+        <div className="textile-editorial__inner">
+          <div className="textile-editorial__content">
+            <p className="textile-eyebrow">{t('textile.editorial.eyebrow')}</p>
+            <h1 id="textile-hero-title" className="textile-editorial__title">
+              {t('textile.editorial.title')}
             </h1>
-            <p className="textile-hero__subtitle">
-              {t('textile.heroSubtitle', {
-                defaultValue:
-                  'Experience breathable organic cottons, artisanal weaves, and timeless textures crafted to bring effortless serenity to every corner of your home.',
-              })}
-            </p>
-            <a href="#textile-collection" className="textile-hero__cta">
-              {t('textile.exploreCollection', {
-                defaultValue: 'Explore the Collection',
-              })}
-            </a>
-            <div className="textile-hero__note">
-              {t('textile.heroNote', {
-                defaultValue: '100% Natural Fibers · Tailored Perfection',
-              })}
+            <p className="textile-editorial__lead">{t('textile.editorial.description')}</p>
+            <div className="textile-editorial__actions">
+              <a href="#textile-collection" className="textile-btn textile-btn--primary">
+                {t('textile.editorial.cta')}
+              </a>
             </div>
+            <p className="textile-editorial__caption">{t('textile.editorial.caption')}</p>
           </div>
-
-          <div className="textile-hero__media">
-            {resolveMediaUrl(products[0]?.image) ? (
-              <img
-                src={resolveMediaUrl(products[0]?.image)}
-                alt={
-                  products[0]?.name ||
-                  t('textile.heroTitle', {
-                    defaultValue: 'Woven for quiet, sunlit mornings.',
-                  })
-                }
-                className="textile-hero__img"
-              />
-            ) : (
-              <div className="textile-media-placeholder">
-                {t('textile.noImage', { defaultValue: 'Image unavailable' })}
-              </div>
-            )}
+          <div className="textile-editorial__media">
+            <div className="textile-editorial__photo-placeholder" aria-hidden="true" />
           </div>
         </div>
       </section>
 
-      {/* Shopping Assurances */}
-      <section className="textile-assurances">
-        <div className="textile-container textile-assurances__grid">
-          <div className="textile-assurances__item">
-            <span>
-              {t('textile.assuranceDelivery', {
-                defaultValue: 'Free Delivery across Yerevan & Regions',
-              })}
-            </span>
-          </div>
-          <div className="textile-assurances__item">
-            <span>
-              {t('textile.assuranceQuality', {
-                defaultValue: '100% Certified Natural Fabrics',
-              })}
-            </span>
-          </div>
-          <div className="textile-assurances__item">
-            <span>
-              {t('textile.assurancePayment', {
-                defaultValue: 'Flexible Cash & Card Payment',
-              })}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Shop by Category */}
-      <section className="textile-categories">
-        <div className="textile-container">
-          <div className="textile-section-head">
-            <h2 className="textile-section-title">
-              {t('textile.categoriesTitle', {
-                defaultValue: 'Curated by Category',
-              })}
-            </h2>
-            <span className="textile-section-caption">
-              {t('textile.categoriesCaption', {
-                defaultValue: 'Thoughtfully organized for every room in your home',
-              })}
-            </span>
-          </div>
-
-          {categories.length > 0 && (
-            <div className="textile-categories__grid">
-              {categories.map((cat) => {
-                const isSelected = selectedCategory === cat.slug;
-                const thumbUrl = resolveMediaUrl(cat.image);
-                return (
-                  <button
-                    key={cat.slug}
-                    type="button"
-                    onClick={() =>
-                      setSelectedCategory(isSelected ? 'all' : cat.slug)
-                    }
-                    className={`textile-category-card ${
-                      isSelected ? 'textile-category-card--active' : ''
-                    }`}
-                  >
-                    <div className="textile-category-card__thumb">
-                      {thumbUrl ? (
-                        <img src={thumbUrl} alt={cat.name || cat.slug} />
-                      ) : (
-                        <div className="textile-media-placeholder">
-                          {cat.name || cat.slug}
-                        </div>
-                      )}
-                    </div>
-                    <div className="textile-category-card__title">
-                      {cat.name || cat.slug}
-                    </div>
-                  </button>
-                );
-              })}
+      {/* 2. Shopping assurances */}
+      <section className="textile-assurances" aria-label={t('textile.assurances.label')}>
+        <div className="textile-assurances__inner">
+          {TEXTILE_HIGHLIGHTS.map((item) => (
+            <div key={item.key} className="textile-assurance-item">
+              <span className="textile-assurance-item__icon" aria-hidden="true">
+                {item.icon}
+              </span>
+              <span className="textile-assurance-item__text">
+                {t(`textile.assurances.${item.key}`)}
+              </span>
             </div>
-          )}
+          ))}
         </div>
       </section>
 
-      {/* Brand Story and Care */}
-      <section className="textile-story">
-        <div className="textile-container textile-story__grid">
-          <div className="textile-story__media">
-            {resolveMediaUrl(products[1]?.image || products[0]?.image) ? (
-              <img
-                src={resolveMediaUrl(products[1]?.image || products[0]?.image)}
-                alt={t('textile.storyTitle', {
-                  defaultValue: 'Quality you feel at the very first touch.',
-                })}
-              />
-            ) : (
-              <div className="textile-media-placeholder">
-                {t('textile.noImage', { defaultValue: 'Image unavailable' })}
-              </div>
-            )}
-          </div>
-
+      {/* 3. Shop by category */}
+      <section className="textile-categories" aria-labelledby="textile-categories-title">
+        <div className="textile-section-head">
           <div>
-            <div className="textile-hero__eyebrow">
-              {t('textile.storyEyebrow', {
-                defaultValue: 'THE VENTUM TEXTILE STANDARD',
-              })}
-            </div>
-            <h2 className="textile-story__title">
-              {t('textile.storyTitle', {
-                defaultValue: 'Quality you feel at the very first touch.',
-              })}
+            <h2 id="textile-categories-title" className="textile-section-title">
+              {t('textile.categories.heading')}
             </h2>
-            <p className="textile-story__text">
-              {t('textile.storyText', {
-                defaultValue:
-                  'At Ventum Textile, we select only breathable fibers and enduring weaves that grow softer with every wash—bringing quiet luxury, warmth, and comfort to your daily rituals.',
-              })}
-            </p>
-            <a href="#textile-collection" className="textile-story__link">
-              {t('textile.discoverCraft', {
-                defaultValue: 'Discover our craft ->',
-              })}
-            </a>
+          </div>
+          <p className="textile-section-note">{t('textile.categories.subheading')}</p>
+        </div>
+
+        <div className="textile-category-grid">
+          {categoryCards.map((cat) => {
+            const isSelected = currentCategory === cat.slug;
+            return (
+              <button
+                key={cat.slug}
+                type="button"
+                onClick={() => handleSelectCategory(cat.slug)}
+                className={`textile-category-tile ${isSelected ? 'is-active' : ''}`}
+                aria-pressed={isSelected}
+              >
+                <div className="textile-category-tile__media">
+                  {cat.image ? (
+                    <img src={cat.image} alt={cat.name} />
+                  ) : (
+                    <div className="textile-media-blank" aria-hidden="true" />
+                  )}
+                </div>
+                <span className="textile-category-tile__label">{cat.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. Brand story and care */}
+      <section className="textile-story" aria-labelledby="textile-story-title">
+        <div className="textile-story__inner">
+          <div className="textile-story__media">
+            <div className="textile-story__photo-placeholder" aria-hidden="true" />
+          </div>
+          <div className="textile-story__content">
+            <p className="textile-eyebrow">{t('textile.story.eyebrow')}</p>
+            <h2 id="textile-story-title" className="textile-story__title">
+              {t('textile.story.title')}
+            </h2>
+            <p className="textile-story__text">{t('textile.story.body')}</p>
+            <p className="textile-story__care">{t('textile.story.care')}</p>
           </div>
         </div>
       </section>
 
-      {/* Shoppable Product Collection */}
-      <section id="textile-collection" className="textile-collection">
-        <div className="textile-container">
-          <h2 className="textile-section-title">
-            {t('textile.collectionTitle', {
-              defaultValue: 'The Comfort Collection',
-            })}
-          </h2>
-          <p className="textile-collection__sub">
-            {t('textile.collectionSubtitle', {
-              defaultValue:
-                'Our most-loved bedding sets and textile essentials, tailored for deep and restorative rest.',
-            })}
-          </p>
+      {/* 5. Shoppable product collection */}
+      <section
+        id="textile-collection"
+        className="textile-collection"
+        aria-labelledby="textile-collection-title"
+      >
+        <div className="textile-collection__top">
+          <div>
+            <p className="textile-eyebrow">{t('textile.collection.eyebrow')}</p>
+            <h2 id="textile-collection-title" className="textile-section-title">
+              {t('textile.collection.heading')}
+            </h2>
+            <p className="textile-section-lead">{t('textile.collection.description')}</p>
+          </div>
+        </div>
 
-          <div className="textile-toolbar">
-            <div className="textile-filters">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedCategory('all');
-                  setInStockOnly(false);
-                }}
-                className={`textile-filter-btn ${
-                  selectedCategory === 'all' && !inStockOnly
-                    ? 'textile-filter-btn--active'
-                    : ''
-                }`}
-              >
-                {t('textile.allProducts', { defaultValue: 'All Pieces' })}
-              </button>
-
-              {categories.map((cat) => (
-                <button
-                  key={cat.slug}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat.slug)}
-                  className={`textile-filter-btn ${
-                    selectedCategory === cat.slug
-                      ? 'textile-filter-btn--active'
-                      : ''
-                  }`}
-                >
-                  {cat.name || cat.slug}
-                </button>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => setInStockOnly((prev) => !prev)}
-                className={`textile-filter-btn ${
-                  inStockOnly ? 'textile-filter-btn--active' : ''
-                }`}
-              >
-                {t('textile.inStock', { defaultValue: 'In Stock' })}
-              </button>
-            </div>
-
-            <select
-              aria-label={t('textile.sortLabel', { defaultValue: 'Sort products' })}
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="textile-sort-select"
+        <div className="textile-controls">
+          <div className="textile-filter-pills" role="group" aria-label={t('textile.categories.heading')}>
+            <button
+              type="button"
+              onClick={() => handleSelectCategory('')}
+              className={`textile-pill ${!currentCategory ? 'is-active' : ''}`}
             >
-              <option value="featured">
-                {t('textile.sortFeatured', { defaultValue: 'Sort by: Featured' })}
-              </option>
-              <option value="priceAsc">
-                {t('textile.sortPriceAsc', { defaultValue: 'Price: Low to High' })}
-              </option>
-              <option value="priceDesc">
-                {t('textile.sortPriceDesc', { defaultValue: 'Price: High to Low' })}
-              </option>
-            </select>
+              {t('textile.filters.all')}
+            </button>
+            {categoryCards.map((cat) => (
+              <button
+                key={cat.slug}
+                type="button"
+                onClick={() => handleSelectCategory(cat.slug)}
+                className={`textile-pill ${currentCategory === cat.slug ? 'is-active' : ''}`}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
 
-          {loading && (
-            <div className="textile-state-box">
-              {t('textile.loading', { defaultValue: 'Loading products...' })}
-            </div>
-          )}
+          <div className="textile-search-wrap">
+            <label htmlFor="textile-search-input" className="sr-only">
+              {t('textile.filters.searchPlaceholder')}
+            </label>
+            <input
+              id="textile-search-input"
+              type="search"
+              className="textile-search-input"
+              value={currentQuery}
+              onChange={handleSearchChange}
+              placeholder={t('textile.filters.searchPlaceholder')}
+            />
+          </div>
+        </div>
 
-          {!loading && error && (
-            <div className="textile-state-box textile-card__status--error">
-              {error}
-            </div>
-          )}
+        {status === 'loading' && (
+          <CatalogState store="textile" variant="loading" />
+        )}
 
-          {!loading && !error && visibleProducts.length === 0 && (
-            <div className="textile-state-box">
-              {t('textile.empty', {
-                defaultValue: 'No textile products found.',
-              })}
-            </div>
-          )}
+        {status === 'error' && (
+          <CatalogState
+            store="textile"
+            variant="error"
+            onRetry={loadStorefront}
+          />
+        )}
 
-          {!loading && !error && visibleProducts.length > 0 && (
-            <>
-              <div className="textile-products-grid">
-                {visibleProducts.map((product) => {
-                  const imgUrl = resolveMediaUrl(product.image);
-                  const feedback = cardFeedback[product.sku];
-                  const isAdding = addingSku === product.sku;
+        {status === 'ready' && filteredProducts.length === 0 && (
+          <CatalogState
+            store="textile"
+            variant="empty"
+            onReset={handleResetFilters}
+          />
+        )}
 
-                  return (
-                    <article key={product.sku} className="textile-card">
-                      <div>
-                        <div className="textile-card__media">
-                          {imgUrl ? (
-                            <img
-                              src={imgUrl}
-                              alt={product.name || product.sku}
-                            />
-                          ) : (
-                            <div className="textile-media-placeholder">
-                              {t('textile.noImage', {
-                                defaultValue: 'No image',
-                              })}
-                            </div>
-                          )}
+        {status === 'ready' && filteredProducts.length > 0 && (
+          <div className="textile-products-grid">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.sku || product.id}
+                product={product}
+                store="textile"
+                priceLabel={t('textile.currencyAmd')}
+              />
+            ))}
+          </div>
+        )}
 
-                          {product.discount_label && (
-                            <span className="textile-card__badge">
-                              {product.discount_label}
-                            </span>
-                          )}
-
-                          <span className="textile-card__stock">
-                            {product.in_stock === false
-                              ? t('textile.outOfStock', {
-                                  defaultValue: 'Out of Stock',
-                                })
-                              : t('textile.inStockBadge', {
-                                  defaultValue: 'In Stock',
-                                })}
-                          </span>
-                        </div>
-
-                        <h3 className="textile-card__title">
-                          {product.name || product.sku}
-                        </h3>
-                        <div className="textile-card__meta">
-                          {product.category?.name || ''}
-                        </div>
-                      </div>
-
-                      <div className="textile-card__price-row">
-                        <span className="textile-card__price">
-                          {formatAmdPrice(product.price)}
-                        </span>
-                        {product.compare_at_price && (
-                          <span className="textile-card__old-price">
-                            {formatAmdPrice(product.compare_at_price)}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="textile-card__actions">
-                        <button
-                          type="button"
-                          disabled={isAdding || product.in_stock === false}
-                          onClick={() => handleAddToCart(product)}
-                          className="textile-card__cart-btn"
-                        >
-                          {isAdding
-                            ? t('textile.addingToCart', {
-                                defaultValue: 'Adding...',
-                              })
-                            : t('textile.addToCart', {
-                                defaultValue: 'Add to Cart',
-                              })}
-                        </button>
-
-                        {feedback && (
-                          <div
-                            className={`textile-card__status textile-card__status--${feedback.type}`}
-                          >
-                            {feedback.message}
-                          </div>
-                        )}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-
-              {filteredProducts.length > 8 && (
-                <div className="textile-view-all-wrap">
-                  <button
-                    type="button"
-                    onClick={() => setShowAll((prev) => !prev)}
-                    className="textile-view-all-btn"
-                  >
-                    {showAll
-                      ? t('textile.showLess', { defaultValue: 'Show Less' })
-                      : `${t('textile.viewAll', {
-                          defaultValue: 'View All Products',
-                        })} (${filteredProducts.length})`}
-                  </button>
-                </div>
-              )}
-            </>
-          )}
+        <div className="textile-collection__footer">
+          <button
+            type="button"
+            onClick={handleResetFilters}
+            className="textile-btn textile-btn--secondary"
+          >
+            {t('textile.collection.secondaryAction')}
+          </button>
         </div>
       </section>
     </main>
