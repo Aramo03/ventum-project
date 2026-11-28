@@ -1039,3 +1039,32 @@
     transform: translateY(0);
   }
 }
+
+.product-details__actions {
+  display: flex;
+  width: 100%;
+  max-width: 380px;
+  margin-top: 20px;
+}
+
+.product-details__actions .product-card__add-button,
+.product-details__actions .product-card__quantity {
+  width: 100%;
+  min-height: 48px;
+}
+
+.product-details__actions .product-card__quantity button {
+  width: 52px;
+  height: 46px;
+}
+
+.product-details__actions .product-card__quantity > span {
+  flex: 1;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .product-details__actions {
+    max-width: 100%;
+  }
+}
