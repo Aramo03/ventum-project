@@ -45,13 +45,18 @@ def empty_cart():
     return {"count": 0, "total": "0.00", "items": []}
 
 
+def present_cart(cart, language):
+    cart.items.filter(qty__gt=1).update(qty=1)
+    return cart_representation(cart, language)
+
+
 class CartView(CartLanguageMixin, APIView):
     @extend_schema(tags=["cart"], parameters=[_LANGUAGE_PARAMETER])
     def get(self, request):
         cart = Cart.objects.filter(user=request.user).first()
         if cart is None:
             return Response(empty_cart())
-        return Response(cart_representation(cart, request.cart_language))
+        return Response(present_cart(cart, request.cart_language))
 
 
 class CartItemCreateView(CartLanguageMixin, APIView):
@@ -60,7 +65,6 @@ class CartItemCreateView(CartLanguageMixin, APIView):
         serializer = AddCartItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         product = published_product(serializer.validated_data["sku"])
-        qty = serializer.validated_data["qty"]
         with transaction.atomic():
             cart, _created = Cart.objects.select_for_update().get_or_create(user=request.user)
             item = (
@@ -69,11 +73,11 @@ class CartItemCreateView(CartLanguageMixin, APIView):
                 .first()
             )
             if item is None:
-                CartItem.objects.create(cart=cart, product=product, qty=qty)
-            else:
-                item.qty += qty
+                CartItem.objects.create(cart=cart, product=product, qty=1)
+            elif item.qty != 1:
+                item.qty = 1
                 item.save(update_fields=("qty",))
-        return Response(cart_representation(cart, request.cart_language))
+        return Response(present_cart(cart, request.cart_language))
 
 
 class CartItemDetailView(CartLanguageMixin, APIView):
@@ -88,9 +92,9 @@ class CartItemDetailView(CartLanguageMixin, APIView):
             if qty == 0:
                 item.delete()
             else:
-                item.qty = qty
+                item.qty = 1
                 item.save(update_fields=("qty",))
-        return Response(cart_representation(cart, request.cart_language))
+        return Response(present_cart(cart, request.cart_language))
 
     @extend_schema(tags=["cart"], parameters=[_LANGUAGE_PARAMETER])
     def delete(self, request, sku):

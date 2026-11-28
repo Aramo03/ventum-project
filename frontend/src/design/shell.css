@@ -1,0 +1,15 @@
+/*
+  App shell. Imported once from App.jsx.
+  Do not put .ds-shell in design.css — that file loads only with lazy /design.
+*/
+
+.ds-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.ds-shell > main {
+  flex: 1 0 auto;
+  min-height: min-content;
+}

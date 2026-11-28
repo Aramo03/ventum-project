@@ -54,3 +54,36 @@ class CartApiTests(TestCase):
             format="json",
         )
         self.assertEqual(response.status_code, 404)
+
+    def test_product_can_be_added_only_once(self):
+        self.client.force_authenticate(user=self.user)
+        first = self.client.post(
+            "/api/cart/items/",
+            {"sku": self.published.sku, "qty": 1},
+            format="json",
+        )
+        second = self.client.post(
+            "/api/cart/items/",
+            {"sku": self.published.sku, "qty": 1},
+            format="json",
+        )
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(second.status_code, 200)
+        self.assertEqual(second.data["count"], 1)
+        self.assertEqual(second.data["items"][0]["qty"], 1)
+
+    def test_quantity_cannot_rise_above_one(self):
+        self.client.force_authenticate(user=self.user)
+        self.client.post(
+            "/api/cart/items/",
+            {"sku": self.published.sku, "qty": 1},
+            format="json",
+        )
+        response = self.client.patch(
+            f"/api/cart/items/{self.published.sku}/",
+            {"qty": 2},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 400)
+        cart = self.client.get("/api/cart/")
+        self.assertEqual(cart.data["items"][0]["qty"], 1)

@@ -1,5 +1,11 @@
+
 import { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -28,18 +34,42 @@ export default function Header() {
   const isBaby = pathname.startsWith('/baby')
   const currentNavItems = isBaby ? BABY_NAV_ITEMS : NAV_ITEMS
   const shopPath = shopPathname(pathname)
+
   const urlQuery = searchParams.get('q') || ''
   const activeCategory = searchParams.get('category') || ''
 
   const [query, setQuery] = useState(urlQuery)
   const [cartCount, setCartCount] = useState(null)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
-  const activeLanguage = activeLanguageCode(i18n.resolvedLanguage || i18n.language)
+  const activeLanguage = activeLanguageCode(
+    i18n.resolvedLanguage || i18n.language,
+  )
 
+  // SCROLL EFFECT
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 20)
+    }
+
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+    })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // SEARCH QUERY SYNC
   useEffect(() => {
     setQuery(urlQuery)
   }, [urlQuery])
 
+  // CART COUNT
   useEffect(() => {
     let cancelled = false
 
@@ -56,9 +86,7 @@ export default function Header() {
           setCartCount(response.data?.count ?? 0)
         }
       } catch {
-        if (!cancelled) {
-          setCartCount(null)
-        }
+        if (!cancelled) setCartCount(null)
       }
     }
 
@@ -74,11 +102,16 @@ export default function Header() {
     }
   }, [pathname])
 
+  // SEARCH
   function writeShopQuery(value) {
     const next = new URLSearchParams(searchParams)
     const trimmed = value.trim()
-    if (trimmed) next.set('q', trimmed)
-    else next.delete('q')
+
+    if (trimmed) {
+      next.set('q', trimmed)
+    } else {
+      next.delete('q')
+    }
 
     if (pathname === shopPath) {
       setSearchParams(next, { replace: true })
@@ -86,39 +119,57 @@ export default function Header() {
     }
 
     navigate(
-      { pathname: shopPath, search: next.toString() },
+      {
+        pathname: shopPath,
+        search: next.toString(),
+      },
       { replace: true },
     )
   }
 
+  // NAVIGATION LABELS
   function navLabel(item) {
     const translated = t(item.key)
-    return translated === item.key ? item.label : translated
+
+    return translated === item.key
+      ? item.label
+      : translated
   }
 
   function categoryTo(slug) {
     const next = new URLSearchParams(searchParams)
     next.set('category', slug)
-    return { pathname: shopPath, search: next.toString() }
+
+    return {
+      pathname: shopPath,
+      search: next.toString(),
+    }
   }
 
+  // LANGUAGE SELECT
   function selectLanguage(code) {
     const next = knownLanguage(code)
+
     if (!next) return
+
     try {
       localStorage.setItem('i18nextLng', next)
     } catch {
-      /* the switcher still changes the current view */
+      // Language switching works without localStorage
     }
+
     i18n.changeLanguage(next)
   }
 
   return (
     <header
       className={`site-header ${
-        isBaby ? 'site-header--baby' : 'site-header--textile'
-      }`}
+        isBaby
+          ? 'site-header--baby'
+          : 'site-header--textile'
+      } ${isScrolled ? 'is-scrolled' : ''}`}
     >
+      {/* TOP BAR */}
       <div className="site-header__top">
         <div className="site-header__top-inner">
           <div className="site-header__switch">
@@ -144,13 +195,18 @@ export default function Header() {
           </div>
 
           <p className="site-header__tagline">
-            {isBaby ? t('header.babyTagline') : t('header.textileTagline')}
+            {isBaby
+              ? t('header.babyTagline')
+              : t('header.textileTagline')}
           </p>
         </div>
       </div>
 
+      {/* MAIN HEADER */}
       <div className="site-header__main">
         <div className="site-header__main-inner">
+
+          {/* BRAND */}
           <Link
             to={isGateway ? '/' : isBaby ? '/baby' : '/textile'}
             className="site-header__brand"
@@ -159,6 +215,7 @@ export default function Header() {
             {!isGateway && <span>{isBaby ? 'BABY' : 'textile'}</span>}
           </Link>
 
+          {/* SEARCH */}
           <form
             className="site-header__search"
             role="search"
@@ -170,8 +227,8 @@ export default function Header() {
             <span className="site-header__search-icon">
               <svg
                 viewBox="0 0 24 24"
-                width="17"
-                height="17"
+                width="18"
+                height="18"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.7"
@@ -195,87 +252,150 @@ export default function Header() {
             />
           </form>
 
-          <div className="site-header__languages">
-            {LANGUAGES.map((language) => (
-              <button
-                key={language.code}
-                type="button"
-                className="site-header__lang"
-                aria-pressed={activeLanguage === language.code}
-                onClick={() => selectLanguage(language.code)}
+          {/* MOBILE / DESKTOP TOOLS */}
+          <div className="site-header__tools">
+
+            {/* LANGUAGES */}
+            <div className="site-header__languages">
+              {LANGUAGES.map((language) => (
+                <button
+                  key={language.code}
+                  type="button"
+                  className="site-header__lang"
+                  aria-pressed={
+                    activeLanguage === language.code
+                  }
+                  onClick={() => selectLanguage(language.code)}
+                >
+                  {language.label}
+                </button>
+              ))}
+            </div>
+
+            {/* ACCOUNT & CART */}
+            <div className="site-header__actions">
+              <Link
+                to="/account"
+                className="site-header__account"
+                aria-label={t('accountLink')}
+                title={t('accountLink')}
               >
-                {language.label}
-              </button>
-            ))}
-          </div>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="8" r="3.5" />
+                  <path d="M5 21c0-4 2.8-6.5 7-6.5s7 2.5 7 6.5" />
+                </svg>
+              </Link>
 
-          <div className="site-header__actions">
-            <Link
-              to="/account"
-              className="site-header__account"
-              aria-label={t('accountLink')}
-              title={t('accountLink')}
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="12" cy="8" r="3.5" />
-                <path d="M5 21c0-4 2.8-6.5 7-6.5s7 2.5 7 6.5" />
-              </svg>
-            </Link>
-
-            <Link
-              to="/cart"
-              className="site-header__cart"
-              aria-label={`${t('cart')} ${cartCount ?? ''}`}
-              title={t('cart')}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="21"
-                height="21"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
+              <Link
+                to="/cart"
+                className="site-header__cart"
+                aria-label={`${t('cart')} ${cartCount ?? ''}`}
+                title={t('cart')}
               >
-                <path d="M5.5 8h13l1 12h-15l1-12Z" />
-                <path d="M9 9V6a3 3 0 0 1 6 0v3" />
-              </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="21"
+                  height="21"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5.5 8h13l1 12h-15l1-12Z" />
+                  <path d="M9 9V6a3 3 0 0 1 6 0v3" />
+                </svg>
 
-              {cartCount !== null && (
-                <span className="site-header__cart-count">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
+                {cartCount !== null && (
+                  <span className="site-header__cart-count">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* CATEGORY NAVIGATION */}
       <nav
         className="site-header__nav"
         aria-label="Main navigation"
       >
         <div className="site-header__nav-inner">
-          {currentNavItems.map((item) => (
-            <Link
-              key={item.key}
-              to={categoryTo(item.slug)}
-              className={`site-header__nav-item${
-                activeCategory === item.slug ? ' is-active' : ''
-              }`}
-            >
-              {navLabel(item)}
-            </Link>
-          ))}
 
-          <Link
-            to={`${shopPath}#wholesale`}
-            className="site-header__wholesale"
+          {/* MOBILE TOGGLE */}
+          <button
+            type="button"
+            className="site-header__mobile-toggle"
+            aria-expanded={isMobileNavOpen}
+            onClick={() =>
+              setIsMobileNavOpen((previous) => !previous)
+            }
           >
-            {t('wholesale')}
-          </Link>
+            <span className="site-header__mobile-toggle-label">
+              <svg
+                viewBox="0 0 24 24"
+                width="17"
+                height="17"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+
+              {t('allCategories', 'All categories')}
+            </span>
+
+            <svg
+              className={`site-header__mobile-chevron ${
+                isMobileNavOpen ? 'is-open' : ''
+              }`}
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          {/* CATEGORY LINKS */}
+          <div
+            className={`site-header__category-list ${
+              isMobileNavOpen ? 'is-open' : ''
+            }`}
+          >
+            {currentNavItems.map((item) => (
+              <Link
+                key={item.key}
+                to={categoryTo(item.slug)}
+                className={`site-header__nav-item${
+                  activeCategory === item.slug
+                    ? ' is-active'
+                    : ''
+                }`}
+              >
+                {navLabel(item)}
+              </Link>
+            ))}
+
+            <Link
+              to={`${shopPath}#wholesale`}
+              className="site-header__wholesale"
+            >
+              {t('wholesale')}
+            </Link>
+          </div>
         </div>
       </nav>
     </header>
