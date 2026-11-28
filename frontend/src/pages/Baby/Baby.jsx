@@ -7,11 +7,20 @@ import {
   ASSURANCE_KEYS,
   CARE_STEP_KEYS,
   STORE_KEY,
-  STORY_PILLAR_KEYS,
   fetchBabyCatalog,
   filterBabyProducts,
 } from './baby.js'
 import './baby.css'
+
+const HERO_IMAGE = '/baby/hero.png'
+const STORY_IMAGE = '/baby/story.png'
+const CATEGORY_IMAGES = [
+  '/baby/category-1.png',
+  '/baby/category-2.png',
+  '/baby/category-3.png',
+  '/baby/category-4.png',
+  '/baby/category-5.png',
+]
 
 function scrollToId(id) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -19,6 +28,34 @@ function scrollToId(id) {
     behavior: reduced ? 'auto' : 'smooth',
     block: 'start',
   })
+}
+
+function Photo({ src, alt = '', eager = false }) {
+  return (
+    <img
+      className="baby-photo__img"
+      src={src}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center',
+        display: 'block',
+        margin: 0,
+        padding: 0,
+        border: 0,
+        borderRadius: 0,
+      }}
+      onError={(e) => {
+        e.currentTarget.style.visibility = 'hidden'
+      }}
+    />
+  )
 }
 
 export default function Baby() {
@@ -29,6 +66,7 @@ export default function Baby() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [showCare, setShowCare] = useState(false)
 
   const activeCategory = searchParams.get('category') || ''
   const activeQuery = searchParams.get('q') || ''
@@ -79,77 +117,74 @@ export default function Baby() {
     scrollToId('baby-collection')
   }
 
+  const hasFilters = Boolean(activeCategory || activeQuery)
+
   return (
     <main className="baby-page" data-brand={STORE_KEY}>
-      {/* 1. Seasonal editorial */}
-      <section className="baby-section baby-editorial ds-reveal">
-        <div className="baby-container baby-editorial__grid">
-          <div>
+      {/* 1. Hero */}
+      <section className="baby-section baby-hero ds-reveal">
+        <div className="baby-container baby-hero__grid">
+          <div className="baby-hero__text">
             <span className="baby-eyebrow">{t('baby.editorial.eyebrow')}</span>
-            <h1 className="baby-editorial__title">{t('baby.editorial.title')}</h1>
-            <p className="baby-editorial__text">{t('baby.editorial.description')}</p>
+            <h1 className="baby-hero__title">{t('baby.editorial.title')}</h1>
+            <p className="baby-hero__description">{t('baby.editorial.description')}</p>
             <button type="button" className="baby-btn baby-btn--primary" onClick={scrollToCollection}>
               {t('baby.editorial.cta')}
             </button>
           </div>
-          <div className="baby-editorial__media" aria-label={t('baby.editorial.mediaAlt')}>
-            <div className="baby-editorial__photo">
-              <span>{t('baby.editorial.caption')}</span>
-            </div>
+          <div className="baby-photo baby-hero__media">
+            <Photo src={HERO_IMAGE} alt={t('baby.editorial.mediaAlt')} eager />
           </div>
         </div>
-      </section>
 
-      {/* 2. Shopping assurances */}
-      <section className="baby-section baby-assurances ds-reveal">
-        <div className="baby-container baby-assurances__grid">
+        <div className="baby-container baby-assurances">
           {ASSURANCE_KEYS.map((item) => (
-            <article key={item.id} className="baby-assurance">
-              <h2>{t(item.titleKey)}</h2>
-              <p>{t(item.textKey)}</p>
-            </article>
+            <div key={item.id} className="baby-assurance" title={t(item.textKey)}>
+              {t(item.titleKey)}
+            </div>
           ))}
         </div>
       </section>
 
-      {/* 3. Shop by category */}
-      <section className="baby-section ds-reveal">
+      {/* 2. Curated for Little Ones */}
+      <section className="baby-section baby-categories ds-reveal">
         <div className="baby-container">
-          <h2 className="baby-section-title">{t('baby.categories.heading')}</h2>
-          <p className="baby-section-subtitle">{t('baby.categories.subheading')}</p>
+          <div className="baby-section-head">
+            <h2 className="baby-section-title">{t('baby.categories.heading')}</h2>
+            <p className="baby-section-subtitle">{t('baby.categories.subheading')}</p>
+          </div>
           <div className="baby-category-grid">
-            <button
-              type="button"
-              className={`baby-category ${!activeCategory ? 'is-active' : ''}`}
-              onClick={() => writeCategory('')}
-            >
-              {t('baby.categories.all')}
-            </button>
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <button
                 key={category.slug}
                 type="button"
                 className={`baby-category ${activeCategory === category.slug ? 'is-active' : ''}`}
                 onClick={() => writeCategory(category.slug)}
               >
-                {category.name}
+                <span className="baby-photo baby-category__media">
+                  <Photo
+                    src={category.image || CATEGORY_IMAGES[index % CATEGORY_IMAGES.length]}
+                    alt=""
+                  />
+                </span>
+                <span className="baby-category__label">{category.name}</span>
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. Shoppable product collection */}
+      {/* 3. Little Favorites */}
       <section id="baby-collection" className="baby-section baby-collection ds-reveal">
         <div className="baby-container">
-          <div className="baby-collection__header">
+          <div className="baby-section-head">
             <div>
               <h2 className="baby-section-title">{t('baby.collection.heading')}</h2>
               <p className="baby-section-subtitle">
                 {t('baby.collection.count', { count: filteredProducts.length })}
               </p>
             </div>
-            {(activeCategory || activeQuery) && (
+            {hasFilters && (
               <div className="baby-filters">
                 {activeCategory && (
                   <span className="baby-chip">
@@ -185,50 +220,65 @@ export default function Baby() {
           <div className="baby-collection__footer">
             <button
               type="button"
-              className="baby-btn baby-btn--secondary"
-              onClick={activeCategory || activeQuery ? clearFilters : scrollToCollection}
+              className="baby-btn baby-btn--link"
+              onClick={hasFilters ? clearFilters : scrollToCollection}
             >
-              {activeCategory || activeQuery
-                ? t('baby.collection.showAll')
-                : t('baby.collection.backToTop')}
+              {hasFilters ? t('baby.collection.showAll') : t('baby.collection.backToTop')}
             </button>
           </div>
         </div>
       </section>
 
-      {/* 5. Brand story and care */}
+      {/* 4. Care woven into every single stitch */}
       <section
         id="brand-story"
         className="baby-section baby-story ds-reveal"
         aria-labelledby="baby-story-title"
       >
         <div className="baby-container baby-story__layout">
-          <div>
+          <div className="baby-photo baby-story__media">
+            <Photo src={STORY_IMAGE} alt={t('baby.story.mediaAlt', { defaultValue: '' })} />
+          </div>
+          <div className="baby-story__text">
             <span className="baby-eyebrow">{t('baby.story.eyebrow')}</span>
             <h2 id="baby-story-title" className="baby-section-title">
               {t('baby.story.title')}
             </h2>
             <p>{t('baby.story.philosophy')}</p>
+            <button type="button" className="baby-btn baby-btn--link" onClick={scrollToCollection}>
+              {t('baby.story.cta', { defaultValue: 'Կարդալ մեր պատմությունը' })} →
+            </button>
           </div>
-          <ul className="baby-story__pillars">
-            {STORY_PILLAR_KEYS.map((key) => (
-              <li key={key}>{t(key)}</li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* 6. Parent care guide (отдельная секция) */}
+      {/* 5. A gentle guide to your baby's first days */}
       <section className="baby-section baby-care ds-reveal" aria-labelledby="baby-care-title">
         <div className="baby-container">
-          <span className="baby-eyebrow">{t('baby.care.eyebrow')}</span>
-          <h2 id="baby-care-title" className="baby-section-title">{t('baby.care.title')}</h2>
-          <p className="baby-section-subtitle">{t('baby.care.intro')}</p>
-          <ol className="baby-care__steps">
-            {CARE_STEP_KEYS.map((key) => (
-              <li key={key}>{t(key)}</li>
-            ))}
-          </ol>
+          <div className="baby-care__bar">
+            <div>
+              <span className="baby-eyebrow">{t('baby.care.eyebrow')}</span>
+              <h2 id="baby-care-title" className="baby-section-title">{t('baby.care.title')}</h2>
+              <p className="baby-section-subtitle">{t('baby.care.intro')}</p>
+            </div>
+            <button
+              type="button"
+              className="baby-btn baby-btn--primary"
+              aria-expanded={showCare}
+              onClick={() => setShowCare((v) => !v)}
+            >
+              {showCare
+                ? t('baby.care.hide', { defaultValue: 'Թաքցնել ուղեցույցը' })
+                : t('baby.care.cta', { defaultValue: 'Կարդալ ուղեցույցը' })}
+            </button>
+          </div>
+          {showCare && (
+            <ol className="baby-care__steps">
+              {CARE_STEP_KEYS.map((key) => (
+                <li key={key}>{t(key)}</li>
+              ))}
+            </ol>
+          )}
         </div>
       </section>
     </main>
