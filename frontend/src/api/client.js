@@ -48,6 +48,29 @@ api.interceptors.request.use((config) => {
   return config
 })
 
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const original = error.config
+    const hadToken = Boolean(localStorage.getItem(TOKEN_KEY))
+
+    if (error.response?.status !== 401 || !original || original._retried || !hadToken) {
+      return Promise.reject(error)
+    }
+
+    original._retried = true
+    setAuthToken(null)
+    if (original.headers?.delete) {
+      original.headers.delete('Authorization')
+    } else if (original.headers) {
+      delete original.headers.Authorization
+      delete original.headers.authorization
+    }
+
+    return api(original)
+  },
+)
+
 export const AUTH_CHANGED_EVENT = 'ventum-auth'
 
 export function setAuthToken(token) {

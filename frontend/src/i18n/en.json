@@ -125,7 +125,8 @@
     "cash": "Cash",
     "visa": "Visa",
     "mastercard": "Mastercard",
-    "sizes": "Size"
+    "sizes": "Size",
+    "details": "View details"
   },
   "catalogState": {
     "textileEmptyTitle": "No results found",

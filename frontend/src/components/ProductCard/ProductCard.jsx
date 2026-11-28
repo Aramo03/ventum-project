@@ -80,7 +80,11 @@ export default function ProductCard({ product, brand }) {
     <article className="product-card" data-brand={shop}>
       <div className="product-card__media">
         {detailsPath ? (
-          <Link className="product-card__media-link" to={detailsPath}>
+          <Link
+            className="product-card__media-link"
+            to={detailsPath}
+            aria-label={product?.name || t('productCard.details')}
+          >
             {imageSrc ? (
               <img
                 src={imageSrc}
@@ -177,6 +181,11 @@ export default function ProductCard({ product, brand }) {
             disabled={locked || (pending !== null && pending !== 'cash')}
             onClick={() => purchase('cash')}
           />
+          {detailsPath ? (
+            <Link className="ds-btn product-card__details" to={detailsPath}>
+              {t('productCard.details')}
+            </Link>
+          ) : null}
         </div>
 
         {note ? (

@@ -5,17 +5,17 @@ import './catalogState.css'
 
 function SkeletonCard() {
   return (
-    <div className="catalog-skeleton" aria-hidden="true">
-      <i className="catalog-skeleton__photo" />
-      <i className="catalog-skeleton__name" />
-      <i className="catalog-skeleton__spec" />
-      <span className="catalog-skeleton__sizes">
+    <div className="catalog-skeleton ds-skeleton" aria-hidden="true">
+      <i className="catalog-skeleton__photo ds-skeleton__photo" />
+      <i className="catalog-skeleton__name ds-skeleton__name" />
+      <i className="catalog-skeleton__spec ds-skeleton__spec" />
+      <span className="catalog-skeleton__sizes ds-skeleton__sizes">
         <i />
         <i />
         <i />
       </span>
-      <i className="catalog-skeleton__price" />
-      <span className="catalog-skeleton__buttons">
+      <i className="catalog-skeleton__price ds-skeleton__price" />
+      <span className="catalog-skeleton__buttons ds-skeleton__buttons">
         <i />
         <i />
       </span>

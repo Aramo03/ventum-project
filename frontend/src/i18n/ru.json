@@ -125,7 +125,8 @@
     "cash": "Наличные",
     "visa": "Visa",
     "mastercard": "Mastercard",
-    "sizes": "Размер"
+    "sizes": "Размер",
+    "details": "Подробнее"
   },
   "catalogState": {
     "textileEmptyTitle": "Ничего не найдено",

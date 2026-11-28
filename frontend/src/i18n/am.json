@@ -125,7 +125,8 @@
     "cash": "Կանխիկ",
     "visa": "Visa",
     "mastercard": "Mastercard",
-    "sizes": "Չափս"
+    "sizes": "Չափս",
+    "details": "Մանրամասն"
   },
   "catalogState": {
     "textileEmptyTitle": "Ոչ մի արդյունք չի գտնվել",

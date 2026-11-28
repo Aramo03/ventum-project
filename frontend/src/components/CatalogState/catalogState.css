@@ -97,3 +97,21 @@
   flex: 1;
   height: 2.75rem;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .catalog-state .ds-skeleton i {
+    animation: catalog-skeleton-pulse var(--ds-duration, 1.1s) var(--ds-ease, ease) infinite;
+  }
+}
+
+@keyframes catalog-skeleton-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-state .ds-skeleton i {
+    animation: none;
+  }
+}
